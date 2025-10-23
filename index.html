@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Heirs Multispecialist Hospital: Trusted healthcare in Oye Ekiti and Ado Ekiti. Explore X-ray, dental, laboratory, pharmacy, nutrition, and emergency services.">
+  <meta name="keywords" content="Heirs Multispecialist Hospital, Oye Ekiti hospital, Ado Ekiti hospital, X-ray services, dental care, laboratory, pharmacy, emergency care">
+  <title>Heirs Multispecialist Hospital | Oye & Ado Ekiti</title>
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Hospital",
+    "name": "Heirs Multispecialist Hospital",
+    "address": [
+      {"@type": "PostalAddress", "streetAddress": "123 Hospital Road", "addressLocality": "Oye Ekiti", "addressRegion": "Ekiti State", "addressCountry": "NG"},
+      {"@type": "PostalAddress", "streetAddress": "456 Health Avenue", "addressLocality": "Ado Ekiti", "addressRegion": "Ekiti State", "addressCountry": "NG"}
+    ],
+    "telephone": "+234123456789",
+    "url": "https://heirsmultispecialisthospital.com.ng"
+  }
+  </script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+ <style>
+    html { scroll-behavior: smooth; }
+    .hero-carousel { overflow: hidden; position: relative; }
+    .hero-track { display: flex; transition: transform 0.8s ease-in-out; }
+
+    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    .card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
+
+    .btn-primary { background-color: #2563eb; }
+    .btn-primary:hover { background-color: #1e40af; }
+
+    .btn-secondary { border-color: #2563eb; color: #2563eb; }
+    .btn-secondary:hover { background-color: #2563eb; color: #fff; }
+
+    .emergency-btn { background-color: #ef4444; }
+    .emergency-btn:hover { background-color: #dc2626; }
+
+    .hero-slide { 
+      background-size: cover; 
+      background-position: center; 
+      position: relative;
+      height: 75vh; /* reduced height for small devices */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (min-width: 768px) {
+      .hero-slide {
+        min-height: 100vh; /* full height only on medium+ screens */
+      }
+    }
+
+    .hero-slide::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .carousel-btn {
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #2563eb;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .carousel-btn:hover {
+      background-color: #2563eb;
+      color: #fff;
+      transform: scale(1.05);
+    }
+       .founder-card { 
+      background: rgba(255, 255, 255, 0.8); 
+      backdrop-filter: blur(10px); 
+      border: 1px solid rgba(255, 255, 255, 0.2); 
+      position: relative; 
+      overflow: hidden; 
+    }
+    .founder-card::before { 
+      content: ''; 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      right: 0; 
+      bottom: 0; 
+      border: 2px solid transparent; 
+      border-image: linear-gradient(135deg, #ffd700, #b8860b) 1; 
+      transition: all 0.3s ease; 
+    }
+    .founder-card:hover::before { 
+      border-image: linear-gradient(135deg, #b8860b, #ffd700) 1; 
+    }
+  </style>
+</head>
+<body class="font-inter text-gray-800 bg-gray-50">
+
+  <!-- Header -->
+  <header class="fixed top-0 w-full bg-white shadow-md z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="#" class="text-2xl font-bold text-blue-600 flex items-center">
+        <i data-lucide="hospital" class="w-8 h-8 mr-2"></i>
+        Heirs Multispecialist
+      </a>
+        <nav class="fixed top-0 w-full bg-white shadow-md z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-2xl font-bold text-blue-600 flex items-center">
+        <i data-lucide="hospital" class="w-8 h-8 mr-2"></i>
+        Heirs Multispecialist
+      </a>
+      <div class="hidden md:flex space-x-6">
+        <a href="index.html" class="text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
+        </a>
+        <a href="about.html" class="text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
+        </a>
+        <a href="services.html" class="text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
+        </a>
+        <a href="department.html" class="text-blue-600 font-semibold flex items-center">
+          <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
+        </a>
+        <a href="contact.html" class="text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
+        </a>
+        <a href="contact.html#appointmentform" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 text-sm flex items-center">
+          <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
+        </a>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="tel:+234123456789" class="bg-red-500 text-white px-4 py-2 rounded-full text-sm flex items-center hover:bg-red-600">
+          <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
+        </a>
+        <button onclick="toggleMobileMenu()" class="md:hidden text-gray-600">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden bg-white shadow-md">
+      <nav class="px-4 py-4 space-y-2">
+        <a href="index.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
+        </a>
+        <a href="about.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
+        </a>
+        <a href="services.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
+        </a>
+        <a href="department.html" class="block text-blue-600 font-semibold flex items-center">
+          <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
+        </a>
+        <a href="contact.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
+        </a>
+        <a href="contact.html#appointmentform" class="block bg-blue-600 text-white px-4 py-2 rounded-full text-sm flex items-center">
+          <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
+        </a>
+      </nav>
+    </div>
+  </nav>
+      <div class="flex items-center space-x-4">
+        <a href="tel:+234123456789" class="emergency-btn text-white px-4 py-2 rounded-full text-sm flex items-center">
+          <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
+        </a>
+        <button onclick="toggleMobileMenu()" class="md:hidden">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobileMenu" class="hidden md:hidden bg-white shadow-md">
+      <nav class="px-4 py-4 space-y-2">
+        <a href="#home" class="block text-gray-600 hover:text-blue-600">Home</a>
+        <a href="#about" class="block text-gray-600 hover:text-blue-600">About</a>
+        <a href="#services" class="block text-gray-600 hover:text-blue-600">Services</a>
+        <a href="#departments" class="block text-gray-600 hover:text-blue-600">Departments</a>
+        <a href="#testimonials" class="block text-gray-600 hover:text-blue-600">Testimonials</a>
+        <a href="#cta" class="block btn-primary text-white px-4 py-2 rounded-full text-sm">Book Appointment</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Carousel Section -->
+  <section id="home" class="relative">
+    <div id="heroCarousel" class="hero-carousel">
+      <div class="hero-track" id="heroTrack">
+        <!-- Slide 1 -->
+        <div class="min-w-full hero-slide" style="background-image: url('https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&q=80&w=1920');">
+          <div class="container mx-auto px-4 fade-in text-center relative z-10 text-white">
+            <span class="inline-block bg-white text-blue-600 px-4 py-1 rounded-full mb-4 text-sm font-semibold">Trusted Healthcare Provider</span>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Excellence in Medical Care Since 2010</h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8">Our Oye Ekiti main branch offers advanced medical services, including X-ray, dental, and emergency care, with a focus on compassion and expertise.</p>
+            <div class="flex justify-center space-x-4">
+              <a href="contact.html#appointmentform" class="btn-primary text-white px-5 py-2 rounded-full text-sm">Schedule Consultation</a>
+              <a href="services.html" class="btn-secondary border-2 px-5 py-2 rounded-full text-sm">Explore Services</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="min-w-full hero-slide" style="background-image: url('https://cdn.pixabay.com/photo/2016/05/01/21/29/universitatsklinikum-ulm-1366019_1280.jpg');">
+          <div class="container mx-auto px-4 fade-in text-center relative z-10 text-white">
+            <span class="inline-block bg-white text-blue-600 px-4 py-1 rounded-full mb-4 text-sm font-semibold">Advanced Care Network</span>
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">Your Health, Our Priority</h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8">Our Ado Ekiti branch delivers personalized care with state-of-the-art facilities for laboratory, pharmacy, and nutrition services.</p>
+            <div class="flex justify-center space-x-4">
+              <a href="contact.html#appointmentform" class="btn-primary text-white px-5 py-2 rounded-full text-sm">Schedule Consultation</a>
+              <a href="services.html" class="btn-secondary border-2 px-5 py-2 rounded-full text-sm">Explore Services</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carousel Buttons -->
+    <div class="absolute bottom-8 left-0 right-0 flex justify-center space-x-4 z-20">
+      <button onclick="prevHeroSlide()" class="carousel-btn" aria-label="Previous Slide">
+        <i data-lucide="chevron-left"></i>
+      </button>
+      <button onclick="nextHeroSlide()" class="carousel-btn" aria-label="Next Slide">
+        <i data-lucide="chevron-right"></i>
+      </button>
+    </div>
+  </section>
+
+
+  <!-- About Section -->
+  <section id="about" class="py-20 bg-white">
+    <div class="container mx-auto px-4 fade-in">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">Excellence in Healthcare Since 2010</h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">We are committed to providing world-class medical care through innovation, compassion, and unwavering dedication to our patients' wellbeing and recovery.</p>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div>
+          <div class="relative">
+            <img src="https://images.unsplash.com/photo-1559000357-f6b52ddfbe37?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTAyfHxob3NwaXRhbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600" alt="Modern hospital facility" class="w-full h-80 object-cover rounded-lg" loading="lazy">
+            <div class="absolute bottom-4 right-4 bg-blue-600 text-white px-4 py-2 rounded-full flex items-center">
+              <i data-lucide="award" class="w-5 h-5 mr-2"></i> NHIS Accredited
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mt-4">
+            <img src="https://plus.unsplash.com/premium_photo-1681996543579-b24cd01d4516?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzN8fGhvc3BpdGFsfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600" alt="Doctor consultation" class="w-full h-40 object-cover rounded-lg" loading="lazy">
+            <img src="https://images.unsplash.com/photo-1551601651-2a8555f1a136?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTZ8fGhvc3BpdGFsfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600" alt="Medical procedure" class="w-full h-40 object-cover rounded-lg" loading="lazy">
+          </div>
+        </div>
+        <div>
+          <div class="bg-gray-50 p-6 rounded-lg mb-6">
+            <h4 class="text-xl font-semibold mb-2 flex items-center">
+              <i data-lucide="heart-pulse" class="w-6 h-6 mr-2 text-blue-600"></i>
+              Patient-Centered Approach
+            </h4>
+            <p class="text-gray-600">Every treatment plan is carefully customized to meet individual patient needs and medical history.</p>
+          </div>
+          <ul class="space-y-2 mb-6">
+            <li class="flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-2 text-blue-600"></i> Advanced diagnostic technology and imaging</li>
+            <li class="flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-2 text-blue-600"></i> Board-certified physicians and specialists</li>
+            <li class="flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-2 text-blue-600"></i> Comprehensive rehabilitation programs</li>
+            <li class="flex items-center"><i data-lucide="check-circle" class="w-5 h-5 mr-2 text-blue-600"></i> 24/7 emergency and critical care services</li>
+          </ul>
+          <div class="flex space-x-4">
+            <div class="bg-gray-50 p-4 rounded-lg text-center">
+              <p class="text-2xl font-bold text-blue-600">98%</p>
+              <p class="text-gray-600">Patient Satisfaction</p>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg text-center">
+              <p class="text-2xl font-bold text-blue-600">35K+</p>
+              <p class="text-gray-600">Lives Improved</p>
+            </div>
+          </div>
+          <div class="mt-6 flex space-x-4">
+            <a href="#services" class="btn-primary text-white px-5 py-2 rounded-full text-sm">Explore Our Services</a>
+            <a href="#cta" class="btn-secondary border-2 px-5 py-2 rounded-full text-sm flex items-center">
+              <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Schedule Consultation
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Services Section -->
+  <section id="services" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4 fade-in">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">Our Services</h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Providing comprehensive healthcare services tailored to your needs.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="card bg-white p-6 rounded-lg shadow-md transition-all">
+          <img src="https://images.unsplash.com/photo-1631563020241-09beac7791b7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDN8fHgtcmF5fGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=600" alt="X-Ray Imaging" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
+          <h3 class="text-xl font-semibold text-center mb-2">X-Ray & Imaging</h3>
+          <p class="text-gray-600 text-center">Our advanced X-ray and imaging services use cutting-edge technology to provide clear, accurate results, helping doctors diagnose conditions like fractures, infections, or internal issues quickly and effectively.</p>
+        </div>
+        <div class="card bg-white p-6 rounded-lg shadow-md transition-all">
+          <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZGVudGFsJTIwY2FyZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600" alt="Dental Care" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
+          <h3 class="text-xl font-semibold text-center mb-2">Dental Care</h3>
+          <p class="text-gray-600 text-center">From routine cleanings to complex procedures like fillings or braces, our dental team ensures your smile stays healthy and bright with care that’s gentle and thorough for all ages.</p>
+        </div>
+        <div class="card bg-white p-6 rounded-lg shadow-md transition-all">
+          <img src="https://images.unsplash.com/photo-1601839777132-b3f4e455c369?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fGhvc3BpdGFsJTIwbGFib3JhdG9yeXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600" alt="Laboratory Services" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
+          <h3 class="text-xl font-semibold text-center mb-2">Laboratory Services</h3>
+          <p class="text-gray-600 text-center">Our lab offers fast and reliable tests, such as blood work and screenings, to help your doctor understand your health and provide the right treatment plan.</p>
+        </div>
+        <div class="card bg-white p-6 rounded-lg shadow-md transition-all">
+          <img src="https://images.unsplash.com/photo-1580281657529-557a6abb6387?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aG9zcGl0YWwlMjBwaGFybWFjeXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600" alt="Pharmacy" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
+          <h3 class="text-xl font-semibold text-center mb-2">Pharmacy</h3>
+          <p class="text-gray-600 text-center">Our fully stocked pharmacy provides all your medications with expert guidance from pharmacists to ensure you understand how to take them safely.</p>
+        </div>
+        <div class="card bg-white p-6 rounded-lg shadow-md transition-all">
+  <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fHRoZXJhcHl8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600" alt="Therapy Services" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
+  <h3 class="text-xl font-semibold text-center mb-2">Therapy Services</h3>
+  <p class="text-gray-600 text-center">Our expert therapists provide personalized physical, occupational, and counseling services to help you recover, manage pain, or improve mental wellbeing.</p>
+</div>
+        <div class="card bg-white p-6 rounded-lg shadow-md transition-all">
+          <img src="https://images.unsplash.com/photo-1554734867-bf3c00a49371?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZW1lcmdlbmN5JTIwY2FyZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600" alt="Emergency Care" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
+          <h3 class="text-xl font-semibold text-center mb-2">Emergency Care</h3>
+          <p class="text-gray-600 text-center">Available 24/7, our emergency team provides immediate care for urgent conditions, ensuring you get help when you need it most.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Departments Section -->
+  <section id="departments" class="py-20 bg-white">
+    <div class="container mx-auto px-4 fade-in">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">Featured Departments</h2>
+      <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">Providing specialized care across various medical fields to meet your health needs.</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="card bg-gray-50 p-6 rounded-lg shadow-md transition-all">
+          <img src="https://cdn.pixabay.com/photo/2018/04/16/02/38/emergency-room-3323451_1280.jpg" alt="Emergency Department" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
+          <h3 class="text-xl font-semibold text-center mb-2">Emergency Medicine</h3>
+          <p class="text-gray-600 text-center mb-4">Our 24/7 Emergency Care Services provide immediate, life-saving treatment with a team ready to respond to any crisis, ensuring you get care when it matters most.</p>
+          <ul class="text-gray-600 text-center space-y-2">
+            <li class="flex items-center justify-center"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-blue-600"></i> 24/7 Emergency Response</li>
+            <li class="flex items-center justify-center"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-blue-600"></i> Advanced Life Support</li>
+            <li class="flex items-center justify-center"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-blue-600"></i> Trauma Care Specialists</li>
+          </ul>
+        </div>
+        <div class="card bg-gray-50 p-6 rounded-lg shadow-md transition-all">
+          <img src="https://cdn.pixabay.com/photo/2018/01/22/11/02/hospital-3098683_1280.jpg" alt="X-Ray Department" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
+          <h3 class="text-xl font-semibold text-center mb-2">X-Ray & Imaging</h3>
+          <p class="text-gray-600 text-center mb-4">Our imaging department uses state-of-the-art equipment to provide clear and accurate diagnostics for conditions like fractures and internal issues.</p>
+          <div class="flex justify-center space-x-4">
+            <div class="text-center">
+              <p class="text-lg font-bold text-blue-600">15+</p>
+              <p class="text-gray-600 text-sm">Specialists</p>
+            </div>
+            <div class="text-center">
+              <p class="text-lg font-bold text-blue-600">500+</p>
+              <p class="text-gray-600 text-sm">Procedures</p>
+            </div>
+          </div>
+        </div>
+        <div class="card bg-gray-50 p-6 rounded-lg shadow-md transition-all">
+          <img src="https://cdn.pixabay.com/photo/2014/08/26/21/54/dentist-428646_1280.jpg" alt="Dental Department" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
+          <h3 class="text-xl font-semibold text-center mb-2">Dental Care</h3>
+          <p class="text-gray-600 text-center mb-4">Our dental team offers comprehensive care, from cleanings to advanced procedures, ensuring healthy smiles for patients of all ages.</p>
+          <div class="flex justify-center space-x-4">
+            <div class="text-center">
+              <p class="text-lg font-bold text-blue-600">8+</p>
+              <p class="text-gray-600 text-sm">Specialists</p>
+            </div>
+            <div class="text-center">
+              <p class="text-lg font-bold text-blue-600">200+</p>
+              <p class="text-gray-600 text-sm">Treatments</p>
+            </div>
+          </div>
+        </div>
+        <div class="card bg-gray-50 p-6 rounded-lg shadow-md transition-all">
+          <img src="https://cdn.pixabay.com/photo/2017/10/04/09/56/laboratory-2815641_1280.jpg" alt="Laboratory Department" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
+          <h3 class="text-xl font-semibold text-center mb-2">Laboratory Services</h3>
+          <p class="text-gray-600 text-center mb-4">Our lab provides fast and reliable testing, helping doctors diagnose and treat conditions with precision and care.</p>
+          <div class="flex justify-center space-x-4">
+            <div class="text-center">
+              <p class="text-lg font-bold text-blue-600">12+</p>
+              <p class="text-gray-600 text-sm">Technicians</p>
+            </div>
+            <div class="text-center">
+              <p class="text-lg font-bold text-blue-600">1000+</p>
+              <p class="text-gray-600 text-sm">Tests</p>
+            </div>
+          </div>
+        </div>
+        <div class="card bg-gray-50 p-6 rounded-lg shadow-md transition-all">
+          <img src="https://cdn.pixabay.com/photo/2016/10/10/13/20/drugs-1728381_1280.jpg" alt="Pharmacy Department" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
+          <h3 class="text-xl font-semibold text-center mb-2">Pharmacy</h3>
+          <p class="text-gray-600 text-center mb-4">Our pharmacy ensures you have access to all necessary medications with expert advice to support your treatment.</p>
+          <div class="flex justify-center space-x-4">
+            <div class="text-center">
+              <p class="text-lg font-bold text-blue-600">10+</p>
+              <p class="text-gray-600 text-sm">Pharmacists</p>
+            </div>
+            <div class="text-center">
+              <p class="text-lg font-bold text-blue-600">2000+</p>
+              <p class="text-gray-600 text-sm">Prescriptions</p>
+            </div>
+          </div>
+        </div>
+        <div class="card bg-gray-50 p-6 rounded-lg shadow-md transition-all">
+  <img src="https://cdn.pixabay.com/photo/2020/11/03/15/31/doctor-5710152_1280.jpg" alt="Therapy Department" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
+  <h3 class="text-xl font-semibold text-center mb-2">Therapy Services</h3>
+  <p class="text-gray-600 text-center mb-4">Our skilled therapists provide personalized physical, occupational, and counseling sessions to support recovery and improve your wellbeing.</p>
+  <div class="flex justify-center space-x-4">
+    <div class="text-center">
+      <p class="text-lg font-bold text-blue-600">6+</p>
+      <p class="text-gray-600 text-sm">Therapists</p>
+    </div>
+    <div class="text-center">
+      <p class="text-lg font-bold text-blue-600">800+</p>
+      <p class="text-gray-600 text-sm">Sessions</p>
+    </div>
+  </div>
+</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+<!-- Testimonials Section -->
+<section id="testimonials" class="py-20 bg-gray-50">
+  <div class="container mx-auto px-4 fade-in">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">Patient Testimonials</h2>
+    <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+      Share your experience via our QR code or read what our patients say.
+    </p>
+    <div class="flex justify-center mb-8">
+      <div class="w-24 h-24 qr-placeholder border-2 border-gray-300 rounded-lg">
+        <img src="assets/qr-code.png" alt="">
+      </div>
+    </div>
+
+    <div class="relative max-w-3xl mx-auto">
+      <!-- Carousel -->
+      <div id="testimonialCarousel" class="overflow-hidden">
+        <div class="testimonial-track flex transition-transform duration-700 ease-in-out">
+          <!-- Slide 1 -->
+          <div class="min-w-full text-center p-6 bg-white rounded-lg shadow-md">
+            <p class="text-gray-600 italic mb-4">
+              "Exceptional dental care at Ado Ekiti transformed my smile."
+            </p>
+            <p class="font-semibold">Sarah Ade</p>
+          </div>
+          <!-- Slide 2 -->
+          <div class="min-w-full text-center p-6 bg-white rounded-lg shadow-md">
+            <p class="text-gray-600 italic mb-4">
+              "Fast X-ray results and compassionate staff at Oye Ekiti."
+            </p>
+            <p class="font-semibold">Tunde Bello</p>
+          </div>
+          <!-- Slide 3 -->
+          <div class="min-w-full text-center p-6 bg-white rounded-lg shadow-md">
+            <p class="text-gray-600 italic mb-4">
+              "Emergency care saved my life – truly grateful!"
+            </p>
+            <p class="font-semibold">Amaka Obi</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <button onclick="prevTestimonialSlide()" 
+              class="absolute left-0 top-1/2 -translate-y-1/2 bg-blue-600 text-white p-2 rounded-full"
+              aria-label="Previous Testimonial">
+        <i data-lucide="chevron-left"></i>
+      </button>
+
+      <button onclick="nextTestimonialSlide()" 
+              class="absolute right-0 top-1/2 -translate-y-1/2 bg-blue-600 text-white p-2 rounded-full"
+              aria-label="Next Testimonial">
+        <i data-lucide="chevron-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+
+  <!-- Call to Action Section -->
+  <section id="cta" class="py-20 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+    <div class="container mx-auto px-4 fade-in">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">Exceptional Care for Your Health Journey</h2>
+          <p class="text-lg mb-6">Discover comprehensive healthcare services delivered with compassion and expertise at our Oye Ekiti and Ado Ekiti branches. Our dedicated team is here to prioritize your health and wellbeing.</p>
+          <div class="flex space-x-4">
+            <a href="contact.html#appointmentform" class="btn-primary text-white px-5 py-2 rounded-full text-sm flex items-center">
+              <i data-lucide="calendar" class="w-4 h-4 mr-2"></i> Schedule Consultation
+            </a>
+            <a href="services.html" class="btn-tertiary border-2 px-5 py-2 rounded-full text-sm flex items-center">
+              <i data-lucide="arrow-right" class="w-4 h-4 mr-2"></i> Explore Services
+            </a>
+          </div>
+        </div>
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1624727828489-a1e03b79bba8?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nzh8fGhlYWx0aGNhcmV8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600" alt="Healthcare Excellence" class="w-full h-80 object-cover rounded-lg shadow-lg" loading="lazy">
+          <div class="absolute bottom-4 left-4 bg-white text-blue-600 px-4 py-2 rounded-full flex items-center">
+            <i data-lucide="award" class="w-5 h-5 mr-2"></i> Trusted by 15K+ Patients
+          </div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+        <div class="text-center bg-white bg-opacity-10 p-4 rounded-lg">
+          <p class="text-2xl font-bold">15+</p>
+          <p class="text-gray-200">Years Experience</p>
+        </div>
+        <div class="text-center bg-white bg-opacity-10 p-4 rounded-lg">
+          <p class="text-2xl font-bold">15K+</p>
+          <p class="text-gray-200">Happy Patients</p>
+        </div>
+        <div class="text-center bg-white bg-opacity-10 p-4 rounded-lg">
+          <p class="text-2xl font-bold">20+</p>
+          <p class="text-gray-200">Medical Experts</p>
+        </div>
+        <div class="text-center bg-white bg-opacity-10 p-4 rounded-lg">
+          <p class="text-2xl font-bold">24/7</p>
+          <p class="text-gray-200">Emergency Care</p>
+        </div>
+      </div>
+      <div class="mt-8 text-center">
+        <p class="text-lg font-semibold">Need Immediate Assistance?</p>
+        <p class="text-gray-200">Call: <a href="tel:+234123456789" class="text-white hover:underline">+234 123 456 789</a> | <a href="#footer" class="text-white hover:underline">Get Directions</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+<footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Heirs Multispecialist Hospital</h3>
+          <p class="text-gray-400">123 Hospital Road, Oye Ekiti, Ekiti State</p>
+          <p class="text-gray-400">456 Health Avenue, Ado Ekiti, Ekiti State</p>
+          <p class="text-gray-400 mt-3"><strong>Phone:</strong> <a href="tel:+234123456789" class="hover:text-white">+234 123 456 789</a></p>
+          <p class="text-gray-400"><strong>Email:</strong> <a href="mailto:info@heirsmultispecialist.com" class="hover:text-white">info@heirsmultispecialist.com</a></p>
+          <div class="flex space-x-4 mt-4">
+            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="index.html" class="hover:text-white">Home</a></li>
+            <li><a href="#about" class="hover:text-white">About Us</a></li>
+            <li><a href="services.html" class="hover:text-white">Services</a></li>
+            <li><a href="departments.html" class="hover:text-white">Departments</a></li>
+            <li><a href="contact.html" class="hover:text-white">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Our Services</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="services.html" class="hover:text-white">X-Ray & Imaging</a></li>
+            <li><a href="services.html" class="hover:text-white">Dental Care</a></li>
+            <li><a href="services.html" class="hover:text-white">Laboratory Services</a></li>
+            <li><a href="services.html" class="hover:text-white">Pharmacy</a></li>
+            <li><a href="services.html" class="hover:text-white">Emergency Care</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="text-center text-gray-400 mt-8 pt-8 border-t border-gray-700">
+        &copy; 2025 Heirs Multispecialist Hospital. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" class="fixed bottom-4 right-4 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700" aria-label="Scroll to top">
+    <i data-lucide="arrow-up"></i>
+  </a>
+
+<script>
+  // Initialize Lucide Icons
+  lucide.createIcons();
+
+  // =====================
+  // MOBILE MENU TOGGLE
+  // =====================
+  function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('hidden');
+  }
+
+  // =====================
+  // HERO CAROUSEL FIXED
+  // =====================
+  let heroSlide = 0;
+  const heroTrack = document.querySelector('#heroCarousel .hero-track'); // ✅ Corrected selector
+  const heroSlides = document.querySelectorAll('#heroCarousel .hero-slide');
+  const totalHeroSlides = heroSlides.length;
+
+  function updateHeroCarousel() {
+    heroTrack.style.transform = `translateX(-${heroSlide * 100}%)`;
+  }
+
+  function nextHeroSlide() {
+    heroSlide = (heroSlide + 1) % totalHeroSlides;
+    updateHeroCarousel();
+  }
+
+  function prevHeroSlide() {
+    heroSlide = (heroSlide - 1 + totalHeroSlides) % totalHeroSlides;
+    updateHeroCarousel();
+  }
+
+  setInterval(nextHeroSlide, 6000);
+
+  // =====================
+  // TESTIMONIAL CAROUSEL FIXED
+  // =====================
+  let testimonialSlide = 0;
+  const testimonialTrack = document.querySelector('#testimonialCarousel .testimonial-track');
+  const testimonialSlides = document.querySelectorAll('#testimonialCarousel .testimonial-track > div');
+  const totalTestimonials = testimonialSlides.length;
+
+  function updateTestimonialCarousel() {
+    testimonialTrack.style.transform = `translateX(-${testimonialSlide * 100}%)`;
+  }
+
+  function nextTestimonialSlide() {
+    testimonialSlide = (testimonialSlide + 1) % totalTestimonials;
+    updateTestimonialCarousel();
+  }
+
+  function prevTestimonialSlide() {
+    testimonialSlide = (testimonialSlide - 1 + totalTestimonials) % totalTestimonials;
+    updateTestimonialCarousel();
+  }
+
+  // Auto slide every 6s
+  let testimonialInterval = setInterval(nextTestimonialSlide, 6000);
+
+  // Optional pause on hover (better UX)
+  const testimonialContainer = document.getElementById('testimonialCarousel');
+  testimonialContainer.addEventListener('mouseenter', () => clearInterval(testimonialInterval));
+  testimonialContainer.addEventListener('mouseleave', () => testimonialInterval = setInterval(nextTestimonialSlide, 6000));
+
+  // =====================
+  // FADE-IN ANIMATION
+  // =====================
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // =====================
+  // SMOOTH SCROLL
+  // =====================
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+

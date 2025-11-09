@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Blog of Heirs Multispecialist Hospital: Latest healthcare insights, tips, and news from our experts in Ekiti State.">
+  <meta name="keywords" content="Heirs Multispecialist Hospital blog, Ekiti health tips, medical news, Oye Ekiti hospital blog, Ado Ekiti healthcare updates">
+  <title>Blog - Heirs Multispecialist Hospital</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Heirs Multispecialist Hospital",
+    "description": "Premier healthcare provider in Ekiti State since 2010, offering world-class medical care.",
+    "url": "https://heirsmultispecialisthospital.com.ng/blog",
+    "founder": [
+      {
+        "@type": "Person",
+        "name": "Dr. Soje Michael Osisiogu",
+        "jobTitle": "Co-Founder & Medical Director"
+      },
+      {
+        "@type": "Person",
+        "name": "Dr. Soje Anthonia Yemisi",
+        "jobTitle": "Co-Founder & Chief Specialist"
+      }
+    ]
+  }
+  </script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .card-hover { transition: all 0.3s ease; }
+    .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+    .gradient-text { background: linear-gradient(135deg, #2563eb, #1e40af); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .founder-card { 
+      background: rgba(255, 255, 255, 0.8); 
+      backdrop-filter: blur(10px); 
+      border: 1px solid rgba(255, 255, 255, 0.2); 
+      position: relative; 
+      overflow: hidden; 
+    }
+    .founder-card::before { 
+      content: ''; 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      right: 0; 
+      bottom: 0; 
+      border: 2px solid transparent; 
+      border-image: linear-gradient(135deg, #ffd700, #b8860b) 1; 
+      transition: all 0.3s ease; 
+    }
+    .founder-card:hover::before { 
+      border-image: linear-gradient(135deg, #b8860b, #ffd700) 1; 
+    }
+    .stats-card { background: linear-gradient(135deg, #ffffff, #f1f5f9); }
+    .section-divider { position: relative; }
+    .section-divider::before { 
+      content: ''; 
+      position: absolute; 
+      top: 0; 
+      left: 50%; 
+      transform: translateX(-50%); 
+      width: 100px; 
+      height: 4px; 
+      background: linear-gradient(135deg, #2563eb, #1e40af); 
+      border-radius: 2px; 
+      animation: pulse 2s infinite; 
+    }
+    @keyframes pulse {
+      0% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.2); }
+      100% { transform: translateX(-50%) scale(1); }
+    }
+    .btn-primary { background-color: #ffffff; color: #2563eb; transition: all 0.3s ease; }
+    .btn-primary:hover { background-color: #e2e8f0; transform: scale(1.05); }
+    .btn-secondary { border-color: #ffffff; color: #ffffff; transition: all 0.3s ease; }
+    .btn-secondary:hover { background-color: #ffffff; color: #2563eb; transform: scale(1.05); }
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      .stats-card h2 { font-size: 1.5rem; line-height: 1.2; }
+      .container { padding-left: 1rem; padding-right: 1rem; }
+    }
+  </style>
+</head>
+<body class="font-inter text-gray-800 bg-gray-50">
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full bg-white shadow-md z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="index.html" class="text-2xl font-bold text-blue-600 flex items-center">
+        <i data-lucide="hospital" class="w-8 h-8 mr-2"></i>
+        Heirs Multispecialist
+      </a>
+      <div class="hidden md:flex space-x-6">
+        <a href="index.html" class="text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
+        </a>
+        <a href="about.html" class="text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
+        </a>
+        <a href="services.html" class="text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
+        </a>
+        <a href="department.html" class="text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
+        </a>
+        <a href="blog.html" class="text-blue-600 font-semibold flex items-center">
+          <i data-lucide="book-open" class="w-5 h-5 mr-1"></i> Blog
+        </a>
+        <a href="contact.html" class="text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
+        </a>
+        <a href="contact.html#appointmentform" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 text-sm flex items-center">
+          <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
+        </a>
+      </div>
+      <div class="flex items-center space-x-4">
+        <a href="tel:+234123456789" class="bg-red-500 text-white px-4 py-2 rounded-full text-sm flex items-center hover:bg-red-600">
+          <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
+        </a>
+        <button onclick="toggleMobileMenu()" class="md:hidden text-gray-600">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+    <div id="mobileMenu" class="hidden md:hidden bg-white shadow-md">
+      <nav class="px-4 py-4 space-y-2">
+        <a href="index.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
+        </a>
+        <a href="about.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
+        </a>
+        <a href="services.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
+        </a>
+        <a href="department.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
+        </a>
+        <a href="blog.html" class="block text-blue-600 font-semibold flex items-center">
+          <i data-lucide="book-open" class="w-5 h-5 mr-1"></i> Blog
+        </a>
+        <a href="contact.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
+          <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
+        </a>
+        <a href="contact.html#appointmentform" class="block bg-blue-600 text-white px-4 py-2 rounded-full text-sm flex items-center">
+          <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
+        </a>
+      </nav>
+    </div>
+  </nav>
+  <!-- Main Content -->
+  <main class="pt-16">
+    <!-- Blog Header Section -->
+    <section id="blog-header" class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
+      <div class="container mx-auto px-4 fade-in max-w-full">
+        <div class="text-center mb-12 section-divider">
+          <span class="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">Healthcare Insights</span>
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-4">Heirs Multispecialist Hospital Blog</h1>
+          <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">Stay informed with the latest health tips, medical news, and expert advice from our team of specialists. Discover how we're advancing healthcare in Ekiti State and beyond.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Posts List Section -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4 fade-in max-w-full">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Sample Blog Post 1 -->
+          <div class="stats-card p-6 rounded-2xl shadow-lg card-hover">
+            <img src="https://images.unsplash.com/photo-1576091160399-112ba2295810?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Understanding Heart Health" class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy">
+            <h2 class="text-xl font-bold gradient-text mb-2">Understanding Heart Health: Prevention and Care</h2>
+            <p class="text-gray-600 mb-4">Learn about the latest advancements in cardiology and how to maintain a healthy heart with tips from our experts.</p>
+            <div class="flex justify-between text-sm text-gray-500">
+              <span>October 15, 2025</span>
+              <span>By Dr. Soje Michael Osisiogu</span>
+            </div>
+            <div class="flex items-center text-sm text-gray-500 mt-2">
+              <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+              <span>1,250 Views</span>
+            </div>
+            <a href="blog-detail.html?id=1" class="block mt-4 text-blue-600 hover:underline">Read More</a>
+          </div>
+
+          <!-- Sample Blog Post 2 -->
+          <div class="stats-card p-6 rounded-2xl shadow-lg card-hover">
+            <img src="https://images.unsplash.com/photo-1587370560942-ad2a04eabb6d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="The Importance of Regular Check-ups" class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy">
+            <h2 class="text-xl font-bold gradient-text mb-2">The Importance of Regular Check-ups for Overall Wellness</h2>
+            <p class="text-gray-600 mb-4">Discover why preventive care is key to long-term health and how our services can help you stay ahead.</p>
+            <div class="flex justify-between text-sm text-gray-500">
+              <span>September 20, 2025</span>
+              <span>By Dr. Soje Anthonia Yemisi</span>
+            </div>
+            <div class="flex items-center text-sm text-gray-500 mt-2">
+              <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+              <span>980 Views</span>
+            </div>
+            <a href="blog-detail.html?id=2" class="block mt-4 text-blue-600 hover:underline">Read More</a>
+          </div>
+
+          <!-- Sample Blog Post 3 -->
+          <div class="stats-card p-6 rounded-2xl shadow-lg card-hover">
+            <img src="https://images.unsplash.com/photo-1587370560942-ad2a04eabb6d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Advances in Pediatric Care" class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy">
+            <h2 class="text-xl font-bold gradient-text mb-2">Advances in Pediatric Care: Keeping Our Children Healthy</h2>
+            <p class="text-gray-600 mb-4">Explore new developments in children's health and tips for parents from our pediatric specialists.</p>
+            <div class="flex justify-between text-sm text-gray-500">
+              <span>August 5, 2025</span>
+              <span>By Dr. Soje Michael Osisiogu</span>
+            </div>
+            <div class="flex items-center text-sm text-gray-500 mt-2">
+              <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
+              <span>1,500 Views</span>
+            </div>
+            <a href="blog-detail.html?id=3" class="block mt-4 text-blue-600 hover:underline">Read More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="py-16 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+      <div class="container mx-auto px-4 fade-in max-w-full">
+        <div class="text-center">
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Stay Healthy with Expert Advice</h2>
+          <p class="text-base sm:text-lg mb-8 max-w-2xl mx-auto">Subscribe to our blog for the latest updates or book an appointment to discuss your health concerns with our specialists.</p>
+          <div class="flex justify-center space-x-4">
+            <a href="contact.html" class="btn-primary px-6 py-3 rounded-full text-sm flex items-center">
+              <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
+            </a>
+            <a href="services.html" class="btn-secondary border-2 px-6 py-3 rounded-full text-sm flex items-center">
+              <i data-lucide="arrow-right" class="w-5 h-5 mr-2"></i> Explore Services
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Heirs Multispecialist Hospital</h3>
+          <p class="text-gray-400">123 Hospital Road, Oye Ekiti, Ekiti State</p>
+          <p class="text-gray-400">456 Health Avenue, Ado Ekiti, Ekiti State</p>
+          <p class="text-gray-400 mt-3"><strong>Phone:</strong> <a href="tel:+234123456789" class="hover:text-white">+234 123 456 789</a></p>
+          <p class="text-gray-400"><strong>Email:</strong> <a href="mailto:info@heirsmultispecialist.com" class="hover:text-white">info@heirsmultispecialist.com</a></p>
+          <div class="flex space-x-4 mt-4">
+            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="index.html" class="hover:text-white">Home</a></li>
+            <li><a href="about.html" class="hover:text-white">About Us</a></li>
+            <li><a href="services.html" class="hover:text-white">Services</a></li>
+            <li><a href="departments.html" class="hover:text-white">Departments</a></li>
+            <li><a href="blog.html" class="hover:text-white">Blog</a></li>
+            <li><a href="contact.html" class="hover:text-white">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Our Services</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="services.html" class="hover:text-white">X-Ray & Imaging</a></li>
+            <li><a href="services.html" class="hover:text-white">Dental Care</a></li>
+            <li><a href="services.html" class="hover:text-white">Laboratory Services</a></li>
+            <li><a href="services.html" class="hover:text-white">Pharmacy</a></li>
+            <li><a href="services.html" class="hover:text-white">Emergency Care</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="text-center text-gray-400 mt-8 pt-8 border-t border-gray-700">
+        &copy; 2025 Heirs Multispecialist Hospital. All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>

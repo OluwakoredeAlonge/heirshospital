@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Admin Dashboard - Heirs Hospital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-50">
+    <div x-data="dashboardData()">
+        
+        <!-- Navbar -->
+        <nav class="bg-white shadow-lg sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <!-- Logo -->
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="mail" class="w-8 h-8 text-blue-600"></i>
+                        <span class="text-xl font-bold text-gray-800">Contact Admin</span>
+                    </div>
+
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex items-center space-x-1">
+                        <!-- Messages Dropdown -->
+                        <div class="relative">
+                            <button @click="toggleDropdown('messages')" 
+                                    class="px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center space-x-2 transition">
+                                <span class="text-gray-700 font-medium">Messages</span>
+                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{'rotate-180': activeDropdown === 'messages'}"></i>
+                            </button>
+                            <div x-show="activeDropdown === 'messages'" 
+                                 x-transition
+                                 @click.away="closeDropdowns()"
+                                 class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-2">
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="inbox" class="w-4 h-4 text-blue-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">All Messages</span>
+                                </a>
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="mail-open" class="w-4 h-4 text-green-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">Unread</span>
+                                </a>
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="star" class="w-4 h-4 text-yellow-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">Starred</span>
+                                </a>
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="archive" class="w-4 h-4 text-purple-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">Archived</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Contact Management Dropdown (2 Columns) -->
+                        <div class="relative">
+                            <button @click="toggleDropdown('management')" 
+                                    class="px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center space-x-2 transition">
+                                <span class="text-gray-700 font-medium">Management</span>
+                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{'rotate-180': activeDropdown === 'management'}"></i>
+                            </button>
+                            <div x-show="activeDropdown === 'management'" 
+                                 x-transition
+                                 @click.away="closeDropdowns()"
+                                 class="absolute top-full left-0 mt-2 w-96 bg-white rounded-lg shadow-xl py-3 px-2">
+                                <div class="grid grid-cols-2 gap-1">
+                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="layout-dashboard" class="w-4 h-4 text-red-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Dashboard</span>
+                                    </a>
+                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="inbox" class="w-4 h-4 text-pink-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">All Messages</span>
+                                    </a>
+                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="phone" class="w-4 h-4 text-orange-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Phone Inquiries</span>
+                                    </a>
+                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="mail" class="w-4 h-4 text-blue-400 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Email Inquiries</span>
+                                    </a>
+                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="message-square" class="w-4 h-4 text-teal-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Web Forms</span>
+                                    </a>
+                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="users" class="w-4 h-4 text-cyan-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Contact List</span>
+                                    </a>
+                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="tag" class="w-4 h-4 text-indigo-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Categories</span>
+                                    </a>
+                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="settings" class="w-4 h-4 text-purple-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Settings</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Response Dropdown -->
+                        <div class="relative">
+                            <button @click="toggleDropdown('response')" 
+                                    class="px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center space-x-2 transition">
+                                <span class="text-gray-700 font-medium">Response</span>
+                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{'rotate-180': activeDropdown === 'response'}"></i>
+                            </button>
+                            <div x-show="activeDropdown === 'response'" 
+                                 x-transition
+                                 @click.away="closeDropdowns()"
+                                 class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-2">
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="send" class="w-4 h-4 text-blue-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">Send Reply</span>
+                                </a>
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="file-text" class="w-4 h-4 text-green-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">Templates</span>
+                                </a>
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="clock" class="w-4 h-4 text-purple-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">Auto-Responses</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Reports Dropdown -->
+                        <div class="relative">
+                            <button @click="toggleDropdown('reports')" 
+                                    class="px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center space-x-2 transition">
+                                <span class="text-gray-700 font-medium">Reports</span>
+                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{'rotate-180': activeDropdown === 'reports'}"></i>
+                            </button>
+                            <div x-show="activeDropdown === 'reports'" 
+                                 x-transition
+                                 @click.away="closeDropdowns()"
+                                 class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-2">
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="trending-up" class="w-4 h-4 text-blue-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">Response Times</span>
+                                </a>
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="bar-chart" class="w-4 h-4 text-green-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">Volume Analytics</span>
+                                </a>
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="pie-chart" class="w-4 h-4 text-purple-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">Category Breakdown</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Logout Button -->
+                        <button class="ml-4 px-5 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg flex items-center space-x-2 transition">
+                            <i data-lucide="log-out" class="w-4 h-4"></i>
+                            <span>Logout</span>
+                        </button>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button @click="toggleDropdown('mobile')" class="md:hidden text-gray-700">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div x-show="activeDropdown === 'mobile'" 
+                     x-transition
+                     class="md:hidden pb-4">
+                    <div class="space-y-2">
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">Messages</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">Management</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">Response</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">Reports</a>
+                        <button class="w-full text-left px-4 py-2 bg-red-500 text-white rounded mt-2">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-gray-900">Contact Dashboard</h1>
+                <p class="text-gray-600 mt-2">Manage all contact inquiries and communications.</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 border-l-4 border-blue-500">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-3 bg-blue-100 rounded-lg">
+                            <i data-lucide="inbox" class="w-6 h-6 text-blue-600"></i>
+                        </div>
+                        <span class="text-sm font-semibold text-green-600 bg-green-100 px-3 py-1 rounded-full">+25</span>
+                    </div>
+                    <h3 class="text-gray-500 text-sm font-medium mb-1">Total Messages</h3>
+                    <p class="text-3xl font-bold text-gray-900 mb-2">487</p>
+                    <p class="text-xs text-gray-500">All time</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 border-l-4 border-orange-500">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-3 bg-orange-100 rounded-lg">
+                            <i data-lucide="mail-open" class="w-6 h-6 text-orange-600"></i>
+                        </div>
+                        <span class="text-sm font-semibold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">New</span>
+                    </div>
+                    <h3 class="text-gray-500 text-sm font-medium mb-1">Unread Messages</h3>
+                    <p class="text-3xl font-bold text-gray-900 mb-2">42</p>
+                    <p class="text-xs text-gray-500">Needs attention</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 border-l-4 border-green-500">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-3 bg-green-100 rounded-lg">
+                            <i data-lucide="check-circle" class="w-6 h-6 text-green-600"></i>
+                        </div>
+                        <span class="text-sm font-semibold text-green-600 bg-green-100 px-3 py-1 rounded-full">Today</span>
+                    </div>
+                    <h3 class="text-gray-500 text-sm font-medium mb-1">Responded</h3>
+                    <p class="text-3xl font-bold text-gray-900 mb-2">18</p>
+                    <p class="text-xs text-gray-500">Replies sent today</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 border-l-4 border-purple-500">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-3 bg-purple-100 rounded-lg">
+                            <i data-lucide="clock" class="w-6 h-6 text-purple-600"></i>
+                        </div>
+                        <span class="text-sm font-semibold text-purple-600 bg-purple-100 px-3 py-1 rounded-full">Avg</span>
+                    </div>
+                    <h3 class="text-gray-500 text-sm font-medium mb-1">Response Time</h3>
+                    <p class="text-3xl font-bold text-gray-900 mb-2">2.5h</p>
+                    <p class="text-xs text-gray-500">Average response</p>
+                </div>
+            </div>
+
+            <!-- Additional Info Cards -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <!-- Recent Messages -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold text-gray-900">Recent Messages</h2>
+                        <i data-lucide="more-vertical" class="w-5 h-5 text-gray-400"></i>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4 p-3 hover:bg-gray-50 rounded-lg transition cursor-pointer">
+                            <div class="p-2 bg-blue-100 rounded-lg">
+                                <i data-lucide="mail" class="w-5 h-5 text-blue-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <p class="text-sm font-semibold text-gray-900">Appointment Inquiry</p>
+                                    <span class="text-xs text-blue-600 font-semibold">New</span>
+                                </div>
+                                <p class="text-xs text-gray-500">John Adebayo - john@email.com</p>
+                                <p class="text-xs text-gray-400 mt-1">5 minutes ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 p-3 hover:bg-gray-50 rounded-lg transition cursor-pointer">
+                            <div class="p-2 bg-green-100 rounded-lg">
+                                <i data-lucide="mail" class="w-5 h-5 text-green-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <p class="text-sm font-semibold text-gray-900">General Question</p>
+                                    <span class="text-xs text-green-600 font-semibold">Read</span>
+                                </div>
+                                <p class="text-xs text-gray-500">Sarah Olamide - sarah@email.com</p>
+                                <p class="text-xs text-gray-400 mt-1">1 hour ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 p-3 hover:bg-gray-50 rounded-lg transition cursor-pointer">
+                            <div class="p-2 bg-purple-100 rounded-lg">
+                                <i data-lucide="mail" class="w-5 h-5 text-purple-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <p class="text-sm font-semibold text-gray-900">Service Inquiry</p>
+                                    <span class="text-xs text-blue-600 font-semibold">New</span>
+                                </div>
+                                <p class="text-xs text-gray-500">David Oluwaseun - david@email.com</p>
+                                <p class="text-xs text-gray-400 mt-1">2 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 p-3 hover:bg-gray-50 rounded-lg transition cursor-pointer">
+                            <div class="p-2 bg-orange-100 rounded-lg">
+                                <i data-lucide="phone" class="w-5 h-5 text-orange-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <p class="text-sm font-semibold text-gray-900">Phone Callback Request</p>
+                                    <span class="text-xs text-green-600 font-semibold">Read</span>
+                                </div>
+                                <p class="text-xs text-gray-500">Grace Nkechi - +234 801 234 5678</p>
+                                <p class="text-xs text-gray-400 mt-1">4 hours ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold text-gray-900">Quick Actions</h2>
+                        <i data-lucide="more-vertical" class="w-5 h-5 text-gray-400"></i>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition group">
+                            <div class="flex flex-col items-center text-center">
+                                <div class="p-3 bg-blue-100 rounded-lg mb-3 group-hover:bg-blue-200 transition">
+                                    <i data-lucide="send" class="w-6 h-6 text-blue-600"></i>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-700">Send Reply</span>
+                            </div>
+                        </button>
+                        <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition group">
+                            <div class="flex flex-col items-center text-center">
+                                <div class="p-3 bg-green-100 rounded-lg mb-3 group-hover:bg-green-200 transition">
+                                    <i data-lucide="file-text" class="w-6 h-6 text-green-600"></i>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-700">Templates</span>
+                            </div>
+                        </button>
+                        <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition group">
+                            <div class="flex flex-col items-center text-center">
+                                <div class="p-3 bg-purple-100 rounded-lg mb-3 group-hover:bg-purple-200 transition">
+                                    <i data-lucide="users" class="w-6 h-6 text-purple-600"></i>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-700">Contacts</span>
+                            </div>
+                        </button>
+                        <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-orange-500 hover:bg-orange-50 transition group">
+                            <div class="flex flex-col items-center text-center">
+                                <div class="p-3 bg-orange-100 rounded-lg mb-3 group-hover:bg-orange-200 transition">
+                                    <i data-lucide="bar-chart" class="w-6 h-6 text-orange-600"></i>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-700">Reports</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                        <button class="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-lg font-semibold transition shadow-md hover:shadow-lg">
+                            <i data-lucide="mail" class="w-5 h-5 inline mr-2"></i>
+                            View All Messages
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inquiry Categories -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-xl font-bold text-gray-900 mb-6">Inquiry Categories</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <i data-lucide="calendar" class="w-6 h-6 text-blue-600"></i>
+                            <span class="text-xs font-semibold text-blue-700 bg-blue-200 px-2 py-1 rounded">125</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-800">Appointments</h4>
+                        <p class="text-sm text-gray-600 mt-1">Most common</p>
+                    </div>
+                    <div class="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <i data-lucide="help-circle" class="w-6 h-6 text-green-600"></i>
+                            <span class="text-xs font-semibold text-green-700 bg-green-200 px-2 py-1 rounded">87</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-800">General Inquiry</h4>
+                        <p class="text-sm text-gray-600 mt-1">Information requests</p>
+                    </div>
+                    <div class="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <i data-lucide="stethoscope" class="w-6 h-6 text-purple-600"></i>
+                            <span class="text-xs font-semibold text-purple-700 bg-purple-200 px-2 py-1 rounded">63</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-800">Services</h4>
+                        <p class="text-sm text-gray-600 mt-1">Service questions</p>
+                    </div>
+                    <div class="p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg border border-orange-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <i data-lucide="message-circle" class="w-6 h-6 text-orange-600"></i>
+                            <span class="text-xs font-semibold text-orange-700 bg-orange-200 px-2 py-1 rounded">45</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-800">Feedback</h4>
+                        <p class="text-sm text-gray-600 mt-1">Reviews & suggestions</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Re-initialize Lucide icons when Alpine updates the DOM
+        document.addEventListener('alpine:initialized', () => {
+            lucide.createIcons();
+        });
+        
+        function dashboardData() {
+            return {
+                activeDropdown: null,
+                toggleDropdown(name) {
+                    this.activeDropdown = this.activeDropdown === name ? null : name;
+                    setTimeout(() => lucide.createIcons(), 10);
+                },
+                closeDropdowns() {
+                    this.activeDropdown = null;
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+        .transition-transform {
+            transition: transform 0.2s ease;
+        }
+    </style>
+</body>
+</html>

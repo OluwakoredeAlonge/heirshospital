@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports & Analytics - Methuselah Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen" x-data="{
+    mobileMenuOpen: false,
+    dateFrom: '2025-01-01',
+    dateTo: '2025-12-31',
+    monthlyAttendance: [
+        { month: 'January', attendance: 45 },
+        { month: 'February', attendance: 52 },
+        { month: 'March', attendance: 48 },
+        { month: 'April', attendance: 55 },
+        { month: 'May', attendance: 60 },
+        { month: 'June', attendance: 58 },
+        { month: 'July', attendance: 62 },
+        { month: 'August', attendance: 65 },
+        { month: 'September', attendance: 70 },
+        { month: 'October', attendance: 68 },
+        { month: 'November', attendance: 72 },
+        { month: 'December', attendance: 75 }
+    ],
+    commonDiagnoses: [
+        { condition: 'Hypertension', count: 120, percentage: 48 },
+        { condition: 'Diabetes', count: 85, percentage: 34 },
+        { condition: 'Arthritis', count: 65, percentage: 26 },
+        { condition: 'Asthma', count: 45, percentage: 18 },
+        { condition: 'Others', count: 35, percentage: 14 }
+    ],
+    medicationDispensing: [
+        { medication: 'Amlodipine 5mg', dispensed: 150 },
+        { medication: 'Metformin 500mg', dispensed: 120 },
+        { medication: 'Ibuprofen 400mg', dispensed: 100 },
+        { medication: 'Lisinopril 10mg', dispensed: 90 },
+        { medication: 'Salbutamol Inhaler', dispensed: 70 }
+    ],
+    ageDistribution: [
+        { range: '60-69', male: 45, female: 55 },
+        { range: '70-79', male: 35, female: 45 },
+        { range: '80-89', male: 20, female: 25 },
+        { range: '90+', male: 5, female: 10 }
+    ],
+    complianceRates: [
+        { category: 'Medication Adherence', rate: 92 },
+        { category: 'Appointment Attendance', rate: 85 },
+        { category: 'Lifestyle Changes', rate: 78 },
+        { category: 'Overall Compliance', rate: 88 }
+    ],
+    exportReport(type) {
+        alert(`Exporting ${type} report to PDF/Excel...`);
+    },
+    generateReports() {
+        alert('Generating reports for selected date range...');
+    }
+}">
+    
+    <!-- Top Navbar -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50 border-b-4 border-purple-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo and Brand -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-800 rounded-xl flex items-center justify-center shadow-lg">
+                        <i data-lucide="heart" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="hidden sm:block">
+                        <h1 class="text-xl font-bold text-gray-800">Methuselah Project</h1>
+                        <p class="text-xs text-gray-500">Elderly Care Program</p>
+                    </div>
+                    <div class="sm:hidden">
+                        <h1 class="text-lg font-bold text-gray-800">Methuselah</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4 inline mr-2"></i>Dashboard
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="users" class="w-4 h-4 inline mr-2"></i>Patients
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="calendar" class="w-4 h-4 inline mr-2"></i>Appointments
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="clipboard-list" class="w-4 h-4 inline mr-2"></i>Visits
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg bg-purple-100 text-purple-700 font-medium text-sm">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4 inline mr-2"></i>Reports
+                    </a>
+                </div>
+
+                <!-- Right Side Actions -->
+                <div class="flex items-center space-x-3">
+                    <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition">
+                        <i data-lucide="bell" class="w-5 h-5"></i>
+                        <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                    </button>
+
+                    <div class="hidden sm:flex items-center space-x-2 pl-3 border-l border-gray-200">
+                        <div class="w-9 h-9 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center">
+                            <span class="text-sm font-bold text-white">DA</span>
+                        </div>
+                        <div class="hidden lg:block">
+                            <p class="text-sm font-medium text-gray-800">Dr. Adeyemi</p>
+                            <p class="text-xs text-gray-500">Clinician</p>
+                        </div>
+                    </div>
+
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div 
+            x-show="mobileMenuOpen" 
+            @click.away="mobileMenuOpen = false"
+            x-transition
+            class="lg:hidden border-t border-gray-200 bg-white"
+            x-cloak
+        >
+            <div class="px-4 py-4 space-y-2">
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span>Patients</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="calendar" class="w-5 h-5"></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+                    <span>Visits</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-purple-100 text-purple-700">
+                    <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+                    <span>Reports</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        
+        <!-- Page Header -->
+        <div class="mb-8">
+            <div class="flex items-center space-x-2 text-sm text-gray-500 mb-3">
+                <a href="#" class="hover:text-purple-600">Dashboard</a>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                <span class="text-purple-600 font-medium">Reports & Analytics</span>
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">Reports & Analytics</h2>
+            <p class="text-gray-600">Generate and view program statistics</p>
+        </div>
+
+        <!-- Date Range Selector -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-8">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <div class="flex-1 w-full sm:w-auto">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">From Date</label>
+                    <input
+                        type="date"
+                        x-model="dateFrom"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    >
+                </div>
+                <div class="flex-1 w-full sm:w-auto">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">To Date</label>
+                    <input
+                        type="date"
+                        x-model="dateTo"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    >
+                </div>
+                <button
+                    @click="generateReports"
+                    class="mt-6 sm:mt-8 bg-purple-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-purple-700 transition shadow-lg flex items-center space-x-2"
+                >
+                    <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                    <span>Generate Reports</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Reports Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Monthly Patient Attendance -->
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
+                <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                    <h3 class="text-xl font-bold text-gray-900">Monthly Patient Attendance</h3>
+                    <button @click="exportReport('Monthly Attendance')" class="text-purple-600 hover:text-purple-700">
+                        <i data-lucide="download" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-gray-200">
+                                <th class="text-left py-2 text-gray-600">Month</th>
+                                <th class="text-right py-2 text-gray-600">Attendance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template x-for="item in monthlyAttendance">
+                                <tr class="border-b border-gray-100 last:border-0">
+                                    <td class="py-3" x-text="item.month"></td>
+                                    <td class="text-right py-3 font-medium" x-text="item.attendance"></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Common Diagnoses/Conditions -->
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
+                <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                    <h3 class="text-xl font-bold text-gray-900">Common Diagnoses/Conditions</h3>
+                    <button @click="exportReport('Common Conditions')" class="text-purple-600 hover:text-purple-700">
+                        <i data-lucide="download" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div class="p-6 space-y-4">
+                    <template x-for="item in commonDiagnoses">
+                        <div>
+                            <div class="flex justify-between mb-1 text-sm">
+                                <span x-text="item.condition"></span>
+                                <span class="font-medium" x-text="`${item.count} (${item.percentage}%)`"></span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-2">
+                                <div class="bg-purple-600 h-2 rounded-full" :style="`width: ${item.percentage}%`"></div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Medication Dispensing Report -->
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
+                <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                    <h3 class="text-xl font-bold text-gray-900">Medication Dispensing Report</h3>
+                    <button @click="exportReport('Medication Dispensing')" class="text-purple-600 hover:text-purple-700">
+                        <i data-lucide="download" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-gray-200">
+                                <th class="text-left py-2 text-gray-600">Medication</th>
+                                <th class="text-right py-2 text-gray-600">Dispensed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template x-for="item in medicationDispensing">
+                                <tr class="border-b border-gray-100 last:border-0">
+                                    <td class="py-3" x-text="item.medication"></td>
+                                    <td class="text-right py-3 font-medium" x-text="item.dispensed"></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Age and Gender Distribution -->
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
+                <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                    <h3 class="text-xl font-bold text-gray-900">Age and Gender Distribution</h3>
+                    <button @click="exportReport('Age and Gender')" class="text-purple-600 hover:text-purple-700">
+                        <i data-lucide="download" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div class="p-6">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-gray-200">
+                                <th class="text-left py-2 text-gray-600">Age Range</th>
+                                <th class="text-right py-2 text-gray-600">Male</th>
+                                <th class="text-right py-2 text-gray-600">Female</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template x-for="item in ageDistribution">
+                                <tr class="border-b border-gray-100 last:border-0">
+                                    <td class="py-3" x-text="item.range"></td>
+                                    <td class="text-right py-3 font-medium" x-text="item.male"></td>
+                                    <td class="text-right py-3 font-medium" x-text="item.female"></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Follow-up Compliance Rates -->
+            <div class="lg:col-span-2 bg-white rounded-2xl shadow-lg border border-gray-200">
+                <div class="p-6 border-b border-gray-200 flex items-center justify-between">
+                    <h3 class="text-xl font-bold text-gray-900">Follow-up Compliance Rates</h3>
+                    <button @click="exportReport('Compliance Rates')" class="text-purple-600 hover:text-purple-700">
+                        <i data-lucide="download" class="w-5 h-5"></i>
+                    </button>
+                </div>
+                <div class="p-6 space-y-4">
+                    <template x-for="item in complianceRates">
+                        <div>
+                            <div class="flex justify-between mb-1 text-sm">
+                                <span x-text="item.category"></span>
+                                <span class="font-medium" x-text="`${item.rate}%`"></span>
+                            </div>
+                            <div class="bg-gray-200 rounded-full h-3">
+                                <div class="bg-green-600 h-3 rounded-full" :style="`width: ${item.rate}%`"></div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

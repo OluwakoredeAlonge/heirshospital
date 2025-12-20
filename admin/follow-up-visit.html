@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Follow-up Visit Form - Methuselah Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen" x-data="{
+    mobileMenuOpen: false,
+    formData: {
+        patientId: '',
+        visitNumber: '',
+        reason: {
+            routine: false,
+            symptom: false,
+            medication: false,
+            other: ''
+        },
+        intervalHistory: '',
+        compliance: '',
+        vitalSigns: {
+            bp: '',
+            pulse: '',
+            temp: '',
+            weight: '',
+            height: '',
+            bmi: ''
+        },
+        physicalExam: '',
+        investigations: '',
+        assessment: '',
+        treatmentPlan: '',
+        healthEducation: {
+            diet: false,
+            exercise: false,
+            medicationAdherence: false,
+            hygiene: false,
+            others: ''
+        },
+        referralStatus: '',
+        nextFollowUp: ''
+    },
+    patients: [
+        { id: 'MTP-2024-001', name: 'Mrs. Adebayo Folake' },
+        { id: 'MTP-2024-002', name: 'Mr. Ogunleye Samuel' },
+        // Add more patients as needed
+    ],
+    previousVisit: {
+        date: '2024-12-08',
+        complaints: 'Routine hypertension check, mild headache',
+        vitals: { bp: '130/85', pulse: '78 bpm', temp: '36.8°C', weight: '68 kg' },
+        diagnosis: 'Essential Hypertension - Controlled',
+        medications: ['Amlodipine 5mg', 'Ibuprofen 400mg'],
+        notes: 'Patient compliant with medications.'
+    },
+    searchQuery: '',
+    get filteredPatients() {
+        return this.patients.filter(p => p.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
+    },
+    autoSave() {
+        // Simulate autosave
+        console.log('Autosaving draft...');
+        localStorage.setItem('followUpVisitDraft', JSON.stringify(this.formData));
+    },
+    loadDraft() {
+        const draft = localStorage.getItem('followUpVisitDraft');
+        if (draft) {
+            this.formData = JSON.parse(draft);
+        }
+    },
+    printForm() {
+        window.print();
+    },
+    saveAndSchedule() {
+        alert('Saving follow-up visit and scheduling next...');
+        // In production, send to server
+    },
+    init() {
+        this.loadDraft();
+        setInterval(() => this.autoSave(), 30000); // Autosave every 30 seconds
+    }
+}" x-init="init">
+
+    <!-- Top Navbar -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50 border-b-4 border-purple-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-800 rounded-xl flex items-center justify-center shadow-lg">
+                        <i data-lucide="heart" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="hidden sm:block">
+                        <h1 class="text-xl font-bold text-gray-800">Methuselah Project</h1>
+                        <p class="text-xs text-gray-500">Elderly Care Program</p>
+                    </div>
+                    <div class="sm:hidden">
+                        <h1 class="text-lg font-bold text-gray-800">Methuselah</h1>
+                    </div>
+                </div>
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4 inline mr-2"></i>Dashboard
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="users" class="w-4 h-4 inline mr-2"></i>Patients
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="calendar" class="w-4 h-4 inline mr-2"></i>Appointments
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg bg-purple-100 text-purple-700 font-medium text-sm">
+                        <i data-lucide="clipboard-list" class="w-4 h-4 inline mr-2"></i>Visits
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4 inline mr-2"></i>Reports
+                    </a>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition">
+                        <i data-lucide="bell" class="w-5 h-5"></i>
+                        <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                    </button>
+                    <div class="hidden sm:flex items-center space-x-2 pl-3 border-l border-gray-200">
+                        <div class="w-9 h-9 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center">
+                            <span class="text-sm font-bold text-white">DA</span>
+                        </div>
+                        <div class="hidden lg:block">
+                            <p class="text-sm font-medium text-gray-800">Dr. Adeyemi</p>
+                            <p class="text-xs text-gray-500">Clinician</p>
+                        </div>
+                    </div>
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div
+            x-show="mobileMenuOpen"
+            @click.away="mobileMenuOpen = false"
+            x-transition
+            class="lg:hidden border-t border-gray-200 bg-white"
+            x-cloak
+        >
+            <div class="px-4 py-4 space-y-2">
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span>Patients</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="calendar" class="w-5 h-5"></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-purple-100 text-purple-700">
+                    <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+                    <span>Visits</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+                    <span>Reports</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        
+        <!-- Page Header -->
+        <div class="mb-8">
+            <div class="flex items-center space-x-2 text-sm text-gray-500 mb-3">
+                <a href="#" class="hover:text-purple-600">Dashboard</a>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                <a href="#" class="hover:text-purple-600">Visits</a>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                <span class="text-purple-600 font-medium">Follow-up Visit Form</span>
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">Follow-up Visit Form</h2>
+            <p class="text-gray-600">Record details for subsequent visits</p>
+        </div>
+
+        <!-- Form and Side Panel Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Form Container -->
+            <div class="lg:col-span-2 bg-white rounded-2xl shadow-lg border border-gray-200">
+                <div class="bg-gradient-to-r from-blue-600 to-blue-700 p-6 rounded-t-2xl text-white">
+                    <h3 class="text-xl font-bold flex items-center">
+                        <i data-lucide="clipboard-edit" class="w-6 h-6 mr-3"></i>
+                        Follow-up Consultation Record
+                    </h3>
+                    <p class="text-blue-100 text-sm mt-1">Document progress since last visit</p>
+                </div>
+                <div class="p-6 sm:p-8">
+                    <form @submit.prevent="saveAndSchedule">
+                        <!-- Patient Selection -->
+                        <div class="mb-8">
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                                <i data-lucide="user" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                Patient Selection
+                            </h4>
+                            <div class="relative">
+                                <input
+                                    type="text"
+                                    x-model="searchQuery"
+                                    placeholder="Search patient by name or ID..."
+                                    class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                >
+                                <i data-lucide="search" class="w-5 h-5 text-gray-400 absolute left-3 top-3.5"></i>
+                            </div>
+                            <select
+                                x-model="formData.patientId"
+                                class="mt-2 w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required
+                            >
+                                <option value="">Select Patient</option>
+                                <template x-for="p in filteredPatients" :key="p.id">
+                                    <option :value="p.id" x-text="`${p.id} - ${p.name}`"></option>
+                                </template>
+                            </select>
+                        </div>
+
+                        <!-- Visit Number -->
+                        <div class="mb-8 pt-8 border-t border-gray-200">
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                                <i data-lucide="hash" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                Visit Number
+                            </h4>
+                            <input
+                                type="number"
+                                x-model="formData.visitNumber"
+                                placeholder="Enter visit number"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required
+                            >
+                        </div>
+
+                        <!-- Reason for Follow-up -->
+                        <div class="mb-8 pt-8 border-t border-gray-200">
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                                <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                Reason for Follow-up
+                            </h4>
+                            <div class="bg-gray-50 rounded-xl p-6">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                                    <label class="flex items-center space-x-3">
+                                        <input type="checkbox" x-model="formData.reason.routine" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">Routine Check</span>
+                                    </label>
+                                    <label class="flex items-center space-x-3">
+                                        <input type="checkbox" x-model="formData.reason.symptom" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">New Symptom</span>
+                                    </label>
+                                    <label class="flex items-center space-x-3">
+                                        <input type="checkbox" x-model="formData.reason.medication" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">Medication Review</span>
+                                    </label>
+                                </div>
+                                <textarea
+                                    x-model="formData.reason.other"
+                                    rows="3"
+                                    placeholder="Other reasons..."
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                ></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Interval History -->
+                        <div class="mb-8 pt-8 border-t border-gray-200">
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                                <i data-lucide="clock" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                Interval History (Since Last Visit)
+                            </h4>
+                            <textarea
+                                x-model="formData.intervalHistory"
+                                rows="6"
+                                placeholder="Events, symptoms, or changes since last visit..."
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required
+                            ></textarea>
+                        </div>
+
+                        <!-- Compliance Review -->
+                        <div class="mb-8 pt-8 border-t border-gray-200">
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                                <i data-lucide="check-square" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                Compliance Review
+                            </h4>
+                            <textarea
+                                x-model="formData.compliance"
+                                rows="4"
+                                placeholder="Review of medication adherence, lifestyle changes, etc...."
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            ></textarea>
+                        </div>
+
+                        <!-- Vital Signs -->
+                        <div class="mb-8 pt-8 border-t border-gray-200">
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                                <i data-lucide="activity" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                Vital Signs
+                            </h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Blood Pressure</label>
+                                    <input
+                                        type="text"
+                                        x-model="formData.vitalSigns.bp"
+                                        placeholder="e.g., 120/80 mmHg"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    >
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Pulse</label>
+                                    <input
+                                        type="text"
+                                        x-model="formData.vitalSigns.pulse"
+                                        placeholder="e.g., 72 bpm"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    >
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Temperature</label>
+                                    <input
+                                        type="text"
+                                        x-model="formData.vitalSigns.temp"
+                                        placeholder="e.g., 36.6°C"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    >
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Weight</label>
+                                    <input
+                                        type="text"
+                                        x-model="formData.vitalSigns.weight"
+                                        placeholder="e.g., 65 kg"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    >
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Height</label>
+                                    <input
+                                        type="text"
+                                        x-model="formData.vitalSigns.height"
+                                        placeholder="e.g., 160 cm"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    >
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">BMI</label>
+                                    <input
+                                        type="text"
+                                        x-model="formData.vitalSigns.bmi"
+                                        placeholder="e.g., 25.4"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Focused Physical Examination -->
+                        <div class="mb-8 pt-8 border-t border-gray-200">
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                                <i data-lucide="stethoscope" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                Focused Physical Examination
+                            </h4>
+                            <textarea
+                                x-model="formData.physicalExam"
+                                rows="6"
+                                placeholder="Findings from focused exam..."
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            ></textarea>
+                        </div>
+
+                        <!-- Investigations Reviewed/Requested -->
+                        <div class="mb-8 pt-8 border-t border-gray-200">
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                                <i data-lucide="test-tube" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                Investigations Reviewed/Requested
+                            </h4>
+                            <textarea
+                                x-model="formData.investigations"
+                                rows="6"
+                                placeholder="Reviewed results and new requests..."
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            ></textarea>
+                        </div>
+
+                        <!-- Current Assessment -->
+                        <div class="mb-8 pt-8 border-t border-gray-200">
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                                <i data-lucide="bar-chart-2" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                Current Assessment (Progress)
+                            </h4>
+                            <textarea
+                                x-model="formData.assessment"
+                                rows="6"
+                                placeholder="Progress indicators, improvements, concerns..."
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            ></textarea>
+                        </div>
+
+                        <!-- Updated Treatment Plan -->
+                        <div class="mb-8 pt-8 border-t border-gray-200">
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                                <i data-lucide="edit" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                Updated Treatment Plan
+                            </h4>
+                            <textarea
+                                x-model="formData.treatmentPlan"
+                                rows="6"
+                                placeholder="Changes to medications, therapies, etc...."
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            ></textarea>
+                        </div>
+
+                        <!-- Health Education -->
+                        <div class="mb-8 pt-8 border-t border-gray-200">
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                                <i data-lucide="book-open" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                Health Education
+                            </h4>
+                            <div class="bg-gray-50 rounded-xl p-6">
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                                    <label class="flex items-center space-x-3">
+                                        <input type="checkbox" x-model="formData.healthEducation.diet" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">Diet</span>
+                                    </label>
+                                    <label class="flex items-center space-x-3">
+                                        <input type="checkbox" x-model="formData.healthEducation.exercise" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">Exercise</span>
+                                    </label>
+                                    <label class="flex items-center space-x-3">
+                                        <input type="checkbox" x-model="formData.healthEducation.medicationAdherence" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">Medication Adherence</span>
+                                    </label>
+                                    <label class="flex items-center space-x-3">
+                                        <input type="checkbox" x-model="formData.healthEducation.hygiene" class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500">
+                                        <span class="text-sm text-gray-700">Hygiene</span>
+                                    </label>
+                                </div>
+                                <textarea
+                                    x-model="formData.healthEducation.others"
+                                    rows="3"
+                                    placeholder="Other health education topics..."
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                ></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Referral Status -->
+                        <div class="mb-8 pt-8 border-t border-gray-200">
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                                <i data-lucide="arrow-right-circle" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                Referral Status
+                            </h4>
+                            <textarea
+                                x-model="formData.referralStatus"
+                                rows="4"
+                                placeholder="Update on any referrals..."
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            ></textarea>
+                        </div>
+
+                        <!-- Next Follow-up Scheduling -->
+                        <div class="mb-8 pt-8 border-t border-gray-200">
+                            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                                <i data-lucide="calendar-days" class="w-5 h-5 mr-2 text-blue-600"></i>
+                                Next Follow-up
+                            </h4>
+                            <input
+                                type="date"
+                                x-model="formData.nextFollowUp"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            >
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
+                            <button 
+                                type="button"
+                                @click="printForm"
+                                class="flex-1 px-6 py-4 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 transition shadow-lg flex items-center justify-center space-x-2"
+                            >
+                                <i data-lucide="printer" class="w-5 h-5"></i>
+                                <span>Print</span>
+                            </button>
+                            <button 
+                                type="submit"
+                                class="flex-1 px-6 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold hover:from-blue-700 hover:to-blue-800 transition shadow-lg flex items-center justify-center space-x-2"
+                            >
+                                <i data-lucide="save" class="w-5 h-5"></i>
+                                <span>Save & Schedule Next</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Side Panel: Previous Visit Summary -->
+            <div class="lg:col-span-1 bg-white rounded-2xl shadow-lg border border-gray-200 sticky top-24">
+                <div class="bg-gradient-to-r from-gray-600 to-gray-700 p-6 rounded-t-2xl text-white">
+                    <h3 class="text-lg font-bold flex items-center">
+                        <i data-lucide="history" class="w-5 h-5 mr-2"></i>
+                        Previous Visit Summary
+                    </h3>
+                    <p class="text-gray-200 text-sm mt-1" x-text="`Date: ${previousVisit.date}`"></p>
+                </div>
+                <div class="p-6 space-y-6">
+                    <div>
+                        <h5 class="font-bold text-gray-900 mb-2">Complaints</h5>
+                        <p class="text-sm text-gray-700" x-text="previousVisit.complaints"></p>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-gray-900 mb-2">Vitals</h5>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <li>BP: <span x-text="previousVisit.vitals.bp"></span></li>
+                            <li>Pulse: <span x-text="previousVisit.vitals.pulse"></span></li>
+                            <li>Temp: <span x-text="previousVisit.vitals.temp"></span></li>
+                            <li>Weight: <span x-text="previousVisit.vitals.weight"></span></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-gray-900 mb-2">Diagnosis</h5>
+                        <p class="text-sm text-gray-700" x-text="previousVisit.diagnosis"></p>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-gray-900 mb-2">Medications</h5>
+                        <ul class="text-sm text-gray-700 space-y-1">
+                            <template x-for="med in previousVisit.medications" :key="med">
+                                <li x-text="med"></li>
+                            </template>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="font-bold text-gray-900 mb-2">Notes</h5>
+                        <p class="text-sm text-gray-700" x-text="previousVisit.notes"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

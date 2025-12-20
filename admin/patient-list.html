@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Directory - Methuselah Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen" x-data="{
+    mobileMenuOpen: false,
+    viewMode: 'grid',
+    showFilters: false,
+    showPatientModal: false,
+    selectedPatient: null,
+    searchQuery: '',
+    filterCondition: 'all',
+    filterGender: 'all',
+    filterStatus: 'all',
+    sortBy: 'recent',
+    selectedPatients: [],
+    ageMin: '',
+    ageMax: '',
+    lastVisitFrom: '',
+    lastVisitTo: '',
+    currentPage: 1,
+    pageSize: 12,
+    patients: [
+        {
+            id: 'MTP-2024-001',
+            name: 'Mrs. Adebayo Folake',
+            age: 72,
+            gender: 'Female',
+            phone: '08012345678',
+            address: 'Irare Estate, Oye Ekiti',
+            nextOfKin: '08098765432',
+            registrationDate: '2024-01-15',
+            lastVisit: '2024-12-08',
+            nextAppointment: '2025-01-18',
+            conditions: ['Hypertension', 'Arthritis'],
+            status: 'Active',
+            vitals: { bp: '130/85', weight: '68kg', bmi: '24.5' },
+            medications: ['Amlodipine 5mg', 'Ibuprofen 400mg'],
+            visits: 8,
+            compliance: 95,
+            photo: null
+        },
+        {
+            id: 'MTP-2024-002',
+            name: 'Mr. Ogunleye Samuel',
+            age: 68,
+            gender: 'Male',
+            phone: '08087654321',
+            address: 'Odo Owa, Oye Ekiti',
+            nextOfKin: '08076543210',
+            registrationDate: '2024-12-11',
+            lastVisit: '2024-12-11',
+            nextAppointment: '2025-01-21',
+            conditions: ['Diabetes'],
+            status: 'Active',
+            vitals: { bp: '145/90', weight: '75kg', bmi: '26.8' },
+            medications: ['Metformin 500mg', 'Glibenclamide 5mg'],
+            visits: 1,
+            compliance: 100,
+            photo: null
+        },
+        {
+            id: 'MTP-2024-003',
+            name: 'Mrs. Oyewale Grace',
+            age: 70,
+            gender: 'Female',
+            phone: '08065432109',
+            address: 'Iloro Street, Oye Ekiti',
+            nextOfKin: '08054321098',
+            registrationDate: '2024-02-20',
+            lastVisit: '2024-11-30',
+            nextAppointment: '2024-12-15',
+            conditions: ['Diabetes', 'Hypertension'],
+            status: 'Follow-up Due',
+            vitals: { bp: '128/82', weight: '72kg', bmi: '25.2' },
+            medications: ['Metformin 500mg', 'Lisinopril 10mg', 'Aspirin 75mg'],
+            visits: 12,
+            compliance: 85,
+            photo: null
+        },
+        {
+            id: 'MTP-2024-004',
+            name: 'Chief Adeyemi John',
+            age: 75,
+            gender: 'Male',
+            phone: '08098765432',
+            address: 'Ayetoro Road, Oye Ekiti',
+            nextOfKin: '08087654321',
+            registrationDate: '2024-01-10',
+            lastVisit: '2024-12-10',
+            nextAppointment: '2025-01-10',
+            conditions: ['Hypertension'],
+            status: 'Active',
+            vitals: { bp: '135/88', weight: '80kg', bmi: '27.1' },
+            medications: ['Lisinopril 10mg', 'Aspirin 75mg'],
+            visits: 15,
+            compliance: 92,
+            photo: null
+        },
+        {
+            id: 'MTP-2024-005',
+            name: 'Mrs. Bamidele Ruth',
+            age: 66,
+            gender: 'Female',
+            phone: '08076543210',
+            address: 'Oke Ila, Oye Ekiti',
+            nextOfKin: '08065432109',
+            registrationDate: '2024-03-05',
+            lastVisit: '2024-11-25',
+            nextAppointment: '2024-12-09',
+            conditions: ['Arthritis'],
+            status: 'Missed Appointment',
+            vitals: { bp: '120/75', weight: '65kg', bmi: '23.8' },
+            medications: ['Ibuprofen 400mg', 'Calcium supplement'],
+            visits: 10,
+            compliance: 70,
+            photo: null
+        },
+        {
+            id: 'MTP-2024-006',
+            name: 'Mr. Eze Chukwuma',
+            age: 69,
+            gender: 'Male',
+            phone: '08054321098',
+            address: 'New Layout, Oye Ekiti',
+            nextOfKin: '08043210987',
+            registrationDate: '2024-04-12',
+            lastVisit: '2024-12-05',
+            nextAppointment: '2025-01-05',
+            conditions: ['Asthma', 'Hypertension'],
+            status: 'Active',
+            vitals: { bp: '138/86', weight: '78kg', bmi: '26.3' },
+            medications: ['Salbutamol Inhaler', 'Amlodipine 5mg'],
+            visits: 9,
+            compliance: 88,
+            photo: null
+        },
+        {
+            id: 'MTP-2024-007',
+            name: 'Mrs. Yusuf Amina',
+            age: 71,
+            gender: 'Female',
+            phone: '08032109876',
+            address: 'Central Mosque Area, Oye Ekiti',
+            nextOfKin: '08021098765',
+            registrationDate: '2024-02-28',
+            lastVisit: '2024-12-07',
+            nextAppointment: '2025-01-15',
+            conditions: ['Diabetes'],
+            status: 'Active',
+            vitals: { bp: '125/80', weight: '70kg', bmi: '25.8' },
+            medications: ['Metformin 500mg'],
+            visits: 11,
+            compliance: 90,
+            photo: null
+        },
+        {
+            id: 'MTP-2024-008',
+            name: 'Mr. Oladipo Michael',
+            age: 73,
+            gender: 'Male',
+            phone: '08010987654',
+            address: 'Ijesa Street, Oye Ekiti',
+            nextOfKin: '08009876543',
+            registrationDate: '2024-01-25',
+            lastVisit: '2024-12-09',
+            nextAppointment: '2025-01-20',
+            conditions: ['Hypertension', 'Diabetes'],
+            status: 'Active',
+            vitals: { bp: '142/89', weight: '82kg', bmi: '28.1' },
+            medications: ['Lisinopril 10mg', 'Metformin 500mg', 'Aspirin 75mg'],
+            visits: 14,
+            compliance: 93,
+            photo: null
+        }
+    ],
+    get filteredPatients() {
+        let filtered = this.patients;
+       
+        // Search filter
+        if (this.searchQuery) {
+            filtered = filtered.filter(p =>
+                p.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                p.id.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+                p.phone.includes(this.searchQuery)
+            );
+        }
+       
+        // Condition filter
+        if (this.filterCondition !== 'all') {
+            filtered = filtered.filter(p =>
+                p.conditions.includes(this.filterCondition)
+            );
+        }
+       
+        // Gender filter
+        if (this.filterGender !== 'all') {
+            filtered = filtered.filter(p => p.gender === this.filterGender);
+        }
+       
+        // Status filter
+        if (this.filterStatus !== 'all') {
+            filtered = filtered.filter(p => p.status === this.filterStatus);
+        }
+
+        // Age range filter
+        if (this.ageMin) {
+            filtered = filtered.filter(p => p.age >= parseInt(this.ageMin));
+        }
+        if (this.ageMax) {
+            filtered = filtered.filter(p => p.age <= parseInt(this.ageMax));
+        }
+
+        // Last visit date range filter
+        if (this.lastVisitFrom) {
+            filtered = filtered.filter(p => new Date(p.lastVisit) >= new Date(this.lastVisitFrom));
+        }
+        if (this.lastVisitTo) {
+            filtered = filtered.filter(p => new Date(p.lastVisit) <= new Date(this.lastVisitTo));
+        }
+       
+        // Sorting
+        if (this.sortBy === 'recent') {
+            filtered.sort((a, b) => new Date(b.lastVisit) - new Date(a.lastVisit));
+        } else if (this.sortBy === 'name') {
+            filtered.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (this.sortBy === 'age') {
+            filtered.sort((a, b) => b.age - a.age);
+        }
+       
+        return filtered;
+    },
+    get paginatedPatients() {
+        const start = (this.currentPage - 1) * this.pageSize;
+        return this.filteredPatients.slice(start, start + this.pageSize);
+    },
+    get totalPages() {
+        return Math.ceil(this.filteredPatients.length / this.pageSize);
+    },
+    prevPage() {
+        if (this.currentPage > 1) this.currentPage--;
+    },
+    nextPage() {
+        if (this.currentPage < this.totalPages) this.currentPage++;
+    },
+    viewPatient(patient) {
+        this.selectedPatient = patient;
+        this.showPatientModal = true;
+    },
+    toggleSelectPatient(patientId) {
+        if (this.selectedPatients.includes(patientId)) {
+            this.selectedPatients = this.selectedPatients.filter(id => id !== patientId);
+        } else {
+            this.selectedPatients.push(patientId);
+        }
+    },
+    selectAllPatients() {
+        if (this.selectedPatients.length === this.filteredPatients.length) {
+            this.selectedPatients = [];
+        } else {
+            this.selectedPatients = this.filteredPatients.map(p => p.id);
+        }
+    },
+    exportPatients() {
+        alert('Exporting ' + (this.selectedPatients.length || this.filteredPatients.length) + ' patient records to Excel...');
+        // In production, implement actual export to Excel/PDF
+    },
+    sendReminders() {
+        alert('Sending appointment reminders to ' + this.selectedPatients.length + ' patients...');
+    },
+    clearFilters() {
+        this.searchQuery = '';
+        this.filterCondition = 'all';
+        this.filterGender = 'all';
+        this.filterStatus = 'all';
+        this.sortBy = 'recent';
+        this.ageMin = '';
+        this.ageMax = '';
+        this.lastVisitFrom = '';
+        this.lastVisitTo = '';
+    }
+}">
+   
+    <!-- Top Navbar -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50 border-b-4 border-purple-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-800 rounded-xl flex items-center justify-center shadow-lg">
+                        <i data-lucide="heart" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="hidden sm:block">
+                        <h1 class="text-xl font-bold text-gray-800">Methuselah Project</h1>
+                        <p class="text-xs text-gray-500">Elderly Care Program</p>
+                    </div>
+                    <div class="sm:hidden">
+                        <h1 class="text-lg font-bold text-gray-800">Methuselah</h1>
+                    </div>
+                </div>
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4 inline mr-2"></i>Dashboard
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg bg-purple-100 text-purple-700 font-medium text-sm">
+                        <i data-lucide="users" class="w-4 h-4 inline mr-2"></i>Patients
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="calendar" class="w-4 h-4 inline mr-2"></i>Appointments
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="clipboard-list" class="w-4 h-4 inline mr-2"></i>Visits
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4 inline mr-2"></i>Reports
+                    </a>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition">
+                        <i data-lucide="bell" class="w-5 h-5"></i>
+                        <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                    </button>
+                    <div class="hidden sm:flex items-center space-x-2 pl-3 border-l border-gray-200">
+                        <div class="w-9 h-9 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center">
+                            <span class="text-sm font-bold text-white">DA</span>
+                        </div>
+                        <div class="hidden lg:block">
+                            <p class="text-sm font-medium text-gray-800">Dr. Adeyemi</p>
+                            <p class="text-xs text-gray-500">Clinician</p>
+                        </div>
+                    </div>
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div
+            x-show="mobileMenuOpen"
+            @click.away="mobileMenuOpen = false"
+            x-transition
+            class="lg:hidden border-t border-gray-200 bg-white"
+            x-cloak
+        >
+            <div class="px-4 py-4 space-y-2">
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-purple-100 text-purple-700">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span>Patients</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="calendar" class="w-5 h-5"></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+                    <span>Visits</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+                    <span>Reports</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+       
+        <!-- Page Header -->
+        <div class="mb-6">
+            <div class="flex items-center space-x-2 text-sm text-gray-500 mb-3">
+                <a href="#" class="hover:text-purple-600">Dashboard</a>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                <span class="text-purple-600 font-medium">Patient Directory</span>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Patient Directory</h2>
+                    <p class="text-gray-600">Manage and view all registered patients</p>
+                </div>
+                <button class="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-3 rounded-xl font-semibold hover:from-purple-700 hover:to-purple-800 transition shadow-lg flex items-center justify-center space-x-2">
+                    <i data-lucide="user-plus" class="w-5 h-5"></i>
+                    <span>Register New Patient</span>
+                </button>
+            </div>
+        </div>
+        <!-- Stats Overview -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="bg-blue-100 rounded-lg p-2">
+                        <i data-lucide="users" class="w-5 h-5 text-blue-600"></i>
+                    </div>
+                </div>
+                <p class="text-2xl font-bold text-gray-900" x-text="patients.length"></p>
+                <p class="text-xs text-gray-500 mt-1">Total Patients</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="bg-green-100 rounded-lg p-2">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
+                    </div>
+                </div>
+                <p class="text-2xl font-bold text-gray-900" x-text="patients.filter(p => p.status === 'Active').length"></p>
+                <p class="text-xs text-gray-500 mt-1">Active</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="bg-orange-100 rounded-lg p-2">
+                        <i data-lucide="clock" class="w-5 h-5 text-orange-600"></i>
+                    </div>
+                </div>
+                <p class="text-2xl font-bold text-gray-900" x-text="patients.filter(p => p.status === 'Follow-up Due').length"></p>
+                <p class="text-xs text-gray-500 mt-1">Follow-up Due</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="bg-red-100 rounded-lg p-2">
+                        <i data-lucide="alert-circle" class="w-5 h-5 text-red-600"></i>
+                    </div>
+                </div>
+                <p class="text-2xl font-bold text-gray-900" x-text="patients.filter(p => p.status === 'Missed Appointment').length"></p>
+                <p class="text-xs text-gray-500 mt-1">Missed</p>
+            </div>
+        </div>
+        <!-- Search and Filters Bar -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 mb-6">
+            <div class="p-4 sm:p-6">
+                <!-- Top Row: Search, View Toggle, Actions -->
+                <div class="flex flex-col lg:flex-row lg:items-center gap-4 mb-4">
+                    <!-- Search Bar -->
+                    <div class="flex-1 relative">
+                        <input
+                            type="text"
+                            x-model="searchQuery"
+                            placeholder="Search by name, patient ID, or phone..."
+                            class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                        >
+                        <i data-lucide="search" class="w-5 h-5 text-gray-400 absolute left-4 top-3.5"></i>
+                        <button
+                            x-show="searchQuery"
+                            @click="searchQuery = ''"
+                            class="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                        >
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <!-- View Toggle -->
+                    <div class="flex items-center space-x-2 bg-gray-100 rounded-xl p-1">
+                        <button
+                            @click="viewMode = 'grid'"
+                            :class="viewMode === 'grid' ? 'bg-white shadow-sm' : 'text-gray-600'"
+                            class="px-4 py-2 rounded-lg transition flex items-center space-x-2"
+                        >
+                            <i data-lucide="grid-3x3" class="w-4 h-4"></i>
+                            <span class="text-sm font-medium hidden sm:inline">Grid</span>
+                        </button>
+                        <button
+                            @click="viewMode = 'list'"
+                            :class="viewMode === 'list' ? 'bg-white shadow-sm' : 'text-gray-600'"
+                            class="px-4 py-2 rounded-lg transition flex items-center space-x-2"
+                        >
+                            <i data-lucide="list" class="w-4 h-4"></i>
+                            <span class="text-sm font-medium hidden sm:inline">List</span>
+                        </button>
+                    </div>
+                    <!-- Filter Toggle -->
+                    <button
+                        @click="showFilters = !showFilters"
+                        :class="showFilters ? 'bg-purple-600 text-white' : 'bg-gray-100 text-gray-700'"
+                        class="px-4 py-2.5 rounded-xl font-medium transition flex items-center space-x-2"
+                    >
+                        <i data-lucide="filter" class="w-4 h-4"></i>
+                        <span class="text-sm">Filters</span>
+                        <span x-show="filterCondition !== 'all' || filterGender !== 'all' || filterStatus !== 'all' || ageMin || ageMax || lastVisitFrom || lastVisitTo" class="bg-white text-purple-600 rounded-full w-5 h-5 text-xs flex items-center justify-center font-bold">!</span>
+                    </button>
+                </div>
+                <!-- Filters Panel -->
+                <div
+                    x-show="showFilters"
+                    x-transition
+                    class="pt-4 border-t border-gray-200"
+                    x-cloak
+                >
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <!-- Condition Filter -->
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-2">Medical Condition</label>
+                            <select
+                                x-model="filterCondition"
+                                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                            >
+                                <option value="all">All Conditions</option>
+                                <option value="Hypertension">Hypertension</option>
+                                <option value="Diabetes">Diabetes</option>
+                                <option value="Arthritis">Arthritis</option>
+                                <option value="Asthma">Asthma</option>
+                            </select>
+                        </div>
+                        <!-- Gender Filter -->
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-2">Gender</label>
+                            <select
+                                x-model="filterGender"
+                                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                            >
+                                <option value="all">All Genders</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <!-- Status Filter -->
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-2">Follow-up Status</label>
+                            <select
+                                x-model="filterStatus"
+                                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                            >
+                                <option value="all">All Status</option>
+                                <option value="Active">Active</option>
+                                <option value="Follow-up Due">Follow-up Due</option>
+                                <option value="Missed Appointment">Missed Appointment</option>
+                            </select>
+                        </div>
+                        <!-- Sort By -->
+                        <div>
+                            <label class="block text-xs font-semibold text-gray-700 mb-2">Sort By</label>
+                            <select
+                                x-model="sortBy"
+                                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                            >
+                                <option value="recent">Recent Visit</option>
+                                <option value="name">Name (A-Z)</option>
+                                <option value="age">Age (High-Low)</option>
+                            </select>
+                        </div>
+                        <!-- Age Range Filter -->
+                        <div class="col-span-1 sm:col-span-2 lg:col-span-1">
+                            <label class="block text-xs font-semibold text-gray-700 mb-2">Age Range</label>
+                            <div class="flex space-x-2">
+                                <input
+                                    type="number"
+                                    x-model="ageMin"
+                                    placeholder="Min"
+                                    min="0"
+                                    class="w-1/2 px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                                >
+                                <input
+                                    type="number"
+                                    x-model="ageMax"
+                                    placeholder="Max"
+                                    min="0"
+                                    class="w-1/2 px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                                >
+                            </div>
+                        </div>
+                        <!-- Last Visit Date Range Filter -->
+                        <div class="col-span-1 sm:col-span-2 lg:col-span-1">
+                            <label class="block text-xs font-semibold text-gray-700 mb-2">Last Visit Date Range</label>
+                            <div class="flex space-x-2">
+                                <input
+                                    type="date"
+                                    x-model="lastVisitFrom"
+                                    class="w-1/2 px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                                >
+                                <input
+                                    type="date"
+                                    x-model="lastVisitTo"
+                                    class="w-1/2 px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between mt-4">
+                        <p class="text-sm text-gray-600">
+                            Showing <span class="font-bold" x-text="filteredPatients.length"></span> of <span class="font-bold" x-text="patients.length"></span> patients
+                        </p>
+                        <button
+                            @click="clearFilters"
+                            class="text-sm text-purple-600 hover:text-purple-700 font-semibold flex items-center space-x-1"
+                        >
+                            <i data-lucide="x" class="w-4 h-4"></i>
+                            <span>Clear All Filters</span>
+                        </button>
+                    </div>
+                </div>
+                <!-- Bulk Actions -->
+                <div
+                    x-show="selectedPatients.length > 0"
+                    x-transition
+                    class="mt-4 pt-4 border-t border-gray-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+                    x-cloak
+                >
+                    <p class="text-sm font-semibold text-gray-700">
+                        <span x-text="selectedPatients.length"></span> patient(s) selected
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <button
+                            @click="exportPatients"
+                            class="px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition text-sm flex items-center space-x-2"
+                        >
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                            <span>Export</span>
+                        </button>
+                        <button
+                            @click="sendReminders"
+                            class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition text-sm flex items-center space-x-2"
+                        >
+                            <i data-lucide="bell" class="w-4 h-4"></i>
+                            <span>Send Reminders</span>
+                        </button>
+                        <button
+                            @click="selectedPatients = []"
+                            class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition text-sm"
+                        >
+                            Deselect All
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Patient Grid View -->
+        <div x-show="viewMode === 'grid'" x-cloak>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <template x-for="patient in paginatedPatients" :key="patient.id">
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 hover:shadow-md transition relative" @click="viewPatient(patient)">
+                        <div class="absolute top-4 left-4">
+                            <input
+                                type="checkbox"
+                                :checked="selectedPatients.includes(patient.id)"
+                                @click.stop="toggleSelectPatient(patient.id)"
+                                class="w-4 h-4 text-purple-600 rounded border-gray-300 focus:ring-purple-500"
+                            >
+                        </div>
+                        <div class="flex flex-col items-center text-center pt-4">
+                            <div class="w-16 h-16 bg-gray-200 rounded-full mb-3 flex items-center justify-center">
+                                <i data-lucide="user" class="w-8 h-8 text-gray-500"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900" x-text="patient.name"></h3>
+                            <p class="text-sm text-gray-500" x-text="patient.id"></p>
+                            <p class="text-sm text-gray-600 mt-1" x-text="`${patient.age} years, ${patient.gender}`"></p>
+                            <div class="flex flex-wrap justify-center gap-1 mt-2">
+                                <template x-for="condition in patient.conditions" :key="condition">
+                                    <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded-full">
+                                        <span x-text="condition"></span>
+                                    </span>
+                                </template>
+                            </div>
+                            <div class="w-full mt-4 pt-4 border-t border-gray-200 text-sm">
+                                <p class="text-gray-600"><span class="font-medium">Last Visit:</span> <span x-text="patient.lastVisit"></span></p>
+                                <p class="text-gray-600 mt-1"><span class="font-medium">Next Follow-up:</span> <span x-text="patient.nextAppointment"></span></p>
+                                <div class="mt-2">
+                                    <span
+                                        class="text-xs px-3 py-1 rounded-full font-medium"
+                                        :class="{
+                                            'bg-green-100 text-green-700': patient.status === 'Active',
+                                            'bg-orange-100 text-orange-700': patient.status === 'Follow-up Due',
+                                            'bg-red-100 text-red-700': patient.status === 'Missed Appointment'
+                                        }"
+                                        x-text="patient.status"
+                                    ></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+        <!-- Patient List View -->
+        <div x-show="viewMode === 'list'" x-cloak>
+            <div class="overflow-x-auto rounded-xl border border-gray-200">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <input
+                                    type="checkbox"
+                                    @click="selectAllPatients"
+                                    :checked="selectedPatients.length === filteredPatients.length"
+                                    class="w-4 h-4 text-purple-600 rounded border-gray-300 focus:ring-purple-500"
+                                >
+                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient ID</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Age</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sex</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Visit</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Next Follow-up</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <template x-for="patient in paginatedPatients" :key="patient.id">
+                            <tr class="hover:bg-gray-50 cursor-pointer" @click="viewPatient(patient)">
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <input
+                                        type="checkbox"
+                                        :checked="selectedPatients.includes(patient.id)"
+                                        @click.stop="toggleSelectPatient(patient.id)"
+                                        class="w-4 h-4 text-purple-600 rounded border-gray-300 focus:ring-purple-500"
+                                    >
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" x-text="patient.id"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900" x-text="patient.name"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" x-text="patient.age"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" x-text="patient.gender"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" x-text="patient.lastVisit"></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" x-text="patient.nextAppointment"></td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span
+                                        class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full"
+                                        :class="{
+                                            'bg-green-100 text-green-800': patient.status === 'Active',
+                                            'bg-orange-100 text-orange-800': patient.status === 'Follow-up Due',
+                                            'bg-red-100 text-red-800': patient.status === 'Missed Appointment'
+                                        }"
+                                        x-text="patient.status"
+                                    ></span>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Pagination -->
+        <div class="mt-6 flex items-center justify-between text-sm text-gray-600" x-show="totalPages > 1">
+            <p>
+                Showing <span x-text="(currentPage - 1) * pageSize + 1"></span> to <span x-text="Math.min(currentPage * pageSize, filteredPatients.length)"></span> of <span x-text="filteredPatients.length"></span> patients
+            </p>
+            <div class="flex items-center space-x-2">
+                <button
+                    @click="prevPage"
+                    :disabled="currentPage === 1"
+                    class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 disabled:opacity-50"
+                >
+                    Previous
+                </button>
+                <span x-text="currentPage"></span> / <span x-text="totalPages"></span>
+                <button
+                    @click="nextPage"
+                    :disabled="currentPage === totalPages"
+                    class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-100 disabled:opacity-50"
+                >
+                    Next
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Patient Details Modal -->
+    <div
+        x-show="showPatientModal"
+        @click.self="showPatientModal = false"
+        x-transition
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+        x-cloak
+    >
+        <div
+            class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+            @click.stop
+        >
+            <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-gray-900">Patient Details</h2>
+                <button @click="showPatientModal = false" class="text-gray-500 hover:text-gray-700">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-6">
+                <!-- Personal Information -->
+                <div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Personal Information</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-sm text-gray-600">Name</p>
+                            <p class="font-medium" x-text="selectedPatient.name"></p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Patient ID</p>
+                            <p class="font-medium" x-text="selectedPatient.id"></p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Age</p>
+                            <p class="font-medium" x-text="selectedPatient.age"></p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Gender</p>
+                            <p class="font-medium" x-text="selectedPatient.gender"></p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Phone</p>
+                            <p class="font-medium" x-text="selectedPatient.phone"></p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Address</p>
+                            <p class="font-medium" x-text="selectedPatient.address"></p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Next of Kin</p>
+                            <p class="font-medium" x-text="selectedPatient.nextOfKin"></p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Registration Date</p>
+                            <p class="font-medium" x-text="selectedPatient.registrationDate"></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Medical Conditions -->
+                <div class="pt-6 border-t border-gray-200">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Medical Conditions</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <template x-for="condition in selectedPatient.conditions" :key="condition">
+                            <span class="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm font-medium" x-text="condition"></span>
+                        </template>
+                    </div>
+                </div>
+                <!-- Vitals -->
+                <div class="pt-6 border-t border-gray-200">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Latest Vitals</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <p class="text-sm text-gray-600">Blood Pressure</p>
+                            <p class="font-medium" x-text="selectedPatient.vitals.bp"></p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Weight</p>
+                            <p class="font-medium" x-text="selectedPatient.vitals.weight"></p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">BMI</p>
+                            <p class="font-medium" x-text="selectedPatient.vitals.bmi"></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Medications -->
+                <div class="pt-6 border-t border-gray-200">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Current Medications</h3>
+                    <ul class="space-y-2">
+                        <template x-for="med in selectedPatient.medications" :key="med">
+                            <li class="flex items-center space-x-2">
+                                <i data-lucide="pill" class="w-4 h-4 text-purple-600"></i>
+                                <span x-text="med"></span>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+                <!-- Visit History -->
+                <div class="pt-6 border-t border-gray-200">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Visit History</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-sm text-gray-600">Total Visits</p>
+                            <p class="font-medium" x-text="selectedPatient.visits"></p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Compliance Rate</p>
+                            <p class="font-medium" x-text="`${selectedPatient.compliance}%`"></p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Last Visit</p>
+                            <p class="font-medium" x-text="selectedPatient.lastVisit"></p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-600">Next Appointment</p>
+                            <p class="font-medium" x-text="selectedPatient.nextAppointment"></p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Status -->
+                <div class="pt-6 border-t border-gray-200">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">Status</h3>
+                    <span
+                        class="px-4 py-2 rounded-full text-sm font-medium"
+                        :class="{
+                            'bg-green-100 text-green-700': selectedPatient.status === 'Active',
+                            'bg-orange-100 text-orange-700': selectedPatient.status === 'Follow-up Due',
+                            'bg-red-100 text-red-700': selectedPatient.status === 'Missed Appointment'
+                        }"
+                        x-text="selectedPatient.status"
+                    ></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

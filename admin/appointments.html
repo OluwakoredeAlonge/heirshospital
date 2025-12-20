@@ -1,0 +1,799 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments & Schedule - Methuselah Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        [x-cloak] { display: none !important; }
+       
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+       
+        @media (max-width: 640px) {
+            .calendar-grid {
+                gap: 2px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen" x-data="{
+    mobileMenuOpen: false,
+    viewMode: 'calendar',
+    selectedDate: new Date().toISOString().split('T')[0],
+    currentMonth: new Date().getMonth(),
+    currentYear: new Date().getFullYear(),
+    showAppointmentModal: false,
+    showReminderModal: false,
+    selectedAppointment: null,
+    selectedAppointments: [],
+    filterStatus: 'all',
+   
+    reminderSettings: {
+        message: '',
+        sendTime: '1day',
+        method: 'sms'
+    },
+   
+    appointments: [
+        {
+            id: 1,
+            patientId: 'MTP-2024-001',
+            patientName: 'Mrs. Adebayo Folake',
+            patientAge: 72,
+            patientPhone: '08012345678',
+            date: '2024-12-21',
+            time: '10:00 AM',
+            type: 'Follow-up',
+            reason: 'Hypertension monitoring',
+            status: 'confirmed',
+            reminderSent: true,
+            notes: 'Regular BP check and medication review'
+        },
+        {
+            id: 2,
+            patientId: 'MTP-2024-002',
+            patientName: 'Mr. Ogunleye Samuel',
+            patientAge: 68,
+            patientPhone: '08087654321',
+            date: '2024-12-21',
+            time: '10:30 AM',
+            type: 'New Patient',
+            reason: 'Initial assessment',
+            status: 'pending',
+            reminderSent: false,
+            notes: 'First visit - complete assessment needed'
+        },
+        {
+            id: 3,
+            patientId: 'MTP-2024-003',
+            patientName: 'Mrs. Oyewale Grace',
+            patientAge: 70,
+            patientPhone: '08065432109',
+            date: '2024-12-21',
+            time: '11:00 AM',
+            type: 'Follow-up',
+            reason: 'Diabetes review',
+            status: 'confirmed',
+            reminderSent: true,
+            notes: 'Blood sugar monitoring and diet counseling'
+        },
+        {
+            id: 4,
+            patientId: 'MTP-2024-004',
+            patientName: 'Chief Adeyemi John',
+            patientAge: 75,
+            patientPhone: '08098765432',
+            date: '2024-12-21',
+            time: '11:30 AM',
+            type: 'Medication Refill',
+            reason: 'Prescription renewal',
+            status: 'confirmed',
+            reminderSent: true,
+            notes: 'Hypertension medications refill'
+        },
+        {
+            id: 5,
+            patientId: 'MTP-2024-005',
+            patientName: 'Mrs. Bamidele Ruth',
+            patientAge: 66,
+            patientPhone: '08076543210',
+            date: '2024-12-21',
+            time: '12:00 PM',
+            type: 'Follow-up',
+            reason: 'Arthritis management',
+            status: 'pending',
+            reminderSent: false,
+            notes: 'Joint pain assessment'
+        },
+        {
+            id: 6,
+            patientId: 'MTP-2024-006',
+            patientName: 'Mr. Eze Chukwuma',
+            patientAge: 69,
+            patientPhone: '08054321098',
+            date: '2024-12-21',
+            time: '12:30 PM',
+            type: 'Follow-up',
+            reason: 'Asthma check-up',
+            status: 'cancelled',
+            reminderSent: false,
+            notes: 'Patient cancelled - reschedule needed'
+        },
+        {
+            id: 7,
+            patientId: 'MTP-2024-007',
+            patientName: 'Mrs. Yusuf Amina',
+            patientAge: 71,
+            patientPhone: '08032109876',
+            date: '2025-01-18',
+            time: '10:00 AM',
+            type: 'Follow-up',
+            reason: 'General check-up',
+            status: 'scheduled',
+            reminderSent: false,
+            notes: 'Routine health screening'
+        },
+        {
+            id: 8,
+            patientId: 'MTP-2024-008',
+            patientName: 'Mr. Oladipo Michael',
+            patientAge: 73,
+            patientPhone: '08010987654',
+            date: '2025-01-18',
+            time: '10:30 AM',
+            type: 'Follow-up',
+            reason: 'Hypertension & Diabetes',
+            status: 'scheduled',
+            reminderSent: false,
+            notes: 'Combined condition review'
+        }
+    ],
+   
+    get filteredAppointments() {
+        let filtered = this.appointments;
+       
+        if (this.filterStatus !== 'all') {
+            filtered = filtered.filter(a => a.status === this.filterStatus);
+        }
+       
+        if (this.viewMode === 'day') {
+            filtered = filtered.filter(a => a.date === this.selectedDate);
+        }
+       
+        return filtered.sort((a, b) => {
+            if (a.date !== b.date) return new Date(a.date) - new Date(b.date);
+            return a.time.localeCompare(b.time);
+        });
+    },
+   
+    get appointmentsByDate() {
+        const grouped = {};
+        this.appointments.forEach(apt => {
+            if (!grouped[apt.date]) {
+                grouped[apt.date] = [];
+            }
+            grouped[apt.date].push(apt);
+        });
+        return grouped;
+    },
+   
+    get calendarDays() {
+        const firstDay = new Date(this.currentYear, this.currentMonth, 1);
+        const lastDay = new Date(this.currentYear, this.currentMonth + 1, 0);
+        const startingDayOfWeek = firstDay.getDay();
+        const days = [];
+       
+        // Previous month days
+        for (let i = 0; i < startingDayOfWeek; i++) {
+            days.push({ day: '', isCurrentMonth: false });
+        }
+       
+        // Current month days
+        for (let i = 1; i <= lastDay.getDate(); i++) {
+            const date = new Date(this.currentYear, this.currentMonth, i);
+            const dateStr = date.toISOString().split('T')[0];
+            const appointmentCount = this.appointmentsByDate[dateStr]?.length || 0;
+            const weekNumber = Math.ceil(i / 7);
+            const isThirdSaturday = date.getDay() === 6 && weekNumber === 3;
+            days.push({
+                day: i,
+                isCurrentMonth: true,
+                date: dateStr,
+                appointmentCount: appointmentCount,
+                isToday: dateStr === new Date().toISOString().split('T')[0],
+                isThirdSaturday: isThirdSaturday
+            });
+        }
+       
+        return days;
+    },
+   
+    previousMonth() {
+        if (this.currentMonth === 0) {
+            this.currentMonth = 11;
+            this.currentYear--;
+        } else {
+            this.currentMonth--;
+        }
+    },
+   
+    nextMonth() {
+        if (this.currentMonth === 11) {
+            this.currentMonth = 0;
+            this.currentYear++;
+        } else {
+            this.currentMonth++;
+        }
+    },
+   
+    selectDate(dateStr) {
+        this.selectedDate = dateStr;
+        this.viewMode = 'day';
+    },
+   
+    viewAppointment(appointment) {
+        this.selectedAppointment = appointment;
+        this.showAppointmentModal = true;
+    },
+   
+    toggleSelectAppointment(appointmentId) {
+        if (this.selectedAppointments.includes(appointmentId)) {
+            this.selectedAppointments = this.selectedAppointments.filter(id => id !== appointmentId);
+        } else {
+            this.selectedAppointments.push(appointmentId);
+        }
+    },
+   
+    selectAllAppointments() {
+        if (this.selectedAppointments.length === this.filteredAppointments.length) {
+            this.selectedAppointments = [];
+        } else {
+            this.selectedAppointments = this.filteredAppointments.map(a => a.id);
+        }
+    },
+   
+    openReminderModal() {
+        if (this.selectedAppointments.length === 0) {
+            alert('Please select at least one appointment to send reminders');
+            return;
+        }
+        this.reminderSettings.message = `Dear patient, this is a reminder about your appointment at Methuselah Project on ${this.appointments.find(a => this.selectedAppointments.includes(a.id))?.date}. Please confirm your attendance. Contact: 07042401085`;
+        this.showReminderModal = true;
+    },
+   
+    sendReminders() {
+        const selectedCount = this.selectedAppointments.length;
+        const method = this.reminderSettings.method === 'sms' ? 'SMS' : this.reminderSettings.method === 'whatsapp' ? 'WhatsApp' : 'both SMS & WhatsApp';
+       
+        // Update reminder status
+        this.selectedAppointments.forEach(id => {
+            const apt = this.appointments.find(a => a.id === id);
+            if (apt) apt.reminderSent = true;
+        });
+       
+        alert(`✅ Reminders sent successfully!
+${selectedCount} reminder(s) sent via ${method}
+Delivery Time: ${this.reminderSettings.sendTime === 'now' ? 'Immediately' : this.reminderSettings.sendTime === '1day' ? '1 day before appointment' : '2 days before appointment'}
+Patients will receive your custom message on their phones.`);
+       
+        this.showReminderModal = false;
+        this.selectedAppointments = [];
+    },
+   
+    confirmAppointment(appointment) {
+        appointment.status = 'confirmed';
+        alert('Appointment confirmed for ' + appointment.patientName);
+    },
+   
+    cancelAppointment(appointment) {
+        if (confirm('Are you sure you want to cancel this appointment?')) {
+            appointment.status = 'cancelled';
+            this.showAppointmentModal = false;
+        }
+    },
+   
+    markAsAttended(appointment) {
+        appointment.status = 'attended';
+        alert('Appointment marked as attended for ' + appointment.patientName);
+        this.showAppointmentModal = false;
+    },
+   
+    markAsNoShow(appointment) {
+        appointment.status = 'no-show';
+        alert('Appointment marked as no-show for ' + appointment.patientName);
+        this.showAppointmentModal = false;
+    },
+   
+    getMonthName(month) {
+        const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                       'July', 'August', 'September', 'October', 'November', 'December'];
+        return months[month];
+    }
+}">
+   
+    <!-- Top Navbar -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50 border-b-4 border-purple-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-800 rounded-xl flex items-center justify-center shadow-lg">
+                        <i data-lucide="heart" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="hidden sm:block">
+                        <h1 class="text-xl font-bold text-gray-800">Methuselah Project</h1>
+                        <p class="text-xs text-gray-500">Elderly Care Program</p>
+                    </div>
+                </div>
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4 inline mr-2"></i>Dashboard
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="users" class="w-4 h-4 inline mr-2"></i>Patients
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg bg-purple-100 text-purple-700 font-medium text-sm">
+                        <i data-lucide="calendar" class="w-4 h-4 inline mr-2"></i>Appointments
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="clipboard-list" class="w-4 h-4 inline mr-2"></i>Visits
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4 inline mr-2"></i>Reports
+                    </a>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition">
+                        <i data-lucide="bell" class="w-5 h-5"></i>
+                    </button>
+                    <div class="hidden sm:flex items-center space-x-2 pl-3 border-l border-gray-200">
+                        <div class="w-9 h-9 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center">
+                            <span class="text-sm font-bold text-white">DA</span>
+                        </div>
+                        <div class="hidden lg:block">
+                            <p class="text-sm font-medium text-gray-800">Dr. Adeyemi</p>
+                            <p class="text-xs text-gray-500">Clinician</p>
+                        </div>
+                    </div>
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+       
+        <!-- Page Header -->
+        <div class="mb-6">
+            <div class="flex items-center space-x-2 text-sm text-gray-500 mb-3">
+                <a href="#" class="hover:text-purple-600">Dashboard</a>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                <span class="text-purple-600 font-medium">Appointments</span>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 mb-2">Appointments & Schedule</h2>
+                    <p class="text-gray-600">Manage patient appointments and clinic sessions</p>
+                </div>
+                <button class="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-3 rounded-xl font-semibold hover:from-purple-700 hover:to-purple-800 transition shadow-lg flex items-center justify-center space-x-2">
+                    <i data-lucide="plus" class="w-5 h-5"></i>
+                    <span>New Appointment</span>
+                </button>
+            </div>
+        </div>
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="bg-blue-100 rounded-lg p-2">
+                        <i data-lucide="calendar-check" class="w-5 h-5 text-blue-600"></i>
+                    </div>
+                </div>
+                <p class="text-2xl font-bold text-gray-900" x-text="appointments.filter(a => a.status === 'scheduled' || a.status === 'confirmed').length"></p>
+                <p class="text-xs text-gray-500 mt-1">Upcoming</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="bg-green-100 rounded-lg p-2">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
+                    </div>
+                </div>
+                <p class="text-2xl font-bold text-gray-900" x-text="appointments.filter(a => a.status === 'confirmed').length"></p>
+                <p class="text-xs text-gray-500 mt-1">Confirmed</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="bg-orange-100 rounded-lg p-2">
+                        <i data-lucide="clock" class="w-5 h-5 text-orange-600"></i>
+                    </div>
+                </div>
+                <p class="text-2xl font-bold text-gray-900" x-text="appointments.filter(a => a.status === 'pending').length"></p>
+                <p class="text-xs text-gray-500 mt-1">Pending</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <div class="bg-purple-100 rounded-lg p-2">
+                        <i data-lucide="bell" class="w-5 h-5 text-purple-600"></i>
+                    </div>
+                </div>
+                <p class="text-2xl font-bold text-gray-900" x-text="appointments.filter(a => !a.reminderSent && a.status !== 'cancelled').length"></p>
+                <p class="text-xs text-gray-500 mt-1">Need Reminder</p>
+            </div>
+        </div>
+        <!-- View Toggle and Filters -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 sm:p-6 mb-6">
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <!-- View Mode Toggle -->
+                <div class="flex items-center space-x-2 bg-gray-100 rounded-xl p-1">
+                    <button
+                        @click="viewMode = 'calendar'"
+                        :class="viewMode === 'calendar' ? 'bg-white shadow-sm' : 'text-gray-600'"
+                        class="px-4 py-2 rounded-lg transition flex items-center space-x-2"
+                    >
+                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                        <span class="text-sm font-medium hidden sm:inline">Calendar</span>
+                    </button>
+                    <button
+                        @click="viewMode = 'list'"
+                        :class="viewMode === 'list' ? 'bg-white shadow-sm' : 'text-gray-600'"
+                        class="px-4 py-2 rounded-lg transition flex items-center space-x-2"
+                    >
+                        <i data-lucide="list" class="w-4 h-4"></i>
+                        <span class="text-sm font-medium hidden sm:inline">List</span>
+                    </button>
+                    <button
+                        @click="viewMode = 'day'"
+                        :class="viewMode === 'day' ? 'bg-white shadow-sm' : 'text-gray-600'"
+                        class="px-4 py-2 rounded-lg transition flex items-center space-x-2"
+                    >
+                        <i data-lucide="clock" class="w-4 h-4"></i>
+                        <span class="text-sm font-medium hidden sm:inline">Day View</span>
+                    </button>
+                </div>
+                <!-- Filters -->
+                <div class="flex flex-wrap items-center gap-3">
+                    <select
+                        x-model="filterStatus"
+                        class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm font-medium"
+                    >
+                        <option value="all">All Status</option>
+                        <option value="scheduled">Scheduled</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="pending">Pending</option>
+                        <option value="attended">Attended</option>
+                        <option value="no-show">No-show</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                    <button
+                        @click="openReminderModal"
+                        :disabled="selectedAppointments.length === 0"
+                        :class="selectedAppointments.length > 0 ? 'bg-blue-600 hover:bg-blue-700' : 'bg-gray-300 cursor-not-allowed'"
+                        class="px-4 py-2 text-white rounded-lg font-medium transition text-sm flex items-center space-x-2"
+                    >
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        <span>Send Reminders</span>
+                        <span x-show="selectedAppointments.length > 0" class="bg-white text-blue-600 rounded-full w-5 h-5 text-xs flex items-center justify-center font-bold" x-text="selectedAppointments.length"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Calendar View -->
+        <div x-show="viewMode === 'calendar'" x-cloak>
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                <!-- Calendar Header -->
+                <div class="bg-gradient-to-r from-purple-600 to-indigo-700 p-6">
+                    <div class="flex items-center justify-between">
+                        <button @click="previousMonth" class="p-2 text-white hover:bg-white hover:bg-opacity-20 rounded-lg transition">
+                            <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                        </button>
+                        <h3 class="text-2xl font-bold text-white" x-text="getMonthName(currentMonth) + ' ' + currentYear"></h3>
+                        <button @click="nextMonth" class="p-2 text-white hover:bg-white hover:bg-opacity-20 rounded-lg transition">
+                            <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- Calendar Grid -->
+                <div class="p-4 sm:p-6">
+                    <!-- Day Headers -->
+                    <div class="calendar-grid mb-2">
+                        <div class="text-center text-xs sm:text-sm font-bold text-gray-600 py-2">Sun</div>
+                        <div class="text-center text-xs sm:text-sm font-bold text-gray-600 py-2">Mon</div>
+                        <div class="text-center text-xs sm:text-sm font-bold text-gray-600 py-2">Tue</div>
+                        <div class="text-center text-xs sm:text-sm font-bold text-gray-600 py-2">Wed</div>
+                        <div class="text-center text-xs sm:text-sm font-bold text-gray-600 py-2">Thu</div>
+                        <div class="text-center text-xs sm:text-sm font-bold text-gray-600 py-2">Fri</div>
+                        <div class="text-center text-xs sm:text-sm font-bold text-gray-600 py-2">Sat</div>
+                    </div>
+                    <!-- Calendar Days -->
+                    <div class="calendar-grid">
+                        <template x-for="day in calendarDays">
+                            <div
+                                @click="day.isCurrentMonth && day.appointmentCount > 0 ? selectDate(day.date) : null"
+                                class="aspect-square p-1 sm:p-2 rounded-lg transition"
+                                :class="{
+                                    'bg-purple-600 text-white cursor-pointer hover:bg-purple-700': day.isToday && day.isCurrentMonth,
+                                    'bg-yellow-100 text-yellow-800 hover:bg-yellow-200': day.isThirdSaturday && !day.isToday,
+                                    'hover:bg-gray-100 cursor-pointer': day.isCurrentMonth && !day.isToday && !day.isThirdSaturday && day.appointmentCount > 0,
+                                    'bg-gray-50': day.isCurrentMonth && !day.isToday && !day.isThirdSaturday && day.appointmentCount === 0,
+                                    'text-gray-300': !day.isCurrentMonth
+                                }"
+                            >
+                                <div class="flex flex-col h-full">
+                                    <span
+                                        class="text-xs sm:text-sm font-semibold"
+                                        :class="day.isToday ? 'text-white' : day.isThirdSaturday ? 'text-yellow-900' : 'text-gray-900'"
+                                        x-text="day.day"
+                                    ></span>
+                                    <div x-show="day.appointmentCount > 0" class="mt-auto">
+                                        <span
+                                            class="text-xs px-1.5 py-0.5 rounded-full font-bold"
+                                            :class="day.isToday ? 'bg-white text-purple-600' : day.isThirdSaturday ? 'bg-yellow-300 text-yellow-900' : 'bg-purple-100 text-purple-700'"
+                                            x-text="day.appointmentCount"
+                                        ></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- List View & Day View -->
+        <div x-show="viewMode === 'list' || viewMode === 'day'" x-cloak>
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">
+                                <span x-show="viewMode === 'list'">All Appointments</span>
+                                <span x-show="viewMode === 'day'" x-text="'Appointments for ' + selectedDate"></span>
+                            </h3>
+                            <p class="text-sm text-gray-500 mt-1">
+                                Showing <strong x-text="filteredAppointments.length"></strong> appointment(s)
+                            </p>
+                        </div>
+                        <button
+                            @click="selectAllAppointments"
+                            class="text-sm text-purple-600 hover:text-purple-700 font-semibold"
+                        >
+                            <span x-text="selectedAppointments.length === filteredAppointments.length ? 'Deselect All' : 'Select All'"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="divide-y divide-gray-200">
+                    <template x-for="appointment in filteredAppointments" :key="appointment.id">
+                        <div
+                            class="p-4 sm:p-6 hover:bg-gray-50 transition"
+                            :class="{ 'bg-purple-50': selectedAppointments.includes(appointment.id) }"
+                        >
+                            <div class="flex items-start space-x-4">
+                                <!-- Checkbox -->
+                                <input
+                                    type="checkbox"
+                                    :checked="selectedAppointments.includes(appointment.id)"
+                                    @change="toggleSelectAppointment(appointment.id)"
+                                    class="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500 cursor-pointer mt-1"
+                                >
+                                <!-- Content -->
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                                        <div class="flex-1">
+                                            <div class="flex items-center space-x-3 mb-2">
+                                                <h4 class="text-lg font-bold text-gray-900" x-text="appointment.patientName"></h4>
+                                                <span class="px-2.5 py-1 rounded-full text-xs font-bold"
+                                                    :class="{
+                                                        'bg-green-100 text-green-700': appointment.status === 'confirmed' || appointment.status === 'attended',
+                                                        'bg-blue-100 text-blue-700': appointment.status === 'scheduled',
+                                                        'bg-orange-100 text-orange-700': appointment.status === 'pending',
+                                                        'bg-red-100 text-red-700': appointment.status === 'cancelled' || appointment.status === 'no-show'
+                                                    }"
+                                                    x-text="appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)"
+                                                ></span>
+                                                <i data-lucide="bell" class="w-4 h-4 text-green-600" x-show="appointment.reminderSent" x-title="Reminder Sent"></i>
+                                            </div>
+                                            <p class="text-sm text-gray-600" x-text="`${appointment.patientAge} years | Phone: ${appointment.patientPhone}`"></p>
+                                            <div class="mt-2 flex flex-wrap items-center gap-2 text-sm text-gray-500">
+                                                <span class="bg-gray-100 px-2 py-1 rounded-md" x-text="appointment.date"></span>
+                                                <span class="bg-gray-100 px-2 py-1 rounded-md" x-text="appointment.time"></span>
+                                                <span class="bg-gray-100 px-2 py-1 rounded-md" x-text="appointment.type"></span>
+                                                <span class="bg-gray-100 px-2 py-1 rounded-md" x-text="appointment.reason"></span>
+                                            </div>
+                                        </div>
+                                        <!-- Actions -->
+                                        <div class="flex flex-col sm:flex-row gap-2">
+                                            <button @click="viewAppointment(appointment)" class="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg text-sm font-medium hover:bg-purple-200 transition">
+                                                View
+                                            </button>
+                                            <button @click="confirmAppointment(appointment)" class="px-4 py-2 bg-green-100 text-green-700 rounded-lg text-sm font-medium hover:bg-green-200 transition" x-show="appointment.status === 'scheduled' || appointment.status === 'pending'">
+                                                Confirm
+                                            </button>
+                                            <button @click="cancelAppointment(appointment)" class="px-4 py-2 bg-red-100 text-red-700 rounded-lg text-sm font-medium hover:bg-red-200 transition" x-show="appointment.status !== 'cancelled' && appointment.status !== 'no-show' && appointment.status !== 'attended'">
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <div x-show="filteredAppointments.length === 0" class="p-8 text-center text-gray-500">
+                        No appointments found for the selected filters.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Appointment Details Modal -->
+    <div
+        x-show="showAppointmentModal"
+        @click.self="showAppointmentModal = false"
+        x-transition
+        class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+        x-cloak
+    >
+        <div
+            class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+            @click.stop
+        >
+            <!-- Header -->
+            <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-gray-900">Appointment Details</h2>
+                <button @click="showAppointmentModal = false" class="text-gray-500 hover:text-gray-700">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <!-- Body -->
+            <div class="p-6 space-y-6">
+                <div>
+                    <h3 class="text-lg font-bold text-gray-900" x-text="selectedAppointment.patientName"></h3>
+                    <p class="text-sm text-gray-600" x-text="`${selectedAppointment.patientAge} years | Phone: ${selectedAppointment.patientPhone}`"></p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-sm text-gray-600">Date</p>
+                        <p class="font-medium" x-text="selectedAppointment.date"></p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600">Time</p>
+                        <p class="font-medium" x-text="selectedAppointment.time"></p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600">Type</p>
+                        <p class="font-medium" x-text="selectedAppointment.type"></p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-600">Status</p>
+                        <span
+                            class="px-3 py-1 rounded-full text-xs font-bold"
+                            :class="{
+                                'bg-green-100 text-green-700': selectedAppointment.status === 'confirmed' || selectedAppointment.status === 'attended',
+                                'bg-blue-100 text-blue-700': selectedAppointment.status === 'scheduled',
+                                'bg-orange-100 text-orange-700': selectedAppointment.status === 'pending',
+                                'bg-red-100 text-red-700': selectedAppointment.status === 'cancelled' || selectedAppointment.status === 'no-show'
+                            }"
+                            x-text="selectedAppointment.status.charAt(0).toUpperCase() + selectedAppointment.status.slice(1)"
+                        ></span>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-600">Reason</p>
+                    <p class="font-medium" x-text="selectedAppointment.reason"></p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-600">Notes</p>
+                    <p class="font-medium" x-text="selectedAppointment.notes"></p>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="p-6 border-t border-gray-200 flex flex-wrap gap-3 justify-end">
+                <button
+                    @click="markAsAttended(selectedAppointment)"
+                    class="px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition"
+                    x-show="selectedAppointment.status === 'confirmed'"
+                >
+                    Mark Attended
+                </button>
+                <button
+                    @click="markAsNoShow(selectedAppointment)"
+                    class="px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition"
+                    x-show="selectedAppointment.status === 'confirmed'"
+                >
+                    Mark No-show
+                </button>
+                <button
+                    @click="cancelAppointment(selectedAppointment)"
+                    class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition"
+                    x-show="selectedAppointment.status !== 'cancelled' && selectedAppointment.status !== 'no-show' && selectedAppointment.status !== 'attended'"
+                >
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reminder Modal -->
+    <div
+        x-show="showReminderModal"
+        @click.self="showReminderModal = false"
+        x-transition
+        class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+        x-cloak
+    >
+        <div
+            class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full"
+            @click.stop
+        >
+            <!-- Header -->
+            <div class="p-6 border-b border-gray-200 flex justify-between items-center">
+                <h2 class="text-2xl font-bold text-gray-900">Send Reminders</h2>
+                <button @click="showReminderModal = false" class="text-gray-500 hover:text-gray-700">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <!-- Body -->
+            <div class="p-6 space-y-6">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Message</label>
+                    <textarea
+                        x-model="reminderSettings.message"
+                        rows="4"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    ></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Send Time</label>
+                        <select
+                            x-model="reminderSettings.sendTime"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        >
+                            <option value="now">Send Now</option>
+                            <option value="1day">1 Day Before</option>
+                            <option value="2days">2 Days Before</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Method</label>
+                        <select
+                            x-model="reminderSettings.method"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                        >
+                            <option value="sms">SMS</option>
+                            <option value="whatsapp">WhatsApp</option>
+                            <option value="both">Both</option>
+                        </select>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600">
+                    Sending to <span x-text="selectedAppointments.length"></span> patients
+                </p>
+            </div>
+            <!-- Footer -->
+            <div class="p-6 border-t border-gray-200 flex justify-end gap-3">
+                <button @click="showReminderModal = false" class="px-6 py-3 border border-gray-300 rounded-xl hover:bg-gray-50">
+                    Cancel
+                </button>
+                <button @click="sendReminders" class="px-6 py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700">
+                    Send Reminders
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Patient - Methuselah Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen" x-data="{ 
+    mobileMenuOpen: false,
+    registrationMode: 'single',
+    uploadedFile: null,
+    uploadProgress: 0,
+    showUploadModal: false,
+    bulkUploadStep: 1,
+    uploadedRecords: [],
+    formData: {
+        fullName: '',
+        age: '',
+        sex: '',
+        address: '',
+        phone: '',
+        nextOfKin: '',
+        occupation: '',
+        maritalStatus: '',
+        hypertension: false,
+        diabetes: false,
+        asthma: false,
+        ulcers: false,
+        arthritis: false,
+        previousSurgeries: '',
+        otherConditions: '',
+        smoking: '',
+        alcohol: '',
+        substanceUse: '',
+        livingConditions: '',
+        familyHistory: ''
+    },
+    handleFileUpload(event) {
+        const file = event.target.files[0];
+        if (file) {
+            this.uploadedFile = file;
+            this.showUploadModal = true;
+            this.processFile();
+        }
+    },
+    processFile() {
+        // Simulate file processing
+        this.bulkUploadStep = 2;
+        let progress = 0;
+        const interval = setInterval(() => {
+            progress += 10;
+            this.uploadProgress = progress;
+            if (progress >= 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    this.bulkUploadStep = 3;
+                    this.uploadedRecords = [
+                        { name: 'Mrs. Adewale Funke', age: 68, sex: 'Female', phone: '08012345678', status: 'valid' },
+                        { name: 'Mr. Okonkwo James', age: 72, sex: 'Male', phone: '08087654321', status: 'valid' },
+                        { name: 'Chief Balogun Sunday', age: 75, sex: 'Male', phone: '08098765432', status: 'valid' },
+                        { name: 'Mrs. Yusuf Amina', age: 70, sex: 'Female', phone: '08076543210', status: 'warning' },
+                        { name: 'Mr. Eze Chukwuma', age: 66, sex: 'Male', phone: '08065432109', status: 'valid' }
+                    ];
+                }, 500);
+            }
+        }, 200);
+    },
+    downloadTemplate() {
+        alert('Excel template download started! In production, this would download a pre-formatted Excel file with all required columns.');
+    },
+    submitSingleRegistration() {
+        alert('Patient registration submitted successfully! Patient ID: MTP-2024-' + Math.floor(Math.random() * 1000));
+    },
+    confirmBulkUpload() {
+        alert('5 patients registered successfully!');
+        this.showUploadModal = false;
+        this.uploadedFile = null;
+        this.bulkUploadStep = 1;
+        this.uploadProgress = 0;
+    }
+}">
+    
+    <!-- Top Navbar -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50 border-b-4 border-purple-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo and Brand -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-800 rounded-xl flex items-center justify-center shadow-lg">
+                        <i data-lucide="heart" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="hidden sm:block">
+                        <h1 class="text-xl font-bold text-gray-800">Methuselah Project</h1>
+                        <p class="text-xs text-gray-500">Elderly Care Program</p>
+                    </div>
+                    <div class="sm:hidden">
+                        <h1 class="text-lg font-bold text-gray-800">Methuselah</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4 inline mr-2"></i>Dashboard
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="users" class="w-4 h-4 inline mr-2"></i>Patients
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="calendar" class="w-4 h-4 inline mr-2"></i>Appointments
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="clipboard-list" class="w-4 h-4 inline mr-2"></i>Visits
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4 inline mr-2"></i>Reports
+                    </a>
+                </div>
+
+                <!-- Right Side Actions -->
+                <div class="flex items-center space-x-3">
+                    <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition">
+                        <i data-lucide="bell" class="w-5 h-5"></i>
+                        <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                    </button>
+
+                    <div class="hidden sm:flex items-center space-x-2 pl-3 border-l border-gray-200">
+                        <div class="w-9 h-9 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center">
+                            <span class="text-sm font-bold text-white">DA</span>
+                        </div>
+                        <div class="hidden lg:block">
+                            <p class="text-sm font-medium text-gray-800">Dr. Adeyemi</p>
+                            <p class="text-xs text-gray-500">Clinician</p>
+                        </div>
+                    </div>
+
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div 
+            x-show="mobileMenuOpen" 
+            @click.away="mobileMenuOpen = false"
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0 transform -translate-y-2"
+            x-transition:enter-end="opacity-100 transform translate-y-0"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100 transform translate-y-0"
+            x-transition:leave-end="opacity-0 transform -translate-y-2"
+            class="lg:hidden border-t border-gray-200 bg-white"
+            x-cloak
+        >
+            <div class="px-4 py-4 space-y-2">
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span>Patients</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="calendar" class="w-5 h-5"></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+                    <span>Visits</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+                    <span>Reports</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        
+        <!-- Page Header -->
+        <div class="mb-8">
+            <div class="flex items-center space-x-2 text-sm text-gray-500 mb-3">
+                <a href="#" class="hover:text-purple-600">Dashboard</a>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                <span class="text-purple-600 font-medium">Register Patient</span>
+            </div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-2">Patient Registration</h2>
+            <p class="text-gray-600">Register new patients into the Methuselah Project</p>
+        </div>
+
+        <!-- Registration Mode Selector -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-2 mb-6 inline-flex">
+            <button 
+                @click="registrationMode = 'single'"
+                :class="registrationMode === 'single' ? 'bg-purple-600 text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'"
+                class="px-6 py-3 rounded-xl font-semibold text-sm transition flex items-center space-x-2"
+            >
+                <i data-lucide="user-plus" class="w-4 h-4"></i>
+                <span>Single Registration</span>
+            </button>
+            <button 
+                @click="registrationMode = 'bulk'"
+                :class="registrationMode === 'bulk' ? 'bg-purple-600 text-white shadow-md' : 'text-gray-600 hover:bg-gray-50'"
+                class="px-6 py-3 rounded-xl font-semibold text-sm transition flex items-center space-x-2"
+            >
+                <i data-lucide="upload" class="w-4 h-4"></i>
+                <span>Bulk Upload</span>
+            </button>
+        </div>
+
+        <!-- Single Registration Form -->
+        <div x-show="registrationMode === 'single'" x-cloak>
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
+                <!-- Form Header -->
+                <div class="bg-gradient-to-r from-purple-600 to-purple-700 p-6 rounded-t-2xl">
+                    <h3 class="text-xl font-bold text-white flex items-center">
+                        <i data-lucide="clipboard-edit" class="w-6 h-6 mr-3"></i>
+                        Patient Information Form
+                    </h3>
+                    <p class="text-purple-100 text-sm mt-1">Please fill in all required fields marked with *</p>
+                </div>
+
+                <div class="p-6 sm:p-8">
+                    <form @submit.prevent="submitSingleRegistration">
+                        
+                        <!-- Personal Information Section -->
+                        <div class="mb-8">
+                            <div class="flex items-center space-x-2 mb-4">
+                                <div class="bg-purple-100 rounded-lg p-2">
+                                    <i data-lucide="user" class="w-5 h-5 text-purple-600"></i>
+                                </div>
+                                <h4 class="text-lg font-bold text-gray-900">Personal Information</h4>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Full Name -->
+                                <div class="md:col-span-2">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Full Name <span class="text-red-500">*</span>
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        x-model="formData.fullName"
+                                        required
+                                        placeholder="Enter patient's full name"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    >
+                                </div>
+
+                                <!-- Age -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Age <span class="text-red-500">*</span>
+                                    </label>
+                                    <input 
+                                        type="number" 
+                                        x-model="formData.age"
+                                        required
+                                        min="60"
+                                        placeholder="Age (60+)"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    >
+                                </div>
+
+                                <!-- Sex -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Sex <span class="text-red-500">*</span>
+                                    </label>
+                                    <select 
+                                        x-model="formData.sex"
+                                        required
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    >
+                                        <option value="">Select sex</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+
+                                <!-- Phone Number -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Phone Number <span class="text-red-500">*</span>
+                                    </label>
+                                    <input 
+                                        type="tel" 
+                                        x-model="formData.phone"
+                                        required
+                                        placeholder="08012345678"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    >
+                                </div>
+
+                                <!-- Next of Kin Contact -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Next of Kin Contact <span class="text-red-500">*</span>
+                                    </label>
+                                    <input 
+                                        type="tel" 
+                                        x-model="formData.nextOfKin"
+                                        required
+                                        placeholder="Emergency contact"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    >
+                                </div>
+
+                                <!-- Address -->
+                                <div class="md:col-span-2">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Address / Community <span class="text-red-500">*</span>
+                                    </label>
+                                    <textarea 
+                                        x-model="formData.address"
+                                        required
+                                        rows="2"
+                                        placeholder="Enter full address"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    ></textarea>
+                                </div>
+
+                                <!-- Occupation -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Occupation
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        x-model="formData.occupation"
+                                        placeholder="e.g., Retired teacher"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    >
+                                </div>
+
+                                <!-- Marital Status -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Marital Status
+                                    </label>
+                                    <select 
+                                        x-model="formData.maritalStatus"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    >
+                                        <option value="">Select status</option>
+                                        <option value="Single">Single</option>
+                                        <option value="Married">Married</option>
+                                        <option value="Widowed">Widowed</option>
+                                        <option value="Divorced">Divorced</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Past Medical History Section -->
+                        <div class="mb-8 pt-8 border-t border-gray-200">
+                            <div class="flex items-center space-x-2 mb-4">
+                                <div class="bg-red-100 rounded-lg p-2">
+                                    <i data-lucide="heart-pulse" class="w-5 h-5 text-red-600"></i>
+                                </div>
+                                <h4 class="text-lg font-bold text-gray-900">Past Medical History</h4>
+                            </div>
+
+                            <div class="bg-gray-50 rounded-xl p-6">
+                                <p class="text-sm text-gray-600 mb-4">Check all conditions that apply:</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                    <label class="flex items-center space-x-3 cursor-pointer group">
+                                        <input 
+                                            type="checkbox" 
+                                            x-model="formData.hypertension"
+                                            class="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500 cursor-pointer"
+                                        >
+                                        <span class="text-sm font-medium text-gray-700 group-hover:text-purple-600 transition">Hypertension</span>
+                                    </label>
+                                    <label class="flex items-center space-x-3 cursor-pointer group">
+                                        <input 
+                                            type="checkbox" 
+                                            x-model="formData.diabetes"
+                                            class="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500 cursor-pointer"
+                                        >
+                                        <span class="text-sm font-medium text-gray-700 group-hover:text-purple-600 transition">Diabetes</span>
+                                    </label>
+                                    <label class="flex items-center space-x-3 cursor-pointer group">
+                                        <input 
+                                            type="checkbox" 
+                                            x-model="formData.asthma"
+                                            class="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500 cursor-pointer"
+                                        >
+                                        <span class="text-sm font-medium text-gray-700 group-hover:text-purple-600 transition">Asthma</span>
+                                    </label>
+                                    <label class="flex items-center space-x-3 cursor-pointer group">
+                                        <input 
+                                            type="checkbox" 
+                                            x-model="formData.ulcers"
+                                            class="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500 cursor-pointer"
+                                        >
+                                        <span class="text-sm font-medium text-gray-700 group-hover:text-purple-600 transition">Ulcers</span>
+                                    </label>
+                                    <label class="flex items-center space-x-3 cursor-pointer group">
+                                        <input 
+                                            type="checkbox" 
+                                            x-model="formData.arthritis"
+                                            class="w-5 h-5 text-purple-600 rounded focus:ring-2 focus:ring-purple-500 cursor-pointer"
+                                        >
+                                        <span class="text-sm font-medium text-gray-700 group-hover:text-purple-600 transition">Arthritis</span>
+                                    </label>
+                                </div>
+
+                                <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                            Previous Surgeries
+                                        </label>
+                                        <textarea 
+                                            x-model="formData.previousSurgeries"
+                                            rows="2"
+                                            placeholder="List any previous surgeries"
+                                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                        ></textarea>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                            Other Medical Conditions
+                                        </label>
+                                        <textarea 
+                                            x-model="formData.otherConditions"
+                                            rows="2"
+                                            placeholder="Any other conditions"
+                                            class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                        ></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social History Section -->
+                        <div class="mb-8 pt-8 border-t border-gray-200">
+                            <div class="flex items-center space-x-2 mb-4">
+                                <div class="bg-blue-100 rounded-lg p-2">
+                                    <i data-lucide="home" class="w-5 h-5 text-blue-600"></i>
+                                </div>
+                                <h4 class="text-lg font-bold text-gray-900">Social History</h4>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <!-- Smoking -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Smoking
+                                    </label>
+                                    <div class="flex space-x-4">
+                                        <label class="flex items-center space-x-2 cursor-pointer">
+                                            <input 
+                                                type="radio" 
+                                                x-model="formData.smoking"
+                                                value="Yes"
+                                                name="smoking"
+                                                class="w-4 h-4 text-purple-600 focus:ring-2 focus:ring-purple-500 cursor-pointer"
+                                            >
+                                            <span class="text-sm text-gray-700">Yes</span>
+                                        </label>
+                                        <label class="flex items-center space-x-2 cursor-pointer">
+                                            <input 
+                                                type="radio" 
+                                                x-model="formData.smoking"
+                                                value="No"
+                                                name="smoking"
+                                                class="w-4 h-4 text-purple-600 focus:ring-2 focus:ring-purple-500 cursor-pointer"
+                                            >
+                                            <span class="text-sm text-gray-700">No</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Alcohol -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Alcohol
+                                    </label>
+                                    <div class="flex space-x-4">
+                                        <label class="flex items-center space-x-2 cursor-pointer">
+                                            <input 
+                                                type="radio" 
+                                                x-model="formData.alcohol"
+                                                value="Yes"
+                                                name="alcohol"
+                                                class="w-4 h-4 text-purple-600 focus:ring-2 focus:ring-purple-500 cursor-pointer"
+                                            >
+                                            <span class="text-sm text-gray-700">Yes</span>
+                                        </label>
+                                        <label class="flex items-center space-x-2 cursor-pointer">
+                                            <input 
+                                                type="radio" 
+                                                x-model="formData.alcohol"
+                                                value="No"
+                                                name="alcohol"
+                                                class="w-4 h-4 text-purple-600 focus:ring-2 focus:ring-purple-500 cursor-pointer"
+                                            >
+                                            <span class="text-sm text-gray-700">No</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Substance Use -->
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Substance Use
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        x-model="formData.substanceUse"
+                                        placeholder="Specify if any"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    >
+                                </div>
+
+                                <!-- Living Conditions -->
+                                <div class="md:col-span-2">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Living Conditions
+                                    </label>
+                                    <input 
+                                        type="text" 
+                                        x-model="formData.livingConditions"
+                                        placeholder="e.g., Lives alone, with family, etc."
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    >
+                                </div>
+
+                                <!-- Family History -->
+                                <div class="md:col-span-3">
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                        Family History
+                                    </label>
+                                    <textarea 
+                                        x-model="formData.familyHistory"
+                                        rows="2"
+                                        placeholder="Any relevant hereditary or familial diseases"
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                                    ></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
+                            <button 
+                                type="button"
+                                class="flex-1 px-6 py-4 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition"
+                            >
+                                <i data-lucide="x" class="w-5 h-5 inline mr-2"></i>
+                                Cancel
+                            </button>
+                            <button 
+                                type="submit"
+                                class="flex-1 px-6 py-4 bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-xl font-semibold hover:from-purple-700 hover:to-purple-800 transition shadow-lg"
+                            >
+                                <i data-lucide="check" class="w-5 h-5 inline mr-2"></i>
+                                Register Patient
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bulk Upload Section -->
+        <div x-show="registrationMode === 'bulk'" x-cloak>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Upload Area - 2 columns -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
+                        <div class="bg-gradient-to-r from-green-600 to-green-700 p-6 rounded-t-2xl">
+                            <h3 class="text-xl font-bold text-white flex items-center">
+                                <i data-lucide="upload-cloud" class="w-6 h-6 mr-3"></i>
+                                Bulk Patient Upload
+                            </h3>
+                            <p class="text-green-100 text-sm mt-1">Upload multiple patients at once using Excel</p>
+                        </div>
+
+                        <div class="p-8">
+                            <!-- File Upload Area -->
+                            <div class="border-2 border-dashed border-gray-300 rounded-2xl p-12 text-center hover:border-purple-400 hover:bg-purple-50 transition cursor-pointer group">
+                                <input 
+                                    type="file" 
+                                    id="bulkUpload"
+                                    accept=".xlsx,.xls,.csv"
+                                    @change="handleFileUpload"
+                                    class="hidden"
+                                >
+                                <label for="bulkUpload" class="cursor-pointer">
+                                    <div class="bg-gradient-to-br from-purple-100 to-purple-200 group-hover:from-purple-200 group-hover:to-purple-300 rounded-2xl p-6 inline-block mb-4 transition">
+                                        <i data-lucide="file-spreadsheet" class="w-16 h-16 text-purple-600 mx-auto"></i>
+                                    </div>
+                                    <h4 class="text-lg font-bold text-gray-900 mb-2">Click to upload or drag and drop</h4>
+                                    <p class="text-sm text-gray-600 mb-4">Excel files (.xlsx, .xls) or CSV files</p>
+                                    <p class="text-xs text-gray-500">Maximum file size: 10MB</p>
+                                </label>
+                            </div>
+
+                            <!-- Download Template Button -->
+                            <div class="mt-6 bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
+                                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="bg-blue-100 rounded-lg p-3 flex-shrink-0">
+                                            <i data-lucide="download" class="w-6 h-6 text-blue-600"></i>
+                                        </div>
+                                        <div>
+                                            <h5 class="font-bold text-gray-900 mb-1">Need a template?</h5>
+                                            <p class="text-sm text-gray-600">Download our pre-formatted Excel template to ensure your data is correctly structured.</p>
+                                        </div>
+                                    </div>
+                                    <button 
+                                        @click="downloadTemplate"
+                                        class="bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition shadow-md flex items-center space-x-2 whitespace-nowrap"
+                                    >
+                                        <i data-lucide="download" class="w-4 h-4"></i>
+                                        <span>Download Template</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Recently Uploaded -->
+                            <div class="mt-8 pt-6 border-t border-gray-200">
+                                <h5 class="font-bold text-gray-900 mb-4 flex items-center">
+                                    <i data-lucide="clock" class="w-5 h-5 mr-2 text-gray-500"></i>
+                                    Recent Uploads
+                                </h5>
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-200">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="bg-green-100 rounded-lg p-2">
+                                                <i data-lucide="file-check" class="w-5 h-5 text-green-600"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-semibold text-gray-900">december_patients.xlsx</p>
+                                                <p class="text-xs text-gray-500">15 patients • Uploaded 2 days ago</p>
+                                            </div>
+                                        </div>
+                                        <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">Success</span>
+                                    </div>
+                                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl border border-gray-200">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="bg-green-100 rounded-lg p-2">
+                                                <i data-lucide="file-check" class="w-5 h-5 text-green-600"></i>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-semibold text-gray-900">november_batch2.xlsx</p>
+                                                <p class="text-xs text-gray-500">23 patients • Uploaded 1 week ago</p>
+                                            </div>
+                                        </div>
+                                        <span class="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">Success</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instructions Panel - 1 column -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-2xl shadow-lg border border-gray-200 sticky top-24">
+                        <div class="bg-gradient-to-br from-purple-600 to-indigo-600 p-6 rounded-t-2xl">
+                            <h3 class="text-lg font-bold text-white flex items-center">
+                                <i data-lucide="info" class="w-5 h-5 mr-2"></i>
+                                Upload Instructions
+                            </h3>
+                        </div>
+
+                        <div class="p-6 space-y-6">
+                            <!-- Step 1 -->
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-purple-100 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-sm font-bold text-purple-600">1</span>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-gray-900 mb-1">Download Template</h5>
+                                    <p class="text-sm text-gray-600">Click the "Download Template" button to get the Excel template with all required columns.</p>
+                                </div>
+                            </div>
+
+                            <!-- Step 2 -->
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-purple-100 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-sm font-bold text-purple-600">2</span>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-gray-900 mb-1">Fill Patient Data</h5>
+                                    <p class="text-sm text-gray-600">Enter patient information in the template. Each row represents one patient.</p>
+                                </div>
+                            </div>
+
+                            <!-- Step 3 -->
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-purple-100 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-sm font-bold text-purple-600">3</span>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-gray-900 mb-1">Upload File</h5>
+                                    <p class="text-sm text-gray-600">Upload the completed Excel file. The system will validate all entries.</p>
+                                </div>
+                            </div>
+
+                            <!-- Step 4 -->
+                            <div class="flex items-start space-x-3">
+                                <div class="bg-purple-100 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-sm font-bold text-purple-600">4</span>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-gray-900 mb-1">Review & Confirm</h5>
+                                    <p class="text-sm text-gray-600">Review the uploaded data and confirm to add all patients to the system.</p>
+                                </div>
+                            </div>
+
+                            <!-- Required Fields -->
+                            <div class="pt-6 border-t border-gray-200">
+                                <h5 class="font-bold text-gray-900 mb-3 flex items-center">
+                                    <i data-lucide="asterisk" class="w-4 h-4 mr-2 text-red-500"></i>
+                                    Required Fields
+                                </h5>
+                                <ul class="space-y-2 text-sm text-gray-600">
+                                    <li class="flex items-start">
+                                        <i data-lucide="check" class="w-4 h-4 mr-2 text-green-600 flex-shrink-0 mt-0.5"></i>
+                                        <span>Full Name</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check" class="w-4 h-4 mr-2 text-green-600 flex-shrink-0 mt-0.5"></i>
+                                        <span>Age (60 years and above)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check" class="w-4 h-4 mr-2 text-green-600 flex-shrink-0 mt-0.5"></i>
+                                        <span>Sex (Male/Female/Other)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check" class="w-4 h-4 mr-2 text-green-600 flex-shrink-0 mt-0.5"></i>
+                                        <span>Phone Number</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check" class="w-4 h-4 mr-2 text-green-600 flex-shrink-0 mt-0.5"></i>
+                                        <span>Address/Community</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i data-lucide="check" class="w-4 h-4 mr-2 text-green-600 flex-shrink-0 mt-0.5"></i>
+                                        <span>Next of Kin Contact</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Tips -->
+                            <div class="pt-6 border-t border-gray-200">
+                                <h5 class="font-bold text-gray-900 mb-3 flex items-center">
+                                    <i data-lucide="lightbulb" class="w-4 h-4 mr-2 text-yellow-500"></i>
+                                    Tips
+                                </h5>
+                                <ul class="space-y-2 text-xs text-gray-600">
+                                    <li class="flex items-start">
+                                        <span class="mr-2">•</span>
+                                        <span>Do not modify column headers in the template</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="mr-2">•</span>
+                                        <span>Use "Yes" or "No" for medical history fields</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="mr-2">•</span>
+                                        <span>Phone numbers should be 11 digits (Nigerian format)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="mr-2">•</span>
+                                        <span>Leave optional fields blank if not applicable</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="mr-2">•</span>
+                                        <span>Maximum 100 patients per upload</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bulk Upload Processing Modal -->
+    <div 
+        x-show="showUploadModal" 
+        @click.self="showUploadModal = false"
+        x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100"
+        x-transition:leave="transition ease-in duration-200"
+        x-transition:leave-start="opacity-100"
+        x-transition:leave-end="opacity-0"
+        class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+        x-cloak
+    >
+        <div 
+            @click.stop
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform scale-90"
+            x-transition:enter-end="opacity-100 transform scale-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 transform scale-100"
+            x-transition:leave-end="opacity-0 transform scale-90"
+            class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+        >
+            <!-- Step 1: File Selected -->
+            <div x-show="bulkUploadStep === 1" class="p-8 text-center">
+                <div class="bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="file-check" class="w-10 h-10 text-green-600"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">File Selected</h3>
+                <p class="text-gray-600 mb-6" x-text="uploadedFile ? uploadedFile.name : ''"></p>
+                <button 
+                    @click="processFile"
+                    class="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-8 py-3 rounded-xl font-semibold hover:from-purple-700 hover:to-purple-800 transition shadow-lg"
+                >
+                    Process File
+                </button>
+            </div>
+
+            <!-- Step 2: Processing -->
+            <div x-show="bulkUploadStep === 2" class="p-8">
+                <div class="text-center mb-8">
+                    <div class="bg-purple-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4 animate-pulse">
+                        <i data-lucide="loader" class="w-10 h-10 text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Processing File...</h3>
+                    <p class="text-gray-600">Please wait while we validate your data</p>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                    <div 
+                        class="bg-gradient-to-r from-purple-600 to-purple-700 h-4 transition-all duration-300 rounded-full"
+                        :style="`width: ${uploadProgress}%`"
+                    ></div>
+                </div>
+                <p class="text-center text-sm text-gray-600 mt-2" x-text="`${uploadProgress}% Complete`"></p>
+            </div>
+
+            <!-- Step 3: Validation Results -->
+            <div x-show="bulkUploadStep === 3">
+                <div class="bg-gradient-to-r from-green-600 to-green-700 p-6 rounded-t-2xl">
+                    <h3 class="text-2xl font-bold text-white flex items-center">
+                        <i data-lucide="check-circle" class="w-7 h-7 mr-3"></i>
+                        Validation Complete
+                    </h3>
+                    <p class="text-green-100 mt-1">Review the records below before confirming</p>
+                </div>
+
+                <div class="p-6">
+                    <!-- Summary Stats -->
+                    <div class="grid grid-cols-3 gap-4 mb-6">
+                        <div class="bg-green-50 rounded-xl p-4 text-center border-2 border-green-200">
+                            <p class="text-3xl font-bold text-green-600" x-text="uploadedRecords.filter(r => r.status === 'valid').length"></p>
+                            <p class="text-xs text-gray-600 mt-1 font-medium">Valid Records</p>
+                        </div>
+                        <div class="bg-yellow-50 rounded-xl p-4 text-center border-2 border-yellow-200">
+                            <p class="text-3xl font-bold text-yellow-600" x-text="uploadedRecords.filter(r => r.status === 'warning').length"></p>
+                            <p class="text-xs text-gray-600 mt-1 font-medium">Warnings</p>
+                        </div>
+                        <div class="bg-red-50 rounded-xl p-4 text-center border-2 border-red-200">
+                            <p class="text-3xl font-bold text-red-600" x-text="uploadedRecords.filter(r => r.status === 'error').length"></p>
+                            <p class="text-xs text-gray-600 mt-1 font-medium">Errors</p>
+                        </div>
+                    </div>
+
+                    <!-- Records Table -->
+                    <div class="border border-gray-200 rounded-xl overflow-hidden max-h-96 overflow-y-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50 sticky top-0">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">Patient Name</th>
+                                    <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">Age</th>
+                                    <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">Sex</th>
+                                    <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">Phone</th>
+                                    <th class="px-4 py-3 text-left text-xs font-bold text-gray-700 uppercase">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <template x-for="record in uploadedRecords" :key="record.name">
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-4 py-3 text-sm font-medium text-gray-900" x-text="record.name"></td>
+                                        <td class="px-4 py-3 text-sm text-gray-600" x-text="record.age"></td>
+                                        <td class="px-4 py-3 text-sm text-gray-600" x-text="record.sex"></td>
+                                        <td class="px-4 py-3 text-sm text-gray-600" x-text="record.phone"></td>
+                                        <td class="px-4 py-3">
+                                            <span 
+                                                class="text-xs px-2.5 py-1 rounded-full font-medium"
+                                                :class="{
+                                                    'bg-green-100 text-green-700': record.status === 'valid',
+                                                    'bg-yellow-100 text-yellow-700': record.status === 'warning',
+                                                    'bg-red-100 text-red-700': record.status === 'error'
+                                                }"
+                                                x-text="record.status.charAt(0).toUpperCase() + record.status.slice(1)"
+                                            ></span>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Warning Message -->
+                    <div class="mt-6 bg-yellow-50 border-2 border-yellow-200 rounded-xl p-4 flex items-start space-x-3">
+                        <i data-lucide="alert-triangle" class="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5"></i>
+                        <div>
+                            <p class="text-sm font-semibold text-yellow-900 mb-1">Review Warning</p>
+                            <p class="text-sm text-yellow-800">1 record has warnings (incomplete phone number). You can still proceed, but we recommend reviewing this entry.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="bg-gray-50 px-6 py-4 rounded-b-2xl flex flex-col sm:flex-row gap-3 justify-end border-t border-gray-200">
+                    <button 
+                        @click="showUploadModal = false; bulkUploadStep = 1; uploadProgress = 0;"
+                        class="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-100 transition"
+                    >
+                        Cancel
+                    </button>
+                    <button 
+                        @click="confirmBulkUpload"
+                        class="px-6 py-3 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl font-semibold hover:from-green-700 hover:to-green-800 transition shadow-lg flex items-center"
+                    >
+                        <i data-lucide="check-circle" class="w-5 h-5 mr-2"></i>
+                        Confirm & Register All
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        document.addEventListener('DOMContentLoaded', function() {
+            lucide.createIcons();
+        });
+
+        // Re-initialize icons when Alpine updates the DOM
+        document.addEventListener('alpine:initialized', () => {
+            setInterval(() => {
+                lucide.createIcons();
+            }, 100);
+        });
+    </script>
+</body>
+</html>

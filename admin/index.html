@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-50">
+    <div x-data="dashboardData()">
+        
+        <!-- Navbar -->
+        <nav class="bg-white shadow-lg sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <!-- Logo -->
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="hospital" class="w-8 h-8 text-blue-600"></i>
+                        <span class="text-xl font-bold text-gray-800">Heirs Admin</span>
+                    </div>
+
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex items-center space-x-1">
+                        <!-- Admin Dropdown -->
+                        <div class="relative">
+                            <button @click="toggleDropdown('Admin')" 
+                                    class="px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center space-x-2 transition">
+                                <span class="text-gray-700 font-medium">Admin</span>
+                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{'rotate-180': activeDropdown === 'Admin'}"></i>
+                            </button>
+                            <div x-show="activeDropdown === 'Admin'" 
+                                 x-transition
+                                 @click.away="closeDropdowns()"
+                                 class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-2">
+                                <a href="institute.html" class="block px-4 py-3 hover:bg-gray-50 transition flex items-center">
+                                    <i data-lucide="graduation-cap" class="w-5 h-5 text-green-500"></i>
+                                    <span class="ml-3 text-gray-700">Heirs Institute</span>
+                                </a>
+                                <a href="blog.html" class="block px-4 py-3 hover:bg-gray-50 transition flex items-center">
+                                    <i data-lucide="file-text" class="w-5 h-5 text-purple-500"></i>
+                                    <span class="ml-3 text-gray-700">Blog</span>
+                                </a>
+                                <a href="contact.html" class="block px-4 py-3 hover:bg-gray-50 transition flex items-center">
+                                    <i data-lucide="phone" class="w-5 h-5 text-red-500"></i>
+                                    <span class="ml-3 text-gray-700">Contact</span>
+                                </a>
+                                <a href="heirs-appointment.html" class="block px-4 py-3 hover:bg-gray-50 transition flex items-center">
+                                    <i data-lucide="calendar-check" class="w-5 h-5 text-blue-500"></i>
+                                    <span class="ml-3 text-gray-700">Appointment</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Methuselah Project Dropdown (2 Columns) -->
+                        <div class="relative">
+                            <button @click="toggleDropdown('departments')" 
+                                    class="px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center space-x-2 transition">
+                                <span class="text-gray-700 font-medium">Methuselah Project</span>
+                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{'rotate-180': activeDropdown === 'departments'}"></i>
+                            </button>
+                            <div x-show="activeDropdown === 'departments'" 
+                                 x-transition
+                                 @click.away="closeDropdowns()"
+                                 class="absolute top-full left-0 mt-2 w-96 bg-white rounded-lg shadow-xl py-3 px-2">
+                                <div class="grid grid-cols-2 gap-1">
+                                    <a href="dashboard.html" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="layout-dashboard" class="w-4 h-4 text-red-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Dashboard</span>
+                                    </a>
+                                    <a href="appointments.html" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="calendar-check" class="w-4 h-4 text-pink-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Appointments</span>
+                                    </a>
+                                    <a href="patient-list.html" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="users" class="w-4 h-4 text-orange-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Patient List</span>
+                                    </a>
+                                    <a href="individual-patient.html" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="user" class="w-4 h-4 text-blue-400 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Individual Patient View</span>
+                                    </a>
+                                    <a href="register-patient.html" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="user-plus" class="w-4 h-4 text-teal-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Register Patient</span>
+                                    </a>
+                                    <a href="visit-history.html" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="history" class="w-4 h-4 text-cyan-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Patient Visit History</span>
+                                    </a>
+                                    <a href="primary-visit.html" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="clipboard-list" class="w-4 h-4 text-indigo-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Patient Primary Visit</span>
+                                    </a>
+                                    <a href="reports.html" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="file-bar-chart" class="w-4 h-4 text-purple-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Reports</span>
+                                    </a>
+                                    <a href="follow-up-visit.html" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="repeat" class="w-4 h-4 text-purple-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Follow Up Visit</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Logout Button -->
+                        <button class="ml-4 px-5 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg flex items-center space-x-2 transition">
+                            <i data-lucide="log-out" class="w-4 h-4"></i>
+                            <span>Logout</span>
+                        </button>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button @click="toggleDropdown('mobile')" class="md:hidden text-gray-700">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div x-show="activeDropdown === 'mobile'" 
+                     x-transition
+                     class="md:hidden pb-4">
+                    <div class="space-y-2">
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">Admin</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">Methuselah Project</a>
+                        <button class="w-full text-left px-4 py-2 bg-red-500 text-white rounded mt-2">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Dashboard Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-gray-900">Dashboard Overview</h1>
+                <p class="text-gray-600 mt-2">Welcome back! Here's what's happening today.</p>
+            </div>
+
+            <!-- Admin Section -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                <h2 class="text-xl font-bold text-gray-900 mb-6">Admin Views</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <a href="institute.html" class="block p-6 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <i data-lucide="graduation-cap" class="w-8 h-8 text-green-500"></i>
+                            <h3 class="ml-3 text-lg font-semibold text-gray-800">Heirs Institute</h3>
+                        </div>
+                        <p class="text-sm text-gray-600">Access educational resources and manage institute-related activities.</p>
+                    </a>
+                    <a href="blog.html" class="block p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <i data-lucide="file-text" class="w-8 h-8 text-purple-500"></i>
+                            <h3 class="ml-3 text-lg font-semibold text-gray-800">Blog</h3>
+                        </div>
+                        <p class="text-sm text-gray-600">Manage and publish blog posts for the hospital community.</p>
+                    </a>
+                    <a href="contact.html" class="block p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-lg border border-red-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <i data-lucide="phone" class="w-8 h-8 text-red-500"></i>
+                            <h3 class="ml-3 text-lg font-semibold text-gray-800">Contact</h3>
+                        </div>
+                        <p class="text-sm text-gray-600">Handle inquiries, communications, and contact management.</p>
+                    </a>
+                    <a href="heirs-appointment.html" class="block p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <i data-lucide="calendar-check" class="w-8 h-8 text-blue-500"></i>
+                            <h3 class="ml-3 text-lg font-semibold text-gray-800">Appointment</h3>
+                        </div>
+                        <p class="text-sm text-gray-600">Manage general appointments and scheduling for heirs services.</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Methuselah Project Section -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-xl font-bold text-gray-900 mb-6">Methuselah Project Views</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="dashboard.html" class="block p-6 bg-gradient-to-br from-red-50 to-red-100 rounded-lg border border-red-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <i data-lucide="layout-dashboard" class="w-8 h-8 text-red-500"></i>
+                            <h3 class="ml-3 text-lg font-semibold text-gray-800">Dashboard</h3>
+                        </div>
+                        <p class="text-sm text-gray-600">Overview of key metrics and hospital operations at a glance.</p>
+                    </a>
+                    <a href="appointments.html" class="block p-6 bg-gradient-to-br from-pink-50 to-pink-100 rounded-lg border border-pink-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <i data-lucide="calendar-check" class="w-8 h-8 text-pink-500"></i>
+                            <h3 class="ml-3 text-lg font-semibold text-gray-800">Appointments</h3>
+                        </div>
+                        <p class="text-sm text-gray-600">View, manage, and schedule patient appointments efficiently.</p>
+                    </a>
+                    <a href="patient-list.html" class="block p-6 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg border border-orange-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <i data-lucide="users" class="w-8 h-8 text-orange-500"></i>
+                            <h3 class="ml-3 text-lg font-semibold text-gray-800">Patient List</h3>
+                        </div>
+                        <p class="text-sm text-gray-600">Comprehensive list of all registered patients in the system.</p>
+                    </a>
+                    <a href="individual-patient.html" class="block p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <i data-lucide="user" class="w-8 h-8 text-blue-400"></i>
+                            <h3 class="ml-3 text-lg font-semibold text-gray-800">Individual Patient View</h3>
+                        </div>
+                        <p class="text-sm text-gray-600">Detailed information and records for a specific patient.</p>
+                    </a>
+                    <a href="register-patient.html" class="block p-6 bg-gradient-to-br from-teal-50 to-teal-100 rounded-lg border border-teal-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <i data-lucide="user-plus" class="w-8 h-8 text-teal-500"></i>
+                            <h3 class="ml-3 text-lg font-semibold text-gray-800">Register Patient</h3>
+                        </div>
+                        <p class="text-sm text-gray-600">Add new patients to the database with essential details.</p>
+                    </a>
+                    <a href="visit-history.html" class="block p-6 bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-lg border border-cyan-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <i data-lucide="history" class="w-8 h-8 text-cyan-500"></i>
+                            <h3 class="ml-3 text-lg font-semibold text-gray-800">Patient Visit History</h3>
+                        </div>
+                        <p class="text-sm text-gray-600">Historical records of patient visits and treatments.</p>
+                    </a>
+                    <a href="primary-visit.html" class="block p-6 bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-lg border border-indigo-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <i data-lucide="clipboard-list" class="w-8 h-8 text-indigo-500"></i>
+                            <h3 class="ml-3 text-lg font-semibold text-gray-800">Patient Primary Visit</h3>
+                        </div>
+                        <p class="text-sm text-gray-600">Record details from the patient's initial consultation.</p>
+                    </a>
+                    <a href="reports.html" class="block p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <i data-lucide="file-bar-chart" class="w-8 h-8 text-purple-500"></i>
+                            <h3 class="ml-3 text-lg font-semibold text-gray-800">Reports</h3>
+                        </div>
+                        <p class="text-sm text-gray-600">Generate and analyze various hospital reports and stats.</p>
+                    </a>
+                    <a href="follow-up-visit.html" class="block p-6 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <i data-lucide="repeat" class="w-8 h-8 text-purple-500"></i>
+                            <h3 class="ml-3 text-lg font-semibold text-gray-800">Follow Up Visit</h3>
+                        </div>
+                        <p class="text-sm text-gray-600">Manage and document patient follow-up appointments.</p>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Re-initialize Lucide icons when Alpine updates the DOM
+        document.addEventListener('alpine:initialized', () => {
+            lucide.createIcons();
+        });
+        function dashboardData() {
+            return {
+                activeDropdown: null,
+                toggleDropdown(name) {
+                    this.activeDropdown = this.activeDropdown === name ? null : name;
+                },
+                closeDropdowns() {
+                    this.activeDropdown = null;
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .rotate-180 {
+            transform: rotate(180deg);
+        }
+        .transition-transform {
+            transition: transform 0.2s ease;
+        }
+    </style>
+</body>
+</html>

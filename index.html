@@ -104,92 +104,82 @@
 <body class="font-inter text-gray-800 bg-gray-50">
 
   <!-- Header -->
-  <header class="fixed top-0 w-full bg-white shadow-md z-50">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="#" class="text-2xl font-bold text-blue-600 flex items-center">
-        <i data-lucide="hospital" class="w-8 h-8 mr-2"></i>
-        Heirs Multispecialist
+<!-- Header - Single Unified Navbar -->
+<header class="fixed top-0 w-full bg-white shadow-md z-50">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <a href="index.html" class="text-2xl font-bold text-blue-600 flex items-center">
+      <i data-lucide="hospital" class="w-8 h-8 mr-2"></i>
+      Heirs 
+    </a>
+    <div class="hidden lg:flex space-x-4">
+      <a href="index.html" class="text-gray-600 hover:text-blue-600 flex items-center">
+        <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
       </a>
-        <nav class="fixed top-0 w-full bg-white shadow-md z-50">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="index.html" class="text-2xl font-bold text-blue-600 flex items-center">
-        <i data-lucide="hospital" class="w-8 h-8 mr-2"></i>
-        Heirs Multispecialist
+      <a href="about.html" class="text-gray-600 hover:text-blue-600 flex items-center">
+        <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
       </a>
-      <div class="hidden md:flex space-x-6">
-        <a href="index.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
-        </a>
-        <a href="about.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
-        </a>
-        <a href="services.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
-        </a>
-        <a href="department.html" class="text-blue-600 font-semibold flex items-center">
-          <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
-        </a>
-        <a href="contact.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
-        </a>
-        <a href="contact.html#appointmentform" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 text-sm flex items-center">
-          <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
-        </a>
-      </div>
-      <div class="flex items-center space-x-4">
-        <a href="tel:+234123456789" class="bg-red-500 text-white px-4 py-2 rounded-full text-sm flex items-center hover:bg-red-600">
-          <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
-        </a>
-        <button onclick="toggleMobileMenu()" class="md:hidden text-gray-600">
-          <i data-lucide="menu" class="w-6 h-6"></i>
-        </button>
-      </div>
+      <a href="services.html" class="text-gray-600 hover:text-blue-600 flex items-center">
+        <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
+      </a>
+      <a href="department.html" class="text-gray-600 hover:text-blue-600 flex items-center">
+        <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
+      </a>
+      <a href="heirs-institute.html" class="text-gray-600 hover:text-blue-600 flex items-center whitespace-nowrap">
+        <i data-lucide="graduation-cap" class="w-5 h-5 mr-1"></i> Heirs Institute
+      </a>
+      <a href="blog.html" class="text-gray-600 hover:text-blue-600 flex items-center">
+        <i data-lucide="newspaper" class="w-5 h-5 mr-1"></i> Blog
+      </a>
+      <a href="contact.html" class="text-gray-600 hover:text-blue-600 flex items-center">
+        <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
+      </a>
+      <a href="contact.html#appointmentform" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 text-sm flex items-center whitespace-nowrap">
+        <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
+      </a>
     </div>
-    <div id="mobileMenu" class="hidden md:hidden bg-white shadow-md">
-      <nav class="px-4 py-4 space-y-2">
-        <a href="index.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
-        </a>
-        <a href="about.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
-        </a>
-        <a href="services.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
-        </a>
-        <a href="department.html" class="block text-blue-600 font-semibold flex items-center">
-          <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
-        </a>
-        <a href="contact.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
-        </a>
-        <a href="contact.html#appointmentform" class="block bg-blue-600 text-white px-4 py-2 rounded-full text-sm flex items-center">
-          <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
-        </a>
-      </nav>
+    <div class="flex items-center space-x-4">
+      <a href="tel:+234123456789" class="hidden md:flex bg-red-500 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-red-600 whitespace-nowrap">
+        <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
+      </a>
+      <button onclick="toggleMobileMenu()" class="lg:hidden text-gray-600">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
     </div>
-  </nav>
-      <div class="flex items-center space-x-4">
-        <a href="tel:+234123456789" class="emergency-btn text-white px-4 py-2 rounded-full text-sm flex items-center">
-          <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
-        </a>
-        <button onclick="toggleMobileMenu()" class="md:hidden">
-          <i data-lucide="menu" class="w-6 h-6"></i>
-        </button>
-      </div>
-    </div>
-
-    <div id="mobileMenu" class="hidden md:hidden bg-white shadow-md">
-      <nav class="px-4 py-4 space-y-2">
-        <a href="#home" class="block text-gray-600 hover:text-blue-600">Home</a>
-        <a href="#about" class="block text-gray-600 hover:text-blue-600">About</a>
-        <a href="#services" class="block text-gray-600 hover:text-blue-600">Services</a>
-        <a href="#departments" class="block text-gray-600 hover:text-blue-600">Departments</a>
-        <a href="#testimonials" class="block text-gray-600 hover:text-blue-600">Testimonials</a>
-        <a href="#cta" class="block btn-primary text-white px-4 py-2 rounded-full text-sm">Book Appointment</a>
-      </nav>
-    </div>
-  </header>
-
+  </div>
+  
+  <!-- Mobile Menu -->
+  <div id="mobileMenu" class="hidden lg:hidden bg-white shadow-md">
+    <nav class="px-4 py-4 space-y-2">
+      <a href="index.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
+        <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
+      </a>
+      <a href="about.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
+        <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
+      </a>
+      <a href="services.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
+        <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
+      </a>
+      <a href="department.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
+        <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
+      </a>
+      <a href="heirs-institute.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
+        <i data-lucide="graduation-cap" class="w-5 h-5 mr-1"></i> Heirs Institute
+      </a>
+      <a href="blog.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
+        <i data-lucide="newspaper" class="w-5 h-5 mr-1"></i> Blog
+      </a>
+      <a href="contact.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
+        <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
+      </a>
+      <a href="contact.html#appointmentform" class="block bg-blue-600 text-white px-4 py-2 rounded-full text-sm flex items-center">
+        <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
+      </a>
+      <a href="tel:+234123456789" class="block bg-red-500 text-white px-4 py-2 rounded-full text-sm flex items-center">
+        <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
+      </a>
+    </nav>
+  </div>
+</header>
   <!-- Hero Carousel Section -->
   <section id="home" class="relative">
     <div id="heroCarousel" class="hero-carousel">

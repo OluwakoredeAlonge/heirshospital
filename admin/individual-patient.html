@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Profile - Methuselah Project</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen" x-data="{
+    mobileMenuOpen: false,
+    currentTab: 'overview',
+    patient: {
+        id: 'MTP-2024-001',
+        name: 'Mrs. Adebayo Folake',
+        age: 72,
+        gender: 'Female',
+        phone: '08012345678',
+        address: 'Irare Estate, Oye Ekiti',
+        nextOfKin: '08098765432',
+        registrationDate: '2024-01-15',
+        lastVisit: '2024-12-08',
+        nextAppointment: '2025-01-18',
+        conditions: ['Hypertension', 'Arthritis'],
+        status: 'Active',
+        vitals: { bp: '130/85', weight: '68kg', bmi: '24.5' },
+        medications: ['Amlodipine 5mg', 'Ibuprofen 400mg'],
+        visits: 8,
+        compliance: 95,
+        photo: null,
+        pastMedicalHistory: 'History of hypertension since 2010, knee replacement surgery in 2018.',
+        familyHistory: 'Father had diabetes, mother had hypertension.',
+        socialHistory: 'Non-smoker, occasional alcohol, lives with family.',
+        visitHistory: [
+            {
+                date: '2024-12-08',
+                type: 'Follow-up',
+                notes: 'Blood pressure stable, advised to continue medications.',
+                clinician: 'Dr. Adeyemi'
+            },
+            {
+                date: '2024-11-15',
+                type: 'Primary',
+                notes: 'Complaints of joint pain, prescribed ibuprofen.',
+                clinician: 'Dr. Adeyemi'
+            },
+            {
+                date: '2024-10-20',
+                type: 'Follow-up',
+                notes: 'Routine check-up, vitals normal.',
+                clinician: 'Dr. Adeyemi'
+            }
+        ],
+        pastMedications: ['Lisinopril 10mg (discontinued 2023)', 'Aspirin 75mg (discontinued 2022)'],
+        tests: [
+            {
+                date: '2024-12-08',
+                type: 'Blood Pressure',
+                result: '130/85 mmHg'
+            },
+            {
+                date: '2024-11-15',
+                type: 'Blood Sugar',
+                result: '110 mg/dL'
+            },
+            {
+                date: '2024-10-20',
+                type: 'Cholesterol',
+                result: '180 mg/dL'
+            }
+        ]
+    },
+    addNewVisit() {
+        alert('Adding new visit for ' + this.patient.name);
+    },
+    scheduleFollowUp() {
+        alert('Scheduling follow-up for ' + this.patient.name);
+    },
+    printSummary() {
+        alert('Printing patient summary for ' + this.patient.name);
+    },
+    editPatientInfo() {
+        alert('Editing patient info for ' + this.patient.name);
+    }
+}">
+    
+    <!-- Top Navbar -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50 border-b-4 border-purple-600">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo and Brand -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-purple-600 to-purple-800 rounded-xl flex items-center justify-center shadow-lg">
+                        <i data-lucide="heart" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <div class="hidden sm:block">
+                        <h1 class="text-xl font-bold text-gray-800">Methuselah Project</h1>
+                        <p class="text-xs text-gray-500">Elderly Care Program</p>
+                    </div>
+                    <div class="sm:hidden">
+                        <h1 class="text-lg font-bold text-gray-800">Methuselah</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4 inline mr-2"></i>Dashboard
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg bg-purple-100 text-purple-700 font-medium text-sm">
+                        <i data-lucide="users" class="w-4 h-4 inline mr-2"></i>Patients
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="calendar" class="w-4 h-4 inline mr-2"></i>Appointments
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="clipboard-list" class="w-4 h-4 inline mr-2"></i>Visits
+                    </a>
+                    <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
+                        <i data-lucide="bar-chart-3" class="w-4 h-4 inline mr-2"></i>Reports
+                    </a>
+                </div>
+
+                <!-- Right Side Actions -->
+                <div class="flex items-center space-x-3">
+                    <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition">
+                        <i data-lucide="bell" class="w-5 h-5"></i>
+                        <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                    </button>
+
+                    <div class="hidden sm:flex items-center space-x-2 pl-3 border-l border-gray-200">
+                        <div class="w-9 h-9 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center">
+                            <span class="text-sm font-bold text-white">DA</span>
+                        </div>
+                        <div class="hidden lg:block">
+                            <p class="text-sm font-medium text-gray-800">Dr. Adeyemi</p>
+                            <p class="text-xs text-gray-500">Clinician</p>
+                        </div>
+                    </div>
+
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div 
+            x-show="mobileMenuOpen" 
+            @click.away="mobileMenuOpen = false"
+            x-transition
+            class="lg:hidden border-t border-gray-200 bg-white"
+            x-cloak
+        >
+            <div class="px-4 py-4 space-y-2">
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-purple-100 text-purple-700">
+                    <i data-lucide="users" class="w-5 h-5"></i>
+                    <span>Patients</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="calendar" class="w-5 h-5"></i>
+                    <span>Appointments</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="clipboard-list" class="w-5 h-5"></i>
+                    <span>Visits</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-600 hover:bg-gray-100 transition">
+                    <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+                    <span>Reports</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        
+        <!-- Page Header -->
+        <div class="mb-6">
+            <div class="flex items-center space-x-2 text-sm text-gray-500 mb-3">
+                <a href="#" class="hover:text-purple-600">Dashboard</a>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                <a href="#" class="hover:text-purple-600">Patients</a>
+                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                <span class="text-purple-600 font-medium" x-text="patient.name"></span>
+            </div>
+            <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+                <!-- Patient Header -->
+                <div class="flex items-start space-x-6">
+                    <div class="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
+                        <template x-if="patient.photo">
+                            <img :src="patient.photo" class="w-full h-full rounded-full object-cover">
+                        </template>
+                        <template x-if="!patient.photo">
+                            <i data-lucide="user" class="w-12 h-12 text-gray-500"></i>
+                        </template>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900" x-text="patient.name"></h2>
+                        <div class="flex items-center space-x-4 mt-2 text-gray-600">
+                            <span x-text="`${patient.age} years`"></span>
+                            <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
+                            <span x-text="patient.gender"></span>
+                            <span class="w-1 h-1 bg-gray-400 rounded-full"></span>
+                            <span x-text="patient.id"></span>
+                        </div>
+                        <p class="mt-2 text-sm text-gray-500">
+                            Registered: <span x-text="patient.registrationDate"></span>
+                        </p>
+                    </div>
+                </div>
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap gap-3">
+                    <button @click="addNewVisit" class="bg-gradient-to-r from-purple-600 to-purple-700 text-white px-4 py-2 rounded-xl font-semibold hover:from-purple-700 hover:to-purple-800 transition shadow-lg flex items-center space-x-2">
+                        <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                        <span>Add New Visit</span>
+                    </button>
+                    <button @click="scheduleFollowUp" class="bg-blue-600 text-white px-4 py-2 rounded-xl font-semibold hover:bg-blue-700 transition flex items-center space-x-2">
+                        <i data-lucide="calendar" class="w-4 h-4"></i>
+                        <span>Schedule Follow-up</span>
+                    </button>
+                    <button @click="printSummary" class="bg-green-600 text-white px-4 py-2 rounded-xl font-semibold hover:bg-green-700 transition flex items-center space-x-2">
+                        <i data-lucide="printer" class="w-4 h-4"></i>
+                        <span>Print Summary</span>
+                    </button>
+                    <button @click="editPatientInfo" class="bg-gray-200 text-gray-800 px-4 py-2 rounded-xl font-semibold hover:bg-gray-300 transition flex items-center space-x-2">
+                        <i data-lucide="edit" class="w-4 h-4"></i>
+                        <span>Edit Info</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="bg-white rounded-t-2xl border border-gray-200 shadow-sm overflow-hidden">
+            <ul class="flex border-b border-gray-200">
+                <li class="flex-1">
+                    <button
+                        @click="currentTab = 'overview'"
+                        :class="currentTab === 'overview' ? 'border-b-4 border-purple-600 text-purple-700' : 'text-gray-600'"
+                        class="w-full px-4 py-4 font-semibold text-sm transition flex items-center justify-center space-x-2"
+                    >
+                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                        <span>Overview</span>
+                    </button>
+                </li>
+                <li class="flex-1">
+                    <button
+                        @click="currentTab = 'medical-history'"
+                        :class="currentTab === 'medical-history' ? 'border-b-4 border-purple-600 text-purple-700' : 'text-gray-600'"
+                        class="w-full px-4 py-4 font-semibold text-sm transition flex items-center justify-center space-x-2"
+                    >
+                        <i data-lucide="heart-pulse" class="w-4 h-4"></i>
+                        <span>Medical History</span>
+                    </button>
+                </li>
+                <li class="flex-1">
+                    <button
+                        @click="currentTab = 'visits'"
+                        :class="currentTab === 'visits' ? 'border-b-4 border-purple-600 text-purple-700' : 'text-gray-600'"
+                        class="w-full px-4 py-4 font-semibold text-sm transition flex items-center justify-center space-x-2"
+                    >
+                        <i data-lucide="clipboard-list" class="w-4 h-4"></i>
+                        <span>Visits</span>
+                    </button>
+                </li>
+                <li class="flex-1">
+                    <button
+                        @click="currentTab = 'medications'"
+                        :class="currentTab === 'medications' ? 'border-b-4 border-purple-600 text-purple-700' : 'text-gray-600'"
+                        class="w-full px-4 py-4 font-semibold text-sm transition flex items-center justify-center space-x-2"
+                    >
+                        <i data-lucide="pill" class="w-4 h-4"></i>
+                        <span>Medications</span>
+                    </button>
+                </li>
+                <li class="flex-1">
+                    <button
+                        @click="currentTab = 'tests'"
+                        :class="currentTab === 'tests' ? 'border-b-4 border-purple-600 text-purple-700' : 'text-gray-600'"
+                        class="w-full px-4 py-4 font-semibold text-sm transition flex items-center justify-center space-x-2"
+                    >
+                        <i data-lucide="test-tube" class="w-4 h-4"></i>
+                        <span>Tests & Results</span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="bg-white rounded-b-2xl shadow-sm border border-t-0 border-gray-200 p-6 mb-8">
+
+            <!-- Overview Tab -->
+            <div x-show="currentTab === 'overview'" x-cloak>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Current Conditions -->
+                    <div class="bg-purple-50 rounded-xl p-4">
+                        <h4 class="text-sm font-semibold text-purple-900 mb-3 flex items-center">
+                            <i data-lucide="alert-circle" class="w-4 h-4 mr-2"></i>
+                            Current Conditions
+                        </h4>
+                        <ul class="space-y-2">
+                            <template x-for="condition in patient.conditions" :key="condition">
+                                <li class="text-sm text-gray-800" x-text="condition"></li>
+                            </template>
+                        </ul>
+                    </div>
+                    <!-- Last Visit -->
+                    <div class="bg-blue-50 rounded-xl p-4">
+                        <h4 class="text-sm font-semibold text-blue-900 mb-3 flex items-center">
+                            <i data-lucide="calendar-check" class="w-4 h-4 mr-2"></i>
+                            Last Visit
+                        </h4>
+                        <p class="text-lg font-bold text-gray-900" x-text="patient.lastVisit"></p>
+                        <p class="text-sm text-gray-600 mt-1">Status: <span x-text="patient.status"></span></p>
+                    </div>
+                    <!-- Next Appointment -->
+                    <div class="bg-green-50 rounded-xl p-4">
+                        <h4 class="text-sm font-semibold text-green-900 mb-3 flex items-center">
+                            <i data-lucide="calendar" class="w-4 h-4 mr-2"></i>
+                            Next Appointment
+                        </h4>
+                        <p class="text-lg font-bold text-gray-900" x-text="patient.nextAppointment"></p>
+                        <p class="text-sm text-gray-600 mt-1">Compliance: <span x-text="`${patient.compliance}%`"></span></p>
+                    </div>
+                    <!-- Current Medications -->
+                    <div class="bg-orange-50 rounded-xl p-4">
+                        <h4 class="text-sm font-semibold text-orange-900 mb-3 flex items-center">
+                            <i data-lucide="pill" class="w-4 h-4 mr-2"></i>
+                            Current Medications
+                        </h4>
+                        <ul class="space-y-2">
+                            <template x-for="med in patient.medications" :key="med">
+                                <li class="text-sm text-gray-800" x-text="med"></li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Medical History Tab -->
+            <div x-show="currentTab === 'medical-history'" x-cloak>
+                <div class="space-y-8">
+                    <!-- Past Medical History -->
+                    <div>
+                        <h4 class="text-lg font-bold text-gray-900 mb-3">Past Medical History</h4>
+                        <p class="text-gray-700" x-text="patient.pastMedicalHistory"></p>
+                    </div>
+                    <!-- Family History -->
+                    <div class="pt-6 border-t border-gray-200">
+                        <h4 class="text-lg font-bold text-gray-900 mb-3">Family History</h4>
+                        <p class="text-gray-700" x-text="patient.familyHistory"></p>
+                    </div>
+                    <!-- Social History -->
+                    <div class="pt-6 border-t border-gray-200">
+                        <h4 class="text-lg font-bold text-gray-900 mb-3">Social History</h4>
+                        <p class="text-gray-700" x-text="patient.socialHistory"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visits Timeline Tab -->
+            <div x-show="currentTab === 'visits'" x-cloak>
+                <div class="space-y-4">
+                    <template x-for="(visit, index) in patient.visitHistory" :key="index">
+                        <div class="bg-gray-50 rounded-xl p-4 cursor-pointer hover:bg-gray-100 transition">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <p class="font-semibold text-gray-900" x-text="visit.date"></p>
+                                    <p class="text-sm text-gray-600" x-text="visit.type"></p>
+                                </div>
+                                <i data-lucide="chevron-down" class="w-5 h-5 text-gray-500"></i>
+                            </div>
+                            <!-- Expandable content -->
+                            <div class="mt-4 text-gray-700" x-text="visit.notes"></div>
+                            <p class="text-sm text-gray-500 mt-2" x-text="`Clinician: ${visit.clinician}`"></p>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Medications Tab -->
+            <div x-show="currentTab === 'medications'" x-cloak>
+                <div class="space-y-8">
+                    <!-- Current Medications -->
+                    <div>
+                        <h4 class="text-lg font-bold text-gray-900 mb-3">Current Medications</h4>
+                        <ul class="space-y-2">
+                            <template x-for="med in patient.medications" :key="med">
+                                <li class="flex items-center space-x-2">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-green-600"></i>
+                                    <span x-text="med"></span>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                    <!-- Past Medications -->
+                    <div class="pt-6 border-t border-gray-200">
+                        <h4 class="text-lg font-bold text-gray-900 mb-3">Past Medications</h4>
+                        <ul class="space-y-2">
+                            <template x-for="med in patient.pastMedications" :key="med">
+                                <li class="flex items-center space-x-2">
+                                    <i data-lucide="x-circle" class="w-4 h-4 text-red-600"></i>
+                                    <span x-text="med"></span>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tests & Results Tab -->
+            <div x-show="currentTab === 'tests'" x-cloak>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Test Type</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Result</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <template x-for="test in patient.tests" :key="test.date">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" x-text="test.date"></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" x-text="test.type"></td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900" x-text="test.result"></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

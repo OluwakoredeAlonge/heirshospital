@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments Admin Dashboard - Heirs Hospital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-50">
+    <div x-data="dashboardData()">
+       
+        <!-- Navbar -->
+        <nav class="bg-white shadow-lg sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <!-- Logo -->
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="calendar-check" class="w-8 h-8 text-blue-600"></i>
+                        <span class="text-xl font-bold text-gray-800">Appointments Admin</span>
+                    </div>
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex items-center space-x-1">
+                        <!-- Appointments Dropdown -->
+                        <div class="relative">
+                            <button @click="toggleDropdown('appointments')"
+                                    class="px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center space-x-2 transition">
+                                <span class="text-gray-700 font-medium">Appointments</span>
+                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{'rotate-180': activeDropdown === 'appointments'}"></i>
+                            </button>
+                            <div x-show="activeDropdown === 'appointments'"
+                                 x-transition
+                                 @click.away="closeDropdowns()"
+                                 class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-2">
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="plus-circle" class="w-4 h-4 text-blue-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">New Appointment</span>
+                                </a>
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="calendar" class="w-4 h-4 text-green-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">All Appointments</span>
+                                </a>
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="clock" class="w-4 h-4 text-purple-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">Pending</span>
+                                </a>
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-orange-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">Confirmed</span>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Schedule Management Dropdown (2 Columns) -->
+                        <div class="relative">
+                            <button @click="toggleDropdown('schedule')"
+                                    class="px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center space-x-2 transition">
+                                <span class="text-gray-700 font-medium">Schedule</span>
+                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{'rotate-180': activeDropdown === 'schedule'}"></i>
+                            </button>
+                            <div x-show="activeDropdown === 'schedule'"
+                                 x-transition
+                                 @click.away="closeDropdowns()"
+                                 class="absolute top-full left-0 mt-2 w-96 bg-white rounded-lg shadow-xl py-3 px-2">
+                                <div class="grid grid-cols-2 gap-1">
+                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="layout-dashboard" class="w-4 h-4 text-red-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Dashboard</span>
+                                    </a>
+                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="calendar-days" class="w-4 h-4 text-pink-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Today's Schedule</span>
+                                    </a>
+                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="calendar-range" class="w-4 h-4 text-orange-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Weekly View</span>
+                                    </a>
+                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="calendar" class="w-4 h-4 text-blue-400 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Monthly View</span>
+                                    </a>
+                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="user-check" class="w-4 h-4 text-teal-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Doctor Availability</span>
+                                    </a>
+                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="stethoscope" class="w-4 h-4 text-cyan-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">By Department</span>
+                                    </a>
+                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="map-pin" class="w-4 h-4 text-indigo-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">By Location</span>
+                                    </a>
+                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
+                                        <i data-lucide="settings" class="w-4 h-4 text-purple-500 inline-block"></i>
+                                        <span class="ml-2 text-gray-700 text-sm">Settings</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Patients Dropdown -->
+                        <div class="relative">
+                            <button @click="toggleDropdown('patients')"
+                                    class="px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center space-x-2 transition">
+                                <span class="text-gray-700 font-medium">Patients</span>
+                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{'rotate-180': activeDropdown === 'patients'}"></i>
+                            </button>
+                            <div x-show="activeDropdown === 'patients'"
+                                 x-transition
+                                 @click.away="closeDropdowns()"
+                                 class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-2">
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="user-plus" class="w-4 h-4 text-blue-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">New Patient</span>
+                                </a>
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="users" class="w-4 h-4 text-green-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">All Patients</span>
+                                </a>
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="search" class="w-4 h-4 text-purple-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">Search Patient</span>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Reports Dropdown -->
+                        <div class="relative">
+                            <button @click="toggleDropdown('reports')"
+                                    class="px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center space-x-2 transition">
+                                <span class="text-gray-700 font-medium">Reports</span>
+                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{'rotate-180': activeDropdown === 'reports'}"></i>
+                            </button>
+                            <div x-show="activeDropdown === 'reports'"
+                                 x-transition
+                                 @click.away="closeDropdowns()"
+                                 class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-2">
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="trending-up" class="w-4 h-4 text-blue-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">Booking Trends</span>
+                                </a>
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="pie-chart" class="w-4 h-4 text-green-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">Department Stats</span>
+                                </a>
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="bar-chart" class="w-4 h-4 text-purple-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">No-Show Analysis</span>
+                                </a>
+                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
+                                    <i data-lucide="file-text" class="w-4 h-4 text-orange-500 inline-block"></i>
+                                    <span class="ml-3 text-gray-700">Export Data</span>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Logout Button -->
+                        <button class="ml-4 px-5 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg flex items-center space-x-2 transition">
+                            <i data-lucide="log-out" class="w-4 h-4"></i>
+                            <span>Logout</span>
+                        </button>
+                    </div>
+                    <!-- Mobile Menu Button -->
+                    <button @click="toggleDropdown('mobile')" class="md:hidden text-gray-700">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                <!-- Mobile Menu -->
+                <div x-show="activeDropdown === 'mobile'"
+                     x-transition
+                     class="md:hidden pb-4">
+                    <div class="space-y-2">
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">Appointments</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">Schedule</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">Patients</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">Reports</a>
+                        <button class="w-full text-left px-4 py-2 bg-red-500 text-white rounded mt-2">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Dashboard Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-gray-900">Appointments Dashboard</h1>
+                <p class="text-gray-600 mt-2">Manage all patient appointments and schedules.</p>
+            </div>
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 border-l-4 border-blue-500">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-3 bg-blue-100 rounded-lg">
+                            <i data-lucide="calendar" class="w-6 h-6 text-blue-600"></i>
+                        </div>
+                        <span class="text-sm font-semibold text-green-600 bg-green-100 px-3 py-1 rounded-full">+15%</span>
+                    </div>
+                    <h3 class="text-gray-500 text-sm font-medium mb-1">Total Appointments</h3>
+                    <p class="text-3xl font-bold text-gray-900 mb-2">1,247</p>
+                    <p class="text-xs text-gray-500">This month</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 border-l-4 border-green-500">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-3 bg-green-100 rounded-lg">
+                            <i data-lucide="calendar-days" class="w-6 h-6 text-green-600"></i>
+                        </div>
+                        <span class="text-sm font-semibold text-green-600 bg-green-100 px-3 py-1 rounded-full">Today</span>
+                    </div>
+                    <h3 class="text-gray-500 text-sm font-medium mb-1">Today's Appointments</h3>
+                    <p class="text-3xl font-bold text-gray-900 mb-2">48</p>
+                    <p class="text-xs text-gray-500">12 completed</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 border-l-4 border-orange-500">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-3 bg-orange-100 rounded-lg">
+                            <i data-lucide="clock" class="w-6 h-6 text-orange-600"></i>
+                        </div>
+                        <span class="text-sm font-semibold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">Pending</span>
+                    </div>
+                    <h3 class="text-gray-500 text-sm font-medium mb-1">Pending Approval</h3>
+                    <p class="text-3xl font-bold text-gray-900 mb-2">23</p>
+                    <p class="text-xs text-gray-500">Awaiting confirmation</p>
+                </div>
+                <!-- Card 4 -->
+                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 border-l-4 border-red-500">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="p-3 bg-red-100 rounded-lg">
+                            <i data-lucide="x-circle" class="w-6 h-6 text-red-600"></i>
+                        </div>
+                        <span class="text-sm font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">8%</span>
+                    </div>
+                    <h3 class="text-gray-500 text-sm font-medium mb-1">Cancellations</h3>
+                    <p class="text-3xl font-bold text-gray-900 mb-2">15</p>
+                    <p class="text-xs text-gray-500">This week</p>
+                </div>
+            </div>
+            <!-- Additional Info Cards -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                <!-- Today's Schedule -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold text-gray-900">Today's Schedule</h2>
+                        <i data-lucide="more-vertical" class="w-5 h-5 text-gray-400"></i>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4 p-3 hover:bg-gray-50 rounded-lg transition">
+                            <div class="p-2 bg-blue-100 rounded-lg">
+                                <i data-lucide="clock" class="w-5 h-5 text-blue-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <p class="text-sm font-semibold text-gray-900">09:00 AM - Dr. Osisiogu</p>
+                                    <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-full">Confirmed</span>
+                                </div>
+                                <p class="text-xs text-gray-500">John Adebayo - General Checkup</p>
+                                <p class="text-xs text-gray-400 mt-1">Oye Ekiti Branch</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 p-3 hover:bg-gray-50 rounded-lg transition">
+                            <div class="p-2 bg-green-100 rounded-lg">
+                                <i data-lucide="clock" class="w-5 h-5 text-green-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <p class="text-sm font-semibold text-gray-900">10:30 AM - Dr. Yemisi</p>
+                                    <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-full">Confirmed</span>
+                                </div>
+                                <p class="text-xs text-gray-500">Sarah Olamide - Dental Care</p>
+                                <p class="text-xs text-gray-400 mt-1">Ado Ekiti Branch</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 p-3 hover:bg-gray-50 rounded-lg transition">
+                            <div class="p-2 bg-orange-100 rounded-lg">
+                                <i data-lucide="clock" class="w-5 h-5 text-orange-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <p class="text-sm font-semibold text-gray-900">02:00 PM - Dr. Osisiogu</p>
+                                    <span class="text-xs px-2 py-1 bg-orange-100 text-orange-700 rounded-full">Pending</span>
+                                </div>
+                                <p class="text-xs text-gray-500">David Oluwaseun - X-Ray Imaging</p>
+                                <p class="text-xs text-gray-400 mt-1">Oye Ekiti Branch</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 p-3 hover:bg-gray-50 rounded-lg transition">
+                            <div class="p-2 bg-purple-100 rounded-lg">
+                                <i data-lucide="clock" class="w-5 h-5 text-purple-600"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <p class="text-sm font-semibold text-gray-900">04:00 PM - Dr. Yemisi</p>
+                                    <span class="text-xs px-2 py-1 bg-green-100 text-green-700 rounded-full">Confirmed</span>
+                                </div>
+                                <p class="text-xs text-gray-500">Grace Nkechi - Laboratory Test</p>
+                                <p class="text-xs text-gray-400 mt-1">Ado Ekiti Branch</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Quick Actions -->
+                <div class="bg-white rounded-xl shadow-md p-6">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold text-gray-900">Quick Actions</h2>
+                        <i data-lucide="more-vertical" class="w-5 h-5 text-gray-400"></i>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition group">
+                            <div class="flex flex-col items-center text-center">
+                                <div class="p-3 bg-blue-100 rounded-lg mb-3 group-hover:bg-blue-200 transition">
+                                    <i data-lucide="plus-circle" class="w-6 h-6 text-blue-600"></i>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-700">New Appointment</span>
+                            </div>
+                        </button>
+                        <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition group">
+                            <div class="flex flex-col items-center text-center">
+                                <div class="p-3 bg-green-100 rounded-lg mb-3 group-hover:bg-green-200 transition">
+                                    <i data-lucide="calendar-days" class="w-6 h-6 text-green-600"></i>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-700">View Schedule</span>
+                            </div>
+                        </button>
+                        <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition group">
+                            <div class="flex flex-col items-center text-center">
+                                <div class="p-3 bg-purple-100 rounded-lg mb-3 group-hover:bg-purple-200 transition">
+                                    <i data-lucide="search" class="w-6 h-6 text-purple-600"></i>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-700">Search Patient</span>
+                            </div>
+                        </button>
+                        <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-orange-500 hover:bg-orange-50 transition group">
+                            <div class="flex flex-col items-center text-center">
+                                <div class="p-3 bg-orange-100 rounded-lg mb-3 group-hover:bg-orange-200 transition">
+                                    <i data-lucide="bar-chart" class="w-6 h-6 text-orange-600"></i>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-700">Reports</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="mt-6 pt-6 border-t border-gray-200">
+                        <button class="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-lg font-semibold transition shadow-md hover:shadow-lg">
+                            <i data-lucide="calendar-check" class="w-5 h-5 inline mr-2"></i>
+                            Book Emergency Appointment
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Department Overview -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-8">
+                <h2 class="text-xl font-bold text-gray-900 mb-6">Department Appointments Overview</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="p-4 bg-gradient-to-br from-red-50 to-red-100 rounded-lg border border-red-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <i data-lucide="heart-pulse" class="w-6 h-6 text-red-600"></i>
+                            <span class="text-xs font-semibold text-red-700 bg-red-200 px-2 py-1 rounded">18 Today</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-800">General Medicine</h4>
+                        <p class="text-sm text-gray-600 mt-1">125 this week</p>
+                    </div>
+                    <div class="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <i data-lucide="tooth" class="w-6 h-6 text-blue-600"></i>
+                            <span class="text-xs font-semibold text-blue-700 bg-blue-200 px-2 py-1 rounded">12 Today</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-800">Dental Care</h4>
+                        <p class="text-sm text-gray-600 mt-1">87 this week</p>
+                    </div>
+                    <div class="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <i data-lucide="scan" class="w-6 h-6 text-purple-600"></i>
+                            <span class="text-xs font-semibold text-purple-700 bg-purple-200 px-2 py-1 rounded">8 Today</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-800">X-Ray & Imaging</h4>
+                        <p class="text-sm text-gray-600 mt-1">52 this week</p>
+                    </div>
+                    <div class="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200">
+                        <div class="flex items-center justify-between mb-2">
+                            <i data-lucide="test-tube" class="w-6 h-6 text-green-600"></i>
+                            <span class="text-xs font-semibold text-green-700 bg-green-200 px-2 py-1 rounded">10 Today</span>
+                        </div>
+                        <h4 class="font-semibold text-gray-800">Laboratory</h4>
+                        <p class="text-sm text-gray-600 mt-1">95 this week</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Upcoming Appointments -->
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-bold text-gray-900">Upcoming This Week</h2>
+                    <a href="#" class="text-blue-600 hover:text-blue-700 text-sm font-semibold">View All</a>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full min-w-max table-auto">
+                        <thead>
+                            <tr class="bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th class="px-6 py-3">Date</th>
+                                <th class="px-6 py-3">Time</th>
+                                <th class="px-6 py-3">Patient</th>
+                                <th class="px-6 py-3">Doctor</th>
+                                <th class="px-6 py-3">Department</th>
+                                <th class="px-6 py-3">Status</th>
+                                <th class="px-6 py-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 21, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">09:00 AM</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">John Adebayo</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dr. Osisiogu</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">General Medicine</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Confirmed</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                    <button class="text-blue-600 hover:text-blue-900 mr-3">
+                                        <i data-lucide="edit" class="w-4 h-4"></i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-900">
+                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 22, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">10:30 AM</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Sarah Olamide</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dr. Yemisi</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dental Care</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-800 rounded-full">Pending</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                    <button class="text-blue-600 hover:text-blue-900 mr-3">
+                                        <i data-lucide="edit" class="w-4 h-4"></i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-900">
+                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 23, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">02:00 PM</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">David Oluwaseun</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dr. Osisiogu</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">X-Ray & Imaging</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Confirmed</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                    <button class="text-blue-600 hover:text-blue-900 mr-3">
+                                        <i data-lucide="edit" class="w-4 h-4"></i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-900">
+                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 24, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">04:00 PM</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Grace Nkechi</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dr. Yemisi</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Laboratory</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">Cancelled</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                    <button class="text-blue-600 hover:text-blue-900 mr-3">
+                                        <i data-lucide="edit" class="w-4 h-4"></i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-900">
+                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dec 25, 2025</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">11:00 AM</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Michael Chukwu</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Dr. Osisiogu</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">General Medicine</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <span class="px-2 py-1 text-xs font-medium bg-orange-100 text-orange-800 rounded-full">Pending</span>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                    <button class="text-blue-600 hover:text-blue-900 mr-3">
+                                        <i data-lucide="edit" class="w-4 h-4"></i>
+                                    </button>
+                                    <button class="text-red-600 hover:text-red-900">
+                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        function dashboardData() {
+            return {
+                activeDropdown: null,
+                toggleDropdown(dropdown) {
+                    this.activeDropdown = this.activeDropdown === dropdown ? null : dropdown;
+                },
+                closeDropdowns() {
+                    this.activeDropdown = null;
+                }
+            };
+        }
+        lucide.createIcons();
+    </script>
+</body>
+</html>

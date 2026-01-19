@@ -3,28 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Blog of Heirs Multispecialist Hospital: Latest healthcare insights, tips, and news from our experts in Ekiti State.">
-  <meta name="keywords" content="Heirs Multispecialist Hospital blog, Ekiti health tips, medical news, Oye Ekiti hospital blog, Ado Ekiti healthcare updates">
-  <title>Blog - Heirs Multispecialist Hospital</title>
+  <meta name="description" content="Heirs Multispecialist Hospital Blog: Expert healthcare insights, medical tips, wellness advice, and the latest health news from Ekiti State's leading hospital.">
+  <meta name="keywords" content="Heirs Hospital blog, Ekiti health tips, medical news Nigeria, healthcare insights, wellness advice, Oye Ekiti hospital">
+  <title>Healthcare Blog & Insights - Heirs Multispecialist Hospital</title>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Heirs Multispecialist Hospital",
-    "description": "Premier healthcare provider in Ekiti State since 2010, offering world-class medical care.",
+    "@type": "Blog",
+    "name": "Heirs Multispecialist Hospital Blog",
+    "description": "Expert healthcare insights and medical advice from Ekiti State's premier hospital",
     "url": "https://heirsmultispecialisthospital.com.ng/blog",
-    "founder": [
-      {
-        "@type": "Person",
-        "name": "Dr. Soje Michael Osisiogu",
-        "jobTitle": "Co-Founder & Medical Director"
-      },
-      {
-        "@type": "Person",
-        "name": "Dr. Soje Anthonia Yemisi",
-        "jobTitle": "Co-Founder & Chief Specialist"
+    "publisher": {
+      "@type": "Organization",
+      "name": "Heirs Multispecialist Hospital",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://heirsmultispecialisthospital.com.ng/logo.png"
       }
-    ]
+    }
   }
   </script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -32,34 +28,113 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; }
+    
+    /* Mobile Sidebar */
+    .mobile-sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+      transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      z-index: 1000;
+      overflow-y: auto;
+      box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+    }
+    
+    .mobile-sidebar.open { right: 0; }
+    
+    .mobile-sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    
+    .mobile-sidebar-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Logo Styles */
+    .logo-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+    
+    .footer-logo-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    /* Animations */
     .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
+    
     .card-hover { transition: all 0.3s ease; }
     .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-    .gradient-text { background: linear-gradient(135deg, #2563eb, #1e40af); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .founder-card { 
-      background: rgba(255, 255, 255, 0.8); 
-      backdrop-filter: blur(10px); 
-      border: 1px solid rgba(255, 255, 255, 0.2); 
-      position: relative; 
-      overflow: hidden; 
+    
+    .gradient-text { 
+      background: linear-gradient(135deg, #2563eb, #1e40af); 
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent; 
     }
-    .founder-card::before { 
-      content: ''; 
-      position: absolute; 
-      top: 0; 
-      left: 0; 
-      right: 0; 
-      bottom: 0; 
-      border: 2px solid transparent; 
-      border-image: linear-gradient(135deg, #ffd700, #b8860b) 1; 
-      transition: all 0.3s ease; 
+
+    /* FIXED: Navbar Dropdown */
+    .nav-dropdown {
+      position: relative;
     }
-    .founder-card:hover::before { 
-      border-image: linear-gradient(135deg, #b8860b, #ffd700) 1; 
+    
+    .nav-dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      min-width: 200px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      margin-top: 8px;
+      z-index: 100;
+      padding: 8px 0;
     }
-    .stats-card { background: linear-gradient(135deg, #ffffff, #f1f5f9); }
-    .section-divider { position: relative; }
+    
+    /* CRITICAL FIX: Add padding-top to create hoverable area */
+    .nav-dropdown::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: transparent;
+    }
+    
+    .nav-dropdown:hover .nav-dropdown-content {
+      display: block;
+    }
+
+    .section-divider { position: relative; padding-top: 20px; }
     .section-divider::before { 
       content: ''; 
       position: absolute; 
@@ -70,186 +145,537 @@
       height: 4px; 
       background: linear-gradient(135deg, #2563eb, #1e40af); 
       border-radius: 2px; 
-      animation: pulse 2s infinite; 
     }
-    @keyframes pulse {
-      0% { transform: translateX(-50%) scale(1); }
-      50% { transform: translateX(-50%) scale(1.2); }
-      100% { transform: translateX(-50%) scale(1); }
+
+    .btn-primary { 
+      background-color: #2563eb; 
+      color: white;
+      transition: all 0.3s ease; 
     }
-    .btn-primary { background-color: #ffffff; color: #2563eb; transition: all 0.3s ease; }
-    .btn-primary:hover { background-color: #e2e8f0; transform: scale(1.05); }
-    .btn-secondary { border-color: #ffffff; color: #ffffff; transition: all 0.3s ease; }
-    .btn-secondary:hover { background-color: #ffffff; color: #2563eb; transform: scale(1.05); }
-    /* Responsive adjustments */
-    @media (max-width: 640px) {
-      .stats-card h2 { font-size: 1.5rem; line-height: 1.2; }
-      .container { padding-left: 1rem; padding-right: 1rem; }
+    .btn-primary:hover { 
+      background-color: #1e40af; 
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+    }
+    
+    .btn-secondary { 
+      border: 2px solid #2563eb;
+      color: #2563eb; 
+      transition: all 0.3s ease; 
+    }
+    .btn-secondary:hover { 
+      background-color: #2563eb; 
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Enhanced Footer */
+    .footer-gradient {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    }
+    
+    .masys-credit {
+      background: linear-gradient(90deg, #2563eb, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+    
+    .masys-credit:hover {
+      transform: scale(1.05);
+    }
+
+.blog-card {
+  border-radius: 1rem;          /* 16px */
+  overflow: hidden;
+  background: white;
+  transition: all 0.35s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.12);
+}
+
+/* Better title truncation */
+h2.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+p.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Grid - responsive columns */
+#blogGrid {
+  grid-template-columns: 1fr;
+  gap: 1.5rem; /* 24px */
+}
+
+@media (min-width: 640px) {
+  #blogGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  #blogGrid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Optional: nice touch for first/last cards on mobile */
+@media (max-width: 639px) {
+  .blog-card:nth-child(1) {
+    grid-column: 1 / -1;
+  }
+}
+    
+    .blog-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #2563eb, #3b82f6);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .blog-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .blog-card-img {
+      height: 220px;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    .category-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(37, 99, 235, 0.95);
+      color: white;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Search Bar */
+    .search-container {
+      position: relative;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 48px 12px 20px;
+      border: 2px solid #e5e7eb;
+      border-radius: 50px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    }
+
+    .search-btn {
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .search-btn:hover {
+      background: #1e40af;
+    }
+
+    /* Filter Tabs */
+    .filter-tabs {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+
+    .filter-tab {
+      padding: 10px 24px;
+      border: 2px solid #e5e7eb;
+      border-radius: 50px;
+      background: white;
+      color: #6b7280;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .filter-tab:hover {
+      border-color: #2563eb;
+      color: #2563eb;
+    }
+
+    .filter-tab.active {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
     }
   </style>
 </head>
-<body class="font-inter text-gray-800 bg-gray-50">
-  <!-- Navigation -->
-  <nav class="fixed top-0 w-full bg-white shadow-md z-50">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="index.html" class="text-2xl font-bold text-blue-600 flex items-center">
-        <i data-lucide="hospital" class="w-8 h-8 mr-2"></i>
-        Heirs Multispecialist
-      </a>
-      <div class="hidden md:flex space-x-6">
-        <a href="index.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
-        </a>
-        <a href="about.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
-        </a>
-        <a href="services.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
-        </a>
-        <a href="department.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
-        </a>
-        <a href="blog.html" class="text-blue-600 font-semibold flex items-center">
-          <i data-lucide="book-open" class="w-5 h-5 mr-1"></i> Blog
-        </a>
-        <a href="contact.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
-        </a>
-        <a href="contact.html#appointmentform" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 text-sm flex items-center">
-          <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
-        </a>
-      </div>
-      <div class="flex items-center space-x-4">
-        <a href="tel:+234123456789" class="bg-red-500 text-white px-4 py-2 rounded-full text-sm flex items-center hover:bg-red-600">
-          <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
-        </a>
-        <button onclick="toggleMobileMenu()" class="md:hidden text-gray-600">
-          <i data-lucide="menu" class="w-6 h-6"></i>
+<body class="text-gray-800 bg-gray-50">
+
+  <!-- Mobile Sidebar Overlay -->
+  <div class="mobile-sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
+
+  <!-- Mobile Sidebar -->
+  <div class="mobile-sidebar" id="mobileSidebar">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center">
+          <div class="logo-circle mr-3">
+            <i data-lucide="hospital" class="w-6 h-6 text-white"></i>
+          </div>
+          <span class="text-white font-bold text-lg">Heirs</span>
+        </div>
+        <button onclick="closeMobileSidebar()" class="text-white">
+          <i data-lucide="x" class="w-6 h-6"></i>
         </button>
       </div>
-    </div>
-    <div id="mobileMenu" class="hidden md:hidden bg-white shadow-md">
-      <nav class="px-4 py-4 space-y-2">
-        <a href="index.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
+      
+      <nav class="space-y-1">
+        <a href="index.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+          <i data-lucide="home" class="w-5 h-5 mr-3"></i> Home
         </a>
-        <a href="about.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
+        <a href="about.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+          <i data-lucide="info" class="w-5 h-5 mr-3"></i> About
         </a>
-        <a href="services.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
+        
+        <div class="border-t border-white border-opacity-20 pt-2 mt-2">
+          <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Care Services</p>
+          <a href="services.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+            <i data-lucide="stethoscope" class="w-5 h-5 mr-3"></i> Services
+          </a>
+          <a href="department.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+            <i data-lucide="layout-grid" class="w-5 h-5 mr-3"></i> Departments
+          </a>
+        </div>
+        
+        <div class="border-t border-white border-opacity-20 pt-2 mt-2">
+          <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Resources</p>
+          <a href="heirs-institute.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+            <i data-lucide="graduation-cap" class="w-5 h-5 mr-3"></i> Heirs Institute
+          </a>
+          <a href="blog.html" class="flex items-center text-white bg-white bg-opacity-20 px-4 py-3 rounded-lg transition">
+            <i data-lucide="newspaper" class="w-5 h-5 mr-3"></i> Blog
+          </a>
+        </div>
+        
+        <a href="contact.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+          <i data-lucide="mail" class="w-5 h-5 mr-3"></i> Contact
         </a>
-        <a href="department.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
-        </a>
-        <a href="blog.html" class="block text-blue-600 font-semibold flex items-center">
-          <i data-lucide="book-open" class="w-5 h-5 mr-1"></i> Blog
-        </a>
-        <a href="contact.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
-        </a>
-        <a href="contact.html#appointmentform" class="block bg-blue-600 text-white px-4 py-2 rounded-full text-sm flex items-center">
-          <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
-        </a>
+        
+        <div class="border-t border-white border-opacity-20 pt-4 mt-4 space-y-3">
+          <a href="contact.html#appointmentform" class="flex items-center justify-center bg-white text-blue-600 px-4 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">
+            <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
+          </a>
+          <a href="tel:+234123456789" class="flex items-center justify-center bg-red-500 text-white px-4 py-3 rounded-lg font-semibold hover:bg-red-600 transition">
+            <i data-lucide="phone" class="w-5 h-5 mr-2"></i> Emergency
+          </a>
+        </div>
       </nav>
     </div>
-  </nav>
+  </div>
+
+  <!-- Header -->
+  <header class="fixed top-0 w-full bg-white shadow-md z-50">
+    <div class="container mx-auto px-4 py-3">
+      <div class="flex justify-between items-center">
+        <a href="index.html" class="flex items-center">
+          <div class="logo-circle mr-3">
+            <i data-lucide="hospital" class="w-6 h-6 text-white"></i>
+          </div>
+          <span class="text-2xl font-bold text-blue-600">Heirs</span>
+        </a>
+
+        <nav class="hidden lg:flex items-center space-x-1">
+          <a href="index.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+            <i data-lucide="home" class="w-4 h-4 mr-1"></i> Home
+          </a>
+          <a href="about.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+            <i data-lucide="info" class="w-4 h-4 mr-1"></i> About
+          </a>
+          
+          <div class="nav-dropdown">
+            <button class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+              <i data-lucide="heart-pulse" class="w-4 h-4 mr-1"></i> Care <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
+            </button>
+            <div class="nav-dropdown-content">
+              <a href="services.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="stethoscope" class="w-4 h-4 mr-2"></i> Services
+              </a>
+              <a href="department.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="layout-grid" class="w-4 h-4 mr-2"></i> Departments
+              </a>
+            </div>
+          </div>
+          
+          <div class="nav-dropdown">
+            <button class="text-blue-600 font-semibold px-3 py-2 rounded-lg transition flex items-center">
+              <i data-lucide="book-open" class="w-4 h-4 mr-1"></i> Resources <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
+            </button>
+            <div class="nav-dropdown-content">
+              <a href="heirs-institute.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="graduation-cap" class="w-4 h-4 mr-2"></i> Heirs Institute
+              </a>
+              <a href="blog.html" class="block px-4 py-3 text-blue-600 bg-blue-50 font-semibold transition flex items-center">
+                <i data-lucide="newspaper" class="w-4 h-4 mr-2"></i> Blog
+              </a>
+            </div>
+          </div>
+          
+          <a href="contact.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+            <i data-lucide="mail" class="w-4 h-4 mr-1"></i> Contact
+          </a>
+        </nav>
+
+        <div class="flex items-center space-x-3">
+          <a href="contact.html#appointmentform" class="hidden md:flex bg-blue-600 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-blue-700 transition whitespace-nowrap">
+            <i data-lucide="calendar" class="w-4 h-4 mr-2"></i> Book Appointment
+          </a>
+          <a href="tel:+234123456789" class="hidden sm:flex bg-red-500 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-red-600 transition whitespace-nowrap">
+            <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
+          </a>
+          <button onclick="openMobileSidebar()" class="lg:hidden text-gray-600 hover:text-blue-600 transition">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
   <!-- Main Content -->
-  <main class="pt-16">
-    <!-- Blog Header Section -->
-    <section id="blog-header" class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
-      <div class="container mx-auto px-4 fade-in max-w-full">
+  <main class="pt-20">
+    <!-- Hero Section -->
+    <section class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
+      <div class="container mx-auto px-4 fade-in">
         <div class="text-center mb-12 section-divider">
-          <span class="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">Healthcare Insights</span>
-          <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-4">Heirs Multispecialist Hospital Blog</h1>
-          <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">Stay informed with the latest health tips, medical news, and expert advice from our team of specialists. Discover how we're advancing healthcare in Ekiti State and beyond.</p>
+          <span class="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">Healthcare Insights & Wellness Tips</span>
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Our Healthcare Blog</h1>
+          <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8">Stay informed with expert medical advice, health tips, and the latest healthcare news from Heirs Multispecialist Hospital. Your trusted source for wellness information in Ekiti State.</p>
+          
+          <!-- Search Bar -->
+          <div class="search-container mt-8">
+            <input type="text" class="search-input" placeholder="Search articles, topics, or health tips..." id="searchInput">
+            <button class="search-btn" onclick="searchArticles()">
+              <i data-lucide="search" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="filter-tabs">
+          <button class="filter-tab active" onclick="filterPosts('all')">All Articles</button>
+          <button class="filter-tab" onclick="filterPosts('wellness')">Wellness</button>
+          <button class="filter-tab" onclick="filterPosts('prevention')">Prevention</button>
+          <button class="filter-tab" onclick="filterPosts('treatment')">Treatment</button>
+          <button class="filter-tab" onclick="filterPosts('nutrition')">Nutrition</button>
+          <button class="filter-tab" onclick="filterPosts('pediatrics')">Pediatrics</button>
         </div>
       </div>
     </section>
 
-    <!-- Blog Posts List Section -->
+    <!-- Blog Posts Grid -->
     <section class="py-16 bg-white">
-      <div class="container mx-auto px-4 fade-in max-w-full">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Sample Blog Post 1 -->
-          <div class="stats-card p-6 rounded-2xl shadow-lg card-hover">
-            <img src="https://images.unsplash.com/photo-1576091160399-112ba2295810?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Understanding Heart Health" class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy">
-            <h2 class="text-xl font-bold gradient-text mb-2">Understanding Heart Health: Prevention and Care</h2>
-            <p class="text-gray-600 mb-4">Learn about the latest advancements in cardiology and how to maintain a healthy heart with tips from our experts.</p>
-            <div class="flex justify-between text-sm text-gray-500">
-              <span>October 15, 2025</span>
-              <span>By Dr. Soje Michael Osisiogu</span>
-            </div>
-            <div class="flex items-center text-sm text-gray-500 mt-2">
-              <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
-              <span>1,250 Views</span>
-            </div>
-            <a href="blog-detail.html?id=1" class="block mt-4 text-blue-600 hover:underline">Read More</a>
-          </div>
+      <div class="container mx-auto px-4 fade-in">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="blogGrid">
+          
+          <!-- Blog Post 1 -->
+        <!-- Example of improved single blog card -->
+<article class="blog-card group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col h-full"
+         data-category="prevention">
+  
+  <!-- Image + overlay + badge -->
+  <div class="relative overflow-hidden aspect-[5/3] md:aspect-[16/9]">
+    <img 
+      src="https://images.unsplash.com/photo-1628348070889-cb656235b4eb?auto=format&fit=crop&w=800&q=80"
+      alt="Heart Health Prevention Guide"
+      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      loading="lazy"
+    >
+    
+    <!-- Gradient overlay on hover -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    
+    <!-- Category badge -->
+    <span class="absolute top-4 left-4 z-10 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-md">
+      Prevention
+    </span>
+  </div>
 
-          <!-- Sample Blog Post 2 -->
-          <div class="stats-card p-6 rounded-2xl shadow-lg card-hover">
-            <img src="https://images.unsplash.com/photo-1587370560942-ad2a04eabb6d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="The Importance of Regular Check-ups" class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy">
-            <h2 class="text-xl font-bold gradient-text mb-2">The Importance of Regular Check-ups for Overall Wellness</h2>
-            <p class="text-gray-600 mb-4">Discover why preventive care is key to long-term health and how our services can help you stay ahead.</p>
-            <div class="flex justify-between text-sm text-gray-500">
-              <span>September 20, 2025</span>
-              <span>By Dr. Soje Anthonia Yemisi</span>
-            </div>
-            <div class="flex items-center text-sm text-gray-500 mt-2">
-              <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
-              <span>980 Views</span>
-            </div>
-            <a href="blog-detail.html?id=2" class="block mt-4 text-blue-600 hover:underline">Read More</a>
-          </div>
+  <!-- Content -->
+  <div class="p-5 md:p-6 flex flex-col flex-grow">
+    <h2 class="text-lg md:text-xl font-bold text-gray-800 line-clamp-2 mb-3 group-hover:text-blue-700 transition-colors">
+      Understanding Heart Health: Your Complete Prevention Guide
+    </h2>
+    
+    <p class="text-gray-600 text-sm md:text-base line-clamp-3 mb-5 flex-grow">
+      Discover evidence-based strategies to maintain cardiovascular health, including diet tips, exercise routines, and early warning signs to watch for.
+    </p>
 
-          <!-- Sample Blog Post 3 -->
-          <div class="stats-card p-6 rounded-2xl shadow-lg card-hover">
-            <img src="https://images.unsplash.com/photo-1587370560942-ad2a04eabb6d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Advances in Pediatric Care" class="w-full h-48 object-cover rounded-xl mb-4" loading="lazy">
-            <h2 class="text-xl font-bold gradient-text mb-2">Advances in Pediatric Care: Keeping Our Children Healthy</h2>
-            <p class="text-gray-600 mb-4">Explore new developments in children's health and tips for parents from our pediatric specialists.</p>
-            <div class="flex justify-between text-sm text-gray-500">
-              <span>August 5, 2025</span>
-              <span>By Dr. Soje Michael Osisiogu</span>
-            </div>
-            <div class="flex items-center text-sm text-gray-500 mt-2">
-              <i data-lucide="eye" class="w-4 h-4 mr-1"></i>
-              <span>1,500 Views</span>
-            </div>
-            <a href="blog-detail.html?id=3" class="block mt-4 text-blue-600 hover:underline">Read More</a>
-          </div>
+    <!-- Meta information - compact & modern -->
+    <div class="flex flex-wrap items-center gap-4 text-xs text-gray-500 mb-4">
+      <div class="flex items-center">
+        <i data-lucide="calendar" class="w-3.5 h-3.5 mr-1.5"></i>
+        <span>Dec 15, 2024</span>
+      </div>
+      <div class="flex items-center">
+        <i data-lucide="clock" class="w-3.5 h-3.5 mr-1.5"></i>
+        <span>7 min read</span>
+      </div>
+    </div>
+
+    <!-- Author + Read more -->
+    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center text-blue-700 font-medium text-sm">
+          AY
+        </div>
+        <span class="text-sm font-medium text-gray-700">Dr. A. Yemisi</span>
+      </div>
+
+      <a href="#" 
+         class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center gap-1.5 transition-colors">
+        Read article
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+  </div>
+</article>
+<!-- Example of improved single blog card -->
+<article class="blog-card group relative bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 flex flex-col h-full"
+         data-category="prevention">
+  
+  <!-- Image + overlay + badge -->
+  <div class="relative overflow-hidden aspect-[5/3] md:aspect-[16/9]">
+    <img 
+      src="https://images.unsplash.com/photo-1628348070889-cb656235b4eb?auto=format&fit=crop&w=800&q=80"
+      alt="Heart Health Prevention Guide"
+      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      loading="lazy"
+    >
+    
+    <!-- Gradient overlay on hover -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    
+    <!-- Category badge -->
+    <span class="absolute top-4 left-4 z-10 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-md">
+      Prevention
+    </span>
+  </div>
+
+  <!-- Content -->
+  <div class="p-5 md:p-6 flex flex-col flex-grow">
+    <h2 class="text-lg md:text-xl font-bold text-gray-800 line-clamp-2 mb-3 group-hover:text-blue-700 transition-colors">
+      Understanding Heart Health: Your Complete Prevention Guide
+    </h2>
+    
+    <p class="text-gray-600 text-sm md:text-base line-clamp-3 mb-5 flex-grow">
+      Discover evidence-based strategies to maintain cardiovascular health, including diet tips, exercise routines, and early warning signs to watch for.
+    </p>
+
+    <!-- Meta information - compact & modern -->
+    <div class="flex flex-wrap items-center gap-4 text-xs text-gray-500 mb-4">
+      <div class="flex items-center">
+        <i data-lucide="calendar" class="w-3.5 h-3.5 mr-1.5"></i>
+        <span>Dec 15, 2024</span>
+      </div>
+      <div class="flex items-center">
+        <i data-lucide="clock" class="w-3.5 h-3.5 mr-1.5"></i>
+        <span>7 min read</span>
+      </div>
+    </div>
+
+    <!-- Author + Read more -->
+    <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-100">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center text-blue-700 font-medium text-sm">
+          AY
+        </div>
+        <span class="text-sm font-medium text-gray-700">Dr. A. Yemisi</span>
+      </div>
+
+      <a href="#" 
+         class="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center gap-1.5 transition-colors">
+        Read article
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
+    </div>
+  </div>
+</article>
+
+        </div>
+
+        <!-- Load More Button -->
+        <div class="text-center mt-12">
+          <button class="btn-secondary px-8 py-3 rounded-full font-semibold inline-flex items-center">
+            <i data-lucide="refresh-cw" class="w-5 h-5 mr-2"></i> Load More Articles
+          </button>
         </div>
       </div>
     </section>
 
-<!-- Call to Action Section -->
+<!-- CTA Section -->
 <section class="py-20 bg-white text-blue-800">
   <div class="container mx-auto px-4 fade-in flex justify-center">
 
     <!-- CARD -->
     <div class="bg-blue-600/10 backdrop-blur-lg rounded-2xl shadow-xl p-10 max-w-3xl w-full text-center">
 
-      <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 text-blue-800">
-        Stay Healthy with Expert Advice
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-blue-800">
+        Have Health Concerns? We're Here to Help
       </h2>
 
-      <p class="text-base sm:text-lg mb-10 text-gray-700 max-w-2xl mx-auto">
-        Subscribe to our blog for the latest updates or book an appointment to discuss your health concerns with our specialists.
+      <p class="text-lg mb-10 text-gray-700">
+        Don't wait to address your health issues. Book an appointment with our specialists or visit our emergency department for immediate care.
       </p>
 
       <div class="flex flex-col md:flex-row justify-center gap-4">
         <a
-          href="contact.html"
+          href="contact.html#appointmentform"
           class="bg-blue-700 text-white px-8 py-4 rounded-full font-semibold hover:bg-blue-800 transition flex items-center justify-center"
         >
           <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
         </a>
 
         <a
-          href="services.html"
-          class="border border-blue-700 text-blue-700 px-8 py-4 rounded-full font-semibold hover:bg-blue-700 hover:text-white transition flex items-center justify-center"
+          href="tel:+234123456789"
+          class="bg-red-500 text-white px-8 py-4 rounded-full font-semibold hover:bg-red-600 transition flex items-center justify-center"
         >
-          <i data-lucide="arrow-right" class="w-5 h-5 mr-2"></i> Explore Services
+          <i data-lucide="phone" class="w-5 h-5 mr-2"></i> Call Emergency: +234 123 456 789
         </a>
       </div>
 
@@ -260,67 +686,206 @@
 
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-gray-800 text-white py-8">
+  <!-- Enhanced Footer -->
+  <footer class="footer-gradient text-white py-12">
     <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div>
-          <h3 class="text-lg font-semibold mb-4">Heirs Multispecialist Hospital</h3>
-          <p class="text-gray-400">123 Hospital Road, Oye Ekiti, Ekiti State</p>
-          <p class="text-gray-400">456 Health Avenue, Ado Ekiti, Ekiti State</p>
-          <p class="text-gray-400 mt-3"><strong>Phone:</strong> <a href="tel:+234123456789" class="hover:text-white">+234 123 456 789</a></p>
-          <p class="text-gray-400"><strong>Email:</strong> <a href="mailto:info@heirsmultispecialist.com" class="hover:text-white">info@heirsmultispecialist.com</a></p>
-          <div class="flex space-x-4 mt-4">
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter" class="w-5 h-5"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div class="lg:col-span-1">
+          <div class="flex items-center mb-6">
+            <div class="footer-logo-circle mr-4">
+              <i data-lucide="hospital" class="w-10 h-10 text-white"></i>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold">Heirs</h3>
+              <p class="text-sm text-gray-300">Multispecialist Hospital</p>
+            </div>
+          </div>
+          <p class="text-gray-300 mb-4">Providing exceptional healthcare services to Ekiti State since 2010. Your health, our priority.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Facebook">
+              <i data-lucide="facebook" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Twitter">
+              <i data-lucide="twitter" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Instagram">
+              <i data-lucide="instagram" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="LinkedIn">
+              <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </a>
           </div>
         </div>
+
         <div>
-          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="index.html" class="hover:text-white">Home</a></li>
-            <li><a href="about.html" class="hover:text-white">About Us</a></li>
-            <li><a href="services.html" class="hover:text-white">Services</a></li>
-            <li><a href="departments.html" class="hover:text-white">Departments</a></li>
-            <li><a href="blog.html" class="hover:text-white">Blog</a></li>
-            <li><a href="contact.html" class="hover:text-white">Contact</a></li>
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i data-lucide="map-pin" class="w-5 h-5 mr-2"></i> Our Locations
+          </h4>
+          <div class="space-y-4">
+            <div>
+              <p class="font-semibold text-blue-300">Main Branch - Oye Ekiti</p>
+              <p class="text-gray-300 text-sm">123 Hospital Road, Oye Ekiti, Ekiti State</p>
+            </div>
+            <div>
+              <p class="font-semibold text-blue-300">Ado Ekiti Branch</p>
+              <p class="text-gray-300 text-sm">Plot 3, Orimolade Crescent, Ilokun Estate, Ado Ekiti</p>
+            </div>
+          </div>
+          <div class="mt-4">
+            <p class="flex items-center text-gray-300 mb-2">
+              <i data-lucide="phone" class="w-4 h-4 mr-2"></i>
+              <a href="tel:+234123456789" class="hover:text-white transition">+234 123 456 789</a>
+            </p>
+            <p class="flex items-center text-gray-300">
+              <i data-lucide="mail" class="w-4 h-4 mr-2"></i>
+              <a href="mailto:info@heirsmultispecialist.com" class="hover:text-white transition">info@heirsmultispecialist.com</a>
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i data-lucide="link" class="w-5 h-5 mr-2"></i> Quick Links
+          </h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Home</a></li>
+            <li><a href="about.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> About Us</a></li>
+            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Services</a></li>
+            <li><a href="department.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Departments</a></li>
+            <li><a href="heirs-institute.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Heirs Institute</a></li>
+            <li><a href="blog.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Blog</a></li>
+            <li><a href="contact.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Contact</a></li>
           </ul>
         </div>
+
         <div>
-          <h4 class="text-lg font-semibold mb-4">Our Services</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="services.html" class="hover:text-white">X-Ray & Imaging</a></li>
-            <li><a href="services.html" class="hover:text-white">Dental Care</a></li>
-            <li><a href="services.html" class="hover:text-white">Laboratory Services</a></li>
-            <li><a href="services.html" class="hover:text-white">Pharmacy</a></li>
-            <li><a href="services.html" class="hover:text-white">Emergency Care</a></li>
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i data-lucide="newspaper" class="w-5 h-5 mr-2"></i> Popular Topics
+          </h4>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Heart Health</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Preventive Care</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Children's Health</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Nutrition Tips</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Mental Wellness</a></li>
+            <li><a href="#" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Emergency Care</a></li>
           </ul>
         </div>
       </div>
-      <div class="text-center text-gray-400 mt-8 pt-8 border-t border-gray-700">
-        &copy; 2025 Heirs Multispecialist Hospital. All Rights Reserved.
+
+      <div class="border-t border-gray-600 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <p class="text-gray-300 text-sm text-center md:text-left">
+            &copy; 2025 Heirs Multispecialist Hospital. All Rights Reserved.
+          </p>
+          <div class="flex items-center space-x-2">
+            <p class="text-gray-300 text-sm">Designed & Developed by</p>
+            <a href="#" class="masys-credit text-lg inline-block">MASYS</a>
+          </div>
+        </div>
+        <div class="mt-4 text-center">
+          <p class="text-gray-400 text-xs">Committed to Excellence in Healthcare | Ending Medical Tourism in Nigeria</p>
+        </div>
       </div>
     </div>
   </footer>
 
+  <!-- Scroll to Top -->
+  <a href="#" class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition transform hover:scale-110 z-40" aria-label="Scroll to top">
+    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+  </a>
+
   <script>
     lucide.createIcons();
-    function toggleMobileMenu() {
-      document.getElementById('mobileMenu').classList.toggle('hidden');
+
+    function openMobileSidebar() {
+      document.getElementById('mobileSidebar').classList.add('open');
+      document.getElementById('sidebarOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
     }
+
+    function closeMobileSidebar() {
+      document.getElementById('mobileSidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.1 });
+    
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', e => {
-        e.preventDefault();
-        document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        const href = anchor.getAttribute('href');
+        if (href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+            closeMobileSidebar();
+          }
+        }
       });
     });
+
+    // Filter functionality
+    function filterPosts(category) {
+      const posts = document.querySelectorAll('.blog-card');
+      const tabs = document.querySelectorAll('.filter-tab');
+      
+      // Update active tab
+      tabs.forEach(tab => tab.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      // Filter posts
+      posts.forEach(post => {
+        if (category === 'all' || post.dataset.category === category) {
+          post.style.display = 'flex';
+          setTimeout(() => {
+            post.style.opacity = '1';
+            post.style.transform = 'translateY(0)';
+          }, 10);
+        } else {
+          post.style.opacity = '0';
+          post.style.transform = 'translateY(20px)';
+          setTimeout(() => {
+            post.style.display = 'none';
+          }, 300);
+        }
+      });
+    }
+
+    // Search functionality
+    function searchArticles() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const posts = document.querySelectorAll('.blog-card');
+      
+      posts.forEach(post => {
+        const title = post.querySelector('h2').textContent.toLowerCase();
+        const description = post.querySelector('p').textContent.toLowerCase();
+        
+        if (title.includes(searchTerm) || description.includes(searchTerm)) {
+          post.style.display = 'flex';
+        } else {
+          post.style.display = 'none';
+        }
+      });
+    }
+
+    // Enter key for search
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        searchArticles();
+      }
+    });
+
+    setTimeout(() => lucide.createIcons(), 100);
   </script>
+
 </body>
 </html>

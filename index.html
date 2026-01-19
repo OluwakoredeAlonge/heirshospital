@@ -6,7 +6,6 @@
   <meta name="description" content="Heirs Multispecialist Hospital: Trusted healthcare in Oye Ekiti and Ado Ekiti. Explore X-ray, dental, laboratory, pharmacy, nutrition, and emergency services.">
   <meta name="keywords" content="Heirs Multispecialist Hospital, Oye Ekiti hospital, Ado Ekiti hospital, X-ray services, dental care, laboratory, pharmacy, emergency care">
   <title>Heirs Multispecialist Hospital | Oye & Ado Ekiti</title>
-  <!-- Schema Markup -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -23,39 +22,85 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/lucide@latest"></script>
- <style>
+  <style>
     html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; }
+    
+    /* Mobile Sidebar */
+    .mobile-sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+      transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      z-index: 1000;
+      overflow-y: auto;
+      box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+    }
+    
+    .mobile-sidebar.open {
+      right: 0;
+    }
+    
+    .mobile-sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    
+    .mobile-sidebar-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Logo Styles */
+    .logo-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+    
+    .footer-logo-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    /* Hero Carousel */
     .hero-carousel { overflow: hidden; position: relative; }
     .hero-track { display: flex; transition: transform 0.8s ease-in-out; }
-
-    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-    .card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
-
-    .btn-primary { background-color: #2563eb; }
-    .btn-primary:hover { background-color: #1e40af; }
-
-    .btn-secondary { border-color: #2563eb; color: #2563eb; }
-    .btn-secondary:hover { background-color: #2563eb; color: #fff; }
-
-    .emergency-btn { background-color: #ef4444; }
-    .emergency-btn:hover { background-color: #dc2626; }
-
+    
     .hero-slide { 
       background-size: cover; 
       background-position: center; 
       position: relative;
-      height: 75vh; /* reduced height for small devices */
+      height: 75vh;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
     @media (min-width: 768px) {
-      .hero-slide {
-        min-height: 100vh; /* full height only on medium+ screens */
-      }
+      .hero-slide { min-height: 100vh; }
     }
 
     .hero-slide::before {
@@ -65,12 +110,28 @@
       background: rgba(0, 0, 0, 0.5);
     }
 
+    /* Animations */
+    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    .card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
+
+    /* Buttons */
+    .btn-primary { background-color: #2563eb; transition: all 0.3s ease; }
+    .btn-primary:hover { background-color: #1e40af; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4); }
+
+    .btn-secondary { border-color: #2563eb; color: #2563eb; transition: all 0.3s ease; }
+    .btn-secondary:hover { background-color: #2563eb; color: #fff; }
+
+    .emergency-btn { background-color: #ef4444; transition: all 0.3s ease; }
+    .emergency-btn:hover { background-color: #dc2626; transform: scale(1.05); }
+
     .carousel-btn {
       background-color: rgba(255, 255, 255, 0.9);
       color: #2563eb;
       padding: 8px 16px;
       border-radius: 4px;
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      transition: all 0.3s ease;
     }
 
     .carousel-btn:hover {
@@ -78,108 +139,199 @@
       color: #fff;
       transform: scale(1.05);
     }
-       .founder-card { 
-      background: rgba(255, 255, 255, 0.8); 
-      backdrop-filter: blur(10px); 
-      border: 1px solid rgba(255, 255, 255, 0.2); 
-      position: relative; 
-      overflow: hidden; 
+
+    /* Navbar Grouping */
+    .nav-dropdown {
+      position: relative;
     }
-    .founder-card::before { 
-      content: ''; 
-      position: absolute; 
-      top: 0; 
-      left: 0; 
-      right: 0; 
-      bottom: 0; 
-      border: 2px solid transparent; 
-      border-image: linear-gradient(135deg, #ffd700, #b8860b) 1; 
-      transition: all 0.3s ease; 
+    
+.nav-dropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: transparent;
+}
+
+/* Also add padding to dropdown content */
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  margin-top: 8px;  /* This creates the gap that the ::after fills */
+  z-index: 100;
+  padding: 8px 0;   /* Add padding inside */
+}
+    
+    .nav-dropdown:hover .nav-dropdown-content {
+      display: block;
     }
-    .founder-card:hover::before { 
-      border-image: linear-gradient(135deg, #b8860b, #ffd700) 1; 
+
+    /* Enhanced Footer */
+    .footer-gradient {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    }
+    
+    .masys-credit {
+      background: linear-gradient(90deg, #2563eb, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+    
+    .masys-credit:hover {
+      transform: scale(1.05);
     }
   </style>
 </head>
-<body class="font-inter text-gray-800 bg-gray-50">
+<body class="text-gray-800 bg-gray-50">
+
+  <!-- Mobile Sidebar Overlay -->
+  <div class="mobile-sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
+
+  <!-- Mobile Sidebar -->
+  <div class="mobile-sidebar" id="mobileSidebar">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center">
+          <div class="logo-circle mr-3">
+            <i data-lucide="hospital" class="w-6 h-6 text-white"></i>
+          </div>
+          <span class="text-white font-bold text-lg">Heirs</span>
+        </div>
+        <button onclick="closeMobileSidebar()" class="text-white">
+          <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+      </div>
+      
+      <nav class="space-y-1">
+        <a href="index.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+          <i data-lucide="home" class="w-5 h-5 mr-3"></i> Home
+        </a>
+        <a href="about.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+          <i data-lucide="info" class="w-5 h-5 mr-3"></i> About
+        </a>
+        
+        <!-- Care Services Group -->
+        <div class="border-t border-white border-opacity-20 pt-2 mt-2">
+          <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Care Services</p>
+          <a href="services.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+            <i data-lucide="stethoscope" class="w-5 h-5 mr-3"></i> Services
+          </a>
+          <a href="department.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+            <i data-lucide="layout-grid" class="w-5 h-5 mr-3"></i> Departments
+          </a>
+        </div>
+        
+        <!-- Resources Group -->
+        <div class="border-t border-white border-opacity-20 pt-2 mt-2">
+          <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Resources</p>
+          <a href="heirs-institute.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+            <i data-lucide="graduation-cap" class="w-5 h-5 mr-3"></i> Heirs Institute
+          </a>
+          <a href="blog.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+            <i data-lucide="newspaper" class="w-5 h-5 mr-3"></i> Blog
+          </a>
+        </div>
+        
+        <a href="contact.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+          <i data-lucide="mail" class="w-5 h-5 mr-3"></i> Contact
+        </a>
+        
+        <!-- Action Buttons -->
+        <div class="border-t border-white border-opacity-20 pt-4 mt-4 space-y-3">
+          <a href="contact.html#appointmentform" class="flex items-center justify-center bg-white text-blue-600 px-4 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">
+            <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
+          </a>
+          <a href="tel:+234123456789" class="flex items-center justify-center bg-red-500 text-white px-4 py-3 rounded-lg font-semibold hover:bg-red-600 transition">
+            <i data-lucide="phone" class="w-5 h-5 mr-2"></i> Emergency
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
 
   <!-- Header -->
-<!-- Header - Single Unified Navbar -->
-<header class="fixed top-0 w-full bg-white shadow-md z-50">
-  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-    <a href="index.html" class="text-2xl font-bold text-blue-600 flex items-center">
-      <i data-lucide="hospital" class="w-8 h-8 mr-2"></i>
-      Heirs 
-    </a>
-    <div class="hidden lg:flex space-x-4">
-      <a href="index.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-        <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
-      </a>
-      <a href="about.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-        <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
-      </a>
-      <a href="services.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-        <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
-      </a>
-      <a href="department.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-        <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
-      </a>
-      <a href="heirs-institute.html" class="text-gray-600 hover:text-blue-600 flex items-center whitespace-nowrap">
-        <i data-lucide="graduation-cap" class="w-5 h-5 mr-1"></i> Heirs Institute
-      </a>
-      <a href="blog.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-        <i data-lucide="newspaper" class="w-5 h-5 mr-1"></i> Blog
-      </a>
-      <a href="contact.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-        <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
-      </a>
-      <a href="contact.html#appointmentform" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 text-sm flex items-center whitespace-nowrap">
-        <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
-      </a>
+  <header class="fixed top-0 w-full bg-white shadow-md z-50">
+    <div class="container mx-auto px-4 py-3">
+      <div class="flex justify-between items-center">
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center">
+          <div class="logo-circle mr-3">
+            <i data-lucide="hospital" class="w-6 h-6 text-white"></i>
+          </div>
+          <span class="text-2xl font-bold text-blue-600">Heirs</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden lg:flex items-center space-x-1">
+          <a href="index.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+            <i data-lucide="home" class="w-4 h-4 mr-1"></i> Home
+          </a>
+          <a href="about.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+            <i data-lucide="info" class="w-4 h-4 mr-1"></i> About
+          </a>
+          
+          <!-- Care Services Dropdown -->
+          <div class="nav-dropdown">
+            <button class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+              <i data-lucide="heart-pulse" class="w-4 h-4 mr-1"></i> Care <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
+            </button>
+            <div class="nav-dropdown-content">
+              <a href="services.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="stethoscope" class="w-4 h-4 mr-2"></i> Services
+              </a>
+              <a href="department.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="layout-grid" class="w-4 h-4 mr-2"></i> Departments
+              </a>
+            </div>
+          </div>
+          
+          <!-- Resources Dropdown -->
+          <div class="nav-dropdown">
+            <button class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+              <i data-lucide="book-open" class="w-4 h-4 mr-1"></i> Resources <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
+            </button>
+            <div class="nav-dropdown-content">
+              <a href="heirs-institute.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="graduation-cap" class="w-4 h-4 mr-2"></i> Heirs Institute
+              </a>
+              <a href="blog.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="newspaper" class="w-4 h-4 mr-2"></i> Blog
+              </a>
+            </div>
+          </div>
+          
+          <a href="contact.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+            <i data-lucide="mail" class="w-4 h-4 mr-1"></i> Contact
+          </a>
+        </nav>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center space-x-3">
+          <a href="contact.html#appointmentform" class="hidden md:flex bg-blue-600 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-blue-700 transition whitespace-nowrap">
+            <i data-lucide="calendar" class="w-4 h-4 mr-2"></i> Book Appointment
+          </a>
+          <a href="tel:+234123456789" class="hidden sm:flex emergency-btn text-white px-4 py-2 rounded-full text-sm items-center whitespace-nowrap">
+            <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
+          </a>
+          <button onclick="openMobileSidebar()" class="lg:hidden text-gray-600 hover:text-blue-600 transition">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
     </div>
-    <div class="flex items-center space-x-4">
-      <a href="tel:+234123456789" class="hidden md:flex bg-red-500 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-red-600 whitespace-nowrap">
-        <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
-      </a>
-      <button onclick="toggleMobileMenu()" class="lg:hidden text-gray-600">
-        <i data-lucide="menu" class="w-6 h-6"></i>
-      </button>
-    </div>
-  </div>
-  
-  <!-- Mobile Menu -->
-  <div id="mobileMenu" class="hidden lg:hidden bg-white shadow-md">
-    <nav class="px-4 py-4 space-y-2">
-      <a href="index.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-        <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
-      </a>
-      <a href="about.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-        <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
-      </a>
-      <a href="services.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-        <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
-      </a>
-      <a href="department.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-        <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
-      </a>
-      <a href="heirs-institute.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-        <i data-lucide="graduation-cap" class="w-5 h-5 mr-1"></i> Heirs Institute
-      </a>
-      <a href="blog.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-        <i data-lucide="newspaper" class="w-5 h-5 mr-1"></i> Blog
-      </a>
-      <a href="contact.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-        <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
-      </a>
-      <a href="contact.html#appointmentform" class="block bg-blue-600 text-white px-4 py-2 rounded-full text-sm flex items-center">
-        <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
-      </a>
-      <a href="tel:+234123456789" class="block bg-red-500 text-white px-4 py-2 rounded-full text-sm flex items-center">
-        <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
-      </a>
-    </nav>
-  </div>
-</header>
+  </header>
+
   <!-- Hero Carousel Section -->
   <section id="home" class="relative">
     <div id="heroCarousel" class="hero-carousel">
@@ -222,7 +374,6 @@
       </button>
     </div>
   </section>
-
 
   <!-- About Section -->
   <section id="about" class="py-20 bg-white">
@@ -291,7 +442,7 @@
         <div class="card bg-white p-6 rounded-lg shadow-md transition-all">
           <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZGVudGFsJTIwY2FyZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600" alt="Dental Care" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
           <h3 class="text-xl font-semibold text-center mb-2">Dental Care</h3>
-          <p class="text-gray-600 text-center">From routine cleanings to complex procedures like fillings or braces, our dental team ensures your smile stays healthy and bright with care that’s gentle and thorough for all ages.</p>
+          <p class="text-gray-600 text-center">From routine cleanings to complex procedures like fillings or braces, our dental team ensures your smile stays healthy and bright with care that's gentle and thorough for all ages.</p>
         </div>
         <div class="card bg-white p-6 rounded-lg shadow-md transition-all">
           <img src="https://images.unsplash.com/photo-1601839777132-b3f4e455c369?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fGhvc3BpdGFsJTIwbGFib3JhdG9yeXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600" alt="Laboratory Services" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
@@ -304,10 +455,10 @@
           <p class="text-gray-600 text-center">Our fully stocked pharmacy provides all your medications with expert guidance from pharmacists to ensure you understand how to take them safely.</p>
         </div>
         <div class="card bg-white p-6 rounded-lg shadow-md transition-all">
-  <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fHRoZXJhcHl8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600" alt="Therapy Services" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
-  <h3 class="text-xl font-semibold text-center mb-2">Therapy Services</h3>
-  <p class="text-gray-600 text-center">Our expert therapists provide personalized physical, occupational, and counseling services to help you recover, manage pain, or improve mental wellbeing.</p>
-</div>
+          <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzB8fHRoZXJhcHl8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600" alt="Therapy Services" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
+          <h3 class="text-xl font-semibold text-center mb-2">Therapy Services</h3>
+          <p class="text-gray-600 text-center">Our expert therapists provide personalized physical, occupational, and counseling services to help you recover, manage pain, or improve mental wellbeing.</p>
+        </div>
         <div class="card bg-white p-6 rounded-lg shadow-md transition-all">
           <img src="https://images.unsplash.com/photo-1554734867-bf3c00a49371?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZW1lcmdlbmN5JTIwY2FyZXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600" alt="Emergency Care" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
           <h3 class="text-xl font-semibold text-center mb-2">Emergency Care</h3>
@@ -394,81 +545,75 @@
           </div>
         </div>
         <div class="card bg-gray-50 p-6 rounded-lg shadow-md transition-all">
-  <img src="https://cdn.pixabay.com/photo/2020/11/03/15/31/doctor-5710152_1280.jpg" alt="Therapy Department" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
-  <h3 class="text-xl font-semibold text-center mb-2">Therapy Services</h3>
-  <p class="text-gray-600 text-center mb-4">Our skilled therapists provide personalized physical, occupational, and counseling sessions to support recovery and improve your wellbeing.</p>
-  <div class="flex justify-center space-x-4">
-    <div class="text-center">
-      <p class="text-lg font-bold text-blue-600">6+</p>
-      <p class="text-gray-600 text-sm">Therapists</p>
-    </div>
-    <div class="text-center">
-      <p class="text-lg font-bold text-blue-600">800+</p>
-      <p class="text-gray-600 text-sm">Sessions</p>
-    </div>
-  </div>
-</div>
+          <img src="https://cdn.pixabay.com/photo/2020/11/03/15/31/doctor-5710152_1280.jpg" alt="Therapy Department" class="w-full h-40 object-cover rounded-lg mb-4" loading="lazy">
+          <h3 class="text-xl font-semibold text-center mb-2">Therapy Services</h3>
+          <p class="text-gray-600 text-center mb-4">Our skilled therapists provide personalized physical, occupational, and counseling sessions to support recovery and improve your wellbeing.</p>
+          <div class="flex justify-center space-x-4">
+            <div class="text-center">
+              <p class="text-lg font-bold text-blue-600">6+</p>
+              <p class="text-gray-600 text-sm">Therapists</p>
+            </div>
+            <div class="text-center">
+              <p class="text-lg font-bold text-blue-600">800+</p>
+              <p class="text-gray-600 text-sm">Sessions</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Testimonials Section -->
-<!-- Testimonials Section -->
-<section id="testimonials" class="py-20 bg-gray-50">
-  <div class="container mx-auto px-4 fade-in">
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">Patient Testimonials</h2>
-    <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
-      Share your experience via our QR code or read what our patients say.
-    </p>
-    <div class="flex justify-center mb-8">
-      <div class="w-24 h-24 qr-placeholder border-2 border-gray-300 rounded-lg">
-        <img src="assets/qr-code.png" alt="">
-      </div>
-    </div>
-
-    <div class="relative max-w-3xl mx-auto">
-      <!-- Carousel -->
-      <div id="testimonialCarousel" class="overflow-hidden">
-        <div class="testimonial-track flex transition-transform duration-700 ease-in-out">
-          <!-- Slide 1 -->
-          <div class="min-w-full text-center p-6 bg-white rounded-lg shadow-md">
-            <p class="text-gray-600 italic mb-4">
-              "Exceptional dental care at Ado Ekiti transformed my smile."
-            </p>
-            <p class="font-semibold">Sarah Ade</p>
-          </div>
-          <!-- Slide 2 -->
-          <div class="min-w-full text-center p-6 bg-white rounded-lg shadow-md">
-            <p class="text-gray-600 italic mb-4">
-              "Fast X-ray results and compassionate staff at Oye Ekiti."
-            </p>
-            <p class="font-semibold">Tunde Bello</p>
-          </div>
-          <!-- Slide 3 -->
-          <div class="min-w-full text-center p-6 bg-white rounded-lg shadow-md">
-            <p class="text-gray-600 italic mb-4">
-              "Emergency care saved my life – truly grateful!"
-            </p>
-            <p class="font-semibold">Amaka Obi</p>
-          </div>
+  <section id="testimonials" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4 fade-in">
+      <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">Patient Testimonials</h2>
+      <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+        Share your experience via our QR code or read what our patients say.
+      </p>
+      <div class="flex justify-center mb-8">
+        <div class="w-24 h-24 bg-gray-200 border-2 border-gray-300 rounded-lg flex items-center justify-center">
+          <i data-lucide="qr-code" class="w-16 h-16 text-gray-400"></i>
         </div>
       </div>
 
-      <!-- Navigation Buttons -->
-      <button onclick="prevTestimonialSlide()" 
-              class="absolute left-0 top-1/2 -translate-y-1/2 bg-blue-600 text-white p-2 rounded-full"
-              aria-label="Previous Testimonial">
-        <i data-lucide="chevron-left"></i>
-      </button>
+      <div class="relative max-w-3xl mx-auto">
+        <div id="testimonialCarousel" class="overflow-hidden">
+          <div class="testimonial-track flex transition-transform duration-700 ease-in-out">
+            <div class="min-w-full text-center p-6 bg-white rounded-lg shadow-md">
+              <p class="text-gray-600 italic mb-4">
+                "Exceptional dental care at Ado Ekiti transformed my smile."
+              </p>
+              <p class="font-semibold">Sarah Ade</p>
+            </div>
+            <div class="min-w-full text-center p-6 bg-white rounded-lg shadow-md">
+              <p class="text-gray-600 italic mb-4">
+                "Fast X-ray results and compassionate staff at Oye Ekiti."
+              </p>
+              <p class="font-semibold">Tunde Bello</p>
+            </div>
+            <div class="min-w-full text-center p-6 bg-white rounded-lg shadow-md">
+              <p class="text-gray-600 italic mb-4">
+                "Emergency care saved my life – truly grateful!"
+              </p>
+              <p class="font-semibold">Amaka Obi</p>
+            </div>
+          </div>
+        </div>
 
-      <button onclick="nextTestimonialSlide()" 
-              class="absolute right-0 top-1/2 -translate-y-1/2 bg-blue-600 text-white p-2 rounded-full"
-              aria-label="Next Testimonial">
-        <i data-lucide="chevron-right"></i>
-      </button>
+        <button onclick="prevTestimonialSlide()" 
+                class="absolute left-0 top-1/2 -translate-y-1/2 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition"
+                aria-label="Previous Testimonial">
+          <i data-lucide="chevron-left"></i>
+        </button>
+
+        <button onclick="nextTestimonialSlide()" 
+                class="absolute right-0 top-1/2 -translate-y-1/2 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition"
+                aria-label="Next Testimonial">
+          <i data-lucide="chevron-right"></i>
+        </button>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- Call to Action Section -->
   <section id="cta" class="py-20 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
@@ -477,12 +622,12 @@
         <div>
           <h2 class="text-3xl md:text-4xl font-bold mb-4">Exceptional Care for Your Health Journey</h2>
           <p class="text-lg mb-6">Discover comprehensive healthcare services delivered with compassion and expertise at our Oye Ekiti and Ado Ekiti branches. Our dedicated team is here to prioritize your health and wellbeing.</p>
-          <div class="flex space-x-4">
-            <a href="contact.html#appointmentform" class="btn-primary text-white px-5 py-2 rounded-full text-sm flex items-center">
-              <i data-lucide="calendar" class="w-4 h-4 mr-2"></i> Schedule Consultation
+          <div class="flex flex-wrap gap-4">
+            <a href="contact.html#appointmentform" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition flex items-center">
+              <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Schedule Consultation
             </a>
-            <a href="services.html" class="btn-tertiary border-2 px-5 py-2 rounded-full text-sm flex items-center">
-              <i data-lucide="arrow-right" class="w-4 h-4 mr-2"></i> Explore Services
+            <a href="services.html" class="border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition flex items-center">
+              <i data-lucide="arrow-right" class="w-5 h-5 mr-2"></i> Explore Services
             </a>
           </div>
         </div>
@@ -493,163 +638,247 @@
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-        <div class="text-center bg-white bg-opacity-10 p-4 rounded-lg">
-          <p class="text-2xl font-bold">15+</p>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+        <div class="text-center bg-white bg-opacity-10 p-4 rounded-lg backdrop-blur-sm">
+          <p class="text-3xl font-bold">15+</p>
           <p class="text-gray-200">Years Experience</p>
         </div>
-        <div class="text-center bg-white bg-opacity-10 p-4 rounded-lg">
-          <p class="text-2xl font-bold">15K+</p>
+        <div class="text-center bg-white bg-opacity-10 p-4 rounded-lg backdrop-blur-sm">
+          <p class="text-3xl font-bold">15K+</p>
           <p class="text-gray-200">Happy Patients</p>
         </div>
-        <div class="text-center bg-white bg-opacity-10 p-4 rounded-lg">
-          <p class="text-2xl font-bold">20+</p>
+        <div class="text-center bg-white bg-opacity-10 p-4 rounded-lg backdrop-blur-sm">
+          <p class="text-3xl font-bold">20+</p>
           <p class="text-gray-200">Medical Experts</p>
         </div>
-        <div class="text-center bg-white bg-opacity-10 p-4 rounded-lg">
-          <p class="text-2xl font-bold">24/7</p>
+        <div class="text-center bg-white bg-opacity-10 p-4 rounded-lg backdrop-blur-sm">
+          <p class="text-3xl font-bold">24/7</p>
           <p class="text-gray-200">Emergency Care</p>
         </div>
       </div>
       <div class="mt-8 text-center">
         <p class="text-lg font-semibold">Need Immediate Assistance?</p>
-        <p class="text-gray-200">Call: <a href="tel:+234123456789" class="text-white hover:underline">+234 123 456 789</a> | <a href="#footer" class="text-white hover:underline">Get Directions</a></p>
+        <p class="text-gray-200">Call: <a href="tel:+234123456789" class="text-white hover:underline font-semibold">+234 123 456 789</a> | <a href="#footer" class="text-white hover:underline">Get Directions</a></p>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-<footer class="bg-gray-800 text-white py-8">
+  <!-- Enhanced Footer -->
+  <footer id="footer" class="footer-gradient text-white py-12">
     <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div>
-          <h3 class="text-lg font-semibold mb-4">Heirs Multispecialist Hospital</h3>
-          <p class="text-gray-400">123 Hospital Road, Oye Ekiti, Ekiti State</p>
-          <p class="text-gray-400">456 Health Avenue, Ado Ekiti, Ekiti State</p>
-          <p class="text-gray-400 mt-3"><strong>Phone:</strong> <a href="tel:+234123456789" class="hover:text-white">+234 123 456 789</a></p>
-          <p class="text-gray-400"><strong>Email:</strong> <a href="mailto:info@heirsmultispecialist.com" class="hover:text-white">info@heirsmultispecialist.com</a></p>
-          <div class="flex space-x-4 mt-4">
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter" class="w-5 h-5"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+      <!-- Main Footer Content -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <!-- Hospital Info with Logo -->
+        <div class="lg:col-span-1">
+          <div class="flex items-center mb-6">
+            <div class="footer-logo-circle mr-4">
+              <i data-lucide="hospital" class="w-10 h-10 text-white"></i>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold">Heirs</h3>
+              <p class="text-sm text-gray-300">Multispecialist Hospital</p>
+            </div>
+          </div>
+          <p class="text-gray-300 mb-4">Providing exceptional healthcare services to Ekiti State since 2010. Your health, our priority.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Facebook">
+              <i data-lucide="facebook" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Twitter">
+              <i data-lucide="twitter" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Instagram">
+              <i data-lucide="instagram" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="LinkedIn">
+              <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </a>
           </div>
         </div>
+
+        <!-- Our Locations -->
         <div>
-          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="index.html" class="hover:text-white">Home</a></li>
-            <li><a href="#about" class="hover:text-white">About Us</a></li>
-            <li><a href="services.html" class="hover:text-white">Services</a></li>
-            <li><a href="departments.html" class="hover:text-white">Departments</a></li>
-            <li><a href="contact.html" class="hover:text-white">Contact</a></li>
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i data-lucide="map-pin" class="w-5 h-5 mr-2"></i> Our Locations
+          </h4>
+          <div class="space-y-4">
+            <div>
+              <p class="font-semibold text-blue-300">Main Branch - Oye Ekiti</p>
+              <p class="text-gray-300 text-sm">123 Hospital Road, Oye Ekiti, Ekiti State</p>
+            </div>
+            <div>
+              <p class="font-semibold text-blue-300">Ado Ekiti Branch</p>
+              <p class="text-gray-300 text-sm">456 Health Avenue, Ado Ekiti, Ekiti State</p>
+            </div>
+          </div>
+          <div class="mt-4">
+            <p class="flex items-center text-gray-300 mb-2">
+              <i data-lucide="phone" class="w-4 h-4 mr-2"></i>
+              <a href="tel:+234123456789" class="hover:text-white transition">+234 123 456 789</a>
+            </p>
+            <p class="flex items-center text-gray-300">
+              <i data-lucide="mail" class="w-4 h-4 mr-2"></i>
+              <a href="mailto:info@heirsmultispecialist.com" class="hover:text-white transition">info@heirsmultispecialist.com</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i data-lucide="link" class="w-5 h-5 mr-2"></i> Quick Links
+          </h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Home</a></li>
+            <li><a href="about.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> About Us</a></li>
+            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Services</a></li>
+            <li><a href="department.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Departments</a></li>
+            <li><a href="heirs-institute.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Heirs Institute</a></li>
+            <li><a href="blog.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Blog</a></li>
+            <li><a href="contact.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Contact</a></li>
           </ul>
         </div>
+
+        <!-- Our Services -->
         <div>
-          <h4 class="text-lg font-semibold mb-4">Our Services</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="services.html" class="hover:text-white">X-Ray & Imaging</a></li>
-            <li><a href="services.html" class="hover:text-white">Dental Care</a></li>
-            <li><a href="services.html" class="hover:text-white">Laboratory Services</a></li>
-            <li><a href="services.html" class="hover:text-white">Pharmacy</a></li>
-            <li><a href="services.html" class="hover:text-white">Emergency Care</a></li>
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i data-lucide="activity" class="w-5 h-5 mr-2"></i> Our Services
+          </h4>
+          <ul class="space-y-2">
+            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> X-Ray & Imaging</a></li>
+            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Dental Care</a></li>
+            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Laboratory Services</a></li>
+            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Pharmacy</a></li>
+            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Therapy Services</a></li>
+            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Emergency Care 24/7</a></li>
           </ul>
         </div>
       </div>
-      <div class="text-center text-gray-400 mt-8 pt-8 border-t border-gray-700">
-        &copy; 2025 Heirs Multispecialist Hospital. All Rights Reserved.
+
+      <!-- Bottom Footer -->
+      <div class="border-t border-gray-600 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <p class="text-gray-300 text-sm text-center md:text-left">
+            &copy; 2025 Heirs Multispecialist Hospital. All Rights Reserved.
+          </p>
+          <div class="flex items-center space-x-2">
+            <p class="text-gray-300 text-sm">Designed & Developed by</p>
+            <a href="#" class="masys-credit text-lg inline-block">MASYS</a>
+          </div>
+        </div>
+        <div class="mt-4 text-center">
+          <p class="text-gray-400 text-xs">Committed to Excellence in Healthcare | NHIS Accredited</p>
+        </div>
       </div>
     </div>
   </footer>
 
-  <!-- Scroll Top -->
-  <a href="#" class="fixed bottom-4 right-4 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700" aria-label="Scroll to top">
-    <i data-lucide="arrow-up"></i>
+  <!-- Scroll to Top Button -->
+  <a href="#home" class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition transform hover:scale-110 z-40" aria-label="Scroll to top">
+    <i data-lucide="arrow-up" class="w-5 h-5"></i>
   </a>
 
-<script>
-  // Initialize Lucide Icons
-  lucide.createIcons();
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
 
-  // =====================
-  // MOBILE MENU TOGGLE
-  // =====================
-  function toggleMobileMenu() {
-    document.getElementById('mobileMenu').classList.toggle('hidden');
-  }
+    // =====================
+    // MOBILE SIDEBAR
+    // =====================
+    function openMobileSidebar() {
+      document.getElementById('mobileSidebar').classList.add('open');
+      document.getElementById('sidebarOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
 
-  // =====================
-  // HERO CAROUSEL FIXED
-  // =====================
-  let heroSlide = 0;
-  const heroTrack = document.querySelector('#heroCarousel .hero-track'); // ✅ Corrected selector
-  const heroSlides = document.querySelectorAll('#heroCarousel .hero-slide');
-  const totalHeroSlides = heroSlides.length;
+    function closeMobileSidebar() {
+      document.getElementById('mobileSidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
 
-  function updateHeroCarousel() {
-    heroTrack.style.transform = `translateX(-${heroSlide * 100}%)`;
-  }
+    // =====================
+    // HERO CAROUSEL
+    // =====================
+    let heroSlide = 0;
+    const heroTrack = document.querySelector('#heroCarousel .hero-track');
+    const heroSlides = document.querySelectorAll('#heroCarousel .hero-slide');
+    const totalHeroSlides = heroSlides.length;
 
-  function nextHeroSlide() {
-    heroSlide = (heroSlide + 1) % totalHeroSlides;
-    updateHeroCarousel();
-  }
+    function updateHeroCarousel() {
+      heroTrack.style.transform = `translateX(-${heroSlide * 100}%)`;
+    }
 
-  function prevHeroSlide() {
-    heroSlide = (heroSlide - 1 + totalHeroSlides) % totalHeroSlides;
-    updateHeroCarousel();
-  }
+    function nextHeroSlide() {
+      heroSlide = (heroSlide + 1) % totalHeroSlides;
+      updateHeroCarousel();
+    }
 
-  setInterval(nextHeroSlide, 6000);
+    function prevHeroSlide() {
+      heroSlide = (heroSlide - 1 + totalHeroSlides) % totalHeroSlides;
+      updateHeroCarousel();
+    }
 
-  // =====================
-  // TESTIMONIAL CAROUSEL FIXED
-  // =====================
-  let testimonialSlide = 0;
-  const testimonialTrack = document.querySelector('#testimonialCarousel .testimonial-track');
-  const testimonialSlides = document.querySelectorAll('#testimonialCarousel .testimonial-track > div');
-  const totalTestimonials = testimonialSlides.length;
+    setInterval(nextHeroSlide, 6000);
 
-  function updateTestimonialCarousel() {
-    testimonialTrack.style.transform = `translateX(-${testimonialSlide * 100}%)`;
-  }
+    // =====================
+    // TESTIMONIAL CAROUSEL
+    // =====================
+    let testimonialSlide = 0;
+    const testimonialTrack = document.querySelector('#testimonialCarousel .testimonial-track');
+    const testimonialSlides = document.querySelectorAll('#testimonialCarousel .testimonial-track > div');
+    const totalTestimonials = testimonialSlides.length;
 
-  function nextTestimonialSlide() {
-    testimonialSlide = (testimonialSlide + 1) % totalTestimonials;
-    updateTestimonialCarousel();
-  }
+    function updateTestimonialCarousel() {
+      testimonialTrack.style.transform = `translateX(-${testimonialSlide * 100}%)`;
+    }
 
-  function prevTestimonialSlide() {
-    testimonialSlide = (testimonialSlide - 1 + totalTestimonials) % totalTestimonials;
-    updateTestimonialCarousel();
-  }
+    function nextTestimonialSlide() {
+      testimonialSlide = (testimonialSlide + 1) % totalTestimonials;
+      updateTestimonialCarousel();
+    }
 
-  // Auto slide every 6s
-  let testimonialInterval = setInterval(nextTestimonialSlide, 6000);
+    function prevTestimonialSlide() {
+      testimonialSlide = (testimonialSlide - 1 + totalTestimonials) % totalTestimonials;
+      updateTestimonialCarousel();
+    }
 
-  // Optional pause on hover (better UX)
-  const testimonialContainer = document.getElementById('testimonialCarousel');
-  testimonialContainer.addEventListener('mouseenter', () => clearInterval(testimonialInterval));
-  testimonialContainer.addEventListener('mouseleave', () => testimonialInterval = setInterval(nextTestimonialSlide, 6000));
+    let testimonialInterval = setInterval(nextTestimonialSlide, 6000);
 
-  // =====================
-  // FADE-IN ANIMATION
-  // =====================
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
+    const testimonialContainer = document.getElementById('testimonialCarousel');
+    testimonialContainer.addEventListener('mouseenter', () => clearInterval(testimonialInterval));
+    testimonialContainer.addEventListener('mouseleave', () => testimonialInterval = setInterval(nextTestimonialSlide, 6000));
+
+    // =====================
+    // FADE-IN ANIMATION
+    // =====================
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // =====================
+    // SMOOTH SCROLL
+    // =====================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        const href = anchor.getAttribute('href');
+        if (href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+            closeMobileSidebar();
+          }
+        }
+      });
     });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // =====================
-  // SMOOTH SCROLL
-  // =====================
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', e => {
-      e.preventDefault();
-      document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-    });
-  });
-</script>
+    // Re-initialize icons after any dynamic content loads
+    setTimeout(() => lucide.createIcons(), 100);
+  </script>
 
-
+</body>
+</html>

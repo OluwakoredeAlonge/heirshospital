@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="About Heirs Multispecialist Hospital: Leading healthcare provider in Ekiti State since 2010, delivering exceptional care in Oye Ekiti and Ado Ekiti.">
+  <meta name="description" content="About Heirs Multispecialist Hospital: Leading healthcare provider in Ekiti State, delivering exceptional care in Oye Ekiti and Ado Ekiti since 2010.">
   <meta name="keywords" content="Heirs Multispecialist Hospital, Ekiti healthcare, about us, Oye Ekiti hospital, Ado Ekiti hospital">
   <title>About Us - Heirs Multispecialist Hospital</title>
   <script type="application/ld+json">
@@ -11,7 +11,7 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Heirs Multispecialist Hospital",
-    "description": "Premier healthcare provider in Ekiti State since 2010, offering world-class medical care.",
+    "description": "Premier healthcare provider in Ekiti State, offering world-class medical services comparable to leading hospitals in Nigeria.",
     "url": "https://heirsmultispecialisthospital.com.ng/about",
     "founder": [
       {
@@ -32,34 +32,145 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; }
+    
+    /* Mobile Sidebar */
+    .mobile-sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+      transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      z-index: 1000;
+      overflow-y: auto;
+      box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+    }
+    
+    .mobile-sidebar.open { right: 0; }
+    
+    .mobile-sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    
+    .mobile-sidebar-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Logo Styles */
+    .logo-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+    
+    .footer-logo-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    /* Animations */
     .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
+    
     .card-hover { transition: all 0.3s ease; }
     .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-    .gradient-text { background: linear-gradient(135deg, #2563eb, #1e40af); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .founder-card { 
-      background: rgba(255, 255, 255, 0.8); 
-      backdrop-filter: blur(10px); 
-      border: 1px solid rgba(255, 255, 255, 0.2); 
-      position: relative; 
-      overflow: hidden; 
+    
+    .gradient-text { 
+      background: linear-gradient(135deg, #2563eb, #1e40af); 
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent; 
     }
-    .founder-card::before { 
-      content: ''; 
-      position: absolute; 
-      top: 0; 
-      left: 0; 
-      right: 0; 
-      bottom: 0; 
-      border: 2px solid transparent; 
-      border-image: linear-gradient(135deg, #ffd700, #b8860b) 1; 
-      transition: all 0.3s ease; 
+
+    /* Founder Card Compact */
+    .founder-card-compact {
+      background: white;
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
-    .founder-card:hover::before { 
-      border-image: linear-gradient(135deg, #b8860b, #ffd700) 1; 
+    
+    .founder-card-compact::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #2563eb, #3b82f6);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
     }
+    
+    .founder-card-compact:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .founder-card-compact:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(37, 99, 235, 0.15);
+    }
+
+    /* Navbar Dropdown */
+    .nav-dropdown {
+      position: relative;
+    }
+    
+.nav-dropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: transparent;
+}
+
+/* Also add padding to dropdown content */
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  margin-top: 8px;  /* This creates the gap that the ::after fills */
+  z-index: 100;
+  padding: 8px 0;   /* Add padding inside */
+}
+    
+    .nav-dropdown:hover .nav-dropdown-content {
+      display: block;
+    }
+
     .stats-card { background: linear-gradient(135deg, #ffffff, #f1f5f9); }
-    .section-divider { position: relative; }
+    
+    .section-divider { position: relative; padding-top: 20px; }
     .section-divider::before { 
       content: ''; 
       position: absolute; 
@@ -70,123 +181,252 @@
       height: 4px; 
       background: linear-gradient(135deg, #2563eb, #1e40af); 
       border-radius: 2px; 
-      animation: pulse 2s infinite; 
     }
-    @keyframes pulse {
-      0% { transform: translateX(-50%) scale(1); }
-      50% { transform: translateX(-50%) scale(1.2); }
-      100% { transform: translateX(-50%) scale(1); }
+
+    .btn-primary { 
+      background-color: #ffffff; 
+      color: #2563eb; 
+      transition: all 0.3s ease; 
     }
-    .btn-primary { background-color: #ffffff; color: #2563eb; transition: all 0.3s ease; }
-    .btn-primary:hover { background-color: #e2e8f0; transform: scale(1.05); }
-    .btn-secondary { border-color: #ffffff; color: #ffffff; transition: all 0.3s ease; }
-    .btn-secondary:hover { background-color: #ffffff; color: #2563eb; transform: scale(1.05); }
-    /* Responsive adjustments */
-    @media (max-width: 640px) {
-      .stats-card h2 { font-size: 1.5rem; line-height: 1.2; }
-      .container { padding-left: 1rem; padding-right: 1rem; }
+    .btn-primary:hover { 
+      background-color: #e2e8f0; 
+      transform: scale(1.05); 
+    }
+    
+    .btn-secondary { 
+      border-color: #ffffff; 
+      color: #ffffff; 
+      transition: all 0.3s ease; 
+    }
+    .btn-secondary:hover { 
+      background-color: #ffffff; 
+      color: #2563eb; 
+      transform: scale(1.05); 
+    }
+
+    /* Timeline */
+    .timeline-item {
+      position: relative;
+      padding-left: 40px;
+      padding-bottom: 30px;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      bottom: -10px;
+      width: 2px;
+      background: linear-gradient(180deg, #2563eb, #93c5fd);
+    }
+    
+    .timeline-item:last-child::before {
+      display: none;
+    }
+    
+    .timeline-dot {
+      position: absolute;
+      left: 0;
+      top: 5px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #2563eb;
+      border: 4px solid white;
+      box-shadow: 0 0 0 2px #2563eb;
+    }
+
+    /* Enhanced Footer */
+    .footer-gradient {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    }
+    
+    .masys-credit {
+      background: linear-gradient(90deg, #2563eb, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+    
+    .masys-credit:hover {
+      transform: scale(1.05);
     }
   </style>
 </head>
-<body class="font-inter text-gray-800 bg-gray-50">
-  <!-- Navigation -->
-   <nav class="fixed top-0 w-full bg-white shadow-md z-50">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="index.html" class="text-2xl font-bold text-blue-600 flex items-center">
-        <i data-lucide="hospital" class="w-8 h-8 mr-2"></i>
-        Heirs Multispecialist
-      </a>
-      <div class="hidden md:flex space-x-6">
-        <a href="index.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
-        </a>
-        <a href="about.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
-        </a>
-        <a href="services.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
-        </a>
-        <a href="department.html" class="text-blue-600 font-semibold flex items-center">
-          <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
-        </a>
-        <a href="contact.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
-        </a>
-        <a href="contact.html#appointmentform" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 text-sm flex items-center">
-          <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
-        </a>
-      </div>
-      <div class="flex items-center space-x-4">
-        <a href="tel:+234123456789" class="bg-red-500 text-white px-4 py-2 rounded-full text-sm flex items-center hover:bg-red-600">
-          <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
-        </a>
-        <button onclick="toggleMobileMenu()" class="md:hidden text-gray-600">
-          <i data-lucide="menu" class="w-6 h-6"></i>
+<body class="text-gray-800 bg-gray-50">
+
+  <!-- Mobile Sidebar Overlay -->
+  <div class="mobile-sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
+
+  <!-- Mobile Sidebar -->
+  <div class="mobile-sidebar" id="mobileSidebar">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center">
+          <div class="logo-circle mr-3">
+            <i data-lucide="hospital" class="w-6 h-6 text-white"></i>
+          </div>
+          <span class="text-white font-bold text-lg">Heirs</span>
+        </div>
+        <button onclick="closeMobileSidebar()" class="text-white">
+          <i data-lucide="x" class="w-6 h-6"></i>
         </button>
       </div>
-    </div>
-    <div id="mobileMenu" class="hidden md:hidden bg-white shadow-md">
-      <nav class="px-4 py-4 space-y-2">
-        <a href="index.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
+      
+      <nav class="space-y-1">
+        <a href="index.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+          <i data-lucide="home" class="w-5 h-5 mr-3"></i> Home
         </a>
-        <a href="about.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
+        <a href="about.html" class="flex items-center text-white bg-white bg-opacity-20 px-4 py-3 rounded-lg transition">
+          <i data-lucide="info" class="w-5 h-5 mr-3"></i> About
         </a>
-        <a href="services.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
+        
+        <div class="border-t border-white border-opacity-20 pt-2 mt-2">
+          <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Care Services</p>
+          <a href="services.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+            <i data-lucide="stethoscope" class="w-5 h-5 mr-3"></i> Services
+          </a>
+          <a href="department.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+            <i data-lucide="layout-grid" class="w-5 h-5 mr-3"></i> Departments
+          </a>
+        </div>
+        
+        <div class="border-t border-white border-opacity-20 pt-2 mt-2">
+          <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Resources</p>
+          <a href="heirs-institute.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+            <i data-lucide="graduation-cap" class="w-5 h-5 mr-3"></i> Heirs Institute
+          </a>
+          <a href="blog.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+            <i data-lucide="newspaper" class="w-5 h-5 mr-3"></i> Blog
+          </a>
+        </div>
+        
+        <a href="contact.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+          <i data-lucide="mail" class="w-5 h-5 mr-3"></i> Contact
         </a>
-        <a href="department.html" class="block text-blue-600 font-semibold flex items-center">
-          <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
-        </a>
-        <a href="contact.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
-        </a>
-        <a href="contact.html#appointmentform" class="block bg-blue-600 text-white px-4 py-2 rounded-full text-sm flex items-center">
-          <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
-        </a>
+        
+        <div class="border-t border-white border-opacity-20 pt-4 mt-4 space-y-3">
+          <a href="contact.html#appointmentform" class="flex items-center justify-center bg-white text-blue-600 px-4 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">
+            <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
+          </a>
+          <a href="tel:+234123456789" class="flex items-center justify-center bg-red-500 text-white px-4 py-3 rounded-lg font-semibold hover:bg-red-600 transition">
+            <i data-lucide="phone" class="w-5 h-5 mr-2"></i> Emergency
+          </a>
+        </div>
       </nav>
     </div>
-  </nav>
-  <!-- Main Content -->
-  <main class="pt-16">
-    <!-- Combined About Section -->
-    <section id="about" class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
-      <div class="container mx-auto px-4 fade-in max-w-full">
-        <div class="text-center mb-12 section-divider">
-          <span class="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">Trusted Healthcare Provider</span>
-          <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-4">About Heirs Multispecialist Hospital</h1>
-          <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">As a leading healthcare institution in Ekiti State and its environs, Heirs Multispecialist Hospital has been transforming lives since 2010. We combine cutting-edge technology with compassionate, patient-first care, earning trust across the region for our unwavering commitment to health and wellness.</p>
+  </div>
+
+  <!-- Header -->
+  <header class="fixed top-0 w-full bg-white shadow-md z-50">
+    <div class="container mx-auto px-4 py-3">
+      <div class="flex justify-between items-center">
+        <a href="index.html" class="flex items-center">
+          <div class="logo-circle mr-3">
+            <i data-lucide="hospital" class="w-6 h-6 text-white"></i>
+          </div>
+          <span class="text-2xl font-bold text-blue-600">Heirs</span>
+        </a>
+
+        <nav class="hidden lg:flex items-center space-x-1">
+          <a href="index.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+            <i data-lucide="home" class="w-4 h-4 mr-1"></i> Home
+          </a>
+          <a href="about.html" class="text-blue-600 font-semibold px-3 py-2 rounded-lg transition flex items-center">
+            <i data-lucide="info" class="w-4 h-4 mr-1"></i> About
+          </a>
+          
+          <div class="nav-dropdown">
+            <button class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+              <i data-lucide="heart-pulse" class="w-4 h-4 mr-1"></i> Care <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
+            </button>
+            <div class="nav-dropdown-content">
+              <a href="services.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="stethoscope" class="w-4 h-4 mr-2"></i> Services
+              </a>
+              <a href="department.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="layout-grid" class="w-4 h-4 mr-2"></i> Departments
+              </a>
+            </div>
+          </div>
+          
+          <div class="nav-dropdown">
+            <button class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+              <i data-lucide="book-open" class="w-4 h-4 mr-1"></i> Resources <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
+            </button>
+            <div class="nav-dropdown-content">
+              <a href="heirs-institute.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="graduation-cap" class="w-4 h-4 mr-2"></i> Heirs Institute
+              </a>
+              <a href="blog.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="newspaper" class="w-4 h-4 mr-2"></i> Blog
+              </a>
+            </div>
+          </div>
+          
+          <a href="contact.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+            <i data-lucide="mail" class="w-4 h-4 mr-1"></i> Contact
+          </a>
+        </nav>
+
+        <div class="flex items-center space-x-3">
+          <a href="contact.html#appointmentform" class="hidden md:flex bg-blue-600 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-blue-700 transition whitespace-nowrap">
+            <i data-lucide="calendar" class="w-4 h-4 mr-2"></i> Book Appointment
+          </a>
+          <a href="tel:+234123456789" class="hidden sm:flex bg-red-500 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-red-600 transition whitespace-nowrap">
+            <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
+          </a>
+          <button onclick="openMobileSidebar()" class="lg:hidden text-gray-600 hover:text-blue-600 transition">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
         </div>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-20">
+    <!-- Hero Section -->
+    <section class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
+      <div class="container mx-auto px-4 fade-in">
+        <div class="text-center mb-12 section-divider">
+          <span class="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">Ending Medical Tourism in Nigeria</span>
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">About Heirs Multispecialist Hospital</h1>
+          <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">A world-class specialist hospital set to end medical tourism in Nigeria by offering high-quality medical services comparable to what is obtainable in leading hospitals in Nigeria and beyond.</p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-6xl mx-auto">
           <div>
-            <div class="stats-card p-6 sm:p-8 rounded-2xl shadow-lg card-hover">
-              <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-4">Excellence in Healthcare Since 2010</h2>
-              <p class="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8">Our dedicated team of specialists delivers world-class medical care, leveraging advanced diagnostics and personalized treatment plans to achieve outstanding outcomes for every patient in Ekiti and beyond.</p>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+            <div class="stats-card p-8 rounded-2xl shadow-lg card-hover">
+              <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">Excellence in Healthcare</h2>
+              <p class="text-lg text-gray-600 mb-8">Operating from our two branches in Oye-Ekiti and Ado-Ekiti, we provide state-of-the-art medical facilities in a serene environment, committed to delivering exceptional patient care across all specialties.</p>
+              <div class="grid grid-cols-3 gap-6">
                 <div class="text-center">
-                  <div class="text-3xl sm:text-4xl font-bold text-blue-600 mb-2">22,000</div>
-                  <div class="text-gray-600">Successful Treatments</div>
-                  <div class="text-sm text-gray-500">Completed with excellent patient outcomes</div>
+                  <div class="text-4xl font-bold text-blue-600 mb-2">10+</div>
+                  <div class="text-gray-600">Years Serving</div>
+                  <div class="text-sm text-gray-500">Ekiti State</div>
                 </div>
                 <div class="text-center">
-                  <div class="text-3xl sm:text-4xl font-bold text-blue-600 mb-2">95%</div>
-                  <div class="text-gray-600">Patient Satisfaction</div>
-                  <div class="text-sm text-gray-500">Based on comprehensive feedback surveys</div>
+                  <div class="text-4xl font-bold text-blue-600 mb-2">2</div>
+                  <div class="text-gray-600">Modern Branches</div>
+                  <div class="text-sm text-gray-500">Fully Equipped</div>
                 </div>
                 <div class="text-center">
-                  <div class="text-3xl sm:text-4xl font-bold text-blue-600 mb-2">85</div>
-                  <div class="text-gray-600">Medical Professionals</div>
-                  <div class="text-sm text-gray-500">Specialists across various departments</div>
+                  <div class="text-4xl font-bold text-blue-600 mb-2">24/7</div>
+                  <div class="text-gray-600">Care Available</div>
+                  <div class="text-sm text-gray-500">Emergency Services</div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-            <img src="https://cdn.pixabay.com/photo/2016/11/08/05/29/operation-1807543_1280.jpg" alt="Medical facility" class="w-full h-48 sm:h-64 object-cover rounded-xl shadow-lg" loading="lazy">
-            <div class="grid grid-cols-1 gap-4 sm:gap-6">
-              <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Medical team" class="w-full h-24 sm:h-32 object-cover rounded-xl shadow-lg" loading="lazy">
-              <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Patient consultation" class="w-full h-24 sm:h-32 object-cover rounded-xl shadow-lg" loading="lazy">
+          <div class="grid grid-cols-2 gap-4">
+            <img src="https://cdn.pixabay.com/photo/2016/11/08/05/29/operation-1807543_1280.jpg" alt="Medical facility" class="w-full h-64 object-cover rounded-xl shadow-lg" loading="lazy">
+            <div class="grid grid-cols-1 gap-4">
+              <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Medical team" class="w-full h-32 object-cover rounded-xl shadow-lg" loading="lazy">
+              <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Patient consultation" class="w-full h-28 object-cover rounded-xl shadow-lg" loading="lazy">
             </div>
           </div>
         </div>
@@ -195,156 +435,130 @@
 
     <!-- Mission, Vision, Promise Section -->
     <section class="py-16 bg-white">
-      <div class="container mx-auto px-4 fade-in max-w-full">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="text-center p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 card-hover">
+      <div class="container mx-auto px-4 fade-in">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 card-hover">
             <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
               <i data-lucide="target" class="w-8 h-8 text-white"></i>
             </div>
-            <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Our Mission</h3>
-            <p class="text-gray-600 text-sm sm:text-base">To provide comprehensive, patient-centered healthcare that combines medical excellence with genuine compassion, ensuring every individual receives personalized care tailored to their unique needs.</p>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Our Mission</h3>
+            <p class="text-gray-600">To provide comprehensive, patient-centered healthcare that combines medical excellence with genuine compassion, ensuring every individual receives personalized care tailored to their unique needs.</p>
           </div>
-          <div class="text-center p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200 card-hover">
+          <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200 card-hover">
             <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
               <i data-lucide="eye" class="w-8 h-8 text-white"></i>
             </div>
-            <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Our Vision</h3>
-            <p class="text-gray-600 text-sm sm:text-base">To be the leading healthcare provider in our region, recognized for innovative treatments, exceptional outcomes, and our unwavering commitment to improving lives in our community.</p>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Our Vision</h3>
+            <p class="text-gray-600">To be the leading healthcare provider in our region, recognized for innovative treatments, exceptional outcomes, and our unwavering commitment to ending medical tourism in Nigeria.</p>
           </div>
-          <div class="text-center p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-purple-50 to-violet-50 border border-purple-200 card-hover">
+          <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-purple-50 to-violet-50 border border-purple-200 card-hover">
             <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
               <i data-lucide="hand-heart" class="w-8 h-8 text-white"></i>
             </div>
-            <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Our Promise</h3>
-            <p class="text-gray-600 text-sm sm:text-base">Every patient will receive the highest quality care in a comfortable, supportive environment where their health, dignity, and well-being are our top priorities.</p>
+            <h3 class="text-2xl font-bold text-gray-800 mb-2">Our Promise</h3>
+            <p class="text-gray-600">Every patient will receive the highest quality care in a comfortable, supportive environment where their health, dignity, and well-being are our top priorities.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Founders Section -->
-    <section class="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
-      <div class="container mx-auto px-4 fade-in max-w-full">
-        <div class="text-center mb-12 section-divider">
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Visionary Founders</h2>
-          <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">Meet the extraordinary couple who founded Heirs Multispecialist Hospital, bringing world-class expertise and a heartfelt mission to transform healthcare in Ekiti State.</p>
+    <!-- Our Story & Timeline -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4 fade-in">
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-12 section-divider">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Journey</h2>
+            <p class="text-lg text-gray-600">Over a decade of excellence in healthcare delivery</p>
+          </div>
+          
+          <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <h3 class="font-bold text-lg text-gray-800 mb-2">2010 - Foundation</h3>
+              <p class="text-gray-600">Heirs Multispecialist Hospital was established in Oye-Ekiti with a vision to provide world-class healthcare services to Ekiti State and beyond.</p>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <h3 class="font-bold text-lg text-gray-800 mb-2">2015 - Expansion to Ado-Ekiti</h3>
+              <p class="text-gray-600">Opened our second branch in Ado-Ekiti at Plot 3, Orimolade Crescent, Ilokun Estate, bringing our services closer to more communities.</p>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <h3 class="font-bold text-lg text-gray-800 mb-2">2020 - Heirs Institute Launch</h3>
+              <p class="text-gray-600">Established Heirs Institute of Allied Health to address the critical shortage of skilled allied health professionals in Nigeria, committed to training the next generation of healthcare workers.</p>
+            </div>
+            
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <h3 class="font-bold text-lg text-gray-800 mb-2">2024 - Continued Excellence</h3>
+              <p class="text-gray-600">Celebrated over a decade of service with advanced medical equipment and expanded specialties, maintaining our commitment to ending medical tourism in Nigeria.</p>
+            </div>
+          </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- Founder 1: Dr. Soje Michael Osisiogu -->
-<div class="founder-card p-6 sm:p-8 rounded-2xl shadow-2xl card-hover">
-  <div class="flex flex-col items-center text-center">
-    <div class="relative mb-6">
-      <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80" alt="Dr. Soje Michael Osisiogu" class="w-48 sm:w-56 h-48 sm:h-56 rounded-full object-cover shadow-2xl border-4 border-white">
-      <div class="absolute -bottom-2 -right-2 bg-gradient-to-r from-blue-600 to-indigo-600 p-3 rounded-full">
-        <i data-lucide="award" class="w-8 h-8 text-white"></i>
       </div>
-    </div>
+    </section>
 
-    <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Dr. Soje Michael Osisiogu</h3>
-    <p class="text-blue-600 font-semibold mb-4">Co-Founder & Medical Director</p>
-
-    <div class="space-y-3 mb-6">
-      <div class="flex items-center text-sm text-gray-600">
-        <i data-lucide="book-open" class="w-5 h-5 mr-2 text-blue-600"></i>
-        <span>MBBS, MD (Harvard), PhD in Rare Diseases (Oxford)</span>
-      </div>
-      <div class="flex items-center text-sm text-gray-600">
-        <i data-lucide="award" class="w-5 h-5 mr-2 text-blue-600"></i>
-        <span>2020 African Healthcare Leadership Award</span>
-      </div>
-      <div class="flex items-center text-sm text-gray-600">
-        <i data-lucide="award" class="w-5 h-5 mr-2 text-blue-600"></i>
-        <span>2018 Global Health Innovation Prize</span>
-      </div>
-      <div class="flex items-center text-sm text-gray-600">
-        <i data-lucide="globe" class="w-5 h-5 mr-2 text-blue-600"></i>
-        <span>20+ Years Transforming Community Healthcare</span>
-      </div>
-    </div>
-
-    <p class="text-gray-600 text-sm sm:text-base mb-6">
-      "With a vision forged in global institutions, Dr. Osisiogu pioneers treatments for rare diseases, elevating healthcare standards in Ekiti and beyond."
-    </p>
-
-    <!-- Social Icons Section -->
-    <div class="flex space-x-4 mb-6">
-      <a href="#" class="text-gray-500 hover:text-blue-600 transition">
-        <i data-lucide="facebook" class="w-6 h-6"></i>
-      </a>
-      <a href="#" class="text-gray-500 hover:text-pink-600 transition">
-        <i data-lucide="instagram" class="w-6 h-6"></i>
-      </a>
-      <a href="#" class="text-gray-500 hover:text-blue-400 transition">
-        <i data-lucide="twitter" class="w-6 h-6"></i>
-      </a>
-      <a href="#" class="text-gray-500 hover:text-red-600 transition">
-        <i data-lucide="youtube" class="w-6 h-6"></i>
-      </a>
-      <a href="#" class="text-gray-500 hover:text-blue-700 transition">
-        <i data-lucide="linkedin" class="w-6 h-6"></i>
-      </a>
-    </div>
-
-    <div class="flex space-x-2 mt-4">
-      <div class="w-2 h-2 bg-blue-600 rounded-full"></div>
-      <div class="w-2 h-2 bg-blue-600 rounded-full"></div>
-      <div class="w-2 h-2 bg-blue-600 rounded-full"></div>
-    </div>
-  </div>
-</div>
-
-          <!-- Founder 2: Dr. Soje Anthonia Yemisi -->
-          <div class="founder-card p-6 sm:p-8 rounded-2xl shadow-2xl card-hover">
-            <div class="flex flex-col items-center text-center">
-              <div class="relative mb-6">
-                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=500&q=80" alt="Dr. Soje Anthonia Yemisi" class="w-48 sm:w-56 h-48 sm:h-56 rounded-full object-cover shadow-2xl border-4 border-white">
-                <div class="absolute -bottom-2 -left-2 bg-gradient-to-r from-purple-600 to-pink-600 p-3 rounded-full">
-                  <i data-lucide="heart" class="w-8 h-8 text-white"></i>
+    <!-- Founders Section - Compact Design -->
+    <section class="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
+      <div class="container mx-auto px-4 fade-in">
+        <div class="max-w-5xl mx-auto">
+          <div class="text-center mb-12 section-divider">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Meet Our Visionary Founders</h2>
+            <p class="text-lg text-gray-600">The exceptional couple behind Heirs Multispecialist Hospital</p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Founder 1: Dr. Soje Michael Osisiogu -->
+            <div class="founder-card-compact p-6 shadow-lg">
+              <div class="flex items-start space-x-4">
+                <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200&q=80" alt="Dr. Soje Michael Osisiogu" class="w-24 h-24 rounded-full object-cover shadow-md flex-shrink-0">
+                <div class="flex-1">
+                  <h3 class="text-xl font-bold text-gray-800">Dr. Soje Michael Osisiogu</h3>
+                  <p class="text-blue-600 font-semibold mb-2">Co-Founder & Medical Director</p>
+                  <div class="flex items-center text-sm text-gray-600 mb-2">
+                    <i data-lucide="graduation-cap" class="w-4 h-4 mr-1 text-blue-600"></i>
+                    <span>Internal Medicine Specialist</span>
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600 mb-3">
+                    <i data-lucide="building-2" class="w-4 h-4 mr-1 text-blue-600"></i>
+                    <span>Federal Teaching Hospital, Ido-Ekiti</span>
+                  </div>
                 </div>
               </div>
-              <h3 class="text-xl sm:text-2xl font-bold text-gray-800 mb-2">Dr. Soje Anthonia Yemisi</h3>
-              <p class="text-purple-600 font-semibold mb-4">Co-Founder & Chief Specialist</p>
-              <div class="space-y-3 mb-6">
-                <div class="flex items-center text-sm text-gray-600">
-                  <i data-lucide="book-open" class="w-5 h-5 mr-2 text-purple-600"></i>
-                  <span>DDS, MSc (Yale), Specialist in Advanced Dental & Holistic Care</span>
-                </div>
-                <div class="flex items-center text-sm text-gray-600">
-                  <i data-lucide="award" class="w-5 h-5 mr-2 text-purple-600"></i>
-                  <span>2021 Women in Healthcare Excellence Award</span>
-                </div>
-                <div class="flex items-center text-sm text-gray-600">
-                  <i data-lucide="award" class="w-5 h-5 mr-2 text-purple-600"></i>
-                  <span>2019 Dental Innovation Leadership Award</span>
-                </div>
-                <div class="flex items-center text-sm text-gray-600">
-                  <i data-lucide="users" class="w-5 h-5 mr-2 text-purple-600"></i>
-                  <span>18+ Years Empowering Community Wellness</span>
+              <p class="text-gray-600 text-sm mt-4 mb-4">A distinguished physician with extensive experience in internal medicine and gastroenterology, affiliated with Afe Babalola University and Federal Teaching Hospital Ido-Ekiti. His research contributions in gastroenterological conditions have advanced medical knowledge in Nigeria.</p>
+              <div class="flex space-x-3 mt-4 pt-4 border-t border-gray-100">
+                <a href="#" class="text-gray-400 hover:text-blue-600 transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                <a href="#" class="text-gray-400 hover:text-pink-600 transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                <a href="#" class="text-gray-400 hover:text-blue-400 transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                <a href="#" class="text-gray-400 hover:text-blue-700 transition"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+              </div>
+            </div>
+
+            <!-- Founder 2: Dr. Soje Anthonia Yemisi -->
+            <div class="founder-card-compact p-6 shadow-lg">
+              <div class="flex items-start space-x-4">
+                <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&h=200&q=80" alt="Dr. Soje Anthonia Yemisi" class="w-24 h-24 rounded-full object-cover shadow-md flex-shrink-0">
+                <div class="flex-1">
+                  <h3 class="text-xl font-bold text-gray-800">Dr. Soje Anthonia Yemisi</h3>
+                  <p class="text-purple-600 font-semibold mb-2">Co-Founder & Chief Specialist</p>
+                  <div class="flex items-center text-sm text-gray-600 mb-2">
+                    <i data-lucide="graduation-cap" class="w-4 h-4 mr-1 text-purple-600"></i>
+                    <span>Dental & Healthcare Specialist</span>
+                  </div>
+                  <div class="flex items-center text-sm text-gray-600 mb-3">
+                    <i data-lucide="heart" class="w-4 h-4 mr-1 text-purple-600"></i>
+                    <span>Champion of Women's Health</span>
+                  </div>
                 </div>
               </div>
-              <p class="text-gray-600 text-sm sm:text-base mb-6">"Dr. Yemisi blends dental expertise with holistic care, championing women's health and wellness to transform lives in Ekiti."</p>
-                 <!-- Social Icons Section -->
-    <div class="flex space-x-4 mb-6">
-      <a href="#" class="text-gray-500 hover:text-blue-600 transition">
-        <i data-lucide="facebook" class="w-6 h-6"></i>
-      </a>
-      <a href="#" class="text-gray-500 hover:text-pink-600 transition">
-        <i data-lucide="instagram" class="w-6 h-6"></i>
-      </a>
-      <a href="#" class="text-gray-500 hover:text-blue-400 transition">
-        <i data-lucide="twitter" class="w-6 h-6"></i>
-      </a>
-      <a href="#" class="text-gray-500 hover:text-red-600 transition">
-        <i data-lucide="youtube" class="w-6 h-6"></i>
-      </a>
-      <a href="#" class="text-gray-500 hover:text-blue-700 transition">
-        <i data-lucide="linkedin" class="w-6 h-6"></i>
-      </a>
-    </div>
-              <div class="flex space-x-2 mt-4">
-                <div class="w-2 h-2 bg-purple-600 rounded-full"></div>
-                <div class="w-2 h-2 bg-purple-600 rounded-full"></div>
-                <div class="w-2 h-2 bg-purple-600 rounded-full"></div>
+              <p class="text-gray-600 text-sm mt-4 mb-4">A passionate healthcare professional dedicated to holistic patient care and community wellness. Co-founded Heirs Multispecialist Hospital with a vision to bring world-class medical services to Ekiti State, particularly focusing on dental care and women's health initiatives.</p>
+              <div class="flex space-x-3 mt-4 pt-4 border-t border-gray-100">
+                <a href="#" class="text-gray-400 hover:text-blue-600 transition"><i data-lucide="facebook" class="w-5 h-5"></i></a>
+                <a href="#" class="text-gray-400 hover:text-pink-600 transition"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+                <a href="#" class="text-gray-400 hover:text-blue-400 transition"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+                <a href="#" class="text-gray-400 hover:text-blue-700 transition"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
               </div>
             </div>
           </div>
@@ -352,53 +566,209 @@
       </div>
     </section>
 
-    <!-- Areas of Excellence Section -->
-    <section class="py-16 bg-gray-50">
-      <div class="container mx-auto px-4 fade-in max-w-full">
-        <div class="text-center mb-12 section-divider">
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 mb-4">Areas of Excellence</h2>
-          <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">Our specialized departments work together to provide comprehensive care across multiple medical disciplines.</p>
-        </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          <div class="text-center p-4 bg-white rounded-lg shadow-md card-hover">
-            <i data-lucide="heart" class="w-10 sm:w-12 h-10 sm:h-12 mx-auto mb-2 text-red-500"></i>
-            <h4 class="font-semibold text-gray-800 text-sm sm:text-base">Cardiology</h4>
+    <!-- Our Locations -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4 fade-in">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-12 section-divider">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Locations</h2>
+            <p class="text-lg text-gray-600">Serving communities across Ekiti State with two modern facilities</p>
           </div>
-          <div class="text-center p-4 bg-white rounded-lg shadow-md card-hover">
-            <i data-lucide="brain" class="w-10 sm:w-12 h-10 sm:h-12 mx-auto mb-2 text-purple-500"></i>
-            <h4 class="font-semibold text-gray-800 text-sm sm:text-base">Neurology</h4>
-          </div>
-          <div class="text-center p-4 bg-white rounded-lg shadow-md card-hover">
-            <i data-lucide="baby" class="w-10 sm:w-12 h-10 sm:h-12 mx-auto mb-2 text-pink-500"></i>
-            <h4 class="font-semibold text-gray-800 text-sm sm:text-base">Pediatrics</h4>
-          </div>
-          <div class="text-center p-4 bg-white rounded-lg shadow-md card-hover">
-            <i data-lucide="scissors" class="w-10 sm:w-12 h-10 sm:h-12 mx-auto mb-2 text-green-500"></i>
-            <h4 class="font-semibold text-gray-800 text-sm sm:text-base">Surgery</h4>
-          </div>
-          <div class="text-center p-4 bg-white rounded-lg shadow-md card-hover">
-            <i data-lucide="zap" class="w-10 sm:w-12 h-10 sm:h-12 mx-auto mb-2 text-yellow-500"></i>
-            <h4 class="font-semibold text-gray-800 text-sm sm:text-base">Oncology</h4>
-          </div>
-          <div class="text-center p-4 bg-white rounded-lg shadow-md card-hover">
-            <i data-lucide="heart-pulse" class="w-10 sm:w-12 h-10 sm:h-12 mx-auto mb-2 text-blue-500"></i>
-            <h4 class="font-semibold text-gray-800 text-sm sm:text-base">Emergency</h4>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Oye-Ekiti Branch -->
+            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-2xl shadow-lg card-hover">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center mr-4">
+                  <i data-lucide="map-pin" class="w-6 h-6 text-white"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-gray-800">Main Branch</h3>
+                  <p class="text-blue-600 font-semibold">Oye-Ekiti</p>
+                </div>
+              </div>
+              <p class="text-gray-600 mb-4">123 Hospital Road, Oye-Ekiti, Ekiti State</p>
+              <div class="space-y-2 mb-4">
+                <div class="flex items-center text-gray-600">
+                  <i data-lucide="phone" class="w-4 h-4 mr-2 text-blue-600"></i>
+                  <a href="tel:+234123456789" class="hover:text-blue-600">+234 123 456 789</a>
+                </div>
+                <div class="flex items-center text-gray-600">
+                  <i data-lucide="mail" class="w-4 h-4 mr-2 text-blue-600"></i>
+                  <a href="mailto:oye@heirsmultispecialist.com" class="hover:text-blue-600">oye@heirsmultispecialist.com</a>
+                </div>
+                <div class="flex items-center text-gray-600">
+                  <i data-lucide="clock" class="w-4 h-4 mr-2 text-blue-600"></i>
+                  <span>24/7 Emergency Services</span>
+                </div>
+              </div>
+              <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Oye-Ekiti Branch" class="w-full h-48 object-cover rounded-lg" loading="lazy">
+            </div>
+
+            <!-- Ado-Ekiti Branch -->
+            <div class="bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-2xl shadow-lg card-hover">
+              <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mr-4">
+                  <i data-lucide="map-pin" class="w-6 h-6 text-white"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-gray-800">Second Branch</h3>
+                  <p class="text-purple-600 font-semibold">Ado-Ekiti</p>
+                </div>
+              </div>
+              <p class="text-gray-600 mb-4">Plot 3, Orimolade Crescent, Ilokun Estate, Ado-Ekiti, Ekiti State</p>
+              <div class="space-y-2 mb-4">
+                <div class="flex items-center text-gray-600">
+                  <i data-lucide="phone" class="w-4 h-4 mr-2 text-purple-600"></i>
+                  <a href="tel:+234123456790" class="hover:text-purple-600">+234 123 456 790</a>
+                </div>
+                <div class="flex items-center text-gray-600">
+                  <i data-lucide="mail" class="w-4 h-4 mr-2 text-purple-600"></i>
+                  <a href="mailto:ado@heirsmultispecialist.com" class="hover:text-purple-600">ado@heirsmultispecialist.com</a>
+                </div>
+                <div class="flex items-center text-gray-600">
+                  <i data-lucide="clock" class="w-4 h-4 mr-2 text-purple-600"></i>
+                  <span>Mon-Sat: 8:00 AM - 6:00 PM</span>
+                </div>
+              </div>
+              <img src="https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Ado-Ekiti Branch" class="w-full h-48 object-cover rounded-lg" loading="lazy">
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Call to Action Section -->
+    <!-- Core Values -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4 fade-in">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-12 section-divider">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Core Values</h2>
+            <p class="text-lg text-gray-600">The principles that guide everything we do</p>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-xl shadow-md card-hover text-center">
+              <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="shield-check" class="w-7 h-7 text-blue-600"></i>
+              </div>
+              <h3 class="font-bold text-gray-800 mb-2">Excellence</h3>
+              <p class="text-gray-600 text-sm">We strive for the highest standards in medical care and patient service.</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl shadow-md card-hover text-center">
+              <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="heart" class="w-7 h-7 text-green-600"></i>
+              </div>
+              <h3 class="font-bold text-gray-800 mb-2">Compassion</h3>
+              <p class="text-gray-600 text-sm">We treat every patient with empathy, respect, and dignity.</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl shadow-md card-hover text-center">
+              <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="lightbulb" class="w-7 h-7 text-purple-600"></i>
+              </div>
+              <h3 class="font-bold text-gray-800 mb-2">Innovation</h3>
+              <p class="text-gray-600 text-sm">We embrace cutting-edge technology and modern medical practices.</p>
+            </div>
+            
+            <div class="bg-white p-6 rounded-xl shadow-md card-hover text-center">
+              <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="users" class="w-7 h-7 text-orange-600"></i>
+              </div>
+              <h3 class="font-bold text-gray-800 mb-2">Community</h3>
+              <p class="text-gray-600 text-sm">We are committed to improving the health of our community.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Areas of Excellence -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4 fade-in">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-12 section-divider">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Areas of Excellence</h2>
+            <p class="text-lg text-gray-600">Comprehensive medical specialties under one roof</p>
+          </div>
+          
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div class="text-center p-4 bg-gray-50 rounded-lg shadow-md card-hover">
+              <i data-lucide="heart" class="w-12 h-12 mx-auto mb-2 text-red-500"></i>
+              <h4 class="font-semibold text-gray-800 text-sm">Cardiology</h4>
+            </div>
+            <div class="text-center p-4 bg-gray-50 rounded-lg shadow-md card-hover">
+              <i data-lucide="brain" class="w-12 h-12 mx-auto mb-2 text-purple-500"></i>
+              <h4 class="font-semibold text-gray-800 text-sm">Neurology</h4>
+            </div>
+            <div class="text-center p-4 bg-gray-50 rounded-lg shadow-md card-hover">
+              <i data-lucide="baby" class="w-12 h-12 mx-auto mb-2 text-pink-500"></i>
+              <h4 class="font-semibold text-gray-800 text-sm">Pediatrics</h4>
+            </div>
+            <div class="text-center p-4 bg-gray-50 rounded-lg shadow-md card-hover">
+              <i data-lucide="scissors" class="w-12 h-12 mx-auto mb-2 text-green-500"></i>
+              <h4 class="font-semibold text-gray-800 text-sm">Surgery</h4>
+            </div>
+            <div class="text-center p-4 bg-gray-50 rounded-lg shadow-md card-hover">
+              <i data-lucide="zap" class="w-12 h-12 mx-auto mb-2 text-yellow-500"></i>
+              <h4 class="font-semibold text-gray-800 text-sm">Oncology</h4>
+            </div>
+            <div class="text-center p-4 bg-gray-50 rounded-lg shadow-md card-hover">
+              <i data-lucide="heart-pulse" class="w-12 h-12 mx-auto mb-2 text-blue-500"></i>
+              <h4 class="font-semibold text-gray-800 text-sm">Emergency</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Heirs Institute Highlight -->
+    <section class="py-16 bg-gradient-to-br from-indigo-50 to-purple-50">
+      <div class="container mx-auto px-4 fade-in">
+        <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-2xl shadow-xl">
+          <div class="flex items-start space-x-6">
+            <div class="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+              <i data-lucide="graduation-cap" class="w-8 h-8 text-white"></i>
+            </div>
+            <div class="flex-1">
+              <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4">Heirs Institute of Allied Health</h2>
+              <p class="text-gray-600 mb-6">Founded in 2020, our training institute addresses the critical shortage of skilled allied health professionals in Nigeria. We are committed to producing well-trained, competent healthcare workers who will contribute to improving healthcare delivery across the nation.</p>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                  <div class="text-2xl font-bold text-blue-600 mb-1">100+</div>
+                  <div class="text-gray-600 text-sm">Graduates Trained</div>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                  <div class="text-2xl font-bold text-blue-600 mb-1">5+</div>
+                  <div class="text-gray-600 text-sm">Programs Offered</div>
+                </div>
+                <div class="text-center p-4 bg-gray-50 rounded-lg">
+                  <div class="text-2xl font-bold text-blue-600 mb-1">95%</div>
+                  <div class="text-gray-600 text-sm">Employment Rate</div>
+                </div>
+              </div>
+              <a href="heirs-institute.html" class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition">
+                <span>Learn More About Our Institute</span>
+                <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
     <section class="py-16 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
-      <div class="container mx-auto px-4 fade-in max-w-full">
-        <div class="text-center">
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Experience World-Class Care Today</h2>
-          <p class="text-base sm:text-lg mb-8 max-w-2xl mx-auto">Join thousands of satisfied patients who trust Heirs Multispecialist Hospital for compassionate, cutting-edge healthcare. Book your appointment or explore our services now.</p>
-          <div class="flex justify-center space-x-4">
-            <a href="contact.html" class="btn-primary px-6 py-3 rounded-full text-sm flex items-center">
+      <div class="container mx-auto px-4 fade-in">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">Experience World-Class Healthcare Today</h2>
+          <p class="text-lg mb-8">Join thousands of satisfied patients who trust Heirs Multispecialist Hospital for compassionate, cutting-edge medical care. Book your appointment or explore our services now.</p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href="contact.html#appointmentform" class="btn-primary px-8 py-3 rounded-full font-semibold flex items-center">
               <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
             </a>
-            <a href="services.html" class="btn-secondary border-2 px-6 py-3 rounded-full text-sm flex items-center">
+            <a href="services.html" class="btn-secondary border-2 px-8 py-3 rounded-full font-semibold flex items-center">
               <i data-lucide="arrow-right" class="w-5 h-5 mr-2"></i> Explore Services
             </a>
           </div>
@@ -407,66 +777,153 @@
     </section>
   </main>
 
-  <!-- Footer -->
-<footer class="bg-gray-800 text-white py-8">
+  <!-- Enhanced Footer -->
+  <footer class="footer-gradient text-white py-12">
     <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div>
-          <h3 class="text-lg font-semibold mb-4">Heirs Multispecialist Hospital</h3>
-          <p class="text-gray-400">123 Hospital Road, Oye Ekiti, Ekiti State</p>
-          <p class="text-gray-400">456 Health Avenue, Ado Ekiti, Ekiti State</p>
-          <p class="text-gray-400 mt-3"><strong>Phone:</strong> <a href="tel:+234123456789" class="hover:text-white">+234 123 456 789</a></p>
-          <p class="text-gray-400"><strong>Email:</strong> <a href="mailto:info@heirsmultispecialist.com" class="hover:text-white">info@heirsmultispecialist.com</a></p>
-          <div class="flex space-x-4 mt-4">
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter" class="w-5 h-5"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div class="lg:col-span-1">
+          <div class="flex items-center mb-6">
+            <div class="footer-logo-circle mr-4">
+              <i data-lucide="hospital" class="w-10 h-10 text-white"></i>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold">Heirs</h3>
+              <p class="text-sm text-gray-300">Multispecialist Hospital</p>
+            </div>
+          </div>
+          <p class="text-gray-300 mb-4">Providing exceptional healthcare services to Ekiti State since 2010. Your health, our priority.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Facebook">
+              <i data-lucide="facebook" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Twitter">
+              <i data-lucide="twitter" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Instagram">
+              <i data-lucide="instagram" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="LinkedIn">
+              <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </a>
           </div>
         </div>
+
         <div>
-          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="index.html" class="hover:text-white">Home</a></li>
-            <li><a href="#about" class="hover:text-white">About Us</a></li>
-            <li><a href="services.html" class="hover:text-white">Services</a></li>
-            <li><a href="departments.html" class="hover:text-white">Departments</a></li>
-            <li><a href="contact.html" class="hover:text-white">Contact</a></li>
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i data-lucide="map-pin" class="w-5 h-5 mr-2"></i> Our Locations
+          </h4>
+          <div class="space-y-4">
+            <div>
+              <p class="font-semibold text-blue-300">Main Branch - Oye Ekiti</p>
+              <p class="text-gray-300 text-sm">123 Hospital Road, Oye Ekiti, Ekiti State</p>
+            </div>
+            <div>
+              <p class="font-semibold text-blue-300">Ado Ekiti Branch</p>
+              <p class="text-gray-300 text-sm">Plot 3, Orimolade Crescent, Ilokun Estate, Ado Ekiti</p>
+            </div>
+          </div>
+          <div class="mt-4">
+            <p class="flex items-center text-gray-300 mb-2">
+              <i data-lucide="phone" class="w-4 h-4 mr-2"></i>
+              <a href="tel:+234123456789" class="hover:text-white transition">+234 123 456 789</a>
+            </p>
+            <p class="flex items-center text-gray-300">
+              <i data-lucide="mail" class="w-4 h-4 mr-2"></i>
+              <a href="mailto:info@heirsmultispecialist.com" class="hover:text-white transition">info@heirsmultispecialist.com</a>
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i data-lucide="link" class="w-5 h-5 mr-2"></i> Quick Links
+          </h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Home</a></li>
+            <li><a href="about.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> About Us</a></li>
+            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Services</a></li>
+            <li><a href="department.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Departments</a></li>
+            <li><a href="heirs-institute.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Heirs Institute</a></li>
+            <li><a href="blog.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Blog</a></li>
+            <li><a href="contact.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Contact</a></li>
           </ul>
         </div>
+
         <div>
-          <h4 class="text-lg font-semibold mb-4">Our Services</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="services.html" class="hover:text-white">X-Ray & Imaging</a></li>
-            <li><a href="services.html" class="hover:text-white">Dental Care</a></li>
-            <li><a href="services.html" class="hover:text-white">Laboratory Services</a></li>
-            <li><a href="services.html" class="hover:text-white">Pharmacy</a></li>
-            <li><a href="services.html" class="hover:text-white">Emergency Care</a></li>
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i data-lucide="activity" class="w-5 h-5 mr-2"></i> Our Services
+          </h4>
+          <ul class="space-y-2">
+            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> X-Ray & Imaging</a></li>
+            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Dental Care</a></li>
+            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Laboratory Services</a></li>
+            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Pharmacy</a></li>
+            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Therapy Services</a></li>
+            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Emergency Care 24/7</a></li>
           </ul>
         </div>
       </div>
-      <div class="text-center text-gray-400 mt-8 pt-8 border-t border-gray-700">
-        &copy; 2025 Heirs Multispecialist Hospital. All Rights Reserved.
+
+      <div class="border-t border-gray-600 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <p class="text-gray-300 text-sm text-center md:text-left">
+            &copy; 2025 Heirs Multispecialist Hospital. All Rights Reserved.
+          </p>
+          <div class="flex items-center space-x-2">
+            <p class="text-gray-300 text-sm">Designed & Developed by</p>
+            <a href="#" class="masys-credit text-lg inline-block">MASYS</a>
+          </div>
+        </div>
+        <div class="mt-4 text-center">
+          <p class="text-gray-400 text-xs">Committed to Excellence in Healthcare | Ending Medical Tourism in Nigeria</p>
+        </div>
       </div>
     </div>
   </footer>
 
+  <!-- Scroll to Top -->
+  <a href="#" class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition transform hover:scale-110 z-40" aria-label="Scroll to top">
+    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+  </a>
+
   <script>
     lucide.createIcons();
-    function toggleMobileMenu() {
-      document.getElementById('mobileMenu').classList.toggle('hidden');
+
+    function openMobileSidebar() {
+      document.getElementById('mobileSidebar').classList.add('open');
+      document.getElementById('sidebarOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
     }
+
+    function closeMobileSidebar() {
+      document.getElementById('mobileSidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.1 });
+    
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', e => {
-        e.preventDefault();
-        document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        const href = anchor.getAttribute('href');
+        if (href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+            closeMobileSidebar();
+          }
+        }
       });
     });
+
+    setTimeout(() => lucide.createIcons(), 100);
   </script>
 </body>
 </html>

@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Services at Heirs Multispecialist Hospital: X-ray, dental, laboratory, pharmacy, emergency care, and more in Oye Ekiti and Ado Ekiti.">
-  <meta name="keywords" content="Heirs Multispecialist Hospital services, X-ray Ekiti, dental care, laboratory, pharmacy, emergency">
-  <title>Services - Heirs Multispecialist Hospital</title>
+  <meta name="description" content="Services at Heirs Multispecialist Hospital: X-ray, dental, laboratory, pharmacy, emergency care, and more in Oye Ekiti and Ado Ekiti. World-class healthcare ending medical tourism.">
+  <meta name="keywords" content="Heirs Multispecialist Hospital services, X-ray Ekiti, dental care, laboratory, pharmacy, emergency, medical tourism Nigeria">
+  <title>Our Services - Heirs Multispecialist Hospital</title>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "MedicalBusiness",
     "name": "Heirs Multispecialist Hospital",
-    "serviceType": ["X-ray Services", "Dental Care", "Laboratory Testing", "Pharmacy", "Emergency Care", "Nutrition Services", "Therapy Services"],
-    "areaServed": ["Oye Ekiti", "Ado Ekiti", "Ekiti State"],
+    "serviceType": ["X-ray & Imaging", "Dental Care", "Laboratory Testing", "Pharmacy Services", "Emergency Care", "Nutrition & Dietetics", "Therapy & Rehabilitation", "General Consultation", "Specialist Care"],
+    "areaServed": ["Oye Ekiti", "Ado Ekiti", "Ekiti State", "Nigeria"],
     "telephone": "+234123456789",
-    "url": "https://heirsmultispecialist.com.ng/services"
+    "url": "https://heirsmultispecialisthospital.com.ng/services"
   }
   </script>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
@@ -22,12 +22,113 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; }
+    
+    /* Mobile Sidebar */
+    .mobile-sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+      transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      z-index: 1000;
+      overflow-y: auto;
+      box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+    }
+    
+    .mobile-sidebar.open { right: 0; }
+    
+    .mobile-sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    
+    .mobile-sidebar-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Logo Styles */
+    .logo-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+    
+    .footer-logo-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    /* Animations */
     .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
+    
     .card-hover { transition: all 0.3s ease; }
     .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-    .gradient-text { background: linear-gradient(135deg, #2563eb, #1e40af); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .section-divider { position: relative; }
+    
+    .gradient-text { 
+      background: linear-gradient(135deg, #2563eb, #1e40af); 
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent; 
+    }
+
+    /* Navbar Dropdown */
+    .nav-dropdown {
+      position: relative;
+    }
+    
+.nav-dropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: transparent;
+}
+
+/* Also add padding to dropdown content */
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  margin-top: 8px;  /* This creates the gap that the ::after fills */
+  z-index: 100;
+  padding: 8px 0;   /* Add padding inside */
+}
+    
+    .nav-dropdown:hover {
+      display: block;
+    }
+
+    .section-divider { position: relative; padding-top: 20px; }
     .section-divider::before { 
       content: ''; 
       position: absolute; 
@@ -39,262 +140,550 @@
       background: linear-gradient(135deg, #2563eb, #1e40af); 
       border-radius: 2px; 
     }
-    .btn-primary { background-color: #2563eb; transition: all 0.3s ease; }
-    .btn-primary:hover { background-color: #1e40af; transform: scale(1.05); }
-    .btn-secondary { border-color: #2563eb; color: #2563eb; transition: all 0.3s ease; }
-    .btn-secondary:hover { background-color: #2563eb; color: #fff; transform: scale(1.05); }
-    .service-category { background: linear-gradient(135deg, #f8fafc, #e2e8f0); }
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; }
+
+    .btn-primary { 
+      background-color: #ffffff; 
+      color: #2563eb; 
+      transition: all 0.3s ease; 
+    }
+    .btn-primary:hover { 
+      background-color: #e2e8f0; 
+      transform: scale(1.05); 
+    }
+    
+    .btn-secondary { 
+      border-color: #ffffff; 
+      color: #ffffff; 
+      transition: all 0.3s ease; 
+    }
+    .btn-secondary:hover { 
+      background-color: #ffffff; 
+      color: #2563eb; 
+      transform: scale(1.05); 
+    }
+
+    /* Service Cards */
+    .service-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #2563eb, #3b82f6);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* Service Icon Circles */
+    .service-icon-circle {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      transition: all 0.3s ease;
+    }
+    
+    .service-card:hover .service-icon-circle {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    /* Enhanced Footer */
+    .footer-gradient {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    }
+    
+    .masys-credit {
+      background: linear-gradient(90deg, #2563eb, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+    
+    .masys-credit:hover {
+      transform: scale(1.05);
+    }
   </style>
 </head>
-<body class="font-inter text-gray-800 bg-gray-50">
-  <!-- Navigation -->
-    <nav class="fixed top-0 w-full bg-white shadow-md z-50">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="index.html" class="text-2xl font-bold text-blue-600 flex items-center">
-        <i data-lucide="hospital" class="w-8 h-8 mr-2"></i>
-        Heirs Multispecialist
-      </a>
-      <div class="hidden md:flex space-x-6">
-        <a href="index.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
-        </a>
-        <a href="about.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
-        </a>
-        <a href="services.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
-        </a>
-        <a href="department.html" class="text-blue-600 font-semibold flex items-center">
-          <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
-        </a>
-        <a href="contact.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
-        </a>
-        <a href="contact.html#appointmentform" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 text-sm flex items-center">
-          <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
-        </a>
-      </div>
-      <div class="flex items-center space-x-4">
-        <a href="tel:+234123456789" class="bg-red-500 text-white px-4 py-2 rounded-full text-sm flex items-center hover:bg-red-600">
-          <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
-        </a>
-        <button onclick="toggleMobileMenu()" class="md:hidden text-gray-600">
-          <i data-lucide="menu" class="w-6 h-6"></i>
+<body class="text-gray-800 bg-gray-50">
+
+  <!-- Mobile Sidebar Overlay -->
+  <div class="mobile-sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
+
+  <!-- Mobile Sidebar -->
+  <div class="mobile-sidebar" id="mobileSidebar">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center">
+          <div class="logo-circle mr-3">
+            <i data-lucide="hospital" class="w-6 h-6 text-white"></i>
+          </div>
+          <span class="text-white font-bold text-lg">Heirs</span>
+        </div>
+        <button onclick="closeMobileSidebar()" class="text-white">
+          <i data-lucide="x" class="w-6 h-6"></i>
         </button>
       </div>
-    </div>
-    <div id="mobileMenu" class="hidden md:hidden bg-white shadow-md">
-      <nav class="px-4 py-4 space-y-2">
-        <a href="index.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
+      
+      <nav class="space-y-1">
+        <a href="index.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+          <i data-lucide="home" class="w-5 h-5 mr-3"></i> Home
         </a>
-        <a href="about.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
+        <a href="about.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+          <i data-lucide="info" class="w-5 h-5 mr-3"></i> About
         </a>
-        <a href="services.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
+        
+        <div class="border-t border-white border-opacity-20 pt-2 mt-2">
+          <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Care Services</p>
+          <a href="services.html" class="flex items-center text-white bg-white bg-opacity-20 px-4 py-3 rounded-lg transition">
+            <i data-lucide="stethoscope" class="w-5 h-5 mr-3"></i> Services
+          </a>
+          <a href="department.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+            <i data-lucide="layout-grid" class="w-5 h-5 mr-3"></i> Departments
+          </a>
+        </div>
+        
+        <div class="border-t border-white border-opacity-20 pt-2 mt-2">
+          <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Resources</p>
+          <a href="heirs-institute.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+            <i data-lucide="graduation-cap" class="w-5 h-5 mr-3"></i> Heirs Institute
+          </a>
+          <a href="blog.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+            <i data-lucide="newspaper" class="w-5 h-5 mr-3"></i> Blog
+          </a>
+        </div>
+        
+        <a href="contact.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+          <i data-lucide="mail" class="w-5 h-5 mr-3"></i> Contact
         </a>
-        <a href="department.html" class="block text-blue-600 font-semibold flex items-center">
-          <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
-        </a>
-        <a href="contact.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
-        </a>
-        <a href="contact.html#appointmentform" class="block bg-blue-600 text-white px-4 py-2 rounded-full text-sm flex items-center">
-          <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
-        </a>
+        
+        <div class="border-t border-white border-opacity-20 pt-4 mt-4 space-y-3">
+          <a href="contact.html#appointmentform" class="flex items-center justify-center bg-white text-blue-600 px-4 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">
+            <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
+          </a>
+          <a href="tel:+234123456789" class="flex items-center justify-center bg-red-500 text-white px-4 py-3 rounded-lg font-semibold hover:bg-red-600 transition">
+            <i data-lucide="phone" class="w-5 h-5 mr-2"></i> Emergency
+          </a>
+        </div>
       </nav>
     </div>
-  </nav>
+  </div>
+
+  <!-- Header -->
+  <header class="fixed top-0 w-full bg-white shadow-md z-50">
+    <div class="container mx-auto px-4 py-3">
+      <div class="flex justify-between items-center">
+        <a href="index.html" class="flex items-center">
+          <div class="logo-circle mr-3">
+            <i data-lucide="hospital" class="w-6 h-6 text-white"></i>
+          </div>
+          <span class="text-2xl font-bold text-blue-600">Heirs</span>
+        </a>
+
+        <nav class="hidden lg:flex items-center space-x-1">
+          <a href="index.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+            <i data-lucide="home" class="w-4 h-4 mr-1"></i> Home
+          </a>
+          <a href="about.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+            <i data-lucide="info" class="w-4 h-4 mr-1"></i> About
+          </a>
+          
+          <div class="nav-dropdown">
+            <button class="text-blue-600 font-semibold px-3 py-2 rounded-lg transition flex items-center">
+              <i data-lucide="heart-pulse" class="w-4 h-4 mr-1"></i> Care <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
+            </button>
+            <div class="nav-dropdown-content">
+              <a href="services.html" class="block px-4 py-3 text-blue-600 bg-blue-50 font-semibold transition flex items-center">
+                <i data-lucide="stethoscope" class="w-4 h-4 mr-2"></i> Services
+              </a>
+              <a href="department.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="layout-grid" class="w-4 h-4 mr-2"></i> Departments
+              </a>
+            </div>
+          </div>
+          
+          <div class="nav-dropdown">
+            <button class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+              <i data-lucide="book-open" class="w-4 h-4 mr-1"></i> Resources <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
+            </button>
+            <div class="nav-dropdown-content">
+              <a href="heirs-institute.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="graduation-cap" class="w-4 h-4 mr-2"></i> Heirs Institute
+              </a>
+              <a href="blog.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="newspaper" class="w-4 h-4 mr-2"></i> Blog
+              </a>
+            </div>
+          </div>
+          
+          <a href="contact.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+            <i data-lucide="mail" class="w-4 h-4 mr-1"></i> Contact
+          </a>
+        </nav>
+
+        <div class="flex items-center space-x-3">
+          <a href="contact.html#appointmentform" class="hidden md:flex bg-blue-600 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-blue-700 transition whitespace-nowrap">
+            <i data-lucide="calendar" class="w-4 h-4 mr-2"></i> Book Appointment
+          </a>
+          <a href="tel:+234123456789" class="hidden sm:flex bg-red-500 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-red-600 transition whitespace-nowrap">
+            <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
+          </a>
+          <button onclick="openMobileSidebar()" class="lg:hidden text-gray-600 hover:text-blue-600 transition">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
 
   <!-- Main Content -->
-  <main class="pt-16">
-    <!-- Introduction Section -->
+  <main class="pt-20">
+    <!-- Hero Section -->
     <section id="services" class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
       <div class="container mx-auto px-4 fade-in">
         <div class="text-center mb-12 section-divider">
-          <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-4">Our Services</h1>
-          <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">At Heirs Multispecialist Hospital, we offer a wide range of medical services designed to meet the diverse healthcare needs of our patients in Ekiti State. From advanced diagnostics to emergency care, our commitment to excellence ensures you receive the best possible treatment.</p>
+          <span class="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">World-Class Healthcare</span>
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Our Medical Services</h1>
+          <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">At Heirs Multispecialist Hospital, we offer comprehensive medical services designed to end medical tourism in Nigeria. From advanced diagnostics to emergency care, our commitment to excellence ensures you receive world-class treatment at home.</p>
         </div>
-        <div class="stats-grid">
-          <div class="text-center">
-            <div class="text-3xl sm:text-4xl font-bold text-blue-600 mb-2">10,000+</div>
-            <div class="text-gray-600">Patients Served</div>
-            <div class="text-sm text-gray-500">Annually across our branches</div>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          <div class="bg-white p-4 rounded-xl shadow-md text-center">
+            <div class="text-3xl font-bold text-blue-600 mb-1">15+</div>
+            <div class="text-gray-600 text-sm">Service Categories</div>
           </div>
-          <div class="text-center">
-            <div class="text-3xl sm:text-4xl font-bold text-blue-600 mb-2">45+</div>
-            <div class="text-gray-600">Medical Experts</div>
-            <div class="text-sm text-gray-500">Specialists in various fields</div>
+          <div class="bg-white p-4 rounded-xl shadow-md text-center">
+            <div class="text-3xl font-bold text-blue-600 mb-1">50+</div>
+            <div class="text-gray-600 text-sm">Medical Experts</div>
           </div>
-          <div class="text-center">
-            <div class="text-3xl sm:text-4xl font-bold text-blue-600 mb-2">20+</div>
-            <div class="text-gray-600">Specializations</div>
-            <div class="text-sm text-gray-500">From diagnostics to therapy</div>
+          <div class="bg-white p-4 rounded-xl shadow-md text-center">
+            <div class="text-3xl font-bold text-blue-600 mb-1">24/7</div>
+            <div class="text-gray-600 text-sm">Emergency Care</div>
           </div>
-          <div class="text-center">
-            <div class="text-3xl sm:text-4xl font-bold text-blue-600 mb-2">24/7</div>
-            <div class="text-gray-600">Hours Service</div>
-            <div class="text-sm text-gray-500">Emergency and critical care</div>
+          <div class="bg-white p-4 rounded-xl shadow-md text-center">
+            <div class="text-3xl font-bold text-blue-600 mb-1">2</div>
+            <div class="text-gray-600 text-sm">Locations</div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Services Categories -->
+    <!-- Primary Services Grid -->
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4 fade-in">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <!-- Primary Care Card -->
-          <div class="service-category p-8 rounded-2xl shadow-lg card-hover">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Primary Care</h3>
-            <h4 class="text-xl font-semibold text-blue-600 mb-2">General Consultation</h4>
-            <p class="text-gray-600 mb-4">Comprehensive health assessments and preventive care planning for all family members, ensuring early detection and long-term wellness.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
-              <div class="text-center"><i data-lucide="activity" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Health Monitoring</span></div>
-              <div class="text-center"><i data-lucide="shield" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Wellness Programs</span></div>
-              <div class="text-center"><i data-lucide="calendar" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Preventive Care</span></div>
-            </div>
-            <a href="contact.html#appointmentform" class="btn-primary text-white px-4 py-2 rounded-full text-sm">Schedule Visit</a>
-          </div>
-
-          <!-- X-Ray Services Card -->
-          <div class="service-category p-8 rounded-2xl shadow-lg card-hover">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Diagnostics</h3>
-            <h4 class="text-xl font-semibold text-blue-600 mb-2">X-Ray & Imaging</h4>
-            <p class="text-gray-600 mb-4">State-of-the-art X-ray and imaging technology for accurate diagnosis of fractures, infections, and internal conditions with minimal wait times.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
-              <div class="text-center"><i data-lucide="activity" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Digital X-Rays</span></div>
-              <div class="text-center"><i data-lucide="camera" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Ultrasound Imaging</span></div>
-              <div class="text-center"><i data-lucide="clock" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Same-Day Results</span></div>
-            </div>
-            <a href="contact.html#appointmentform" class="btn-primary text-white px-4 py-2 rounded-full text-sm">Book Scan</a>
-          </div>
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Comprehensive Care Services</h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">From routine checkups to specialized treatments, we provide complete healthcare solutions</p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
-          <!-- Dental Care Card -->
-          <div class="service-category p-8 rounded-2xl shadow-lg card-hover">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Specialty Care</h3>
-            <h4 class="text-xl font-semibold text-blue-600 mb-2">Dental Services</h4>
-            <p class="text-gray-600 mb-4">Full-spectrum dental care from routine cleanings and fillings to advanced procedures like implants and orthodontics for patients of all ages.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
-              <div class="text-center"><i data-lucide="smile" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Cleanings & Fillings</span></div>
-              <div class="text-center"><i data-lucide="tool" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Implants & Crowns</span></div>
-              <div class="text-center"><i data-lucide="zap" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Emergency Dentistry</span></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          
+          <!-- General Consultation -->
+          <div class="service-card shadow-lg card-hover p-6">
+            <div class="service-icon-circle bg-blue-100">
+              <i data-lucide="user-check" class="w-8 h-8 text-blue-600"></i>
             </div>
-            <a href="contact.html#appointmentform" class="btn-primary text-white px-4 py-2 rounded-full text-sm">Book Appointment</a>
+            <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">General Consultation</h3>
+            <p class="text-gray-600 mb-4 text-center text-sm">Comprehensive health assessments and preventive care planning for all family members, ensuring early detection and long-term wellness.</p>
+            <ul class="space-y-2 text-sm text-gray-600 mb-4">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-600"></i>Health Monitoring</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-600"></i>Wellness Programs</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-600"></i>Preventive Care</li>
+            </ul>
+            <a href="contact.html#appointmentform" class="block bg-blue-600 text-white text-center px-4 py-2 rounded-full hover:bg-blue-700 transition text-sm">Schedule Visit</a>
           </div>
 
-          <!-- Laboratory Services Card -->
-          <div class="service-category p-8 rounded-2xl shadow-lg card-hover">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Diagnostics</h3>
-            <h4 class="text-xl font-semibold text-blue-600 mb-2">Laboratory Testing</h4>
-            <p class="text-gray-600 mb-4">Advanced laboratory services offering blood work, pathology, and specialized tests with rapid results for accurate diagnosis and monitoring.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
-              <div class="text-center"><i data-lucide="test-tube" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Blood Work</span></div>
-              <div class="text-center"><i data-lucide="flask" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Pathology</span></div>
-              <div class="text-center"><i data-lucide="clock" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Same-Day Results</span></div>
+          <!-- X-Ray & Imaging -->
+          <div class="service-card shadow-lg card-hover p-6">
+            <div class="service-icon-circle bg-purple-100">
+              <i data-lucide="scan" class="w-8 h-8 text-purple-600"></i>
             </div>
-            <a href="contact.html#appointmentform" class="btn-primary text-white px-4 py-2 rounded-full text-sm">Order Tests</a>
+            <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">X-Ray & Imaging</h3>
+            <p class="text-gray-600 mb-4 text-center text-sm">State-of-the-art imaging technology for accurate diagnosis of fractures, infections, and internal conditions with minimal wait times.</p>
+            <ul class="space-y-2 text-sm text-gray-600 mb-4">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-purple-600"></i>Digital X-Rays</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-purple-600"></i>Ultrasound Imaging</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-purple-600"></i>Same-Day Results</li>
+            </ul>
+            <a href="contact.html#appointmentform" class="block bg-purple-600 text-white text-center px-4 py-2 rounded-full hover:bg-purple-700 transition text-sm">Book Scan</a>
           </div>
-        </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
-          <!-- Emergency Care Card -->
-          <div class="service-category p-8 rounded-2xl shadow-lg card-hover bg-red-50 border border-red-200">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Emergency</h3>
-            <h4 class="text-xl font-semibold text-red-600 mb-2">24/7 Emergency Care</h4>
-            <p class="text-gray-600 mb-4">Round-the-clock emergency services equipped with trauma center capabilities, critical care units, and rapid response teams for life-saving interventions.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
-              <div class="text-center"><i data-lucide="heart-pulse" class="w-8 h-8 mx-auto mb-1 text-red-500"></i><span class="text-sm text-gray-600 block">Trauma Center</span></div>
-              <div class="text-center"><i data-lucide="monitor" class="w-8 h-8 mx-auto mb-1 text-red-500"></i><span class="text-sm text-gray-600 block">Critical Care</span></div>
-              <div class="text-center"><i data-lucide="scissors" class="w-8 h-8 mx-auto mb-1 text-red-500"></i><span class="text-sm text-gray-600 block">Emergency Surgery</span></div>
+          <!-- Dental Care -->
+          <div class="service-card shadow-lg card-hover p-6">
+            <div class="service-icon-circle bg-green-100">
+              <i data-lucide="smile" class="w-8 h-8 text-green-600"></i>
             </div>
-            <a href="tel:+234123456789" class="bg-red-500 text-white px-4 py-2 rounded-full text-sm flex items-center mx-auto">
+            <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Dental Care</h3>
+            <p class="text-gray-600 mb-4 text-center text-sm">Full-spectrum dental services from routine cleanings and fillings to advanced procedures like implants and orthodontics.</p>
+            <ul class="space-y-2 text-sm text-gray-600 mb-4">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-600"></i>Cleanings & Fillings</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-600"></i>Implants & Crowns</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-600"></i>Emergency Dentistry</li>
+            </ul>
+            <a href="contact.html#appointmentform" class="block bg-green-600 text-white text-center px-4 py-2 rounded-full hover:bg-green-700 transition text-sm">Book Appointment</a>
+          </div>
+
+          <!-- Laboratory Services -->
+          <div class="service-card shadow-lg card-hover p-6">
+            <div class="service-icon-circle bg-indigo-100">
+              <i data-lucide="flask-conical" class="w-8 h-8 text-indigo-600"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Laboratory Testing</h3>
+            <p class="text-gray-600 mb-4 text-center text-sm">Advanced laboratory services offering comprehensive testing with rapid, accurate results for effective diagnosis and monitoring.</p>
+            <ul class="space-y-2 text-sm text-gray-600 mb-4">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-indigo-600"></i>Blood Work & Analysis</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-indigo-600"></i>Pathology Services</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-indigo-600"></i>Specialized Tests</li>
+            </ul>
+            <a href="contact.html#appointmentform" class="block bg-indigo-600 text-white text-center px-4 py-2 rounded-full hover:bg-indigo-700 transition text-sm">Order Tests</a>
+          </div>
+
+          <!-- Emergency Care -->
+          <div class="service-card shadow-lg card-hover p-6 border-2 border-red-200">
+            <div class="service-icon-circle bg-red-100">
+              <i data-lucide="heart-pulse" class="w-8 h-8 text-red-600"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">24/7 Emergency Care</h3>
+            <p class="text-gray-600 mb-4 text-center text-sm">Round-the-clock emergency services with trauma center capabilities, critical care units, and rapid response teams.</p>
+            <ul class="space-y-2 text-sm text-gray-600 mb-4">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-red-600"></i>Trauma Center</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-red-600"></i>Critical Care Units</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-red-600"></i>Emergency Surgery</li>
+            </ul>
+            <a href="tel:+234123456789" class="block bg-red-500 text-white text-center px-4 py-2 rounded-full hover:bg-red-600 transition text-sm flex items-center justify-center">
               <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Call Emergency
             </a>
           </div>
 
-          <!-- Pharmacy Services Card -->
-          <div class="service-category p-8 rounded-2xl shadow-lg card-hover">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Pharmacy</h3>
-            <h4 class="text-xl font-semibold text-blue-600 mb-2">Medication Services</h4>
-            <p class="text-gray-600 mb-4">Fully stocked pharmacy offering prescription fulfillment, over-the-counter medications, and expert pharmaceutical counseling for safe and effective use.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
-              <div class="text-center"><i data-lucide="pill" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Prescriptions</span></div>
-              <div class="text-center"><i data-lucide="shopping-bag" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">OTC Medications</span></div>
-              <div class="text-center"><i data-lucide="headphones" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Consultation</span></div>
+          <!-- Pharmacy -->
+          <div class="service-card shadow-lg card-hover p-6">
+            <div class="service-icon-circle bg-orange-100">
+              <i data-lucide="pill" class="w-8 h-8 text-orange-600"></i>
             </div>
-            <a href="contact.html#appointmentform" class="btn-primary text-white px-4 py-2 rounded-full text-sm">Visit Pharmacy</a>
+            <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Pharmacy Services</h3>
+            <p class="text-gray-600 mb-4 text-center text-sm">Fully stocked pharmacy offering prescription fulfillment, over-the-counter medications, and expert pharmaceutical counseling.</p>
+            <ul class="space-y-2 text-sm text-gray-600 mb-4">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-orange-600"></i>Prescriptions</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-orange-600"></i>OTC Medications</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-orange-600"></i>Medication Counseling</li>
+            </ul>
+            <a href="contact.html#appointmentform" class="block bg-orange-600 text-white text-center px-4 py-2 rounded-full hover:bg-orange-700 transition text-sm">Visit Pharmacy</a>
           </div>
+
+          <!-- Nutrition & Dietetics -->
+          <div class="service-card shadow-lg card-hover p-6">
+            <div class="service-icon-circle bg-yellow-100">
+              <i data-lucide="apple" class="w-8 h-8 text-yellow-600"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Nutrition & Dietetics</h3>
+            <p class="text-gray-600 mb-4 text-center text-sm">Personalized nutrition counseling and meal planning tailored to your health needs, including special diets and wellness programs.</p>
+            <ul class="space-y-2 text-sm text-gray-600 mb-4">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-yellow-600"></i>Diet Planning</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-yellow-600"></i>Weight Management</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-yellow-600"></i>Wellness Programs</li>
+            </ul>
+            <a href="contact.html#appointmentform" class="block bg-yellow-600 text-white text-center px-4 py-2 rounded-full hover:bg-yellow-700 transition text-sm">Consult Nutritionist</a>
+          </div>
+
+          <!-- Therapy & Rehabilitation -->
+          <div class="service-card shadow-lg card-hover p-6">
+            <div class="service-icon-circle bg-teal-100">
+              <i data-lucide="activity" class="w-8 h-8 text-teal-600"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Therapy & Rehabilitation</h3>
+            <p class="text-gray-600 mb-4 text-center text-sm">Expert physical, occupational, and counseling therapy to aid recovery, manage pain, and improve quality of life.</p>
+            <ul class="space-y-2 text-sm text-gray-600 mb-4">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-teal-600"></i>Physical Therapy</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-teal-600"></i>Occupational Therapy</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-teal-600"></i>Counseling Services</li>
+            </ul>
+            <a href="contact.html#appointmentform" class="block bg-teal-600 text-white text-center px-4 py-2 rounded-full hover:bg-teal-700 transition text-sm">Start Therapy</a>
+          </div>
+
+          <!-- Specialist Consultations -->
+          <div class="service-card shadow-lg card-hover p-6">
+            <div class="service-icon-circle bg-pink-100">
+              <i data-lucide="stethoscope" class="w-8 h-8 text-pink-600"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Specialist Consultations</h3>
+            <p class="text-gray-600 mb-4 text-center text-sm">Access to experienced specialists across various medical fields for complex conditions and specialized care needs.</p>
+            <ul class="space-y-2 text-sm text-gray-600 mb-4">
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-pink-600"></i>Cardiology</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-pink-600"></i>Pediatrics</li>
+              <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-pink-600"></i>Internal Medicine</li>
+            </ul>
+            <a href="contact.html#appointmentform" class="block bg-pink-600 text-white text-center px-4 py-2 rounded-full hover:bg-pink-700 transition text-sm">See Specialist</a>
+          </div>
+
         </div>
+      </div>
+    </section>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
-          <!-- Nutrition Services Card -->
-          <div class="service-category p-8 rounded-2xl shadow-lg card-hover">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Wellness</h3>
-            <h4 class="text-xl font-semibold text-blue-600 mb-2">Nutrition Services</h4>
-            <p class="text-gray-600 mb-4">Personalized nutrition counseling and meal planning tailored to your health needs, including special diets for inpatients and wellness programs for outpatients.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
-              <div class="text-center"><i data-lucide="utensils" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Diet Planning</span></div>
-              <div class="text-center"><i data-lucide="hospital" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Inpatient Meals</span></div>
-              <div class="text-center"><i data-lucide="zap" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Wellness Programs</span></div>
-            </div>
-            <a href="contact.html#appointmentform" class="btn-primary text-white px-4 py-2 rounded-full text-sm">Consult Nutritionist</a>
+    <!-- Supporting Services -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4 fade-in">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-12 section-divider">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Supporting Facilities & Services</h2>
+            <p class="text-lg text-gray-600">Ensuring seamless, comfortable care with world-class infrastructure</p>
           </div>
 
-          <!-- Therapy Services Card -->
-          <div class="service-category p-8 rounded-2xl shadow-lg card-hover">
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Rehabilitation</h3>
-            <h4 class="text-xl font-semibold text-blue-600 mb-2">Therapy Services</h4>
-            <p class="text-gray-600 mb-4">Expert physical, occupational, and counseling therapy to aid recovery, manage pain, and improve quality of life for patients of all ages.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
-              <div class="text-center"><i data-lucide="users" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Physical Therapy</span></div>
-              <div class="text-center"><i data-lucide="activity" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Occupational Therapy</span></div>
-              <div class="text-center"><i data-lucide="heart" class="w-8 h-8 mx-auto mb-1 text-blue-600"></i><span class="text-sm text-gray-600 block">Counseling</span></div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white p-6 rounded-xl shadow-md card-hover">
+              <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="sun" class="w-8 h-8 text-yellow-600"></i>
+              </div>
+              <h3 class="font-bold text-gray-800 mb-2 text-center">24-Hour Solar Power</h3>
+              <p class="text-gray-600 text-sm text-center">Uninterrupted power supply with solar panels and backup generators ensuring continuous medical services.</p>
             </div>
-            <a href="contact.html#appointmentform" class="btn-primary text-white px-4 py-2 rounded-full text-sm">Start Therapy</a>
-          </div>
-        </div>
 
-        <div class="text-center mt-16">
-          <h3 class="text-2xl font-bold text-gray-800 mb-4">Supporting Facilities</h3>
-          <p class="text-gray-600 mb-8 max-w-3xl mx-auto">We ensure seamless care with reliable infrastructure and patient-focused amenities.</p>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="text-center p-6 bg-gray-50 rounded-xl">
-              <i data-lucide="sun" class="w-12 h-12 mx-auto mb-2 text-yellow-500"></i>
-              <h4 class="font-semibold text-gray-800 mb-2">24-Hour Solar Power</h4>
-              <p class="text-gray-600">Uninterrupted power supply with solar panels and backup generators for continuous service.</p>
+            <div class="bg-white p-6 rounded-xl shadow-md card-hover">
+              <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="utensils" class="w-8 h-8 text-green-600"></i>
+              </div>
+              <h3 class="font-bold text-gray-800 mb-2 text-center">Inpatient Food Services</h3>
+              <p class="text-gray-600 text-sm text-center">Dedicated food stand offering nutritious meals tailored to dietary needs for inpatients and visitors.</p>
             </div>
-            <div class="text-center p-6 bg-gray-50 rounded-xl">
-              <i data-lucide="utensils" class="w-12 h-12 mx-auto mb-2 text-green-500"></i>
-              <h4 class="font-semibold text-gray-800 mb-2">Inpatient Food Services</h4>
-              <p class="text-gray-600">Dedicated food stand offering nutritious meals tailored to dietary needs for inpatients and visitors.</p>
+
+            <div class="bg-white p-6 rounded-xl shadow-md card-hover">
+              <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="bed" class="w-8 h-8 text-blue-600"></i>
+              </div>
+              <h3 class="font-bold text-gray-800 mb-2 text-center">Inpatient Care</h3>
+              <p class="text-gray-600 text-sm text-center">Comfortable patient wards with modern amenities and 24/7 nursing care for optimal recovery.</p>
             </div>
-            <div class="text-center p-6 bg-gray-50 rounded-xl">
-              <i data-lucide="users" class="w-12 h-12 mx-auto mb-2 text-purple-500"></i>
-              <h4 class="font-semibold text-gray-800 mb-2">Staff Care Programs</h4>
-              <p class="text-gray-600">Robust support for our dedicated staff, ensuring high-quality care through motivated professionals.</p>
+
+            <div class="bg-white p-6 rounded-xl shadow-md card-hover">
+              <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="ambulance" class="w-8 h-8 text-purple-600"></i>
+              </div>
+              <h3 class="font-bold text-gray-800 mb-2 text-center">Ambulance Services</h3>
+              <p class="text-gray-600 text-sm text-center">Fully equipped ambulances with trained paramedics for emergency transport and mobile care.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-md card-hover">
+              <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="shield-check" class="w-8 h-8 text-red-600"></i>
+              </div>
+              <h3 class="font-bold text-gray-800 mb-2 text-center">NHIS Accredited</h3>
+              <p class="text-gray-600 text-sm text-center">Fully accredited by the National Health Insurance Scheme for seamless insurance coverage.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-md card-hover">
+              <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="microscope" class="w-8 h-8 text-indigo-600"></i>
+              </div>
+              <h3 class="font-bold text-gray-800 mb-2 text-center">Advanced Equipment</h3>
+              <p class="text-gray-600 text-sm text-center">State-of-the-art medical technology comparable to leading hospitals in Nigeria and beyond.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Call to Action Section -->
+    <!-- Why Choose Us -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4 fade-in">
+        <div class="max-w-6xl mx-auto">
+          <div class="text-center mb-12 section-divider">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Why Choose Heirs Hospital</h2>
+            <p class="text-lg text-gray-600">Ending medical tourism one patient at a time</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <i data-lucide="globe" class="w-6 h-6 text-blue-600"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 mb-2">World-Class Standards</h3>
+                <p class="text-gray-600 text-sm">Quality medical services comparable to what is obtainable in leading hospitals in Nigeria and beyond, eliminating the need to travel abroad for treatment.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <i data-lucide="award" class="w-6 h-6 text-green-600"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 mb-2">Expert Medical Team</h3>
+                <p class="text-gray-600 text-sm">Highly qualified specialists and dedicated healthcare professionals committed to providing exceptional patient care.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <i data-lucide="zap" class="w-6 h-6 text-purple-600"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 mb-2">Modern Technology</h3>
+                <p class="text-gray-600 text-sm">State-of-the-art medical equipment and facilities ensuring accurate diagnostics and effective treatments.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <i data-lucide="heart" class="w-6 h-6 text-orange-600"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 mb-2">Patient-Centered Care</h3>
+                <p class="text-gray-600 text-sm">Personalized treatment plans and compassionate service that prioritizes your comfort, dignity, and wellbeing.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <i data-lucide="clock" class="w-6 h-6 text-red-600"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 mb-2">24/7 Availability</h3>
+                <p class="text-gray-600 text-sm">Round-the-clock emergency services and critical care units ready to respond to any medical crisis.</p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <i data-lucide="map-pin" class="w-6 h-6 text-yellow-600"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 mb-2">Convenient Locations</h3>
+                <p class="text-gray-600 text-sm">Two modern branches in Oye-Ekiti and Ado-Ekiti serving communities across Ekiti State and beyond.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
     <section class="py-16 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
       <div class="container mx-auto px-4 fade-in">
-        <div class="text-center">
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Need Medical Attention?</h2>
-          <p class="text-base sm:text-lg mb-8 max-w-2xl mx-auto">Book your appointment with our qualified healthcare professionals and get the care you deserve.</p>
-          <div class="flex justify-center space-x-4">
-            <a href="contact.html#appointmentform" class="btn-primary px-6 py-3 rounded-full text-sm flex items-center">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Experience World-Class Healthcare?</h2>
+          <p class="text-lg mb-8">Book your appointment with our qualified healthcare professionals and get the exceptional care you deserve—right here in Ekiti State.</p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href="contact.html#appointmentform" class="btn-primary px-8 py-3 rounded-full font-semibold flex items-center">
               <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
             </a>
-            <a href="tel:+234123456789" class="bg-red-500 px-6 py-3 rounded-full text-sm flex items-center">
-              <i data-lucide="phone" class="w-5 h-5 mr-2"></i> Call Now
+            <a href="tel:+234123456789" class="bg-red-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-red-600 transition flex items-center">
+              <i data-lucide="phone" class="w-5 h-5 mr-2"></i> Call Emergency
             </a>
           </div>
         </div>
@@ -302,66 +691,154 @@
     </section>
   </main>
 
-  <!-- Footer -->
- <footer class="bg-gray-800 text-white py-8">
+  <!-- Enhanced Footer -->
+  <footer class="footer-gradient text-white py-12">
     <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div>
-          <h3 class="text-lg font-semibold mb-4">Heirs Multispecialist Hospital</h3>
-          <p class="text-gray-400">123 Hospital Road, Oye Ekiti, Ekiti State</p>
-          <p class="text-gray-400">456 Health Avenue, Ado Ekiti, Ekiti State</p>
-          <p class="text-gray-400 mt-3"><strong>Phone:</strong> <a href="tel:+234123456789" class="hover:text-white">+234 123 456 789</a></p>
-          <p class="text-gray-400"><strong>Email:</strong> <a href="mailto:info@heirsmultispecialist.com" class="hover:text-white">info@heirsmultispecialist.com</a></p>
-          <div class="flex space-x-4 mt-4">
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter" class="w-5 h-5"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div class="lg:col-span-1">
+          <div class="flex items-center mb-6">
+            <div class="footer-logo-circle mr-4">
+              <i data-lucide="hospital" class="w-10 h-10 text-white"></i>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold">Heirs</h3>
+              <p class="text-sm text-gray-300">Multispecialist Hospital</p>
+            </div>
+          </div>
+          <p class="text-gray-300 mb-4">Providing exceptional healthcare services to Ekiti State since 2010. Your health, our priority.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Facebook">
+              <i data-lucide="facebook" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Twitter">
+              <i data-lucide="twitter" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Instagram">
+              <i data-lucide="instagram" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="LinkedIn">
+              <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </a>
           </div>
         </div>
+
         <div>
-          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="index.html" class="hover:text-white">Home</a></li>
-            <li><a href="#about" class="hover:text-white">About Us</a></li>
-            <li><a href="services.html" class="hover:text-white">Services</a></li>
-            <li><a href="departments.html" class="hover:text-white">Departments</a></li>
-            <li><a href="contact.html" class="hover:text-white">Contact</a></li>
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i data-lucide="map-pin" class="w-5 h-5 mr-2"></i> Our Locations
+          </h4>
+          <div class="space-y-4">
+            <div>
+              <p class="font-semibold text-blue-300">Main Branch - Oye Ekiti</p>
+              <p class="text-gray-300 text-sm">123 Hospital Road, Oye Ekiti, Ekiti State</p>
+            </div>
+            <div>
+              <p class="font-semibold text-blue-300">Ado Ekiti Branch</p>
+              <p class="text-gray-300 text-sm">Plot 3, Orimolade Crescent, Ilokun Estate, Ado Ekiti</p>
+            </div>
+          </div>
+          <div class="mt-4">
+            <p class="flex items-center text-gray-300 mb-2">
+              <i data-lucide="phone" class="w-4 h-4 mr-2"></i>
+              <a href="tel:+234123456789" class="hover:text-white transition">+234 123 456 789</a>
+            </p>
+            <p class="flex items-center text-gray-300">
+              <i data-lucide="mail" class="w-4 h-4 mr-2"></i>
+              <a href="mailto:info@heirsmultispecialist.com" class="hover:text-white transition">info@heirsmultispecialist.com</a>
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i data-lucide="link" class="w-5 h-5 mr-2"></i> Quick Links
+          </h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Home</a></li>
+            <li><a href="about.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> About Us</a></li>
+            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Services</a></li>
+            <li><a href="department.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Departments</a></li>
+            <li><a href="heirs-institute.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Heirs Institute</a></li>
+            <li><a href="blog.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Blog</a></li>
+            <li><a href="contact.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Contact</a></li>
           </ul>
         </div>
+
         <div>
-          <h4 class="text-lg font-semibold mb-4">Our Services</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="services.html" class="hover:text-white">X-Ray & Imaging</a></li>
-            <li><a href="services.html" class="hover:text-white">Dental Care</a></li>
-            <li><a href="services.html" class="hover:text-white">Laboratory Services</a></li>
-            <li><a href="services.html" class="hover:text-white">Pharmacy</a></li>
-            <li><a href="services.html" class="hover:text-white">Emergency Care</a></li>
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i data-lucide="activity" class="w-5 h-5 mr-2"></i> Our Services
+          </h4>
+          <ul class="space-y-2">
+            <li><a href="#services" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> General Consultation</a></li>
+            <li><a href="#services" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> X-Ray & Imaging</a></li>
+            <li><a href="#services" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Dental Care</a></li>
+            <li><a href="#services" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Laboratory Testing</a></li>
+            <li><a href="#services" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Emergency Care 24/7</a></li>
+            <li><a href="#services" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Pharmacy Services</a></li>
           </ul>
         </div>
       </div>
-      <div class="text-center text-gray-400 mt-8 pt-8 border-t border-gray-700">
-        &copy; 2025 Heirs Multispecialist Hospital. All Rights Reserved.
+
+      <div class="border-t border-gray-600 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <p class="text-gray-300 text-sm text-center md:text-left">
+            &copy; 2025 Heirs Multispecialist Hospital. All Rights Reserved.
+          </p>
+          <div class="flex items-center space-x-2">
+            <p class="text-gray-300 text-sm">Designed & Developed by</p>
+            <a href="#" class="masys-credit text-lg inline-block">MASYS</a>
+          </div>
+        </div>
+        <div class="mt-4 text-center">
+          <p class="text-gray-400 text-xs">Committed to Excellence in Healthcare | Ending Medical Tourism in Nigeria</p>
+        </div>
       </div>
     </div>
   </footer>
 
+  <!-- Scroll to Top -->
+  <a href="#" class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition transform hover:scale-110 z-40" aria-label="Scroll to top">
+    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+  </a>
+
   <script>
     lucide.createIcons();
-    function toggleMobileMenu() {
-      document.getElementById('mobileMenu').classList.toggle('hidden');
+
+    function openMobileSidebar() {
+      document.getElementById('mobileSidebar').classList.add('open');
+      document.getElementById('sidebarOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
     }
+
+    function closeMobileSidebar() {
+      document.getElementById('mobileSidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.1 });
+    
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', e => {
-        e.preventDefault();
-        document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        const href = anchor.getAttribute('href');
+        if (href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+            closeMobileSidebar();
+          }
+        }
       });
     });
+
+    setTimeout(() => lucide.createIcons(), 100);
   </script>
+
 </body>
 </html>

@@ -12,13 +12,13 @@
     "@type": "MedicalOrganization",
     "name": "Heirs Multispecialist Hospital",
     "department": [
-      {"@type": "MedicalDepartment", "name": "Radiology"},
-      {"@type": "MedicalDepartment", "name": "Dental"},
-      {"@type": "MedicalDepartment", "name": "Laboratory"},
+      {"@type": "MedicalDepartment", "name": "Radiology & Imaging"},
+      {"@type": "MedicalDepartment", "name": "Dental Care"},
+      {"@type": "MedicalDepartment", "name": "Laboratory Services"},
       {"@type": "MedicalDepartment", "name": "Pharmacy"},
-      {"@type": "MedicalDepartment", "name": "Emergency"},
-      {"@type": "MedicalDepartment", "name": "Nutrition"},
-      {"@type": "MedicalDepartment", "name": "Therapy"}
+      {"@type": "MedicalDepartment", "name": "Emergency Medicine"},
+      {"@type": "MedicalDepartment", "name": "Nutrition & Dietetics"},
+      {"@type": "MedicalDepartment", "name": "Therapy & Rehabilitation"}
     ],
     "url": "https://heirsmultispecialisthospital.com.ng/departments"
   }
@@ -28,12 +28,113 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; }
+    
+    /* Mobile Sidebar */
+    .mobile-sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+      transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      z-index: 1000;
+      overflow-y: auto;
+      box-shadow: -5px 0 25px rgba(0,0,0,0.3);
+    }
+    
+    .mobile-sidebar.open { right: 0; }
+    
+    .mobile-sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 999;
+    }
+    
+    .mobile-sidebar-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Logo Styles */
+    .logo-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+    
+    .footer-logo-circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2563eb, #1e40af);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    /* Animations */
     .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
+    
     .card-hover { transition: all 0.3s ease; }
     .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-    .gradient-text { background: linear-gradient(135deg, #2563eb, #1e40af); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .section-divider { position: relative; }
+    
+    .gradient-text { 
+      background: linear-gradient(135deg, #2563eb, #1e40af); 
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent; 
+    }
+
+    /* Navbar Dropdown */
+    .nav-dropdown {
+      position: relative;
+    }
+    
+ .nav-dropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: transparent;
+}
+
+/* Also add padding to dropdown content */
+.nav-dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  min-width: 200px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  margin-top: 8px;  /* This creates the gap that the ::after fills */
+  z-index: 100;
+  padding: 8px 0;   /* Add padding inside */
+}
+    
+    .nav-dropdown:hover .nav-dropdown-content {
+      display: block;
+    }
+
+    .section-divider { position: relative; padding-top: 20px; }
     .section-divider::before { 
       content: ''; 
       position: absolute; 
@@ -45,277 +146,620 @@
       background: linear-gradient(135deg, #2563eb, #1e40af); 
       border-radius: 2px; 
     }
-    .btn-primary { background-color: #2563eb; transition: all 0.3s ease; }
-    .btn-primary:hover { background-color: #1e40af; transform: scale(1.05); }
-    .department-carousel { transition: transform 0.5s ease; }
-    .carousel-btn { background-color: rgba(255, 255, 255, 0.8); color: #2563eb; padding: 4px; border-radius: 9999px; transition: all 0.3s ease; }
-    .carousel-btn:hover { background-color: #2563eb; color: #fff; }
-    .department-card { background: linear-gradient(135deg, #f8fafc, #e2e8f0); }
+
+    .btn-primary { 
+      background-color: #ffffff; 
+      color: #2563eb; 
+      transition: all 0.3s ease; 
+    }
+    .btn-primary:hover { 
+      background-color: #e2e8f0; 
+      transform: scale(1.05); 
+    }
+
+    /* Department Card Enhanced */
+    .department-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .department-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #2563eb, #3b82f6);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .department-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* Carousel Styles */
+    .department-carousel { 
+      transition: transform 0.5s ease;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .carousel-btn { 
+      background-color: rgba(255, 255, 255, 0.9); 
+      color: #2563eb; 
+      padding: 8px; 
+      border-radius: 50%; 
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .carousel-btn:hover { 
+      background-color: #2563eb; 
+      color: #fff; 
+      transform: scale(1.1);
+    }
+
+    /* Enhanced Footer */
+    .footer-gradient {
+      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    }
+    
+    .masys-credit {
+      background: linear-gradient(90deg, #2563eb, #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+    
+    .masys-credit:hover {
+      transform: scale(1.05);
+    }
+
+    /* Department Icon Circles */
+    .dept-icon-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      transition: all 0.3s ease;
+    }
+    
+    .department-card:hover .dept-icon-circle {
+      transform: scale(1.1) rotate(5deg);
+    }
   </style>
 </head>
-<body class="font-inter text-gray-800 bg-gray-50">
-  <!-- Navigation -->
-  <nav class="fixed top-0 w-full bg-white shadow-md z-50">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="index.html" class="text-2xl font-bold text-blue-600 flex items-center">
-        <i data-lucide="hospital" class="w-8 h-8 mr-2"></i>
-        Heirs Multispecialist
-      </a>
-      <div class="hidden md:flex space-x-6">
-        <a href="index.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
-        </a>
-        <a href="about.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
-        </a>
-        <a href="services.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
-        </a>
-        <a href="#departments" class="text-blue-600 font-semibold flex items-center">
-          <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
-        </a>
-        <a href="contact.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
-        </a>
-        <a href="contact.html#appointmentform" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 text-sm flex items-center">
-          <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
-        </a>
-      </div>
-      <div class="flex items-center space-x-4">
-        <a href="tel:+234123456789" class="bg-red-500 text-white px-4 py-2 rounded-full text-sm flex items-center hover:bg-red-600">
-          <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
-        </a>
-        <button onclick="toggleMobileMenu()" class="md:hidden text-gray-600">
-          <i data-lucide="menu" class="w-6 h-6"></i>
+<body class="text-gray-800 bg-gray-50">
+
+  <!-- Mobile Sidebar Overlay -->
+  <div class="mobile-sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
+
+  <!-- Mobile Sidebar -->
+  <div class="mobile-sidebar" id="mobileSidebar">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center">
+          <div class="logo-circle mr-3">
+            <i data-lucide="hospital" class="w-6 h-6 text-white"></i>
+          </div>
+          <span class="text-white font-bold text-lg">Heirs</span>
+        </div>
+        <button onclick="closeMobileSidebar()" class="text-white">
+          <i data-lucide="x" class="w-6 h-6"></i>
         </button>
       </div>
-    </div>
-    <div id="mobileMenu" class="hidden md:hidden bg-white shadow-md">
-      <nav class="px-4 py-4 space-y-2">
-        <a href="index.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
+      
+      <nav class="space-y-1">
+        <a href="index.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+          <i data-lucide="home" class="w-5 h-5 mr-3"></i> Home
         </a>
-        <a href="about.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
+        <a href="about.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+          <i data-lucide="info" class="w-5 h-5 mr-3"></i> About
         </a>
-        <a href="services.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
+        
+        <div class="border-t border-white border-opacity-20 pt-2 mt-2">
+          <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Care Services</p>
+          <a href="services.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+            <i data-lucide="stethoscope" class="w-5 h-5 mr-3"></i> Services
+          </a>
+          <a href="department.html" class="flex items-center text-white bg-white bg-opacity-20 px-4 py-3 rounded-lg transition">
+            <i data-lucide="layout-grid" class="w-5 h-5 mr-3"></i> Departments
+          </a>
+        </div>
+        
+        <div class="border-t border-white border-opacity-20 pt-2 mt-2">
+          <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Resources</p>
+          <a href="heirs-institute.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+            <i data-lucide="graduation-cap" class="w-5 h-5 mr-3"></i> Heirs Institute
+          </a>
+          <a href="blog.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+            <i data-lucide="newspaper" class="w-5 h-5 mr-3"></i> Blog
+          </a>
+        </div>
+        
+        <a href="contact.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
+          <i data-lucide="mail" class="w-5 h-5 mr-3"></i> Contact
         </a>
-        <a href="#departments" class="block text-blue-600 font-semibold flex items-center">
-          <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
-        </a>
-        <a href="contact.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
-        </a>
-        <a href="contact.html#appointmentform" class="block bg-blue-600 text-white px-4 py-2 rounded-full text-sm flex items-center">
-          <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
-        </a>
+        
+        <div class="border-t border-white border-opacity-20 pt-4 mt-4 space-y-3">
+          <a href="contact.html#appointmentform" class="flex items-center justify-center bg-white text-blue-600 px-4 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">
+            <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
+          </a>
+          <a href="tel:+234123456789" class="flex items-center justify-center bg-red-500 text-white px-4 py-3 rounded-lg font-semibold hover:bg-red-600 transition">
+            <i data-lucide="phone" class="w-5 h-5 mr-2"></i> Emergency
+          </a>
+        </div>
       </nav>
     </div>
-  </nav>
+  </div>
+
+  <!-- Header -->
+  <header class="fixed top-0 w-full bg-white shadow-md z-50">
+    <div class="container mx-auto px-4 py-3">
+      <div class="flex justify-between items-center">
+        <a href="index.html" class="flex items-center">
+          <div class="logo-circle mr-3">
+            <i data-lucide="hospital" class="w-6 h-6 text-white"></i>
+          </div>
+          <span class="text-2xl font-bold text-blue-600">Heirs</span>
+        </a>
+
+        <nav class="hidden lg:flex items-center space-x-1">
+          <a href="index.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+            <i data-lucide="home" class="w-4 h-4 mr-1"></i> Home
+          </a>
+          <a href="about.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+            <i data-lucide="info" class="w-4 h-4 mr-1"></i> About
+          </a>
+          
+          <div class="nav-dropdown">
+            <button class="text-blue-600 font-semibold px-3 py-2 rounded-lg transition flex items-center">
+              <i data-lucide="heart-pulse" class="w-4 h-4 mr-1"></i> Care <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
+            </button>
+            <div class="nav-dropdown-content">
+              <a href="services.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="stethoscope" class="w-4 h-4 mr-2"></i> Services
+              </a>
+              <a href="department.html" class="block px-4 py-3 text-blue-600 bg-blue-50 font-semibold transition flex items-center">
+                <i data-lucide="layout-grid" class="w-4 h-4 mr-2"></i> Departments
+              </a>
+            </div>
+          </div>
+          
+          <div class="nav-dropdown">
+            <button class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+              <i data-lucide="book-open" class="w-4 h-4 mr-1"></i> Resources <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
+            </button>
+            <div class="nav-dropdown-content">
+              <a href="heirs-institute.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="graduation-cap" class="w-4 h-4 mr-2"></i> Heirs Institute
+              </a>
+              <a href="blog.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
+                <i data-lucide="newspaper" class="w-4 h-4 mr-2"></i> Blog
+              </a>
+            </div>
+          </div>
+          
+          <a href="contact.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
+            <i data-lucide="mail" class="w-4 h-4 mr-1"></i> Contact
+          </a>
+        </nav>
+
+        <div class="flex items-center space-x-3">
+          <a href="contact.html#appointmentform" class="hidden md:flex bg-blue-600 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-blue-700 transition whitespace-nowrap">
+            <i data-lucide="calendar" class="w-4 h-4 mr-2"></i> Book Appointment
+          </a>
+          <a href="tel:+234123456789" class="hidden sm:flex bg-red-500 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-red-600 transition whitespace-nowrap">
+            <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
+          </a>
+          <button onclick="openMobileSidebar()" class="lg:hidden text-gray-600 hover:text-blue-600 transition">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
 
   <!-- Main Content -->
-  <main class="pt-16">
-    <!-- Introduction Section -->
+  <main class="pt-20">
+    <!-- Hero Section -->
     <section id="departments" class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
       <div class="container mx-auto px-4 fade-in">
         <div class="text-center mb-12 section-divider">
-          <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-4">Departments</h1>
-          <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">Discover our specialized departments, each equipped with state-of-the-art technology and staffed by expert professionals dedicated to providing the highest quality care in Ekiti State.</p>
+          <span class="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">Comprehensive Healthcare</span>
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Our Specialized Departments</h1>
+          <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">Discover our specialized departments, each equipped with state-of-the-art technology and staffed by expert professionals dedicated to providing the highest quality care in Ekiti State.</p>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          <div class="bg-white p-4 rounded-xl shadow-md text-center">
+            <div class="text-3xl font-bold text-blue-600 mb-1">7</div>
+            <div class="text-gray-600 text-sm">Departments</div>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow-md text-center">
+            <div class="text-3xl font-bold text-blue-600 mb-1">50+</div>
+            <div class="text-gray-600 text-sm">Specialists</div>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow-md text-center">
+            <div class="text-3xl font-bold text-blue-600 mb-1">24/7</div>
+            <div class="text-gray-600 text-sm">Emergency Care</div>
+          </div>
+          <div class="bg-white p-4 rounded-xl shadow-md text-center">
+            <div class="text-3xl font-bold text-blue-600 mb-1">2</div>
+            <div class="text-gray-600 text-sm">Locations</div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Departments List -->
+    <!-- Departments Grid -->
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4 fade-in">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Radiology (X-ray) -->
-          <div class="department-card p-6 rounded-2xl shadow-lg card-hover">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Radiology</h3>
-            <h4 class="text-xl text-blue-600 mb-4">Diagnostic Imaging</h4>
-            <p class="text-gray-600 mb-4">Our radiology department offers advanced imaging services including X-ray, ultrasound, and CT scans for accurate diagnosis of various conditions.</p>
-            <ul class="space-y-2 text-gray-600">
-              <li class="flex items-center"><i data-lucide="activity" class="w-5 h-5 mr-2 text-blue-600"></i>Digital X-ray</li>
-              <li class="flex items-center"><i data-lucide="camera" class="w-5 h-5 mr-2 text-blue-600"></i>Ultrasound</li>
-            </ul>
-            <!-- Carousel -->
-            <div class="relative mt-6" id="radiology">
-              <div id="radiology-carousel" class="department-carousel overflow-hidden rounded-xl">
-                <div class="flex">
-                  <img src="https://cdn.pixabay.com/photo/2018/01/22/11/02/hospital-3098683_1280.jpg" alt="Radiology 1" class="min-w-full h-64 object-cover">
-                  <img src="https://cdn.pixabay.com/photo/2021/07/29/06/31/ct-scan-6506418_1280.jpg" alt="Radiology 2" class="min-w-full h-64 object-cover">
-                  <img src="https://cdn.pixabay.com/photo/2021/12/02/22/15/x-ray-6841384_1280.jpg" alt="Radiology 3" class="min-w-full h-64 object-cover">
-                </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          
+          <!-- Radiology & Imaging -->
+          <div class="department-card shadow-lg card-hover">
+            <div class="p-6">
+              <div class="dept-icon-circle bg-blue-100">
+                <i data-lucide="scan" class="w-8 h-8 text-blue-600"></i>
               </div>
-              <button onclick="prevSlide('radiology')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn">
-                <i data-lucide="chevron-left" class="w-4 h-4"></i>
-              </button>
-              <button onclick="nextSlide('radiology')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn">
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-              </button>
+              <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Radiology & Imaging</h3>
+              <p class="text-blue-600 font-semibold mb-4 text-center">Diagnostic Excellence</p>
+              <p class="text-gray-600 mb-4 text-center">Advanced imaging services including digital X-ray, ultrasound, and CT scans for accurate diagnosis of various medical conditions.</p>
+              
+              <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-blue-600"></i>
+                  Services Offered
+                </h4>
+                <ul class="space-y-1 text-sm text-gray-600">
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Digital X-Ray</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Ultrasound Scanning</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>CT Scan (Select Location)</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Mammography</li>
+                </ul>
+              </div>
+
+              <!-- Carousel -->
+              <div class="relative">
+                <div id="radiology-carousel" class="department-carousel overflow-hidden">
+                  <div class="flex">
+                    <img src="https://cdn.pixabay.com/photo/2018/01/22/11/02/hospital-3098683_1280.jpg" alt="Radiology Equipment" class="min-w-full h-48 object-cover">
+                    <img src="https://cdn.pixabay.com/photo/2021/07/29/06/31/ct-scan-6506418_1280.jpg" alt="CT Scan Room" class="min-w-full h-48 object-cover">
+                    <img src="https://cdn.pixabay.com/photo/2021/12/02/22/15/x-ray-6841384_1280.jpg" alt="X-Ray Imaging" class="min-w-full h-48 object-cover">
+                  </div>
+                </div>
+                <button onclick="prevSlide('radiology')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Previous">
+                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                </button>
+                <button onclick="nextSlide('radiology')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Next">
+                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </button>
+              </div>
             </div>
           </div>
 
-          <!-- Dental -->
-          <div class="department-card p-6 rounded-2xl shadow-lg card-hover">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Dental</h3>
-            <h4 class="text-xl text-blue-600 mb-4">Oral Health</h4>
-            <p class="text-gray-600 mb-4">Our dental department provides comprehensive oral care services from routine checkups to advanced procedures for optimal dental health.</p>
-            <ul class="space-y-2 text-gray-600">
-              <li class="flex items-center"><i data-lucide="smile" class="w-5 h-5 mr-2 text-blue-600"></i>General Dentistry</li>
-              <li class="flex items-center"><i data-lucide="tool" class="w-5 h-5 mr-2 text-blue-600"></i>Orthodontics</li>
-            </ul>
-            <!-- Carousel -->
-            <div class="relative mt-6">
-              <div id="dental-carousel" class="department-carousel overflow-hidden rounded-xl">
-                <div class="flex">
-                  <img src="https://cdn.pixabay.com/photo/2014/08/26/21/54/dentist-428646_1280.jpg" alt="Dental 1" class="min-w-full h-64 object-cover">
-                  <img src="https://cdn.pixabay.com/photo/2017/07/23/10/44/dentist-2530990_1280.jpg" alt="Dental 2" class="min-w-full h-64 object-cover">
-                  <img src="https://cdn.pixabay.com/photo/2022/12/16/23/26/dental-lab-7660684_1280.jpg" alt="Dental 3" class="min-w-full h-64 object-cover">
-                </div>
+          <!-- Dental Care -->
+          <div class="department-card shadow-lg card-hover">
+            <div class="p-6">
+              <div class="dept-icon-circle bg-green-100">
+                <i data-lucide="smile" class="w-8 h-8 text-green-600"></i>
               </div>
-              <button onclick="prevSlide('dental')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn">
-                <i data-lucide="chevron-left" class="w-4 h-4"></i>
-              </button>
-              <button onclick="nextSlide('dental')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn">
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-              </button>
+              <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Dental Care</h3>
+              <p class="text-green-600 font-semibold mb-4 text-center">Complete Oral Health</p>
+              <p class="text-gray-600 mb-4 text-center">Comprehensive dental services from routine checkups to advanced procedures for optimal oral health and beautiful smiles.</p>
+              
+              <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-green-600"></i>
+                  Services Offered
+                </h4>
+                <ul class="space-y-1 text-sm text-gray-600">
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>General Dentistry</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Orthodontics & Braces</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Teeth Whitening</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Dental Surgery</li>
+                </ul>
+              </div>
+
+              <!-- Carousel -->
+              <div class="relative">
+                <div id="dental-carousel" class="department-carousel overflow-hidden">
+                  <div class="flex">
+                    <img src="https://cdn.pixabay.com/photo/2014/08/26/21/54/dentist-428646_1280.jpg" alt="Dental Chair" class="min-w-full h-48 object-cover">
+                    <img src="https://cdn.pixabay.com/photo/2017/07/23/10/44/dentist-2530990_1280.jpg" alt="Dental Procedure" class="min-w-full h-48 object-cover">
+                    <img src="https://cdn.pixabay.com/photo/2022/12/16/23/26/dental-lab-7660684_1280.jpg" alt="Dental Lab" class="min-w-full h-48 object-cover">
+                  </div>
+                </div>
+                <button onclick="prevSlide('dental')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Previous">
+                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                </button>
+                <button onclick="nextSlide('dental')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Next">
+                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </button>
+              </div>
             </div>
           </div>
 
-          <!-- Laboratory -->
-          <div class="department-card p-6 rounded-2xl shadow-lg card-hover">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Laboratory</h3>
-            <h4 class="text-xl text-blue-600 mb-4">Diagnostic Services</h4>
-            <p class="text-gray-600 mb-4">Our laboratory department provides accurate and timely diagnostic testing to support effective treatment plans.</p>
-            <ul class="space-y-2 text-gray-600">
-              <li class="flex items-center"><i data-lucide="flask-conical" class="w-5 h-5 mr-2 text-blue-600"></i>Blood Testing</li>
-              <li class="flex items-center"><i data-lucide="test-tube" class="w-5 h-5 mr-2 text-blue-600"></i>Pathology</li>
-            </ul>
-            <!-- Carousel -->
-            <div class="relative mt-6">
-              <div id="laboratory-carousel" class="department-carousel overflow-hidden rounded-xl">
-                <div class="flex">
-                  <img src="https://cdn.pixabay.com/photo/2017/10/04/09/56/laboratory-2815641_1280.jpg" alt="Laboratory 1" class="min-w-full h-64 object-cover">
-                  <img src="https://cdn.pixabay.com/photo/2017/10/05/21/45/laboratory-2821207_1280.jpg" alt="Laboratory 2" class="min-w-full h-64 object-cover">
-                  <img src="https://cdn.pixabay.com/photo/2024/05/25/08/19/hospital-8786610_1280.jpg" alt="Laboratory 3" class="min-w-full h-64 object-cover">
-                </div>
+          <!-- Laboratory Services -->
+          <div class="department-card shadow-lg card-hover">
+            <div class="p-6">
+              <div class="dept-icon-circle bg-purple-100">
+                <i data-lucide="flask-conical" class="w-8 h-8 text-purple-600"></i>
               </div>
-              <button onclick="prevSlide('laboratory')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn">
-                <i data-lucide="chevron-left" class="w-4 h-4"></i>
-              </button>
-              <button onclick="nextSlide('laboratory')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn">
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-              </button>
+              <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Laboratory Services</h3>
+              <p class="text-purple-600 font-semibold mb-4 text-center">Precise Diagnostics</p>
+              <p class="text-gray-600 mb-4 text-center">State-of-the-art laboratory providing accurate and timely diagnostic testing to support effective treatment plans.</p>
+              
+              <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-purple-600"></i>
+                  Services Offered
+                </h4>
+                <ul class="space-y-1 text-sm text-gray-600">
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Blood Tests & Analysis</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Pathology Services</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Microbiology Testing</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Hormone Screening</li>
+                </ul>
+              </div>
+
+              <!-- Carousel -->
+              <div class="relative">
+                <div id="laboratory-carousel" class="department-carousel overflow-hidden">
+                  <div class="flex">
+                    <img src="https://cdn.pixabay.com/photo/2017/10/04/09/56/laboratory-2815641_1280.jpg" alt="Lab Equipment" class="min-w-full h-48 object-cover">
+                    <img src="https://cdn.pixabay.com/photo/2017/10/05/21/45/laboratory-2821207_1280.jpg" alt="Lab Analysis" class="min-w-full h-48 object-cover">
+                    <img src="https://cdn.pixabay.com/photo/2024/05/25/08/19/hospital-8786610_1280.jpg" alt="Lab Testing" class="min-w-full h-48 object-cover">
+                  </div>
+                </div>
+                <button onclick="prevSlide('laboratory')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Previous">
+                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                </button>
+                <button onclick="nextSlide('laboratory')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Next">
+                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </button>
+              </div>
             </div>
           </div>
 
           <!-- Pharmacy -->
-          <div class="department-card p-6 rounded-2xl shadow-lg card-hover">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Pharmacy</h3>
-            <h4 class="text-xl text-blue-600 mb-4">Medication Services</h4>
-            <p class="text-gray-600 mb-4">Our pharmacy department ensures timely access to quality medications with expert guidance for safe use.</p>
-            <ul class="space-y-2 text-gray-600">
-              <li class="flex items-center"><i data-lucide="pill" class="w-5 h-5 mr-2 text-blue-600"></i>Prescription Filling</li>
-              <li class="flex items-center"><i data-lucide="shopping-cart" class="w-5 h-5 mr-2 text-blue-600"></i>Over-the-Counter</li>
-            </ul>
-            <!-- Carousel -->
-            <div class="relative mt-6">
-              <div id="pharmacy-carousel" class="department-carousel overflow-hidden rounded-xl">
-                <div class="flex">
-                  <img src="https://cdn.pixabay.com/photo/2018/05/06/00/52/pharmacy-3377670_1280.jpg" alt="Pharmacy 1" class="min-w-full h-64 object-cover">
-                  <img src="https://cdn.pixabay.com/photo/2017/04/28/18/07/havana-2269053_1280.jpg" alt="Pharmacy 2" class="min-w-full h-64 object-cover">
-                  <img src="https://cdn.pixabay.com/photo/2013/11/26/17/23/pharmacy-218692_1280.jpg" alt="Pharmacy 3" class="min-w-full h-64 object-cover">
-                </div>
+          <div class="department-card shadow-lg card-hover">
+            <div class="p-6">
+              <div class="dept-icon-circle bg-orange-100">
+                <i data-lucide="pill" class="w-8 h-8 text-orange-600"></i>
               </div>
-              <button onclick="prevSlide('pharmacy')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn">
-                <i data-lucide="chevron-left" class="w-4 h-4"></i>
-              </button>
-              <button onclick="nextSlide('pharmacy')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn">
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-              </button>
+              <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Pharmacy</h3>
+              <p class="text-orange-600 font-semibold mb-4 text-center">Quality Medications</p>
+              <p class="text-gray-600 mb-4 text-center">Fully stocked pharmacy ensuring timely access to quality medications with expert pharmaceutical guidance.</p>
+              
+              <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-orange-600"></i>
+                  Services Offered
+                </h4>
+                <ul class="space-y-1 text-sm text-gray-600">
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Prescription Filling</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Over-the-Counter Drugs</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Medication Counseling</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Drug Information</li>
+                </ul>
+              </div>
+
+              <!-- Carousel -->
+              <div class="relative">
+                <div id="pharmacy-carousel" class="department-carousel overflow-hidden">
+                  <div class="flex">
+                    <img src="https://cdn.pixabay.com/photo/2018/05/06/00/52/pharmacy-3377670_1280.jpg" alt="Pharmacy Counter" class="min-w-full h-48 object-cover">
+                    <img src="https://cdn.pixabay.com/photo/2017/04/28/18/07/havana-2269053_1280.jpg" alt="Pharmacy Shelves" class="min-w-full h-48 object-cover">
+                    <img src="https://cdn.pixabay.com/photo/2013/11/26/17/23/pharmacy-218692_1280.jpg" alt="Pharmacist" class="min-w-full h-48 object-cover">
+                  </div>
+                </div>
+                <button onclick="prevSlide('pharmacy')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Previous">
+                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                </button>
+                <button onclick="nextSlide('pharmacy')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Next">
+                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </button>
+              </div>
             </div>
           </div>
 
-          <!-- Emergency -->
-          <div class="department-card p-6 rounded-2xl shadow-lg card-hover">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Emergency</h3>
-            <h4 class="text-xl text-blue-600 mb-4">24/7 Critical Care</h4>
-            <p class="text-gray-600 mb-4">Our emergency department provides immediate care for acute illnesses and injuries with a team of skilled professionals ready around the clock.</p>
-            <ul class="space-y-2 text-gray-600">
-              <li class="flex items-center"><i data-lucide="heart-pulse" class="w-5 h-5 mr-2 text-blue-600"></i>Trauma Care</li>
-              <li class="flex items-center"><i data-lucide="ambulance" class="w-5 h-5 mr-2 text-blue-600"></i>Rapid Response</li>
-            </ul>
-            <!-- Carousel -->
-            <div class="relative mt-6">
-              <div id="emergency-carousel" class="department-carousel overflow-hidden rounded-xl">
-                <div class="flex">
-                  <img src="https://cdn.pixabay.com/photo/2018/04/16/02/38/emergency-room-3323451_1280.jpg" alt="Emergency 1" class="min-w-full h-64 object-cover">
-                  <img src="hhttps://cdn.pixabay.com/photo/2020/03/27/22/41/emergency-medical-services-4975223_1280.jpg" alt="Emergency 2" class="min-w-full h-64 object-cover">
-                  <img src="https://cdn.pixabay.com/photo/2013/02/10/22/26/arabian-gulf-80359_1280.jpg" alt="Emergency 3" class="min-w-full h-64 object-cover">
-                </div>
+          <!-- Emergency Medicine -->
+          <div class="department-card shadow-lg card-hover">
+            <div class="p-6">
+              <div class="dept-icon-circle bg-red-100">
+                <i data-lucide="heart-pulse" class="w-8 h-8 text-red-600"></i>
               </div>
-              <button onclick="prevSlide('emergency')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn">
-                <i data-lucide="chevron-left" class="w-4 h-4"></i>
-              </button>
-              <button onclick="nextSlide('emergency')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn">
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-              </button>
+              <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Emergency Medicine</h3>
+              <p class="text-red-600 font-semibold mb-4 text-center">24/7 Critical Care</p>
+              <p class="text-gray-600 mb-4 text-center">Round-the-clock emergency services with skilled professionals ready to provide immediate care for acute illnesses and injuries.</p>
+              
+              <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-red-600"></i>
+                  Services Offered
+                </h4>
+                <ul class="space-y-1 text-sm text-gray-600">
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Trauma Care</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Rapid Response Team</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Ambulance Services</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Life Support</li>
+                </ul>
+              </div>
+
+              <!-- Carousel -->
+              <div class="relative">
+                <div id="emergency-carousel" class="department-carousel overflow-hidden">
+                  <div class="flex">
+                    <img src="https://cdn.pixabay.com/photo/2018/04/16/02/38/emergency-room-3323451_1280.jpg" alt="Emergency Room" class="min-w-full h-48 object-cover">
+                    <img src="https://cdn.pixabay.com/photo/2020/03/27/22/41/emergency-medical-services-4975223_1280.jpg" alt="Ambulance" class="min-w-full h-48 object-cover">
+                    <img src="https://cdn.pixabay.com/photo/2013/02/10/22/26/arabian-gulf-80359_1280.jpg" alt="Emergency Care" class="min-w-full h-48 object-cover">
+                  </div>
+                </div>
+                <button onclick="prevSlide('emergency')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Previous">
+                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                </button>
+                <button onclick="nextSlide('emergency')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Next">
+                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </button>
+              </div>
             </div>
           </div>
 
-          <!-- Nutrition -->
-          <div class="department-card p-6 rounded-2xl shadow-lg card-hover">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Nutrition</h3>
-            <h4 class="text-xl text-blue-600 mb-4">Dietary Health</h4>
-            <p class="text-gray-600 mb-4">Our nutrition department offers personalized dietary advice and meal planning to support recovery and overall health maintenance.</p>
-            <ul class="space-y-2 text-gray-600">
-              <li class="flex items-center"><i data-lucide="apple" class="w-5 h-5 mr-2 text-blue-600"></i>Diet Consultation</li>
-              <li class="flex items-center"><i data-lucide="utensils" class="w-5 h-5 mr-2 text-blue-600"></i>Meal Planning</li>
-            </ul>
-            <!-- Carousel -->
-            <div class="relative mt-6">
-              <div id="nutrition-carousel" class="department-carousel overflow-hidden rounded-xl">
-                <div class="flex">
-                  <img src="https://cdn.pixabay.com/photo/2020/08/21/18/53/healthy-5506822_1280.jpg" alt="Nutrition 1" class="min-w-full h-64 object-cover">
-                  <img src="https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_1280.jpg" alt="Nutrition 2" class="min-w-full h-64 object-cover">
-                  <img src="https://cdn.pixabay.com/photo/2015/12/09/17/11/vegetables-1085063_1280.jpg" alt="Nutrition 3" class="min-w-full h-64 object-cover">
-                </div>
+          <!-- Nutrition & Dietetics -->
+          <div class="department-card shadow-lg card-hover">
+            <div class="p-6">
+              <div class="dept-icon-circle bg-yellow-100">
+                <i data-lucide="apple" class="w-8 h-8 text-yellow-600"></i>
               </div>
-              <button onclick="prevSlide('nutrition')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn">
-                <i data-lucide="chevron-left" class="w-4 h-4"></i>
-              </button>
-              <button onclick="nextSlide('nutrition')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn">
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-              </button>
+              <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Nutrition & Dietetics</h3>
+              <p class="text-yellow-600 font-semibold mb-4 text-center">Healthy Living</p>
+              <p class="text-gray-600 mb-4 text-center">Personalized dietary advice and meal planning to support recovery, manage chronic conditions, and maintain optimal health.</p>
+              
+              <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-yellow-600"></i>
+                  Services Offered
+                </h4>
+                <ul class="space-y-1 text-sm text-gray-600">
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Diet Consultation</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Meal Planning</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Weight Management</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Disease-Specific Diets</li>
+                </ul>
+              </div>
+
+              <!-- Carousel -->
+              <div class="relative">
+                <div id="nutrition-carousel" class="department-carousel overflow-hidden">
+                  <div class="flex">
+                    <img src="https://cdn.pixabay.com/photo/2020/08/21/18/53/healthy-5506822_1280.jpg" alt="Healthy Foods" class="min-w-full h-48 object-cover">
+                    <img src="https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_1280.jpg" alt="Fresh Fruits" class="min-w-full h-48 object-cover">
+                    <img src="https://cdn.pixabay.com/photo/2015/12/09/17/11/vegetables-1085063_1280.jpg" alt="Vegetables" class="min-w-full h-48 object-cover">
+                  </div>
+                </div>
+                <button onclick="prevSlide('nutrition')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Previous">
+                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                </button>
+                <button onclick="nextSlide('nutrition')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Next">
+                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </button>
+              </div>
             </div>
           </div>
 
-          <!-- Therapy -->
-          <div class="department-card p-6 rounded-2xl shadow-lg card-hover">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Therapy</h3>
-            <h4 class="text-xl text-blue-600 mb-4">Rehabilitation Services</h4>
-            <p class="text-gray-600 mb-4">Our therapy department provides physical, occupational, and speech therapy to aid in recovery and improve quality of life.</p>
-            <ul class="space-y-2 text-gray-600">
-              <li class="flex items-center"><i data-lucide="activity" class="w-5 h-5 mr-2 text-blue-600"></i>Physical Therapy</li>
-              <li class="flex items-center"><i data-lucide="brain" class="w-5 h-5 mr-2 text-blue-600"></i>Speech Therapy</li>
-            </ul>
-            <!-- Carousel -->
-            <div class="relative mt-6">
-              <div id="therapy-carousel" class="department-carousel overflow-hidden rounded-xl">
-                <div class="flex">
-                  <img src="https://cdn.pixabay.com/photo/2017/01/30/02/20/mental-health-2019924_1280.jpg" alt="Therapy 1" class="min-w-full h-64 object-cover">
-                  <img src="https://cdn.pixabay.com/photo/2023/07/09/17/02/anxiety-8116570_1280.jpg" alt="Therapy 2" class="min-w-full h-64 object-cover">
-                  <img src="https://cdn.pixabay.com/photo/2016/07/01/22/34/people-1492052_1280.jpg" alt="Therapy 3" class="min-w-full h-64 object-cover">
+          <!-- Therapy & Rehabilitation -->
+          <div class="department-card shadow-lg card-hover">
+            <div class="p-6">
+              <div class="dept-icon-circle bg-indigo-100">
+                <i data-lucide="activity" class="w-8 h-8 text-indigo-600"></i>
+              </div>
+              <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Therapy & Rehabilitation</h3>
+              <p class="text-indigo-600 font-semibold mb-4 text-center">Recovery Support</p>
+              <p class="text-gray-600 mb-4 text-center">Comprehensive therapy services including physical, occupational, and speech therapy to aid recovery and improve quality of life.</p>
+              
+              <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
+                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-indigo-600"></i>
+                  Services Offered
+                </h4>
+                <ul class="space-y-1 text-sm text-gray-600">
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Physical Therapy</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Occupational Therapy</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Speech Therapy</li>
+                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Pain Management</li>
+                </ul>
+              </div>
+
+              <!-- Carousel -->
+              <div class="relative">
+                <div id="therapy-carousel" class="department-carousel overflow-hidden">
+                  <div class="flex">
+                    <img src="https://cdn.pixabay.com/photo/2017/01/30/02/20/mental-health-2019924_1280.jpg" alt="Therapy Session" class="min-w-full h-48 object-cover">
+                    <img src="https://cdn.pixabay.com/photo/2023/07/09/17/02/anxiety-8116570_1280.jpg" alt="Rehabilitation" class="min-w-full h-48 object-cover">
+                    <img src="https://cdn.pixabay.com/photo/2016/07/01/22/34/people-1492052_1280.jpg" alt="Physical Therapy" class="min-w-full h-48 object-cover">
+                  </div>
+                </div>
+                <button onclick="prevSlide('therapy')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Previous">
+                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
+                </button>
+                <button onclick="nextSlide('therapy')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Next">
+                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Our Departments -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4 fade-in">
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-12 section-divider">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Why Choose Our Departments</h2>
+            <p class="text-lg text-gray-600">Excellence in every aspect of care</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-xl shadow-md">
+              <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="award" class="w-6 h-6 text-blue-600"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-800 mb-2">Expert Professionals</h3>
+                  <p class="text-gray-600 text-sm">Our departments are staffed by highly qualified specialists with years of experience in their respective fields.</p>
                 </div>
               </div>
-              <button onclick="prevSlide('therapy')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn">
-                <i data-lucide="chevron-left" class="w-4 h-4"></i>
-              </button>
-              <button onclick="nextSlide('therapy')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn">
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-              </button>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-md">
+              <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="zap" class="w-6 h-6 text-green-600"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-800 mb-2">Modern Equipment</h3>
+                  <p class="text-gray-600 text-sm">State-of-the-art technology and equipment ensure accurate diagnostics and effective treatments.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-md">
+              <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="users" class="w-6 h-6 text-purple-600"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-800 mb-2">Patient-Centered Care</h3>
+                  <p class="text-gray-600 text-sm">We prioritize your comfort, dignity, and wellbeing in every interaction and treatment.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-md">
+              <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="clock" class="w-6 h-6 text-orange-600"></i>
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-800 mb-2">Timely Service</h3>
+                  <p class="text-gray-600 text-sm">Quick turnaround times for diagnostics and treatments without compromising on quality.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -325,158 +769,229 @@
     <!-- CTA Section -->
     <section class="py-16 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
       <div class="container mx-auto px-4 fade-in">
-        <div class="text-center">
-          <h2 class="text-3xl sm:text-4xl font-bold mb-4">Ready for Specialized Care?</h2>
-          <p class="text-lg text-gray-200 mb-8 max-w-2xl mx-auto">Our departments are equipped with the latest technology and staffed by experts dedicated to your health. Book an appointment today.</p>
-          <a href="contact.html" class="btn-primary text-white px-6 py-3 rounded-full text-sm inline-flex items-center">
-            <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
-          </a>
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready for Specialized Care?</h2>
+          <p class="text-lg mb-8">Our departments are equipped with the latest technology and staffed by experts dedicated to your health. Book an appointment today and experience excellence in healthcare.</p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href="contact.html#appointmentform" class="btn-primary px-8 py-3 rounded-full font-semibold flex items-center">
+              <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
+            </a>
+            <a href="contact.html" class="border-2 border-white text-white px-8 py-3 rounded-full font-semibold hover:bg-white hover:text-blue-600 transition flex items-center">
+              <i data-lucide="phone" class="w-5 h-5 mr-2"></i> Contact Us
+            </a>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- Footer -->
-<footer class="bg-gray-800 text-white py-8">
+  <!-- Enhanced Footer -->
+  <footer class="footer-gradient text-white py-12">
     <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div>
-          <h3 class="text-lg font-semibold mb-4">Heirs Multispecialist Hospital</h3>
-          <p class="text-gray-400">123 Hospital Road, Oye Ekiti, Ekiti State</p>
-          <p class="text-gray-400">456 Health Avenue, Ado Ekiti, Ekiti State</p>
-          <p class="text-gray-400 mt-3"><strong>Phone:</strong> <a href="tel:+234123456789" class="hover:text-white">+234 123 456 789</a></p>
-          <p class="text-gray-400"><strong>Email:</strong> <a href="mailto:info@heirsmultispecialist.com" class="hover:text-white">info@heirsmultispecialist.com</a></p>
-          <div class="flex space-x-4 mt-4">
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter" class="w-5 h-5"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+        <div class="lg:col-span-1">
+          <div class="flex items-center mb-6">
+            <div class="footer-logo-circle mr-4">
+              <i data-lucide="hospital" class="w-10 h-10 text-white"></i>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold">Heirs</h3>
+              <p class="text-sm text-gray-300">Multispecialist Hospital</p>
+            </div>
+          </div>
+          <p class="text-gray-300 mb-4">Providing exceptional healthcare services to Ekiti State since 2010. Your health, our priority.</p>
+          <div class="flex space-x-4">
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Facebook">
+              <i data-lucide="facebook" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Twitter">
+              <i data-lucide="twitter" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Instagram">
+              <i data-lucide="instagram" class="w-5 h-5"></i>
+            </a>
+            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="LinkedIn">
+              <i data-lucide="linkedin" class="w-5 h-5"></i>
+            </a>
           </div>
         </div>
+
         <div>
-          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="index.html" class="hover:text-white">Home</a></li>
-            <li><a href="#about" class="hover:text-white">About Us</a></li>
-            <li><a href="services.html" class="hover:text-white">Services</a></li>
-            <li><a href="departments.html" class="hover:text-white">Departments</a></li>
-            <li><a href="contact.html" class="hover:text-white">Contact</a></li>
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i data-lucide="map-pin" class="w-5 h-5 mr-2"></i> Our Locations
+          </h4>
+          <div class="space-y-4">
+            <div>
+              <p class="font-semibold text-blue-300">Main Branch - Oye Ekiti</p>
+              <p class="text-gray-300 text-sm">123 Hospital Road, Oye Ekiti, Ekiti State</p>
+            </div>
+            <div>
+              <p class="font-semibold text-blue-300">Ado Ekiti Branch</p>
+              <p class="text-gray-300 text-sm">Plot 3, Orimolade Crescent, Ilokun Estate, Ado Ekiti</p>
+            </div>
+          </div>
+          <div class="mt-4">
+            <p class="flex items-center text-gray-300 mb-2">
+              <i data-lucide="phone" class="w-4 h-4 mr-2"></i>
+              <a href="tel:+234123456789" class="hover:text-white transition">+234 123 456 789</a>
+            </p>
+            <p class="flex items-center text-gray-300">
+              <i data-lucide="mail" class="w-4 h-4 mr-2"></i>
+              <a href="mailto:info@heirsmultispecialist.com" class="hover:text-white transition">info@heirsmultispecialist.com</a>
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i data-lucide="link" class="w-5 h-5 mr-2"></i> Quick Links
+          </h4>
+          <ul class="space-y-2">
+            <li><a href="index.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Home</a></li>
+            <li><a href="about.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> About Us</a></li>
+            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Services</a></li>
+            <li><a href="department.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Departments</a></li>
+            <li><a href="heirs-institute.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Heirs Institute</a></li>
+            <li><a href="blog.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Blog</a></li>
+            <li><a href="contact.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Contact</a></li>
           </ul>
         </div>
+
         <div>
-          <h4 class="text-lg font-semibold mb-4">Our Services</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="services.html" class="hover:text-white">X-Ray & Imaging</a></li>
-            <li><a href="services.html" class="hover:text-white">Dental Care</a></li>
-            <li><a href="services.html" class="hover:text-white">Laboratory Services</a></li>
-            <li><a href="services.html" class="hover:text-white">Pharmacy</a></li>
-            <li><a href="services.html" class="hover:text-white">Emergency Care</a></li>
+          <h4 class="text-lg font-semibold mb-4 flex items-center">
+            <i data-lucide="activity" class="w-5 h-5 mr-2"></i> Our Departments
+          </h4>
+          <ul class="space-y-2">
+            <li><a href="#departments" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Radiology & Imaging</a></li>
+            <li><a href="#departments" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Dental Care</a></li>
+            <li><a href="#departments" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Laboratory Services</a></li>
+            <li><a href="#departments" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Pharmacy</a></li>
+            <li><a href="#departments" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Emergency Medicine</a></li>
+            <li><a href="#departments" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Nutrition & Dietetics</a></li>
           </ul>
         </div>
       </div>
-      <div class="text-center text-gray-400 mt-8 pt-8 border-t border-gray-700">
-        &copy; 2025 Heirs Multispecialist Hospital. All Rights Reserved.
+
+      <div class="border-t border-gray-600 pt-8">
+        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <p class="text-gray-300 text-sm text-center md:text-left">
+            &copy; 2025 Heirs Multispecialist Hospital. All Rights Reserved.
+          </p>
+          <div class="flex items-center space-x-2">
+            <p class="text-gray-300 text-sm">Designed & Developed by</p>
+            <a href="#" class="masys-credit text-lg inline-block">MASYS</a>
+          </div>
+        </div>
+        <div class="mt-4 text-center">
+          <p class="text-gray-400 text-xs">Committed to Excellence in Healthcare | Ending Medical Tourism in Nigeria</p>
+        </div>
       </div>
     </div>
   </footer>
 
-<script>
-  // initialize icons once
-  lucide.createIcons();
+  <!-- Scroll to Top -->
+  <a href="#" class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition transform hover:scale-110 z-40" aria-label="Scroll to top">
+    <i data-lucide="arrow-up" class="w-5 h-5"></i>
+  </a>
 
-  // mobile menu
-  function toggleMobileMenu() {
-    document.getElementById('mobileMenu').classList.toggle('hidden');
-  }
+  <script>
+    lucide.createIcons();
 
-  // Fade-in observer
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    function openMobileSidebar() {
+      document.getElementById('mobileSidebar').classList.add('open');
+      document.getElementById('sidebarOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
 
-  // Smooth anchor scrolling (ignore if href points to missing id)
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', e => {
-      const target = document.querySelector(anchor.getAttribute('href'));
-      if (!target) return;
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth' });
-    });
-  });
+    function closeMobileSidebar() {
+      document.getElementById('mobileSidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
 
-  // --- Carousel setup & functions ---
-  // We'll store carousel state here:
-  const carousels = {};
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-  // Find each carousel container and build its state
-  document.querySelectorAll('.department-carousel').forEach(carouselEl => {
-    // Expect id like "radiology-carousel"
-    const fullId = carouselEl.id || '';
-    const id = fullId.split('-')[0] || fullId; // "radiology"
-    const track = carouselEl.querySelector('.flex'); // the inner flex track
-    if (!track) return;
-
-    const imgs = track.querySelectorAll('img');
-    const slides = imgs.length || 1;
-
-    // ensure each img fills the carousel viewport
-    imgs.forEach(img => {
-      img.style.width = '100%';
-      img.style.flex = '0 0 100%';
-      img.setAttribute('loading', img.getAttribute('loading') || 'lazy');
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        const href = anchor.getAttribute('href');
+        if (href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+            closeMobileSidebar();
+          }
+        }
+      });
     });
 
-    // store state
-    carousels[id] = {
-      container: carouselEl,
-      track: track,
-      current: 0,
-      slides: slides
-    };
+    // Carousel functionality
+    const carousels = {};
 
-    // show initial position
-    updateCarousel(id);
-  });
+    document.querySelectorAll('.department-carousel').forEach(carouselEl => {
+      const fullId = carouselEl.id || '';
+      const id = fullId.split('-')[0] || fullId;
+      const track = carouselEl.querySelector('.flex');
+      if (!track) return;
 
-  // Move to next slide
-  function nextSlide(id) {
-    const c = carousels[id];
-    if (!c) return;
-    c.current = (c.current + 1) % c.slides;
-    updateCarousel(id);
-  }
+      const imgs = track.querySelectorAll('img');
+      const slides = imgs.length || 1;
 
-  // Move to previous slide
-  function prevSlide(id) {
-    const c = carousels[id];
-    if (!c) return;
-    c.current = (c.current - 1 + c.slides) % c.slides;
-    updateCarousel(id);
-  }
+      imgs.forEach(img => {
+        img.style.width = '100%';
+        img.style.flex = '0 0 100%';
+        img.setAttribute('loading', img.getAttribute('loading') || 'lazy');
+      });
 
-  // Update track transform (use pixel offset based on visible container width)
-  function updateCarousel(id) {
-    const c = carousels[id];
-    if (!c) return;
-    const viewportWidth = c.container.clientWidth;
-    const offset = viewportWidth * c.current; // pixel offset
-    c.track.style.transition = 'transform 0.45s ease';
-    c.track.style.transform = `translateX(-${offset}px)`;
-  }
+      carousels[id] = {
+        container: carouselEl,
+        track: track,
+        current: 0,
+        slides: slides
+      };
 
-  // Recalculate positions on window resize
-  window.addEventListener('resize', () => {
-    Object.keys(carousels).forEach(id => updateCarousel(id));
-  });
+      updateCarousel(id);
+    });
 
-  // make sure buttons (if any) are accessible by keyboard
-  document.querySelectorAll('.carousel-btn').forEach(btn => {
-    btn.setAttribute('type', 'button');
-  });
+    function nextSlide(id) {
+      const c = carousels[id];
+      if (!c) return;
+      c.current = (c.current + 1) % c.slides;
+      updateCarousel(id);
+    }
 
-</script>
+    function prevSlide(id) {
+      const c = carousels[id];
+      if (!c) return;
+      c.current = (c.current - 1 + c.slides) % c.slides;
+      updateCarousel(id);
+    }
+
+    function updateCarousel(id) {
+      const c = carousels[id];
+      if (!c) return;
+      const viewportWidth = c.container.clientWidth;
+      const offset = viewportWidth * c.current;
+      c.track.style.transition = 'transform 0.45s ease';
+      c.track.style.transform = `translateX(-${offset}px)`;
+    }
+
+    window.addEventListener('resize', () => {
+      Object.keys(carousels).forEach(id => updateCarousel(id));
+    });
+
+    document.querySelectorAll('.carousel-btn').forEach(btn => {
+      btn.setAttribute('type', 'button');
+    });
+
+    setTimeout(() => lucide.createIcons(), 100);
+  </script>
 
 </body>
 </html>

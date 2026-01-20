@@ -23,8 +23,6 @@
   <style>
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; }
-    
-    /* Mobile Sidebar */
     .mobile-sidebar {
       position: fixed;
       top: 0;
@@ -37,9 +35,7 @@
       overflow-y: auto;
       box-shadow: -5px 0 25px rgba(0,0,0,0.3);
     }
-    
     .mobile-sidebar.open { right: 0; }
-    
     .mobile-sidebar-overlay {
       position: fixed;
       top: 0;
@@ -52,13 +48,10 @@
       transition: all 0.3s ease;
       z-index: 999;
     }
-    
     .mobile-sidebar-overlay.open {
       opacity: 1;
       visibility: visible;
     }
-
-    /* Logo Styles */
     .logo-circle {
       width: 50px;
       height: 50px;
@@ -69,7 +62,6 @@
       justify-content: center;
       box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
     }
-    
     .footer-logo-circle {
       width: 80px;
       height: 80px;
@@ -80,25 +72,18 @@
       justify-content: center;
       box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
     }
-
-    /* Animations */
     .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
-    
     .card-hover { transition: all 0.3s ease; }
     .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-    
     .gradient-text { 
       background: linear-gradient(135deg, #2563eb, #1e40af); 
       -webkit-background-clip: text; 
       -webkit-text-fill-color: transparent; 
     }
-
-    /* Navbar Dropdown */
     .nav-dropdown {
       position: relative;
     }
-    
 .nav-dropdown::after {
   content: '';
   position: absolute;
@@ -108,8 +93,6 @@
   height: 8px;
   background: transparent;
 }
-
-/* Also add padding to dropdown content */
 .nav-dropdown-content {
   display: none;
   position: absolute;
@@ -119,15 +102,13 @@
   min-width: 200px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.1);
   border-radius: 8px;
-  margin-top: 8px;  /* This creates the gap that the ::after fills */
+  margin-top: 8px;  
   z-index: 100;
-  padding: 8px 0;   /* Add padding inside */
+  padding: 8px 0;   
 }
-    
     .nav-dropdown:hover {
       display: block;
     }
-
     .section-divider { position: relative; padding-top: 20px; }
     .section-divider::before { 
       content: ''; 
@@ -140,7 +121,6 @@
       background: linear-gradient(135deg, #2563eb, #1e40af); 
       border-radius: 2px; 
     }
-
     .btn-primary { 
       background-color: #ffffff; 
       color: #2563eb; 
@@ -150,7 +130,6 @@
       background-color: #e2e8f0; 
       transform: scale(1.05); 
     }
-    
     .btn-secondary { 
       border-color: #ffffff; 
       color: #ffffff; 
@@ -161,15 +140,12 @@
       color: #2563eb; 
       transform: scale(1.05); 
     }
-
-    /* Service Cards */
     .service-card {
       background: white;
       border-radius: 16px;
       overflow: hidden;
       position: relative;
     }
-    
     .service-card::before {
       content: '';
       position: absolute;
@@ -181,12 +157,9 @@
       transform: scaleX(0);
       transition: transform 0.3s ease;
     }
-    
     .service-card:hover::before {
       transform: scaleX(1);
     }
-
-    /* Service Icon Circles */
     .service-icon-circle {
       width: 72px;
       height: 72px;
@@ -197,16 +170,12 @@
       margin: 0 auto 16px;
       transition: all 0.3s ease;
     }
-    
     .service-card:hover .service-icon-circle {
       transform: scale(1.1) rotate(5deg);
     }
-
-    /* Enhanced Footer */
     .footer-gradient {
       background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
     }
-    
     .masys-credit {
       background: linear-gradient(90deg, #2563eb, #3b82f6);
       -webkit-background-clip: text;
@@ -215,18 +184,13 @@
       font-weight: 700;
       transition: all 0.3s ease;
     }
-    
     .masys-credit:hover {
       transform: scale(1.05);
     }
   </style>
 </head>
 <body class="text-gray-800 bg-gray-50">
-
-  <!-- Mobile Sidebar Overlay -->
   <div class="mobile-sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
-
-  <!-- Mobile Sidebar -->
   <div class="mobile-sidebar" id="mobileSidebar">
     <div class="p-6">
       <div class="flex justify-between items-center mb-8">
@@ -240,7 +204,6 @@
           <i data-lucide="x" class="w-6 h-6"></i>
         </button>
       </div>
-      
       <nav class="space-y-1">
         <a href="index.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
           <i data-lucide="home" class="w-5 h-5 mr-3"></i> Home
@@ -248,7 +211,6 @@
         <a href="about.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
           <i data-lucide="info" class="w-5 h-5 mr-3"></i> About
         </a>
-        
         <div class="border-t border-white border-opacity-20 pt-2 mt-2">
           <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Care Services</p>
           <a href="services.html" class="flex items-center text-white bg-white bg-opacity-20 px-4 py-3 rounded-lg transition">
@@ -258,7 +220,6 @@
             <i data-lucide="layout-grid" class="w-5 h-5 mr-3"></i> Departments
           </a>
         </div>
-        
         <div class="border-t border-white border-opacity-20 pt-2 mt-2">
           <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Resources</p>
           <a href="heirs-institute.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
@@ -268,11 +229,9 @@
             <i data-lucide="newspaper" class="w-5 h-5 mr-3"></i> Blog
           </a>
         </div>
-        
         <a href="contact.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
           <i data-lucide="mail" class="w-5 h-5 mr-3"></i> Contact
         </a>
-        
         <div class="border-t border-white border-opacity-20 pt-4 mt-4 space-y-3">
           <a href="contact.html#appointmentform" class="flex items-center justify-center bg-white text-blue-600 px-4 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">
             <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
@@ -284,8 +243,6 @@
       </nav>
     </div>
   </div>
-
-  <!-- Header -->
   <header class="fixed top-0 w-full bg-white shadow-md z-50">
     <div class="container mx-auto px-4 py-3">
       <div class="flex justify-between items-center">
@@ -295,7 +252,6 @@
           </div>
           <span class="text-2xl font-bold text-blue-600">Heirs</span>
         </a>
-
         <nav class="hidden lg:flex items-center space-x-1">
           <a href="index.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
             <i data-lucide="home" class="w-4 h-4 mr-1"></i> Home
@@ -303,7 +259,6 @@
           <a href="about.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
             <i data-lucide="info" class="w-4 h-4 mr-1"></i> About
           </a>
-          
           <div class="nav-dropdown">
             <button class="text-blue-600 font-semibold px-3 py-2 rounded-lg transition flex items-center">
               <i data-lucide="heart-pulse" class="w-4 h-4 mr-1"></i> Care <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
@@ -317,7 +272,6 @@
               </a>
             </div>
           </div>
-          
           <div class="nav-dropdown">
             <button class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
               <i data-lucide="book-open" class="w-4 h-4 mr-1"></i> Resources <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
@@ -331,12 +285,10 @@
               </a>
             </div>
           </div>
-          
           <a href="contact.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
             <i data-lucide="mail" class="w-4 h-4 mr-1"></i> Contact
           </a>
         </nav>
-
         <div class="flex items-center space-x-3">
           <a href="contact.html#appointmentform" class="hidden md:flex bg-blue-600 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-blue-700 transition whitespace-nowrap">
             <i data-lucide="calendar" class="w-4 h-4 mr-2"></i> Book Appointment
@@ -351,10 +303,7 @@
       </div>
     </div>
   </header>
-
-  <!-- Main Content -->
   <main class="pt-20">
-    <!-- Hero Section -->
     <section id="services" class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
       <div class="container mx-auto px-4 fade-in">
         <div class="text-center mb-12 section-divider">
@@ -362,8 +311,6 @@
           <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Our Medical Services</h1>
           <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">At Heirs Multispecialist Hospital, we offer comprehensive medical services designed to end medical tourism in Nigeria. From advanced diagnostics to emergency care, our commitment to excellence ensures you receive world-class treatment at home.</p>
         </div>
-
-        <!-- Quick Stats -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
           <div class="bg-white p-4 rounded-xl shadow-md text-center">
             <div class="text-3xl font-bold text-blue-600 mb-1">15+</div>
@@ -384,18 +331,13 @@
         </div>
       </div>
     </section>
-
-    <!-- Primary Services Grid -->
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4 fade-in">
         <div class="text-center mb-12">
           <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Comprehensive Care Services</h2>
           <p class="text-lg text-gray-600 max-w-2xl mx-auto">From routine checkups to specialized treatments, we provide complete healthcare solutions</p>
         </div>
-
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          
-          <!-- General Consultation -->
           <div class="service-card shadow-lg card-hover p-6">
             <div class="service-icon-circle bg-blue-100">
               <i data-lucide="user-check" class="w-8 h-8 text-blue-600"></i>
@@ -409,8 +351,6 @@
             </ul>
             <a href="contact.html#appointmentform" class="block bg-blue-600 text-white text-center px-4 py-2 rounded-full hover:bg-blue-700 transition text-sm">Schedule Visit</a>
           </div>
-
-          <!-- X-Ray & Imaging -->
           <div class="service-card shadow-lg card-hover p-6">
             <div class="service-icon-circle bg-purple-100">
               <i data-lucide="scan" class="w-8 h-8 text-purple-600"></i>
@@ -424,8 +364,6 @@
             </ul>
             <a href="contact.html#appointmentform" class="block bg-purple-600 text-white text-center px-4 py-2 rounded-full hover:bg-purple-700 transition text-sm">Book Scan</a>
           </div>
-
-          <!-- Dental Care -->
           <div class="service-card shadow-lg card-hover p-6">
             <div class="service-icon-circle bg-green-100">
               <i data-lucide="smile" class="w-8 h-8 text-green-600"></i>
@@ -439,8 +377,6 @@
             </ul>
             <a href="contact.html#appointmentform" class="block bg-green-600 text-white text-center px-4 py-2 rounded-full hover:bg-green-700 transition text-sm">Book Appointment</a>
           </div>
-
-          <!-- Laboratory Services -->
           <div class="service-card shadow-lg card-hover p-6">
             <div class="service-icon-circle bg-indigo-100">
               <i data-lucide="flask-conical" class="w-8 h-8 text-indigo-600"></i>
@@ -454,8 +390,6 @@
             </ul>
             <a href="contact.html#appointmentform" class="block bg-indigo-600 text-white text-center px-4 py-2 rounded-full hover:bg-indigo-700 transition text-sm">Order Tests</a>
           </div>
-
-          <!-- Emergency Care -->
           <div class="service-card shadow-lg card-hover p-6 border-2 border-red-200">
             <div class="service-icon-circle bg-red-100">
               <i data-lucide="heart-pulse" class="w-8 h-8 text-red-600"></i>
@@ -471,8 +405,6 @@
               <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Call Emergency
             </a>
           </div>
-
-          <!-- Pharmacy -->
           <div class="service-card shadow-lg card-hover p-6">
             <div class="service-icon-circle bg-orange-100">
               <i data-lucide="pill" class="w-8 h-8 text-orange-600"></i>
@@ -486,8 +418,6 @@
             </ul>
             <a href="contact.html#appointmentform" class="block bg-orange-600 text-white text-center px-4 py-2 rounded-full hover:bg-orange-700 transition text-sm">Visit Pharmacy</a>
           </div>
-
-          <!-- Nutrition & Dietetics -->
           <div class="service-card shadow-lg card-hover p-6">
             <div class="service-icon-circle bg-yellow-100">
               <i data-lucide="apple" class="w-8 h-8 text-yellow-600"></i>
@@ -501,8 +431,6 @@
             </ul>
             <a href="contact.html#appointmentform" class="block bg-yellow-600 text-white text-center px-4 py-2 rounded-full hover:bg-yellow-700 transition text-sm">Consult Nutritionist</a>
           </div>
-
-          <!-- Therapy & Rehabilitation -->
           <div class="service-card shadow-lg card-hover p-6">
             <div class="service-icon-circle bg-teal-100">
               <i data-lucide="activity" class="w-8 h-8 text-teal-600"></i>
@@ -516,8 +444,6 @@
             </ul>
             <a href="contact.html#appointmentform" class="block bg-teal-600 text-white text-center px-4 py-2 rounded-full hover:bg-teal-700 transition text-sm">Start Therapy</a>
           </div>
-
-          <!-- Specialist Consultations -->
           <div class="service-card shadow-lg card-hover p-6">
             <div class="service-icon-circle bg-pink-100">
               <i data-lucide="stethoscope" class="w-8 h-8 text-pink-600"></i>
@@ -531,12 +457,9 @@
             </ul>
             <a href="contact.html#appointmentform" class="block bg-pink-600 text-white text-center px-4 py-2 rounded-full hover:bg-pink-700 transition text-sm">See Specialist</a>
           </div>
-
         </div>
       </div>
     </section>
-
-    <!-- Supporting Services -->
     <section class="py-16 bg-gray-50">
       <div class="container mx-auto px-4 fade-in">
         <div class="max-w-6xl mx-auto">
@@ -544,7 +467,6 @@
             <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Supporting Facilities & Services</h2>
             <p class="text-lg text-gray-600">Ensuring seamless, comfortable care with world-class infrastructure</p>
           </div>
-
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div class="bg-white p-6 rounded-xl shadow-md card-hover">
               <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -553,7 +475,6 @@
               <h3 class="font-bold text-gray-800 mb-2 text-center">24-Hour Solar Power</h3>
               <p class="text-gray-600 text-sm text-center">Uninterrupted power supply with solar panels and backup generators ensuring continuous medical services.</p>
             </div>
-
             <div class="bg-white p-6 rounded-xl shadow-md card-hover">
               <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="utensils" class="w-8 h-8 text-green-600"></i>
@@ -561,7 +482,6 @@
               <h3 class="font-bold text-gray-800 mb-2 text-center">Inpatient Food Services</h3>
               <p class="text-gray-600 text-sm text-center">Dedicated food stand offering nutritious meals tailored to dietary needs for inpatients and visitors.</p>
             </div>
-
             <div class="bg-white p-6 rounded-xl shadow-md card-hover">
               <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="bed" class="w-8 h-8 text-blue-600"></i>
@@ -569,7 +489,6 @@
               <h3 class="font-bold text-gray-800 mb-2 text-center">Inpatient Care</h3>
               <p class="text-gray-600 text-sm text-center">Comfortable patient wards with modern amenities and 24/7 nursing care for optimal recovery.</p>
             </div>
-
             <div class="bg-white p-6 rounded-xl shadow-md card-hover">
               <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="ambulance" class="w-8 h-8 text-purple-600"></i>
@@ -577,7 +496,6 @@
               <h3 class="font-bold text-gray-800 mb-2 text-center">Ambulance Services</h3>
               <p class="text-gray-600 text-sm text-center">Fully equipped ambulances with trained paramedics for emergency transport and mobile care.</p>
             </div>
-
             <div class="bg-white p-6 rounded-xl shadow-md card-hover">
               <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="shield-check" class="w-8 h-8 text-red-600"></i>
@@ -585,7 +503,6 @@
               <h3 class="font-bold text-gray-800 mb-2 text-center">NHIS Accredited</h3>
               <p class="text-gray-600 text-sm text-center">Fully accredited by the National Health Insurance Scheme for seamless insurance coverage.</p>
             </div>
-
             <div class="bg-white p-6 rounded-xl shadow-md card-hover">
               <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="microscope" class="w-8 h-8 text-indigo-600"></i>
@@ -597,8 +514,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Why Choose Us -->
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4 fade-in">
         <div class="max-w-6xl mx-auto">
@@ -606,7 +521,6 @@
             <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Why Choose Heirs Hospital</h2>
             <p class="text-lg text-gray-600">Ending medical tourism one patient at a time</p>
           </div>
-
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="flex items-start space-x-4">
               <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
@@ -617,7 +531,6 @@
                 <p class="text-gray-600 text-sm">Quality medical services comparable to what is obtainable in leading hospitals in Nigeria and beyond, eliminating the need to travel abroad for treatment.</p>
               </div>
             </div>
-
             <div class="flex items-start space-x-4">
               <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                 <i data-lucide="award" class="w-6 h-6 text-green-600"></i>
@@ -627,7 +540,6 @@
                 <p class="text-gray-600 text-sm">Highly qualified specialists and dedicated healthcare professionals committed to providing exceptional patient care.</p>
               </div>
             </div>
-
             <div class="flex items-start space-x-4">
               <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
                 <i data-lucide="zap" class="w-6 h-6 text-purple-600"></i>
@@ -637,7 +549,6 @@
                 <p class="text-gray-600 text-sm">State-of-the-art medical equipment and facilities ensuring accurate diagnostics and effective treatments.</p>
               </div>
             </div>
-
             <div class="flex items-start space-x-4">
               <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
                 <i data-lucide="heart" class="w-6 h-6 text-orange-600"></i>
@@ -647,7 +558,6 @@
                 <p class="text-gray-600 text-sm">Personalized treatment plans and compassionate service that prioritizes your comfort, dignity, and wellbeing.</p>
               </div>
             </div>
-
             <div class="flex items-start space-x-4">
               <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
                 <i data-lucide="clock" class="w-6 h-6 text-red-600"></i>
@@ -657,7 +567,6 @@
                 <p class="text-gray-600 text-sm">Round-the-clock emergency services and critical care units ready to respond to any medical crisis.</p>
               </div>
             </div>
-
             <div class="flex items-start space-x-4">
               <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center flex-shrink-0">
                 <i data-lucide="map-pin" class="w-6 h-6 text-yellow-600"></i>
@@ -671,22 +580,15 @@
         </div>
       </div>
     </section>
-
-  <!-- CTA Section -->
 <section class="py-20 bg-white text-blue-800">
   <div class="container mx-auto px-4 fade-in flex justify-center">
-
-    <!-- CARD -->
     <div class="bg-blue-600/10 backdrop-blur-lg rounded-2xl shadow-xl p-10 max-w-3xl w-full text-center">
-
       <h2 class="text-3xl md:text-4xl font-bold mb-6 text-blue-800">
         Ready to Experience World-Class Healthcare?
       </h2>
-
       <p class="text-lg mb-10 text-gray-700">
         Book your appointment with our qualified healthcare professionals and get the exceptional care you deserve—right here in Ekiti State.
       </p>
-
       <div class="flex flex-col md:flex-row justify-center gap-4">
         <a
           href="contact.html#appointmentform"
@@ -694,7 +596,6 @@
         >
           <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
         </a>
-
         <a
           href="tel:+234123456789"
           class="bg-red-500 text-white px-8 py-4 rounded-full font-semibold hover:bg-red-600 transition flex items-center justify-center"
@@ -702,15 +603,10 @@
           <i data-lucide="phone" class="w-5 h-5 mr-2"></i> Call Emergency
         </a>
       </div>
-
     </div>
-
   </div>
 </section>
-
   </main>
-
-  <!-- Enhanced Footer -->
   <footer class="footer-gradient text-white py-12">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
@@ -740,7 +636,6 @@
             </a>
           </div>
         </div>
-
         <div>
           <h4 class="text-lg font-semibold mb-4 flex items-center">
             <i data-lucide="map-pin" class="w-5 h-5 mr-2"></i> Our Locations
@@ -766,7 +661,6 @@
             </p>
           </div>
         </div>
-
         <div>
           <h4 class="text-lg font-semibold mb-4 flex items-center">
             <i data-lucide="link" class="w-5 h-5 mr-2"></i> Quick Links
@@ -781,7 +675,6 @@
             <li><a href="contact.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Contact</a></li>
           </ul>
         </div>
-
         <div>
           <h4 class="text-lg font-semibold mb-4 flex items-center">
             <i data-lucide="activity" class="w-5 h-5 mr-2"></i> Our Services
@@ -796,7 +689,6 @@
           </ul>
         </div>
       </div>
-
       <div class="border-t border-gray-600 pt-8">
         <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <p class="text-gray-300 text-sm text-center md:text-left">
@@ -813,35 +705,27 @@
       </div>
     </div>
   </footer>
-
-  <!-- Scroll to Top -->
   <a href="#" class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition transform hover:scale-110 z-40" aria-label="Scroll to top">
     <i data-lucide="arrow-up" class="w-5 h-5"></i>
   </a>
-
   <script>
     lucide.createIcons();
-
     function openMobileSidebar() {
       document.getElementById('mobileSidebar').classList.add('open');
       document.getElementById('sidebarOverlay').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
-
     function closeMobileSidebar() {
       document.getElementById('mobileSidebar').classList.remove('open');
       document.getElementById('sidebarOverlay').classList.remove('open');
       document.body.style.overflow = '';
     }
-
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.1 });
-    
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', e => {
         const href = anchor.getAttribute('href');
@@ -855,9 +739,7 @@
         }
       });
     });
-
     setTimeout(() => lucide.createIcons(), 100);
   </script>
-
 </body>
 </html>

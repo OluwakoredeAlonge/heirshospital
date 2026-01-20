@@ -50,7 +50,6 @@
         }
     },
     processFile() {
-        // Simulate file processing
         this.bulkUploadStep = 2;
         let progress = 0;
         const interval = setInterval(() => {
@@ -85,7 +84,6 @@
         this.uploadProgress = 0;
     }
 }">
-    
     <!-- Top Navbar -->
     <nav class="bg-white shadow-lg sticky top-0 z-50 border-b-4 border-purple-600">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -103,7 +101,6 @@
                         <h1 class="text-lg font-bold text-gray-800">Methuselah</h1>
                     </div>
                 </div>
-
                 <!-- Desktop Navigation -->
                 <div class="hidden lg:flex items-center space-x-1">
                     <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
@@ -122,14 +119,12 @@
                         <i data-lucide="bar-chart-3" class="w-4 h-4 inline mr-2"></i>Reports
                     </a>
                 </div>
-
                 <!-- Right Side Actions -->
                 <div class="flex items-center space-x-3">
                     <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition">
                         <i data-lucide="bell" class="w-5 h-5"></i>
                         <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
                     </button>
-
                     <div class="hidden sm:flex items-center space-x-2 pl-3 border-l border-gray-200">
                         <div class="w-9 h-9 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center">
                             <span class="text-sm font-bold text-white">DA</span>
@@ -139,14 +134,12 @@
                             <p class="text-xs text-gray-500">Clinician</p>
                         </div>
                     </div>
-
                     <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
                         <i data-lucide="menu" class="w-6 h-6"></i>
                     </button>
                 </div>
             </div>
         </div>
-
         <!-- Mobile Menu -->
         <div 
             x-show="mobileMenuOpen" 
@@ -184,10 +177,8 @@
             </div>
         </div>
     </nav>
-
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        
         <!-- Page Header -->
         <div class="mb-8">
             <div class="flex items-center space-x-2 text-sm text-gray-500 mb-3">
@@ -198,7 +189,6 @@
             <h2 class="text-3xl font-bold text-gray-900 mb-2">Patient Registration</h2>
             <p class="text-gray-600">Register new patients into the Methuselah Project</p>
         </div>
-
         <!-- Registration Mode Selector -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-2 mb-6 inline-flex">
             <button 
@@ -218,7 +208,6 @@
                 <span>Bulk Upload</span>
             </button>
         </div>
-
         <!-- Single Registration Form -->
         <div x-show="registrationMode === 'single'" x-cloak>
             <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
@@ -230,10 +219,8 @@
                     </h3>
                     <p class="text-purple-100 text-sm mt-1">Please fill in all required fields marked with *</p>
                 </div>
-
                 <div class="p-6 sm:p-8">
                     <form @submit.prevent="submitSingleRegistration">
-                        
                         <!-- Personal Information Section -->
                         <div class="mb-8">
                             <div class="flex items-center space-x-2 mb-4">
@@ -242,7 +229,6 @@
                                 </div>
                                 <h4 class="text-lg font-bold text-gray-900">Personal Information</h4>
                             </div>
-
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <!-- Full Name -->
                                 <div class="md:col-span-2">
@@ -257,7 +243,6 @@
                                         class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                     >
                                 </div>
-
                                 <!-- Age -->
                                 <div>
                                     <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -272,7 +257,6 @@
                                         class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                     >
                                 </div>
-
                                 <!-- Sex -->
                                 <div>
                                     <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -289,7 +273,6 @@
                                         <option value="Other">Other</option>
                                     </select>
                                 </div>
-
                                 <!-- Phone Number -->
                                 <div>
                                     <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -303,7 +286,6 @@
                                         class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                     >
                                 </div>
-
                                 <!-- Next of Kin Contact -->
                                 <div>
                                     <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -317,7 +299,6 @@
                                         class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                     >
                                 </div>
-
                                 <!-- Address -->
                                 <div class="md:col-span-2">
                                     <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -331,7 +312,6 @@
                                         class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                     ></textarea>
                                 </div>
-
                                 <!-- Occupation -->
                                 <div>
                                     <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -344,7 +324,6 @@
                                         class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                     >
                                 </div>
-
                                 <!-- Marital Status -->
                                 <div>
                                     <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -363,7 +342,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Past Medical History Section -->
                         <div class="mb-8 pt-8 border-t border-gray-200">
                             <div class="flex items-center space-x-2 mb-4">
@@ -372,7 +350,6 @@
                                 </div>
                                 <h4 class="text-lg font-bold text-gray-900">Past Medical History</h4>
                             </div>
-
                             <div class="bg-gray-50 rounded-xl p-6">
                                 <p class="text-sm text-gray-600 mb-4">Check all conditions that apply:</p>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -417,7 +394,6 @@
                                         <span class="text-sm font-medium text-gray-700 group-hover:text-purple-600 transition">Arthritis</span>
                                     </label>
                                 </div>
-
                                 <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -444,7 +420,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Social History Section -->
                         <div class="mb-8 pt-8 border-t border-gray-200">
                             <div class="flex items-center space-x-2 mb-4">
@@ -453,7 +428,6 @@
                                 </div>
                                 <h4 class="text-lg font-bold text-gray-900">Social History</h4>
                             </div>
-
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <!-- Smoking -->
                                 <div>
@@ -483,7 +457,6 @@
                                         </label>
                                     </div>
                                 </div>
-
                                 <!-- Alcohol -->
                                 <div>
                                     <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -512,7 +485,6 @@
                                         </label>
                                     </div>
                                 </div>
-
                                 <!-- Substance Use -->
                                 <div>
                                     <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -525,7 +497,6 @@
                                         class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                     >
                                 </div>
-
                                 <!-- Living Conditions -->
                                 <div class="md:col-span-2">
                                     <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -538,7 +509,6 @@
                                         class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                                     >
                                 </div>
-
                                 <!-- Family History -->
                                 <div class="md:col-span-3">
                                     <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -553,7 +523,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Form Actions -->
                         <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
                             <button 
@@ -575,11 +544,9 @@
                 </div>
             </div>
         </div>
-
         <!-- Bulk Upload Section -->
         <div x-show="registrationMode === 'bulk'" x-cloak>
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                
                 <!-- Upload Area - 2 columns -->
                 <div class="lg:col-span-2">
                     <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
@@ -590,7 +557,6 @@
                             </h3>
                             <p class="text-green-100 text-sm mt-1">Upload multiple patients at once using Excel</p>
                         </div>
-
                         <div class="p-8">
                             <!-- File Upload Area -->
                             <div class="border-2 border-dashed border-gray-300 rounded-2xl p-12 text-center hover:border-purple-400 hover:bg-purple-50 transition cursor-pointer group">
@@ -610,7 +576,6 @@
                                     <p class="text-xs text-gray-500">Maximum file size: 10MB</p>
                                 </label>
                             </div>
-
                             <!-- Download Template Button -->
                             <div class="mt-6 bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
                                 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -632,7 +597,6 @@
                                     </button>
                                 </div>
                             </div>
-
                             <!-- Recently Uploaded -->
                             <div class="mt-8 pt-6 border-t border-gray-200">
                                 <h5 class="font-bold text-gray-900 mb-4 flex items-center">
@@ -669,7 +633,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Instructions Panel - 1 column -->
                 <div class="lg:col-span-1">
                     <div class="bg-white rounded-2xl shadow-lg border border-gray-200 sticky top-24">
@@ -679,7 +642,6 @@
                                 Upload Instructions
                             </h3>
                         </div>
-
                         <div class="p-6 space-y-6">
                             <!-- Step 1 -->
                             <div class="flex items-start space-x-3">
@@ -691,7 +653,6 @@
                                     <p class="text-sm text-gray-600">Click the "Download Template" button to get the Excel template with all required columns.</p>
                                 </div>
                             </div>
-
                             <!-- Step 2 -->
                             <div class="flex items-start space-x-3">
                                 <div class="bg-purple-100 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
@@ -702,7 +663,6 @@
                                     <p class="text-sm text-gray-600">Enter patient information in the template. Each row represents one patient.</p>
                                 </div>
                             </div>
-
                             <!-- Step 3 -->
                             <div class="flex items-start space-x-3">
                                 <div class="bg-purple-100 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
@@ -713,7 +673,6 @@
                                     <p class="text-sm text-gray-600">Upload the completed Excel file. The system will validate all entries.</p>
                                 </div>
                             </div>
-
                             <!-- Step 4 -->
                             <div class="flex items-start space-x-3">
                                 <div class="bg-purple-100 rounded-full w-8 h-8 flex items-center justify-center flex-shrink-0">
@@ -724,7 +683,6 @@
                                     <p class="text-sm text-gray-600">Review the uploaded data and confirm to add all patients to the system.</p>
                                 </div>
                             </div>
-
                             <!-- Required Fields -->
                             <div class="pt-6 border-t border-gray-200">
                                 <h5 class="font-bold text-gray-900 mb-3 flex items-center">
@@ -758,7 +716,6 @@
                                     </li>
                                 </ul>
                             </div>
-
                             <!-- Tips -->
                             <div class="pt-6 border-t border-gray-200">
                                 <h5 class="font-bold text-gray-900 mb-3 flex items-center">
@@ -794,7 +751,6 @@
             </div>
         </div>
     </main>
-
     <!-- Bulk Upload Processing Modal -->
     <div 
         x-show="showUploadModal" 
@@ -832,7 +788,6 @@
                     Process File
                 </button>
             </div>
-
             <!-- Step 2: Processing -->
             <div x-show="bulkUploadStep === 2" class="p-8">
                 <div class="text-center mb-8">
@@ -842,7 +797,6 @@
                     <h3 class="text-2xl font-bold text-gray-900 mb-2">Processing File...</h3>
                     <p class="text-gray-600">Please wait while we validate your data</p>
                 </div>
-
                 <!-- Progress Bar -->
                 <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
                     <div 
@@ -852,7 +806,6 @@
                 </div>
                 <p class="text-center text-sm text-gray-600 mt-2" x-text="`${uploadProgress}% Complete`"></p>
             </div>
-
             <!-- Step 3: Validation Results -->
             <div x-show="bulkUploadStep === 3">
                 <div class="bg-gradient-to-r from-green-600 to-green-700 p-6 rounded-t-2xl">
@@ -862,7 +815,6 @@
                     </h3>
                     <p class="text-green-100 mt-1">Review the records below before confirming</p>
                 </div>
-
                 <div class="p-6">
                     <!-- Summary Stats -->
                     <div class="grid grid-cols-3 gap-4 mb-6">
@@ -879,7 +831,6 @@
                             <p class="text-xs text-gray-600 mt-1 font-medium">Errors</p>
                         </div>
                     </div>
-
                     <!-- Records Table -->
                     <div class="border border-gray-200 rounded-xl overflow-hidden max-h-96 overflow-y-auto">
                         <table class="w-full">
@@ -915,7 +866,6 @@
                             </tbody>
                         </table>
                     </div>
-
                     <!-- Warning Message -->
                     <div class="mt-6 bg-yellow-50 border-2 border-yellow-200 rounded-xl p-4 flex items-start space-x-3">
                         <i data-lucide="alert-triangle" class="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5"></i>
@@ -925,7 +875,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Modal Footer -->
                 <div class="bg-gray-50 px-6 py-4 rounded-b-2xl flex flex-col sm:flex-row gap-3 justify-end border-t border-gray-200">
                     <button 
@@ -945,14 +894,10 @@
             </div>
         </div>
     </div>
-
     <script>
-        // Initialize Lucide icons
         document.addEventListener('DOMContentLoaded', function() {
             lucide.createIcons();
         });
-
-        // Re-initialize icons when Alpine updates the DOM
         document.addEventListener('alpine:initialized', () => {
             setInterval(() => {
                 lucide.createIcons();

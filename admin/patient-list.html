@@ -185,8 +185,6 @@
     ],
     get filteredPatients() {
         let filtered = this.patients;
-       
-        // Search filter
         if (this.searchQuery) {
             filtered = filtered.filter(p =>
                 p.name.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
@@ -194,41 +192,29 @@
                 p.phone.includes(this.searchQuery)
             );
         }
-       
-        // Condition filter
         if (this.filterCondition !== 'all') {
             filtered = filtered.filter(p =>
                 p.conditions.includes(this.filterCondition)
             );
         }
-       
-        // Gender filter
         if (this.filterGender !== 'all') {
             filtered = filtered.filter(p => p.gender === this.filterGender);
         }
-       
-        // Status filter
         if (this.filterStatus !== 'all') {
             filtered = filtered.filter(p => p.status === this.filterStatus);
         }
-
-        // Age range filter
         if (this.ageMin) {
             filtered = filtered.filter(p => p.age >= parseInt(this.ageMin));
         }
         if (this.ageMax) {
             filtered = filtered.filter(p => p.age <= parseInt(this.ageMax));
         }
-
-        // Last visit date range filter
         if (this.lastVisitFrom) {
             filtered = filtered.filter(p => new Date(p.lastVisit) >= new Date(this.lastVisitFrom));
         }
         if (this.lastVisitTo) {
             filtered = filtered.filter(p => new Date(p.lastVisit) <= new Date(this.lastVisitTo));
         }
-       
-        // Sorting
         if (this.sortBy === 'recent') {
             filtered.sort((a, b) => new Date(b.lastVisit) - new Date(a.lastVisit));
         } else if (this.sortBy === 'name') {
@@ -236,7 +222,6 @@
         } else if (this.sortBy === 'age') {
             filtered.sort((a, b) => b.age - a.age);
         }
-       
         return filtered;
     },
     get paginatedPatients() {
@@ -272,7 +257,6 @@
     },
     exportPatients() {
         alert('Exporting ' + (this.selectedPatients.length || this.filteredPatients.length) + ' patient records to Excel...');
-        // In production, implement actual export to Excel/PDF
     },
     sendReminders() {
         alert('Sending appointment reminders to ' + this.selectedPatients.length + ' patients...');
@@ -289,7 +273,6 @@
         this.lastVisitTo = '';
     }
 }">
-   
     <!-- Top Navbar -->
     <nav class="bg-white shadow-lg sticky top-0 z-50 border-b-4 border-purple-600">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -376,7 +359,6 @@
     </nav>
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-       
         <!-- Page Header -->
         <div class="mb-6">
             <div class="flex items-center space-x-2 text-sm text-gray-500 mb-3">
@@ -758,7 +740,6 @@
             </div>
         </div>
     </main>
-
     <!-- Patient Details Modal -->
     <div
         x-show="showPatientModal"
@@ -893,7 +874,6 @@
             </div>
         </div>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();

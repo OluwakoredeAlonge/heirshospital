@@ -62,7 +62,6 @@
         alert('Generating reports for selected date range...');
     }
 }">
-    
     <!-- Top Navbar -->
     <nav class="bg-white shadow-lg sticky top-0 z-50 border-b-4 border-purple-600">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,7 +79,6 @@
                         <h1 class="text-lg font-bold text-gray-800">Methuselah</h1>
                     </div>
                 </div>
-
                 <!-- Desktop Navigation -->
                 <div class="hidden lg:flex items-center space-x-1">
                     <a href="#" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-gray-100 font-medium text-sm transition">
@@ -99,14 +97,12 @@
                         <i data-lucide="bar-chart-3" class="w-4 h-4 inline mr-2"></i>Reports
                     </a>
                 </div>
-
                 <!-- Right Side Actions -->
                 <div class="flex items-center space-x-3">
                     <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition">
                         <i data-lucide="bell" class="w-5 h-5"></i>
                         <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
                     </button>
-
                     <div class="hidden sm:flex items-center space-x-2 pl-3 border-l border-gray-200">
                         <div class="w-9 h-9 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center">
                             <span class="text-sm font-bold text-white">DA</span>
@@ -116,14 +112,12 @@
                             <p class="text-xs text-gray-500">Clinician</p>
                         </div>
                     </div>
-
                     <button @click="mobileMenuOpen = !mobileMenuOpen" class="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
                         <i data-lucide="menu" class="w-6 h-6"></i>
                     </button>
                 </div>
             </div>
         </div>
-
         <!-- Mobile Menu -->
         <div 
             x-show="mobileMenuOpen" 
@@ -156,10 +150,8 @@
             </div>
         </div>
     </nav>
-
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        
         <!-- Page Header -->
         <div class="mb-8">
             <div class="flex items-center space-x-2 text-sm text-gray-500 mb-3">
@@ -170,7 +162,6 @@
             <h2 class="text-3xl font-bold text-gray-900 mb-2">Reports & Analytics</h2>
             <p class="text-gray-600">Generate and view program statistics</p>
         </div>
-
         <!-- Date Range Selector -->
         <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 mb-8">
             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -199,10 +190,8 @@
                 </button>
             </div>
         </div>
-
         <!-- Reports Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
             <!-- Monthly Patient Attendance -->
             <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
                 <div class="p-6 border-b border-gray-200 flex items-center justify-between">
@@ -230,7 +219,6 @@
                     </table>
                 </div>
             </div>
-
             <!-- Common Diagnoses/Conditions -->
             <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
                 <div class="p-6 border-b border-gray-200 flex items-center justify-between">
@@ -253,7 +241,6 @@
                     </template>
                 </div>
             </div>
-
             <!-- Medication Dispensing Report -->
             <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
                 <div class="p-6 border-b border-gray-200 flex items-center justify-between">
@@ -281,7 +268,6 @@
                     </table>
                 </div>
             </div>
-
             <!-- Age and Gender Distribution -->
             <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
                 <div class="p-6 border-b border-gray-200 flex items-center justify-between">
@@ -311,7 +297,6 @@
                     </table>
                 </div>
             </div>
-
             <!-- Follow-up Compliance Rates -->
             <div class="lg:col-span-2 bg-white rounded-2xl shadow-lg border border-gray-200">
                 <div class="p-6 border-b border-gray-200 flex items-center justify-between">
@@ -334,10 +319,8 @@
                     </template>
                 </div>
             </div>
-
         </div>
     </main>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();

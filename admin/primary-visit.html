@@ -62,7 +62,6 @@
     patients: [
         { id: 'MTP-2024-001', name: 'Mrs. Adebayo Folake' },
         { id: 'MTP-2024-002', name: 'Mr. Ogunleye Samuel' },
-        // Add more patients as needed
     ],
     searchQuery: '',
     get filteredPatients() {
@@ -75,7 +74,6 @@
         this.formData.medications.splice(index, 1);
     },
     autoSave() {
-        // Simulate autosave
         console.log('Autosaving draft...');
         localStorage.setItem('primaryVisitDraft', JSON.stringify(this.formData));
     },
@@ -90,14 +88,12 @@
     },
     saveAndSchedule() {
         alert('Saving visit and scheduling follow-up...');
-        // In production, send to server
     },
     init() {
         this.loadDraft();
-        setInterval(() => this.autoSave(), 30000); // Autosave every 30 seconds
+        setInterval(() => this.autoSave(), 30000);
     }
 }" x-init="init">
-
     <!-- Top Navbar -->
     <nav class="bg-white shadow-lg sticky top-0 z-50 border-b-4 border-purple-600">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -182,10 +178,8 @@
             </div>
         </div>
     </nav>
-
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        
         <!-- Page Header -->
         <div class="mb-8">
             <div class="flex items-center space-x-2 text-sm text-gray-500 mb-3">
@@ -198,7 +192,6 @@
             <h2 class="text-3xl font-bold text-gray-900 mb-2">Primary Visit Form</h2>
             <p class="text-gray-600">Record initial consultation details</p>
         </div>
-
         <!-- Form Container -->
         <div class="bg-white rounded-2xl shadow-lg border border-gray-200">
             <div class="bg-gradient-to-r from-purple-600 to-purple-700 p-6 rounded-t-2xl text-white">
@@ -236,7 +229,6 @@
                             </template>
                         </select>
                     </div>
-
                     <!-- Date/Time/Clinician -->
                     <div class="mb-8 pt-8 border-t border-gray-200">
                         <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
@@ -273,7 +265,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Presenting Complaints -->
                     <div class="mb-8 pt-8 border-t border-gray-200">
                         <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
@@ -288,7 +279,6 @@
                             required
                         ></textarea>
                     </div>
-
                     <!-- History of Presenting Illness -->
                     <div class="mb-8 pt-8 border-t border-gray-200">
                         <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
@@ -303,7 +293,6 @@
                             required
                         ></textarea>
                     </div>
-
                     <!-- Systemic Review -->
                     <div class="mb-8 pt-8 border-t border-gray-200">
                         <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
@@ -349,7 +338,6 @@
                             ></textarea>
                         </div>
                     </div>
-
                     <!-- Physical Examination -->
                     <div class="mb-8 pt-8 border-t border-gray-200">
                         <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
@@ -419,7 +407,6 @@
                             class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
                         ></textarea>
                     </div>
-
                     <!-- Investigations -->
                     <div class="mb-8 pt-8 border-t border-gray-200">
                         <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
@@ -450,7 +437,6 @@
                             ></textarea>
                         </div>
                     </div>
-
                     <!-- Diagnosis -->
                     <div class="mb-8 pt-8 border-t border-gray-200">
                         <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
@@ -478,7 +464,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Treatment/Medications -->
                     <div class="mb-8 pt-8 border-t border-gray-200">
                         <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
@@ -534,7 +519,6 @@
                             </button>
                         </div>
                     </div>
-
                     <!-- Health Education -->
                     <div class="mb-8 pt-8 border-t border-gray-200">
                         <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
@@ -568,7 +552,6 @@
                             ></textarea>
                         </div>
                     </div>
-
                     <!-- Referral -->
                     <div class="mb-8 pt-8 border-t border-gray-200">
                         <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
@@ -582,7 +565,6 @@
                             class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
                         ></textarea>
                     </div>
-
                     <!-- Follow-up Plan -->
                     <div class="mb-8 pt-8 border-t border-gray-200">
                         <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
@@ -596,7 +578,6 @@
                             class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
                         ></textarea>
                     </div>
-
                     <!-- Clinician Sign-off -->
                     <div class="mb-8 pt-8 border-t border-gray-200">
                         <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
@@ -610,7 +591,6 @@
                             class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
                         ></textarea>
                     </div>
-
                     <!-- Form Actions -->
                     <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
                         <button 
@@ -633,7 +613,6 @@
             </div>
         </div>
     </main>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();

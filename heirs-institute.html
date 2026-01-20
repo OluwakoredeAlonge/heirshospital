@@ -34,8 +34,6 @@
   <style>
     html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; }
-    
-    /* Mobile Sidebar */
     .mobile-sidebar {
       position: fixed;
       top: 0;
@@ -48,9 +46,7 @@
       overflow-y: auto;
       box-shadow: -5px 0 25px rgba(0,0,0,0.3);
     }
-    
     .mobile-sidebar.open { right: 0; }
-    
     .mobile-sidebar-overlay {
       position: fixed;
       top: 0;
@@ -63,13 +59,10 @@
       transition: all 0.3s ease;
       z-index: 999;
     }
-    
     .mobile-sidebar-overlay.open {
       opacity: 1;
       visibility: visible;
     }
-
-    /* Logo Styles */
     .logo-circle {
       width: 50px;
       height: 50px;
@@ -80,7 +73,6 @@
       justify-content: center;
       box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
     }
-    
     .footer-logo-circle {
       width: 80px;
       height: 80px;
@@ -91,25 +83,18 @@
       justify-content: center;
       box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
     }
-
-    /* Animations */
     .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
     .fade-in.visible { opacity: 1; transform: translateY(0); }
-    
     .card-hover { transition: all 0.3s ease; }
     .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-    
     .gradient-text { 
       background: linear-gradient(135deg, #2563eb, #1e40af); 
       -webkit-background-clip: text; 
       -webkit-text-fill-color: transparent; 
     }
-
-    /* FIXED: Navbar Dropdown - Added padding to prevent disappearing */
     .nav-dropdown {
       position: relative;
     }
-    
     .nav-dropdown-content {
       display: none;
       position: absolute;
@@ -123,8 +108,6 @@
       z-index: 100;
       padding: 8px 0;
     }
-    
-    /* CRITICAL FIX: Add padding-top to create hoverable area */
     .nav-dropdown::after {
       content: '';
       position: absolute;
@@ -134,16 +117,12 @@
       height: 8px;
       background: transparent;
     }
-    
     .nav-dropdown:hover .nav-dropdown-content {
       display: block;
     }
-    
-    /* Keep dropdown visible when hovering over content */
     .nav-dropdown-content:hover {
       display: block;
     }
-
     .section-divider { position: relative; padding-top: 20px; }
     .section-divider::before { 
       content: ''; 
@@ -156,7 +135,6 @@
       background: linear-gradient(135deg, #2563eb, #1e40af); 
       border-radius: 2px; 
     }
-
     .btn-primary { 
       background-color: #ffffff; 
       color: #2563eb; 
@@ -166,7 +144,6 @@
       background-color: #e2e8f0; 
       transform: scale(1.05); 
     }
-    
     .btn-secondary { 
       border-color: #ffffff; 
       color: #ffffff; 
@@ -177,12 +154,9 @@
       color: #2563eb; 
       transform: scale(1.05); 
     }
-
-    /* Enhanced Footer */
     .footer-gradient {
       background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
     }
-    
     .masys-credit {
       background: linear-gradient(90deg, #2563eb, #3b82f6);
       -webkit-background-clip: text;
@@ -191,14 +165,10 @@
       font-weight: 700;
       transition: all 0.3s ease;
     }
-    
     .masys-credit:hover {
       transform: scale(1.05);
     }
-
     .stats-card { background: linear-gradient(135deg, #ffffff, #f1f5f9); }
-    
-    /* Program Cards */
     .program-card {
       background: white;
       border-radius: 16px;
@@ -206,7 +176,6 @@
       position: relative;
       transition: all 0.3s ease;
     }
-    
     .program-card::before {
       content: '';
       position: absolute;
@@ -218,18 +187,13 @@
       transform: scaleX(0);
       transition: transform 0.3s ease;
     }
-    
     .program-card:hover::before {
       transform: scaleX(1);
     }
   </style>
 </head>
 <body class="text-gray-800 bg-gray-50">
-
-  <!-- Mobile Sidebar Overlay -->
   <div class="mobile-sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
-
-  <!-- Mobile Sidebar -->
   <div class="mobile-sidebar" id="mobileSidebar">
     <div class="p-6">
       <div class="flex justify-between items-center mb-8">
@@ -243,7 +207,6 @@
           <i data-lucide="x" class="w-6 h-6"></i>
         </button>
       </div>
-      
       <nav class="space-y-1">
         <a href="index.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
           <i data-lucide="home" class="w-5 h-5 mr-3"></i> Home
@@ -251,7 +214,6 @@
         <a href="about.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
           <i data-lucide="info" class="w-5 h-5 mr-3"></i> About
         </a>
-        
         <div class="border-t border-white border-opacity-20 pt-2 mt-2">
           <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Care Services</p>
           <a href="services.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
@@ -261,7 +223,6 @@
             <i data-lucide="layout-grid" class="w-5 h-5 mr-3"></i> Departments
           </a>
         </div>
-        
         <div class="border-t border-white border-opacity-20 pt-2 mt-2">
           <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Resources</p>
           <a href="heirs-institute.html" class="flex items-center text-white bg-white bg-opacity-20 px-4 py-3 rounded-lg transition">
@@ -271,11 +232,9 @@
             <i data-lucide="newspaper" class="w-5 h-5 mr-3"></i> Blog
           </a>
         </div>
-        
         <a href="contact.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
           <i data-lucide="mail" class="w-5 h-5 mr-3"></i> Contact
         </a>
-        
         <div class="border-t border-white border-opacity-20 pt-4 mt-4 space-y-3">
           <a href="contact.html#appointmentform" class="flex items-center justify-center bg-white text-blue-600 px-4 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">
             <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
@@ -287,8 +246,6 @@
       </nav>
     </div>
   </div>
-
-  <!-- Header -->
   <header class="fixed top-0 w-full bg-white shadow-md z-50">
     <div class="container mx-auto px-4 py-3">
       <div class="flex justify-between items-center">
@@ -298,7 +255,6 @@
           </div>
           <span class="text-2xl font-bold text-blue-600">Heirs</span>
         </a>
-
         <nav class="hidden lg:flex items-center space-x-1">
           <a href="index.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
             <i data-lucide="home" class="w-4 h-4 mr-1"></i> Home
@@ -306,7 +262,6 @@
           <a href="about.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
             <i data-lucide="info" class="w-4 h-4 mr-1"></i> About
           </a>
-          
           <div class="nav-dropdown">
             <button class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
               <i data-lucide="heart-pulse" class="w-4 h-4 mr-1"></i> Care <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
@@ -320,7 +275,6 @@
               </a>
             </div>
           </div>
-          
           <div class="nav-dropdown">
             <button class="text-blue-600 font-semibold px-3 py-2 rounded-lg transition flex items-center">
               <i data-lucide="book-open" class="w-4 h-4 mr-1"></i> Resources <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
@@ -334,12 +288,10 @@
               </a>
             </div>
           </div>
-          
           <a href="contact.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
             <i data-lucide="mail" class="w-4 h-4 mr-1"></i> Contact
           </a>
         </nav>
-
         <div class="flex items-center space-x-3">
           <a href="contact.html#appointmentform" class="hidden md:flex bg-blue-600 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-blue-700 transition whitespace-nowrap">
             <i data-lucide="calendar" class="w-4 h-4 mr-2"></i> Book Appointment
@@ -354,10 +306,7 @@
       </div>
     </div>
   </header>
-
-  <!-- Main Content -->
   <main class="pt-20">
-    <!-- Hero Section -->
     <section class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
       <div class="container mx-auto px-4 fade-in">
         <div class="text-center mb-12 section-divider">
@@ -365,7 +314,6 @@
           <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Heirs Institute of Allied Health</h1>
           <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">A subsidiary of Heirs Multispecialist Hospital, committed to addressing the critical shortage of skilled allied health professionals in Nigeria through comprehensive, accredited training programs.</p>
         </div>
-
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-6xl mx-auto">
           <div>
             <div class="stats-card p-8 rounded-2xl shadow-lg card-hover">
@@ -400,8 +348,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Mission, Vision, Core Values -->
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4 fade-in">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -429,8 +375,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Programs Offered -->
     <section class="py-16 bg-gray-50">
       <div class="container mx-auto px-4 fade-in">
         <div class="max-w-6xl mx-auto">
@@ -438,9 +382,7 @@
             <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Accredited Training Programs</h2>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">NBTE-accredited programs designed to provide hands-on training and certification in key allied health fields</p>
           </div>
-
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Community Health Extension Worker -->
             <div class="program-card shadow-lg card-hover p-6">
               <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="heart-pulse" class="w-8 h-8 text-blue-600"></i>
@@ -453,8 +395,6 @@
                 <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-600"></i>Clinical Placement</li>
               </ul>
             </div>
-
-            <!-- Pharmacy Technician -->
             <div class="program-card shadow-lg card-hover p-6">
               <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="pill" class="w-8 h-8 text-purple-600"></i>
@@ -467,8 +407,6 @@
                 <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-purple-600"></i>Hands-on Training</li>
               </ul>
             </div>
-
-            <!-- Medical Laboratory Technician -->
             <div class="program-card shadow-lg card-hover p-6">
               <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="microscope" class="w-8 h-8 text-green-600"></i>
@@ -481,8 +419,6 @@
                 <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-600"></i>Modern Lab Access</li>
               </ul>
             </div>
-
-            <!-- Health Information Management -->
             <div class="program-card shadow-lg card-hover p-6">
               <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="file-text" class="w-8 h-8 text-indigo-600"></i>
@@ -495,8 +431,6 @@
                 <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-indigo-600"></i>Digital Systems</li>
               </ul>
             </div>
-
-            <!-- Radiography Technician -->
             <div class="program-card shadow-lg card-hover p-6">
               <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="scan" class="w-8 h-8 text-orange-600"></i>
@@ -509,8 +443,6 @@
                 <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-orange-600"></i>State-of-art Equipment</li>
               </ul>
             </div>
-
-            <!-- Dental Technology -->
             <div class="program-card shadow-lg card-hover p-6">
               <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="smile" class="w-8 h-8 text-yellow-600"></i>
@@ -523,8 +455,6 @@
                 <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-yellow-600"></i>Modern Lab</li>
               </ul>
             </div>
-
-            <!-- Physiotherapy Assistant -->
             <div class="program-card shadow-lg card-hover p-6">
               <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="activity" class="w-8 h-8 text-red-600"></i>
@@ -537,8 +467,6 @@
                 <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-red-600"></i>Practical Focus</li>
               </ul>
             </div>
-
-            <!-- Environmental Health Technology -->
             <div class="program-card shadow-lg card-hover p-6">
               <div class="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="leaf" class="w-8 h-8 text-teal-600"></i>
@@ -555,8 +483,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Why Choose Us -->
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4 fade-in">
         <div class="max-w-6xl mx-auto">
@@ -564,7 +490,6 @@
             <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Why Choose Heirs Institute</h2>
             <p class="text-lg text-gray-600">Excellence in allied health education</p>
           </div>
-
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <div class="bg-gray-50 p-6 rounded-xl shadow-md card-hover">
               <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-4">
@@ -573,7 +498,6 @@
               <h3 class="font-bold text-gray-800 mb-2">NBTE Accreditation</h3>
               <p class="text-gray-600 text-sm">All our programs are fully accredited by the National Board for Technical Education, ensuring recognized certification.</p>
             </div>
-
             <div class="bg-gray-50 p-6 rounded-xl shadow-md card-hover">
               <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-4">
                 <i data-lucide="users" class="w-7 h-7 text-green-600"></i>
@@ -581,7 +505,6 @@
               <h3 class="font-bold text-gray-800 mb-2">Expert Instructors</h3>
               <p class="text-gray-600 text-sm">Learn from experienced healthcare professionals with years of practical experience in their fields.</p>
             </div>
-
             <div class="bg-gray-50 p-6 rounded-xl shadow-md card-hover">
               <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-4">
                 <i data-lucide="building-2" class="w-7 h-7 text-purple-600"></i>
@@ -589,7 +512,6 @@
               <h3 class="font-bold text-gray-800 mb-2">Hospital Integration</h3>
               <p class="text-gray-600 text-sm">Direct access to Heirs Multispecialist Hospital for hands-on clinical training and real-world experience.</p>
             </div>
-
             <div class="bg-gray-50 p-6 rounded-xl shadow-md card-hover">
               <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-4">
                 <i data-lucide="briefcase" class="w-7 h-7 text-orange-600"></i>
@@ -597,7 +519,6 @@
               <h3 class="font-bold text-gray-800 mb-2">95% Job Placement</h3>
               <p class="text-gray-600 text-sm">Most graduates secure employment within 6 months through our extensive healthcare network connections.</p>
             </div>
-
             <div class="bg-gray-50 p-6 rounded-xl shadow-md card-hover">
               <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mb-4">
                 <i data-lucide="zap" class="w-7 h-7 text-red-600"></i>
@@ -605,7 +526,6 @@
               <h3 class="font-bold text-gray-800 mb-2">Modern Facilities</h3>
               <p class="text-gray-600 text-sm">State-of-the-art laboratories, equipment, and learning resources for comprehensive practical training.</p>
             </div>
-
             <div class="bg-gray-50 p-6 rounded-xl shadow-md card-hover">
               <div class="w-14 h-14 bg-yellow-100 rounded-full flex items-center justify-center mb-4">
                 <i data-lucide="dollar-sign" class="w-7 h-7 text-yellow-600"></i>
@@ -617,8 +537,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Admission Process -->
     <section class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
       <div class="container mx-auto px-4 fade-in">
         <div class="max-w-4xl mx-auto">
@@ -626,7 +544,6 @@
             <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Admission Requirements & Process</h2>
             <p class="text-lg text-gray-600">Simple steps to begin your healthcare career</p>
           </div>
-
           <div class="bg-white p-8 rounded-2xl shadow-lg mb-8">
             <h3 class="text-2xl font-bold text-gray-800 mb-6">Entry Requirements</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -656,7 +573,6 @@
               </div>
             </div>
           </div>
-
           <div class="bg-white p-8 rounded-2xl shadow-lg">
             <h3 class="text-2xl font-bold text-gray-800 mb-6">Application Process</h3>
             <div class="space-y-4">
@@ -689,7 +605,6 @@
                 </div>
               </div>
             </div>
-
             <div class="mt-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
               <div class="flex items-start space-x-3">
                 <i data-lucide="info" class="w-6 h-6 text-blue-600 flex-shrink-0"></i>
@@ -705,8 +620,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Scholarship Information -->
     <section class="py-16 bg-white">
       <div class="container mx-auto px-4 fade-in">
         <div class="max-w-4xl mx-auto">
@@ -714,7 +627,6 @@
             <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Scholarship & Financial Aid</h2>
             <p class="text-lg text-gray-600">Making quality healthcare education accessible to all</p>
           </div>
-
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-8 rounded-2xl shadow-lg border border-green-200 card-hover">
               <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -728,7 +640,6 @@
                 <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 text-green-600"></i>Renewable annually based on performance</li>
               </ul>
             </div>
-
             <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-8 rounded-2xl shadow-lg border border-blue-200 card-hover">
               <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="users" class="w-8 h-8 text-white"></i>
@@ -742,7 +653,6 @@
               </ul>
             </div>
           </div>
-
           <div class="mt-8 bg-gradient-to-r from-purple-50 to-pink-50 p-8 rounded-2xl shadow-lg border border-purple-200">
             <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">How to Apply for Scholarships</h3>
             <p class="text-gray-600 text-center mb-6">Submit your scholarship application along with your admission application. Include:</p>
@@ -770,8 +680,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Student Life & Facilities -->
     <section class="py-16 bg-gray-50">
       <div class="container mx-auto px-4 fade-in">
         <div class="max-w-6xl mx-auto">
@@ -779,7 +687,6 @@
             <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Facilities & Student Life</h2>
             <p class="text-lg text-gray-600">World-class learning environment</p>
           </div>
-
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="bg-white p-6 rounded-xl shadow-md card-hover text-center">
               <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -788,7 +695,6 @@
               <h3 class="font-bold text-gray-800 mb-2">Modern Laboratories</h3>
               <p class="text-gray-600 text-sm">Fully equipped labs with latest equipment for hands-on practice</p>
             </div>
-
             <div class="bg-white p-6 rounded-xl shadow-md card-hover text-center">
               <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="library" class="w-7 h-7 text-green-600"></i>
@@ -796,7 +702,6 @@
               <h3 class="font-bold text-gray-800 mb-2">Resource Library</h3>
               <p class="text-gray-600 text-sm">Extensive medical books, journals, and digital resources</p>
             </div>
-
             <div class="bg-white p-6 rounded-xl shadow-md card-hover text-center">
               <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="building-2" class="w-7 h-7 text-purple-600"></i>
@@ -804,7 +709,6 @@
               <h3 class="font-bold text-gray-800 mb-2">Clinical Training</h3>
               <p class="text-gray-600 text-sm">Direct access to hospital wards for practical experience</p>
             </div>
-
             <div class="bg-white p-6 rounded-xl shadow-md card-hover text-center">
               <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="wifi" class="w-7 h-7 text-orange-600"></i>
@@ -816,22 +720,15 @@
         </div>
       </div>
     </section>
-
-    <!-- CTA Section -->
 <section class="py-20 bg-white text-blue-800">
   <div class="container mx-auto px-4 fade-in flex justify-center">
-
-    <!-- CARD -->
     <div class="bg-blue-600/10 backdrop-blur-lg rounded-2xl shadow-xl p-10 max-w-3xl w-full text-center">
-
       <h2 class="text-3xl md:text-4xl font-bold mb-6 text-blue-800">
         Start Your Healthcare Career Today
       </h2>
-
       <p class="text-lg mb-10 text-gray-700">
         Join Heirs Institute of Allied Health and become part of the next generation of healthcare professionals transforming Nigeria's healthcare landscape.
       </p>
-
       <div class="flex justify-center">
         <a
           href="contact.html"
@@ -840,7 +737,6 @@
           <i data-lucide="edit" class="w-5 h-5 mr-2"></i> Apply for Admission
         </a>
       </div>
-
       <p class="text-sm text-gray-700 mt-6">
         <i data-lucide="phone" class="w-4 h-4 inline mr-1"></i>
         Call us:
@@ -848,15 +744,10 @@
           +234 123 456 789
         </a>
       </p>
-
     </div>
-
   </div>
 </section>
-
   </main>
-
-  <!-- Enhanced Footer -->
   <footer class="footer-gradient text-white py-12">
     <div class="container mx-auto px-4">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
@@ -886,7 +777,6 @@
             </a>
           </div>
         </div>
-
         <div>
           <h4 class="text-lg font-semibold mb-4 flex items-center">
             <i data-lucide="map-pin" class="w-5 h-5 mr-2"></i> Our Locations
@@ -916,7 +806,6 @@
             </p>
           </div>
         </div>
-
         <div>
           <h4 class="text-lg font-semibold mb-4 flex items-center">
             <i data-lucide="link" class="w-5 h-5 mr-2"></i> Quick Links
@@ -931,7 +820,6 @@
             <li><a href="contact.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Contact</a></li>
           </ul>
         </div>
-
         <div>
           <h4 class="text-lg font-semibold mb-4 flex items-center">
             <i data-lucide="graduation-cap" class="w-5 h-5 mr-2"></i> Institute Programs
@@ -945,7 +833,6 @@
           </ul>
         </div>
       </div>
-
       <div class="border-t border-gray-600 pt-8">
         <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <p class="text-gray-300 text-sm text-center md:text-left">
@@ -962,35 +849,27 @@
       </div>
     </div>
   </footer>
-
-  <!-- Scroll to Top -->
   <a href="#" class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition transform hover:scale-110 z-40" aria-label="Scroll to top">
     <i data-lucide="arrow-up" class="w-5 h-5"></i>
   </a>
-
   <script>
     lucide.createIcons();
-
     function openMobileSidebar() {
       document.getElementById('mobileSidebar').classList.add('open');
       document.getElementById('sidebarOverlay').classList.add('open');
       document.body.style.overflow = 'hidden';
     }
-
     function closeMobileSidebar() {
       document.getElementById('mobileSidebar').classList.remove('open');
       document.getElementById('sidebarOverlay').classList.remove('open');
       document.body.style.overflow = '';
     }
-
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.1 });
-    
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', e => {
         const href = anchor.getAttribute('href');
@@ -1004,9 +883,7 @@
         }
       });
     });
-
     setTimeout(() => lucide.createIcons(), 100);
   </script>
-
 </body>
 </html>

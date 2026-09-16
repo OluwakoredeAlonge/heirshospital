@@ -3,261 +3,159 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Understanding Heart Health: Prevention and Care - Insights from Heirs Multispecialist Hospital experts.">
-  <meta name="keywords" content="heart health, cardiology tips, preventive care, Ekiti hospital blog">
-  <title>Understanding Heart Health: Prevention and Care - Blog - Heirs Multispecialist Hospital</title>
+  <title>Understanding Heart Health: Prevention and Care | Heirs Health Blog</title>
+  <meta name="description" content="Heart disease is largely preventable. Dr. Michael Soje, Medical Director of Heirs Multispecialist Hospital, explains risk factors, the tests that matter, and what Nigerian families can do today.">
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": "Understanding Heart Health: Prevention and Care",
-    "description": "Learn about the latest advancements in cardiology and how to maintain a healthy heart with tips from our experts.",
-    "author": {
-      "@type": "Person",
-      "name": "Dr. Soje Michael Osisiogu"
-    },
-    "datePublished": "2025-10-15",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Heirs Multispecialist Hospital"
-    }
-  }
+  {"@context":"https://schema.org","@type":"BlogPosting","headline":"Understanding Heart Health: Prevention and Care","author":{"@type":"Person","name":"Dr. Michael Soje"},"datePublished":"2025-10-15","publisher":{"@type":"Organization","name":"Heirs Multispecialist Hospital"}}
   </script>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/js/tw.js"></script>
+  <link rel="stylesheet" href="assets/css/heirs.css">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    html { scroll-behavior: smooth; }
-    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-    .card-hover { transition: all 0.3s ease; }
-    .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-    .gradient-text { background: linear-gradient(135deg, #2563eb, #1e40af); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .founder-card { 
-      background: rgba(255, 255, 255, 0.8); 
-      backdrop-filter: blur(10px); 
-      border: 1px solid rgba(255, 255, 255, 0.2); 
-      position: relative; 
-      overflow: hidden; 
-    }
-    .founder-card::before { 
-      content: ''; 
-      position: absolute; 
-      top: 0; 
-      left: 0; 
-      right: 0; 
-      bottom: 0; 
-      border: 2px solid transparent; 
-      border-image: linear-gradient(135deg, #ffd700, #b8860b) 1; 
-      transition: all 0.3s ease; 
-    }
-    .founder-card:hover::before { 
-      border-image: linear-gradient(135deg, #b8860b, #ffd700) 1; 
-    }
-    .stats-card { background: linear-gradient(135deg, #ffffff, #f1f5f9); }
-    .section-divider { position: relative; }
-    .section-divider::before { 
-      content: ''; 
-      position: absolute; 
-      top: 0; 
-      left: 50%; 
-      transform: translateX(-50%); 
-      width: 100px; 
-      height: 4px; 
-      background: linear-gradient(135deg, #2563eb, #1e40af); 
-      border-radius: 2px; 
-      animation: pulse 2s infinite; 
-    }
-    @keyframes pulse {
-      0% { transform: translateX(-50%) scale(1); }
-      50% { transform: translateX(-50%) scale(1.2); }
-      100% { transform: translateX(-50%) scale(1); }
-    }
-    .btn-primary { background-color: #ffffff; color: #2563eb; transition: all 0.3s ease; }
-    .btn-primary:hover { background-color: #e2e8f0; transform: scale(1.05); }
-    .btn-secondary { border-color: #ffffff; color: #ffffff; transition: all 0.3s ease; }
-    .btn-secondary:hover { background-color: #ffffff; color: #2563eb; transform: scale(1.05); }
-    @media (max-width: 640px) {
-      .stats-card h2 { font-size: 1.5rem; line-height: 1.2; }
-      .container { padding-left: 1rem; padding-right: 1rem; }
-    }
+    .progress { position: fixed; top: 0; left: 0; height: 3px; width: 0; background: linear-gradient(90deg, var(--blue-600), var(--teal-500)); z-index: 200; }
+    .article-hero { border-radius: 32px; overflow: hidden; aspect-ratio: 21/9; max-height: 480px; box-shadow: var(--shadow-lg); }
+    .article-hero img { width: 100%; height: 100%; object-fit: cover; }
+    .toc { position: sticky; top: 100px; }
+    .toc a { display: block; padding: 8px 12px; border-left: 2px solid var(--line); font-size: 13.5px; color: var(--muted); transition: all .2s; }
+    .toc a:hover, .toc a.active { border-color: var(--blue-600); color: var(--blue-700); background: var(--blue-50); }
+    .callout { display: flex; gap: 16px; padding: 22px; border-radius: 20px; margin: 1.8em 0; }
+    .callout.warn { background: var(--coral-100); }
+    .callout.tip { background: var(--teal-100); }
+    .callout .icon-box { width: 44px; height: 44px; border-radius: 12px; }
+    .callout .icon-box svg { width: 20px; height: 20px; }
+    .callout strong { display: block; font-family: var(--font-display); color: var(--ink); margin-bottom: 4px; }
+    .callout p { margin: 0; font-size: 14.5px; }
+    .num-list { counter-reset: n; display: grid; gap: 14px; margin: 1.4em 0; }
+    .num-list li { display: flex; gap: 14px; align-items: flex-start; }
+    .num-list li::before { counter-increment: n; content: counter(n); flex: none; width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; background: var(--blue-600); color: #fff; font-family: var(--font-display); font-weight: 800; font-size: 14px; }
+    .share a { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--surface-2); color: var(--ink); }
+    .share a:hover { background: var(--blue-600); color: #fff; }
+    .share svg { width: 17px; height: 17px; }
+    .author-box { display: flex; gap: 20px; align-items: center; padding: 28px; border-radius: 24px; background: var(--surface); border: 1px solid var(--line); }
+    .author-box .av { width: 72px; height: 72px; border-radius: 20px; display: grid; place-items: center; font-family: var(--font-display); font-weight: 800; font-size: 22px; color: #fff; background: linear-gradient(135deg, var(--blue-600), var(--blue-800)); flex: none; }
   </style>
 </head>
-<body class="font-inter text-gray-800 bg-gray-50">
-  <nav class="fixed top-0 w-full bg-white shadow-md z-50">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <a href="index.html" class="text-2xl font-bold text-blue-600 flex items-center">
-        <i data-lucide="hospital" class="w-8 h-8 mr-2"></i>
-        Heirs Multispecialist
-      </a>
-      <div class="hidden md:flex space-x-6">
-        <a href="index.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
-        </a>
-        <a href="about.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
-        </a>
-        <a href="services.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
-        </a>
-        <a href="department.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
-        </a>
-        <a href="blog.html" class="text-blue-600 font-semibold flex items-center">
-          <i data-lucide="book-open" class="w-5 h-5 mr-1"></i> Blog
-        </a>
-        <a href="contact.html" class="text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
-        </a>
-        <a href="contact.html#appointmentform" class="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 text-sm flex items-center">
-          <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
-        </a>
+<body data-page="blog" data-cms-page="detailed-blog">
+  <div class="progress" id="readProgress"></div>
+  <div id="site-header"></div>
+
+  <section class="pt-10 pb-6 bg-white" data-cms-section="Article header">
+    <div class="wrap">
+      <div class="crumbs flex flex-wrap items-center gap-2 text-sm text-muted mb-6"><a href="index.html" class="hover:text-brand-600">Home</a><i data-lucide="chevron-right" class="w-4 h-4"></i><a href="blog.html" class="hover:text-brand-600">Health Blog</a><i data-lucide="chevron-right" class="w-4 h-4"></i><span class="font-semibold text-ink">Heart Health</span></div>
+      <div class="max-w-3xl mb-8 reveal">
+        <div class="flex flex-wrap gap-2 mb-5"><span class="badge badge-coral"><i data-lucide="heart-pulse"></i> <span data-cms="head.cat" data-cms-label="Category badge">Heart Health</span></span><span class="badge badge-outline" data-cms="head.tag" data-cms-label="Tag badge">Prevention</span><span class="badge badge-outline" data-cms="head.read" data-cms-label="Read time badge">6 min read</span></div>
+        <h1 class="hd-1 mb-5" data-cms="head.title" data-cms-label="Article title">Understanding heart health: prevention and care for Nigerian families</h1>
+        <p class="lead" data-cms="head.lead" data-cms-label="Standfirst">Heart disease is now one of the leading causes of death in Nigeria, yet most of it is preventable. Here's what the numbers mean, the tests that matter, and what you can do this week.</p>
       </div>
-      <div class="flex items-center space-x-4">
-        <a href="tel:+234123456789" class="bg-red-500 text-white px-4 py-2 rounded-full text-sm flex items-center hover:bg-red-600">
-          <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
-        </a>
-        <button onclick="toggleMobileMenu()" class="md:hidden text-gray-600">
-          <i data-lucide="menu" class="w-6 h-6"></i>
-        </button>
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-8 reveal">
+        <div class="flex items-center gap-3"><div class="w-12 h-12 rounded-2xl grid place-items-center font-bold text-white font-display" style="background:var(--blue-600)" data-cms="head.initials" data-cms-label="Author initials">MS</div><div><div class="font-bold text-ink" data-cms="head.author" data-cms-label="Author name">Dr. Michael Soje</div><div class="text-sm text-muted" data-cms="head.byline" data-cms-label="Byline (role · date)">Medical Director · Internal Medicine & Gastroenterology · 15 Oct 2025</div></div></div>
+        <div class="share flex gap-2"><a href="#" aria-label="Share on WhatsApp" onclick="event.preventDefault(); window.open('https://wa.me/?text='+encodeURIComponent(document.title+' '+location.href))"><i data-lucide="message-circle"></i></a><a href="#" aria-label="Copy link" onclick="event.preventDefault(); navigator.clipboard.writeText(location.href); this.title='Copied!'"><i data-lucide="link"></i></a><a href="#" aria-label="Print" onclick="event.preventDefault(); window.print()"><i data-lucide="printer"></i></a></div>
+      </div>
+      <div class="article-hero reveal"><img src="assets/img/blog-fitness.jpg" alt="Staying active protects the heart" data-cms="head.img" data-cms-label="Hero image"></div>
+    </div>
+  </section>
+
+  <section class="section-tight bg-white" data-cms-section="Article body & sidebar">
+    <div class="wrap">
+      <div class="grid lg:grid-cols-12 gap-12">
+        <aside class="lg:col-span-3 hidden lg:block">
+          <div class="toc" id="toc">
+            <div class="text-xs uppercase tracking-widest font-bold text-subtle mb-3">In this article</div>
+            <div data-cms-list="toc" data-cms-label="Table of contents" data-cms-hint="Links must match the id of an h2 in the article body, e.g. #why"><a href="#why" data-cms-field="link" data-cms-type="link" data-cms-label="Link">Why heart disease is rising</a><a href="#numbers" data-cms-field="link" data-cms-type="link" data-cms-label="Link">The 3 numbers to know</a><a href="#prevention" data-cms-field="link" data-cms-type="link" data-cms-label="Link">Key prevention strategies</a><a href="#tests" data-cms-field="link" data-cms-type="link" data-cms-label="Link">Tests that matter</a><a href="#treatment" data-cms-field="link" data-cms-type="link" data-cms-label="Link">Treatment options</a><a href="#emergency" data-cms-field="link" data-cms-type="link" data-cms-label="Link">When it's an emergency</a></div>
+            <div class="mt-8 card card-soft card-flat p-5"><div class="font-display font-bold text-ink mb-1" data-cms="toc.ctaTitle" data-cms-label="TOC card title">Worried about your heart?</div><p class="text-sm text-muted mb-4" data-cms="toc.ctaText" data-cms-label="TOC card text">Book a cardiology review with ECG and echo.</p><a href="contact.html#book" class="btn btn-primary btn-sm btn-block" data-cms="toc.ctaBtn" data-cms-type="link" data-cms-label="TOC card button">Book now</a></div>
+          </div>
+        </aside>
+        <article class="lg:col-span-6 prose-h reveal">
+          <div data-cms="body" data-cms-type="html" data-cms-label="Article body (HTML)" data-cms-hint="Use &lt;h2 id=&quot;...&quot;&gt; for sections, &lt;h3&gt; for sub-headings, &lt;p&gt; for paragraphs, &lt;blockquote&gt; for quotes. Callout boxes: &lt;div class=&quot;callout tip&quot;&gt; or &lt;div class=&quot;callout warn&quot;&gt;">
+          <h2 id="why">Why heart disease is rising in Nigeria</h2>
+          <p>Twenty years ago, the patients I saw with heart failure were mostly elderly. Today, it is not unusual to admit a 42-year-old teacher or a 38-year-old trader with a heart that has been damaged by years of untreated hypertension. Our diets have changed, we sit more, stress has increased, and, crucially, most people never check their blood pressure until something goes wrong.</p>
+          <p>The good news is that the biggest drivers, high blood pressure, diabetes, high cholesterol, smoking and inactivity, are all things we can measure and change.</p>
+          <div class="callout warn"><span class="icon-box coral"><i data-lucide="alert-triangle"></i></span><div><strong>Half of adults with hypertension don't know they have it</strong><p>High blood pressure has no symptoms until it causes a stroke, heart attack or kidney failure. A two-minute check at any of our branches is the most valuable test you'll do this year.</p></div></div>
+
+          <h2 id="numbers">The three numbers you must know</h2>
+          <ol class="num-list">
+            <li><div><strong>Blood pressure, aim below 130/80 mmHg.</strong> Above 140/90 on two separate readings is hypertension and needs a plan.</div></li>
+            <li><div><strong>Fasting blood sugar, aim below 100 mg/dL.</strong> Diabetes quietly damages the vessels that feed the heart.</div></li>
+            <li><div><strong>Total cholesterol, aim below 200 mg/dL.</strong> Especially important if heart disease runs in your family.</div></li>
+          </ol>
+
+          <h2 id="prevention">Key prevention strategies</h2>
+          <h3>1. Cut down on salt, including the hidden salt</h3>
+          <p>Stock cubes, seasoning powders, smoked fish and processed meats add far more sodium than the salt you sprinkle. Aim for less than one teaspoon of total salt a day. Use pepper, ginger, garlic, onions and local herbs for flavour instead.</p>
+          <h3>2. Move for 30 minutes, five days a week</h3>
+          <p>You don't need a gym. A brisk walk to the market, taking the stairs, or 30 minutes of dancing counts. The heart is a muscle, it gets stronger with use.</p>
+          <h3>3. Eat like your grandparents did</h3>
+          <p>More beans, vegetables, fruit, whole grains and fish; fewer fried snacks, sugary drinks and "fast" foods. Our <a href="services.html#nutrition">dietetics unit</a> can build a plan around the foods you already love.</p>
+          <h3>4. Stop smoking, limit alcohol</h3>
+          <p>Within one year of quitting, your risk of heart disease drops by half. Alcohol should be no more than one drink a day, and none at all if you have high blood pressure or liver disease.</p>
+          <h3>5. Manage stress and sleep</h3>
+          <p>Chronic stress raises blood pressure and drives unhealthy eating. If anxiety or trauma is part of your story, our colleagues at <a href="fosterheirs.html">Fosterheirs</a> can help, the mind and the heart are connected.</p>
+          <div class="callout tip"><span class="icon-box teal"><i data-lucide="lightbulb"></i></span><div><strong>Family history matters</strong><p>If a parent or sibling had a heart attack or stroke before age 60, start screening at 30, not 50.</p></div></div>
+
+          <h2 id="tests">The tests that actually matter</h2>
+          <p>At Heirs, a heart check-up usually includes a blood pressure profile, an electrocardiogram (ECG) to look at your heart's rhythm, an echocardiogram (ultrasound of the heart) to see how well it pumps, and blood tests for sugar, cholesterol and kidney function. For patients with breathlessness we add cardiopulmonary function tests. Most results are back within 24 hours.</p>
+
+          <h2 id="treatment">Treatment options</h2>
+          <p>Treatment starts with lifestyle change, but many patients also need medication, and there is no shame in that. Modern blood-pressure and cholesterol medicines are safe, affordable and, taken consistently, prevent the majority of strokes and heart attacks. For established heart disease we offer heart-failure clinics, rhythm management and coordinated referral for interventional procedures where needed.</p>
+          <blockquote>"The best heart medicine is the one you actually take every day. Bring your tablets to every visit so we can simplify your routine."</blockquote>
+
+          <h2 id="emergency">When it's an emergency</h2>
+          <p>Call <a href="tel:+2348036386440">+234 803 638 6440</a> or come straight to our Oye-Ekiti branch if you or someone near you has: crushing chest pain or pressure lasting more than a few minutes; pain spreading to the arm, jaw or back; sudden breathlessness; fainting; or stroke signs, face drooping, arm weakness, slurred speech. Do not drive yourself. Our emergency room and ICU are open 24 hours, every day.</p>
+          </div>
+
+          <div class="mt-10 author-box">
+            <div class="av" data-cms="author.initials" data-cms-label="Author box initials">MS</div>
+            <div><div class="font-display font-bold text-ink text-lg" data-cms="author.name" data-cms-label="Author box name">Dr. Michael Soje</div><div class="text-sm text-brand-600 font-semibold mb-2" data-cms="author.role" data-cms-label="Author box role">Co-Founder & Medical Director, Heirs Multispecialist Hospital</div><p class="text-sm text-muted m-0" data-cms="author.bio" data-cms-label="Author box bio">Consultant physician in internal medicine with a special interest in gastroenterology; affiliated with Federal Teaching Hospital Ido-Ekiti and Afe Babalola University.</p></div>
+          </div>
+        </article>
+        <aside class="lg:col-span-3 space-y-6 reveal-r">
+          <div class="card" style="background:var(--navy); border-color:transparent; color:#fff">
+            <span class="icon-box sm mb-4" style="background:rgba(255,255,255,.1);color:var(--gold-500)"><i data-lucide="heart-pulse"></i></span>
+            <h3 class="font-display font-bold text-white mb-2" data-cms="side.promoTitle" data-cms-label="Promo card title">Heart check-up package</h3>
+            <p class="text-sm mb-4" style="color:rgba(255,255,255,.72)" data-cms="side.promoText" data-cms-label="Promo card text">BP profile, ECG, echocardiogram, lipids, sugar & kidney function, in one visit.</p>
+            <a href="contact.html#book" class="btn btn-gold btn-sm btn-block" data-cms="side.promoBtn" data-cms-type="link" data-cms-label="Promo card button">Book a heart check</a>
+          </div>
+          <div class="card">
+            <h3 class="font-display font-bold mb-3" data-cms="side.relatedTitle" data-cms-label="Related heading">Related reading</h3>
+            <div data-cms-list="side.related" data-cms-label="Related articles">
+            <a href="blog.html" class="block py-3 border-b border-dashed border-line text-sm font-semibold text-ink hover:text-brand-600" data-cms-field="link" data-cms-type="link" data-cms-label="Article">Hypertension: the silent killer and the 3 numbers you must know</a>
+            <a href="blog.html" class="block py-3 border-b border-dashed border-line text-sm font-semibold text-ink hover:text-brand-600" data-cms-field="link" data-cms-type="link" data-cms-label="Article">Five early warning signs of kidney disease</a>
+            <a href="blog.html" class="block py-3 text-sm font-semibold text-ink hover:text-brand-600" data-cms-field="link" data-cms-type="link" data-cms-label="Article">Eating well with diabetes: a practical Ekiti kitchen guide</a>
+            </div>
+          </div>
+          <div class="card card-soft card-flat">
+            <div class="text-xs uppercase tracking-widest font-bold text-brand-600 mb-2">Medical disclaimer</div>
+            <p class="text-xs text-muted leading-relaxed" data-cms="side.disclaimer" data-cms-label="Disclaimer">This article is for general education and does not replace a consultation. Always speak to a doctor about your own health.</p>
+          </div>
+        </aside>
       </div>
     </div>
-    <div id="mobileMenu" class="hidden md:hidden bg-white shadow-md">
-      <nav class="px-4 py-4 space-y-2">
-        <a href="index.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="home" class="w-5 h-5 mr-1"></i> Home
-        </a>
-        <a href="about.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="info" class="w-5 h-5 mr-1"></i> About
-        </a>
-        <a href="services.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="stethoscope" class="w-5 h-5 mr-1"></i> Services
-        </a>
-        <a href="department.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="layout-grid" class="w-5 h-5 mr-1"></i> Departments
-        </a>
-        <a href="blog.html" class="block text-blue-600 font-semibold flex items-center">
-          <i data-lucide="book-open" class="w-5 h-5 mr-1"></i> Blog
-        </a>
-        <a href="contact.html" class="block text-gray-600 hover:text-blue-600 flex items-center">
-          <i data-lucide="mail" class="w-5 h-5 mr-1"></i> Contact
-        </a>
-        <a href="contact.html#appointmentform" class="block bg-blue-600 text-white px-4 py-2 rounded-full text-sm flex items-center">
-          <i data-lucide="calendar" class="w-5 h-5 mr-1"></i> Book Appointment
-        </a>
-      </nav>
-    </div>
-  </nav>
-  <main class="pt-16">
-    <section id="blog-detail" class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
-      <div class="container mx-auto px-4 fade-in max-w-full">
-        <div class="text-center mb-12 section-divider">
-          <span class="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">Cardiology Insights</span>
-          <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-4">Understanding Heart Health: Prevention and Care</h1>
-          <div class="flex justify-center items-center text-gray-600 mb-4">
-            <span class="mr-4">October 15, 2025</span>
-            <span class="mr-4">By Dr. Soje Michael Osisiogu</span>
-            <span class="flex items-center"><i data-lucide="eye" class="w-5 h-5 mr-1"></i> 1,250 Views</span>
-          </div>
+  </section>
+
+  <section class="pb-24 bg-white" data-cms-section="Call to action">
+    <div class="wrap">
+      <div class="cta-band reveal">
+        <div class="orb a"></div><div class="orb b"></div>
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+          <div class="lg:col-span-8"><span class="eyebrow on-dark" data-cms="cta.eyebrow" data-cms-label="Eyebrow">Take charge of your heart health</span><h2 class="hd-1 mt-4 mb-4" data-cms="cta.title" data-cms-label="Heading">A check-up today prevents an emergency tomorrow.</h2></div>
+          <div class="lg:col-span-4 flex flex-col gap-3"><a href="contact.html#book" class="btn btn-gold btn-lg"><i data-lucide="calendar-check"></i> Book a Cardiology Review</a><a href="blog.html" class="btn btn-ghost btn-lg"><i data-lucide="newspaper"></i> More Articles</a></div>
         </div>
-        <img src="https://images.unsplash.com/photo-1576091160399-112ba2295810?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Understanding Heart Health" class="w-full max-w-4xl mx-auto h-64 sm:h-96 object-cover rounded-xl shadow-lg mb-8" loading="lazy">
-      </div>
-    </section>
-    <section class="py-16 bg-white">
-      <div class="container mx-auto px-4 fade-in max-w-4xl">
-        <div class="prose lg:prose-xl text-gray-700">
-          <p class="mb-6">Heart disease remains one of the leading causes of mortality worldwide, but with proper prevention and care, many risks can be mitigated. At Heirs Multispecialist Hospital, our cardiology team is dedicated to providing comprehensive heart health services.</p>
-          <h2 class="text-2xl font-bold mb-4">Key Prevention Strategies</h2>
-          <ul class="list-disc pl-6 mb-6">
-            <li>Maintain a balanced diet rich in fruits, vegetables, and whole grains.</li>
-            <li>Engage in regular physical activity, aiming for at least 150 minutes per week.</li>
-            <li>Monitor blood pressure and cholesterol levels regularly.</li>
-            <li>Avoid smoking and limit alcohol consumption.</li>
-          </ul>
-          <p class="mb-6">Our specialists recommend annual check-ups to catch potential issues early. With advanced diagnostics available at our facilities in Oye Ekiti and Ado Ekiti, we ensure personalized care plans for every patient.</p>
-          <h2 class="text-2xl font-bold mb-4">Treatment Options</h2>
-          <p class="mb-6">From medication management to minimally invasive procedures, our team uses cutting-edge technology to treat various heart conditions. We focus on patient education to empower individuals in their health journey.</p>
-          <blockquote class="border-l-4 border-blue-600 pl-4 italic mb-6">"Prevention is better than cure – start your heart health journey today." - Dr. Soje Michael Osisiogu</blockquote>
-          <p class="mb-6">For more information or to schedule a consultation, contact us today.</p>
-        </div>
-      </div>
-    </section>
-    <section class="py-16 bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
-      <div class="container mx-auto px-4 fade-in max-w-full">
-        <div class="text-center">
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Take Charge of Your Heart Health</h2>
-          <p class="text-base sm:text-lg mb-8 max-w-2xl mx-auto">Book an appointment with our cardiology specialists or explore more blog posts for valuable health insights.</p>
-          <div class="flex justify-center space-x-4">
-            <a href="contact.html" class="btn-primary px-6 py-3 rounded-full text-sm flex items-center">
-              <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
-            </a>
-            <a href="blog.html" class="btn-secondary border-2 px-6 py-3 rounded-full text-sm flex items-center">
-              <i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i> Back to Blog
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-  <footer class="bg-gray-800 text-white py-8">
-    <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div>
-          <h3 class="text-lg font-semibold mb-4">Heirs Multispecialist Hospital</h3>
-          <p class="text-gray-400">123 Hospital Road, Oye Ekiti, Ekiti State</p>
-          <p class="text-gray-400">456 Health Avenue, Ado Ekiti, Ekiti State</p>
-          <p class="text-gray-400 mt-3"><strong>Phone:</strong> <a href="tel:+234123456789" class="hover:text-white">+234 123 456 789</a></p>
-          <p class="text-gray-400"><strong>Email:</strong> <a href="mailto:info@heirsmultispecialist.com" class="hover:text-white">info@heirsmultispecialist.com</a></p>
-          <div class="flex space-x-4 mt-4">
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="twitter" class="w-5 h-5"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="facebook" class="w-5 h-5"></i></a>
-            <a href="#" class="text-gray-400 hover:text-white"><i data-lucide="instagram" class="w-5 h-5"></i></a>
-          </div>
-        </div>
-        <div>
-          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="index.html" class="hover:text-white">Home</a></li>
-            <li><a href="about.html" class="hover:text-white">About Us</a></li>
-            <li><a href="services.html" class="hover:text-white">Services</a></li>
-            <li><a href="departments.html" class="hover:text-white">Departments</a></li>
-            <li><a href="blog.html" class="hover:text-white">Blog</a></li>
-            <li><a href="contact.html" class="hover:text-white">Contact</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="text-lg font-semibold mb-4">Our Services</h4>
-          <ul class="space-y-2 text-gray-400">
-            <li><a href="services.html" class="hover:text-white">X-Ray & Imaging</a></li>
-            <li><a href="services.html" class="hover:text-white">Dental Care</a></li>
-            <li><a href="services.html" class="hover:text-white">Laboratory Services</a></li>
-            <li><a href="services.html" class="hover:text-white">Pharmacy</a></li>
-            <li><a href="services.html" class="hover:text-white">Emergency Care</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="text-center text-gray-400 mt-8 pt-8 border-t border-gray-700">
-        &copy; 2025 Heirs Multispecialist Hospital. All Rights Reserved.
       </div>
     </div>
-  </footer>
+  </section>
+
+  <div id="site-footer"></div>
+  <script src="assets/js/cms.js"></script>
+  <script src="assets/js/heirs.js"></script>
   <script>
-    lucide.createIcons();
-    function toggleMobileMenu() {
-      document.getElementById('mobileMenu').classList.toggle('hidden');
-    }
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', e => {
-        e.preventDefault();
-        document.querySelector(anchor.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-      });
-    });
+    const bar = document.getElementById('readProgress');
+    window.addEventListener('scroll', () => { const h = document.documentElement; bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%'; }, { passive: true });
+    const links = [...document.querySelectorAll('#toc a')];
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id)); }), { rootMargin: '-20% 0px -70% 0px' });
+    document.querySelectorAll('article h2[id]').forEach(h => io.observe(h));
   </script>
 </body>
 </html>

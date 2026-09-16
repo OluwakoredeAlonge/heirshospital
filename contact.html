@@ -3,895 +3,214 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Contact Heirs Multispecialist Hospital: Book appointments, get directions to Oye Ekiti & Ado Ekiti branches, emergency contact, and visit our world-class facilities.">
-  <meta name="keywords" content="Heirs Hospital contact, Oye Ekiti hospital appointment, Ado Ekiti healthcare, book medical appointment Ekiti, emergency care Nigeria">
-  <title>Contact & Book Appointment - Heirs Multispecialist Hospital</title>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Hospital",
-    "name": "Heirs Multispecialist Hospital",
-    "address": [
-      {
-        "@type": "PostalAddress",
-        "streetAddress": "123 Hospital Road",
-        "addressLocality": "Oye Ekiti",
-        "addressRegion": "Ekiti State",
-        "addressCountry": "NG",
-        "telephone": "+234123456789"
-      },
-      {
-        "@type": "PostalAddress",
-        "streetAddress": "Plot 3, Orimolade Crescent, Ilokun Estate",
-        "addressLocality": "Ado Ekiti",
-        "addressRegion": "Ekiti State",
-        "addressCountry": "NG",
-        "telephone": "+234123456790"
-      }
-    ],
-    "telephone": "+234123456789",
-    "url": "https://heirsmultispecialisthospital.com.ng/contact",
-    "openingHours": "Mo-Su 00:00-23:59",
-    "hasMap": "https://maps.app.goo.gl/Xa4AGZGpFXS5t7Ah9"
-  }
-  </script>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <title>Contact & Book an Appointment | Heirs Multispecialist Hospital</title>
+  <meta name="description" content="Book an appointment or contact Heirs Multispecialist Hospital. Oye-Ekiti: Beside Aluko House, Irare Estate. Ado-Ekiti: Plot 3, Orimolade Crescent, Ilokun Estate. Call +234 803 638 6440. Emergency 24/7.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/js/tw.js"></script>
+  <link rel="stylesheet" href="assets/css/heirs.css">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; }
-    .mobile-sidebar {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 280px;
-      height: 100vh;
-      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
-      transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      z-index: 1000;
-      overflow-y: auto;
-      box-shadow: -5px 0 25px rgba(0,0,0,0.3);
-    }
-    .mobile-sidebar.open { right: 0; }
-    .mobile-sidebar-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background: rgba(0,0,0,0.5);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 999;
-    }
-    .mobile-sidebar-overlay.open {
-      opacity: 1;
-      visibility: visible;
-    }
-    .logo-circle {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #2563eb, #1e40af);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-    }
-    .footer-logo-circle {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #2563eb, #1e40af);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-    }
-    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-    .card-hover { transition: all 0.3s ease; }
-    .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-    .gradient-text { 
-      background: linear-gradient(135deg, #2563eb, #1e40af); 
-      -webkit-background-clip: text; 
-      -webkit-text-fill-color: transparent; 
-    }
-    .nav-dropdown {
-      position: relative;
-    }
-    .nav-dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: white;
-      min-width: 200px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-      border-radius: 8px;
-      margin-top: 8px;
-      z-index: 100;
-      padding: 8px 0;
-    }
-    .nav-dropdown::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: transparent;
-    }
-    .nav-dropdown:hover .nav-dropdown-content {
-      display: block;
-    }
-    .section-divider { position: relative; padding-top: 20px; }
-    .section-divider::before { 
-      content: ''; 
-      position: absolute; 
-      top: 0; 
-      left: 50%; 
-      transform: translateX(-50%); 
-      width: 100px; 
-      height: 4px; 
-      background: linear-gradient(135deg, #2563eb, #1e40af); 
-      border-radius: 2px; 
-    }
-    .btn-primary { 
-      background-color: #2563eb;
-      color: white;
-      transition: all 0.3s ease; 
-    }
-    .btn-primary:hover { 
-      background-color: #1e40af; 
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
-    }
-    .footer-gradient {
-      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-    }
-    .masys-credit {
-      background: linear-gradient(90deg, #2563eb, #3b82f6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 700;
-      transition: all 0.3s ease;
-    }
-    .masys-credit:hover {
-      transform: scale(1.05);
-    }
-    .form-input {
-      width: 100%;
-      padding: 12px 16px;
-      border: 2px solid #e5e7eb;
-      border-radius: 8px;
-      outline: none;
-      transition: all 0.3s ease;
-    }
-    .form-input:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-    }
-    .form-label {
-      display: block;
-      font-weight: 600;
-      color: #374151;
-      margin-bottom: 8px;
-      font-size: 0.875rem;
-    }
-    .map-container {
-      height: 350px;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-    .success-message {
-      display: none;
-      padding: 16px;
-      background: #10b981;
-      color: white;
-      border-radius: 8px;
-      margin-bottom: 16px;
-    }
-    .success-message.show {
-      display: block;
-      animation: slideDown 0.3s ease;
-    }
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .quick-contact-card {
-      background: white;
-      border-radius: 16px;
-      padding: 24px;
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
-    }
-    .quick-contact-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-      border-color: #2563eb;
-    }
+    .contact-tile { display: flex; gap: 16px; align-items: flex-start; padding: 24px; border-radius: 22px; background: #fff; border: 1px solid var(--line); transition: all .3s var(--ease); }
+    .contact-tile:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .contact-tile strong { display: block; font-family: var(--font-display); font-size: 15px; color: var(--ink); margin-bottom: 4px; }
+    .contact-tile a, .contact-tile p { font-size: 14px; color: var(--muted); }
+    .contact-tile a:hover { color: var(--blue-700); }
+    .form-card { background: #fff; border: 1px solid var(--line); border-radius: 32px; padding: 32px; box-shadow: var(--shadow-md); scroll-margin-top: 110px; }
+    @media (min-width: 768px) { .form-card { padding: 44px; } }
+    .success { display: none; text-align: center; padding: 40px 20px; }
+    .success.show { display: block; }
+    .success .ok { width: 76px; height: 76px; border-radius: 50%; background: var(--teal-100); color: var(--teal-600); display: grid; place-items: center; margin: 0 auto 18px; }
+    .success .ok svg { width: 36px; height: 36px; }
+    .branch { border-radius: 28px; overflow: hidden; background: #fff; border: 1px solid var(--line); }
+    .branch .map-frame { border: 0; border-radius: 0; box-shadow: none; }
+    .branch .map-frame iframe { min-height: 260px; }
   </style>
 </head>
-<body class="text-gray-800 bg-gray-50">
-  <div class="mobile-sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
-  <div class="mobile-sidebar" id="mobileSidebar">
-    <div class="p-6">
-      <div class="flex justify-between items-center mb-8">
-        <div class="flex items-center">
-          <div class="logo-circle mr-3">
-            <i data-lucide="hospital" class="w-6 h-6 text-white"></i>
-          </div>
-          <span class="text-white font-bold text-lg">Heirs</span>
-        </div>
-        <button onclick="closeMobileSidebar()" class="text-white">
-          <i data-lucide="x" class="w-6 h-6"></i>
-        </button>
+<body data-page="contact">
+  <div id="site-header"></div>
+
+  <section class="page-hero" data-cms-section="Hero">
+    <div class="hero-bg"><img src="assets/img/hospital-exterior.jpg" alt="" data-cms="hero.bg" data-cms-label="Background image"></div>
+    <div class="hero-grid"></div>
+    <div class="wrap relative">
+      <div class="crumbs"><a href="index.html">Home</a><i data-lucide="chevron-right"></i><span class="cur">Contact</span></div>
+      <span class="eyebrow on-dark" data-cms="hero.eyebrow" data-cms-label="Eyebrow">We're here for you</span>
+      <h1 class="hd-1 mt-4 mb-5 max-w-3xl" data-cms="hero.title" data-cms-label="Headline">Book an appointment or reach us any time.</h1>
+      <p class="lead max-w-2xl" data-cms="hero.lead" data-cms-label="Intro">Call, WhatsApp, email or fill the form below. For emergencies, call us directly, our emergency line is answered 24 hours a day.</p>
+      <div class="flex flex-wrap gap-4 mt-8">
+        <a href="#book" class="btn btn-gold"><i data-lucide="calendar-check"></i> <span data-cms="hero.cta1" data-cms-label="Button 1">Book Online</span></a>
+        <a href="tel:+2348036386440" class="btn btn-emergency" data-cms="hero.cta2" data-cms-type="link" data-cms-label="Emergency button"><i data-lucide="siren"></i> Emergency: +234 803 638 6440</a>
       </div>
-      <nav class="space-y-1">
-        <a href="index.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-          <i data-lucide="home" class="w-5 h-5 mr-3"></i> Home
-        </a>
-        <a href="about.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-          <i data-lucide="info" class="w-5 h-5 mr-3"></i> About
-        </a>
-        <div class="border-t border-white border-opacity-20 pt-2 mt-2">
-          <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Care Services</p>
-          <a href="services.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-            <i data-lucide="stethoscope" class="w-5 h-5 mr-3"></i> Services
-          </a>
-          <a href="department.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-            <i data-lucide="layout-grid" class="w-5 h-5 mr-3"></i> Departments
-          </a>
-        </div>
-        <div class="border-t border-white border-opacity-20 pt-2 mt-2">
-          <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Resources</p>
-          <a href="heirs-institute.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-            <i data-lucide="graduation-cap" class="w-5 h-5 mr-3"></i> Heirs Institute
-          </a>
-          <a href="blog.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-            <i data-lucide="newspaper" class="w-5 h-5 mr-3"></i> Blog
-          </a>
-        </div>
-        <a href="contact.html" class="flex items-center text-white bg-white bg-opacity-20 px-4 py-3 rounded-lg transition">
-          <i data-lucide="mail" class="w-5 h-5 mr-3"></i> Contact
-        </a>
-        <div class="border-t border-white border-opacity-20 pt-4 mt-4 space-y-3">
-          <a href="#appointmentform" class="flex items-center justify-center bg-white text-blue-600 px-4 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">
-            <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
-          </a>
-          <a href="tel:+234123456789" class="flex items-center justify-center bg-red-500 text-white px-4 py-3 rounded-lg font-semibold hover:bg-red-600 transition">
-            <i data-lucide="phone" class="w-5 h-5 mr-2"></i> Emergency
-          </a>
-        </div>
-      </nav>
     </div>
-  </div>
-  <header class="fixed top-0 w-full bg-white shadow-md z-50">
-    <div class="container mx-auto px-4 py-3">
-      <div class="flex justify-between items-center">
-        <a href="index.html" class="flex items-center">
-          <div class="logo-circle mr-3">
-            <i data-lucide="hospital" class="w-6 h-6 text-white"></i>
+  </section>
+
+  <!-- Contact tiles -->
+  <section class="section-tight bg-surface" data-cms-section="Contact tiles">
+    <div class="wrap">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger">
+        <div class="contact-tile"><span class="icon-box sm coral"><i data-lucide="siren"></i></span><div><strong data-cms="tile.1.title" data-cms-label="Tile 1 title">Emergency Hotline</strong><a href="tel:+2348036386440" data-cms="tile.1.link" data-cms-type="link" data-cms-label="Tile 1 link">+234 803 638 6440</a><p data-cms="tile.1.note" data-cms-label="Tile 1 note">24 hours, every day</p></div></div>
+        <div class="contact-tile"><span class="icon-box sm teal"><i data-lucide="message-circle"></i></span><div><strong data-cms="tile.2.title" data-cms-label="Tile 2 title">WhatsApp / Enquiries</strong><a href="https://wa.me/2347042481085" target="_blank" rel="noopener" data-cms="tile.2.link" data-cms-type="link" data-cms-label="Tile 2 link">+234 704 248 1085</a><p data-cms="tile.2.note" data-cms-label="Tile 2 note">Replies within 24 hours</p></div></div>
+        <div class="contact-tile"><span class="icon-box sm blue"><i data-lucide="mail"></i></span><div><strong data-cms="tile.3.title" data-cms-label="Tile 3 title">Email</strong><a href="mailto:contact@heirsspecialisthospital.com.ng" data-cms="tile.3.link" data-cms-type="link" data-cms-label="Tile 3 link">contact@heirsspecialisthospital.com.ng</a><p data-cms="tile.3.note" data-cms-label="Tile 3 note">Appointments, records & referrals</p></div></div>
+        <div class="contact-tile"><span class="icon-box sm gold"><i data-lucide="clock"></i></span><div><strong data-cms="tile.4.title" data-cms-label="Tile 4 title">Opening Hours</strong><p data-cms="tile.4.hours" data-cms-label="Tile 4 hours">Mon–Fri 8am–8pm · Sat 9am–8:30pm · Sun 1pm–8pm</p><p class="font-semibold" style="color:var(--coral-600)" data-cms="tile.4.note" data-cms-label="Tile 4 note">Emergency 24/7</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking form -->
+  <section class="section bg-white" data-cms-section="Booking">
+    <div class="wrap">
+      <div class="grid lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-5 reveal-l">
+          <span class="eyebrow" data-cms="book.eyebrow" data-cms-label="Eyebrow">Appointments</span>
+          <h2 class="hd-1 mt-4 mb-5" data-cms="book.title" data-cms-label="Heading">Book a consultation in under two minutes.</h2>
+          <p class="lead mb-8" data-cms="book.lead" data-cms-label="Intro">Choose a branch and department, tell us when suits you, and our front desk will confirm by phone or WhatsApp. You can also send your request straight to WhatsApp.</p>
+          <div class="card card-soft card-flat mb-5">
+            <h3 class="font-display font-bold mb-3 flex items-center gap-2"><i data-lucide="clipboard-list" class="w-5 h-5 text-brand-600"></i> <span data-cms="book.bringTitle" data-cms-label="Checklist title">What to bring</span></h3>
+            <ul class="checks" data-cms="book.bring" data-cms-type="lines" data-cms-label="What to bring (one per line)">
+              <li><span class="ck"><i data-lucide="check"></i></span> Valid ID and your NHIS / HMO card (if applicable)</li>
+              <li><span class="ck"><i data-lucide="check"></i></span> Previous medical records, scans or test results</li>
+              <li><span class="ck"><i data-lucide="check"></i></span> A list of current medications and allergies</li>
+              <li><span class="ck"><i data-lucide="check"></i></span> Referral letter, if you have one (not required)</li>
+            </ul>
           </div>
-          <span class="text-2xl font-bold text-blue-600">Heirs</span>
-        </a>
-        <nav class="hidden lg:flex items-center space-x-1">
-          <a href="index.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
-            <i data-lucide="home" class="w-4 h-4 mr-1"></i> Home
-          </a>
-          <a href="about.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
-            <i data-lucide="info" class="w-4 h-4 mr-1"></i> About
-          </a>
-          <div class="nav-dropdown">
-            <button class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
-              <i data-lucide="heart-pulse" class="w-4 h-4 mr-1"></i> Care <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
-            </button>
-            <div class="nav-dropdown-content">
-              <a href="services.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
-                <i data-lucide="stethoscope" class="w-4 h-4 mr-2"></i> Services
-              </a>
-              <a href="department.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
-                <i data-lucide="layout-grid" class="w-4 h-4 mr-2"></i> Departments
-              </a>
+          <div class="card card-flat" style="background:var(--navy); border-color:transparent; color:#fff">
+            <h3 class="font-display font-bold text-white mb-3 flex items-center gap-2"><i data-lucide="info" class="w-5 h-5" style="color:var(--gold-500)"></i> <span data-cms="book.knowTitle" data-cms-label="Info card title">Good to know</span></h3>
+            <ul class="space-y-2 text-sm" style="color:rgba(255,255,255,.78)" data-cms="book.know" data-cms-type="lines" data-cms-label="Good to know (one per line)">
+              <li>• Walk-ins are welcome; booked patients are seen first.</li>
+              <li>• Cancel or reschedule free of charge up to 24 hours before.</li>
+              <li>• No referral is needed to see our specialists.</li>
+              <li>• We accept NHIS, HMOs, cash, transfer and cards.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 reveal-r">
+          <div class="form-card" id="book">
+            <form id="bookingForm" novalidate>
+              <div class="flex items-center justify-between gap-4 mb-7">
+                <div><h3 class="hd-3" data-cms="book.formTitle" data-cms-label="Form title">Appointment request</h3><p class="text-sm text-muted">Fields marked <span style="color:var(--coral-500)">*</span> are required</p></div>
+                <span class="badge badge-teal"><i data-lucide="lock"></i> Private & secure</span>
+              </div>
+              <div class="grid md:grid-cols-2 gap-5">
+                <div class="field"><label>Full name <span class="req">*</span></label><input class="input" name="name" placeholder="e.g. Adeola Ogunleye" required></div>
+                <div class="field"><label>Phone / WhatsApp <span class="req">*</span></label><input class="input" name="phone" type="tel" placeholder="080X XXX XXXX" required></div>
+                <div class="field"><label>Email</label><input class="input" name="email" type="email" placeholder="you@example.com"></div>
+                <div class="field"><label>Patient type</label>
+                  <div class="radio-tiles"><label><input type="radio" name="ptype" value="New patient" checked> New patient</label><label><input type="radio" name="ptype" value="Returning patient"> Returning</label></div>
+                </div>
+                <div class="field"><label>Preferred branch <span class="req">*</span></label>
+                  <select class="select" name="branch" required><option value="">Select branch</option><option>Oye-Ekiti (Main) - Irare Estate</option><option>Ado-Ekiti - Ilokun Estate</option></select>
+                </div>
+                <div class="field"><label>Department / service <span class="req">*</span></label>
+                  <select class="select" name="dept" required>
+                    <option value="">Select department</option>
+                    <option>General Consultation</option><option>Nephrology & Dialysis</option><option>Cardiology</option><option>CT Scan / Radiology</option><option>Surgery & Orthopaedics</option><option>Obstetrics & Gynaecology</option><option>Paediatrics</option><option>Internal Medicine</option><option>Cancer Care</option><option>Laboratory Tests</option><option>Dental Clinic</option><option>Eye Clinic</option><option>Mental Health (Fosterheirs)</option><option>Nutrition & Dietetics</option><option>Physiotherapy</option><option>Medical Check-up</option>
+                  </select>
+                </div>
+                <div class="field"><label>Preferred date <span class="req">*</span></label><input class="input" name="date" type="date" required></div>
+                <div class="field"><label>Preferred time</label>
+                  <select class="select" name="time"><option>Morning (8am – 12pm)</option><option>Afternoon (12pm – 4pm)</option><option>Evening (4pm – 8pm)</option></select>
+                </div>
+                <div class="field md:col-span-2"><label>NHIS / HMO number (optional)</label><input class="input" name="nhis" placeholder="If you're covered by insurance"></div>
+                <div class="field md:col-span-2"><label>Reason for visit / message</label><textarea class="textarea" name="msg" placeholder="Briefly describe your symptoms or the service you need"></textarea></div>
+              </div>
+              <div class="flex flex-col sm:flex-row gap-3 mt-7">
+                <button type="submit" class="btn btn-primary btn-lg flex-1"><i data-lucide="calendar-check"></i> Request Appointment</button>
+                <button type="button" id="waBtn" class="btn btn-teal btn-lg"><i data-lucide="message-circle"></i> Send via WhatsApp</button>
+              </div>
+              <p class="form-note mt-4 flex items-start gap-2"><i data-lucide="shield-check" class="w-4 h-4 mt-0.5 text-teal-600"></i> <span data-cms="book.note" data-cms-label="Form footnote">Your details are used only to arrange your appointment. For emergencies, do not use this form, call +234 803 638 6440.</span></p>
+            </form>
+            <div class="success" id="bookSuccess">
+              <div class="ok"><i data-lucide="check"></i></div>
+              <h3 class="hd-3 mb-2">Request received</h3>
+              <p class="text-muted max-w-md mx-auto mb-6">Thank you, <span id="okName">there</span>. Our front desk will confirm your appointment by phone or WhatsApp within 24 hours. Your email app has also opened with a copy of the request.</p>
+              <div class="flex flex-wrap justify-center gap-3"><a href="index.html" class="btn btn-outline">Back to Home</a><button type="button" class="btn btn-primary" onclick="location.reload()">Make Another Request</button></div>
             </div>
           </div>
-          <div class="nav-dropdown">
-            <button class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
-              <i data-lucide="book-open" class="w-4 h-4 mr-1"></i> Resources <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
-            </button>
-            <div class="nav-dropdown-content">
-              <a href="heirs-institute.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
-                <i data-lucide="graduation-cap" class="w-4 h-4 mr-2"></i> Heirs Institute
-              </a>
-              <a href="blog.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
-                <i data-lucide="newspaper" class="w-4 h-4 mr-2"></i> Blog
-              </a>
-            </div>
-          </div>
-          <a href="contact.html" class="text-blue-600 font-semibold px-3 py-2 rounded-lg transition flex items-center">
-            <i data-lucide="mail" class="w-4 h-4 mr-1"></i> Contact
-          </a>
-        </nav>
-        <div class="flex items-center space-x-3">
-          <a href="#appointmentform" class="hidden md:flex bg-blue-600 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-blue-700 transition whitespace-nowrap">
-            <i data-lucide="calendar" class="w-4 h-4 mr-2"></i> Book Appointment
-          </a>
-          <a href="tel:+234123456789" class="hidden sm:flex bg-red-500 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-red-600 transition whitespace-nowrap">
-            <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
-          </a>
-          <button onclick="openMobileSidebar()" class="lg:hidden text-gray-600 hover:text-blue-600 transition">
-            <i data-lucide="menu" class="w-6 h-6"></i>
-          </button>
         </div>
       </div>
     </div>
-  </header>
-  <main class="pt-20">
-    <section class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
-      <div class="container mx-auto px-4 fade-in">
-        <div class="text-center mb-12 section-divider">
-          <span class="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">We're Here to Help</span>
-          <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Contact Us</h1>
-          <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">Reach out to Heirs Multispecialist Hospital for appointments, inquiries, or emergencies. We're available 24/7 to serve you at our Oye Ekiti and Ado Ekiti locations.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          <div class="quick-contact-card text-center">
-            <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <i data-lucide="phone-call" class="w-8 h-8 text-red-600"></i>
-            </div>
-            <h3 class="text-xl font-bold text-gray-800 mb-2">Emergency Hotline</h3>
-            <p class="text-2xl font-bold text-red-600 mb-3">+234 123 456 789</p>
-            <p class="text-sm text-gray-600 mb-4">Available 24/7 for medical emergencies</p>
-            <a href="tel:+234123456789" class="bg-red-500 text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-red-600 transition inline-flex items-center">
-              <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Call Now
-            </a>
-          </div>
-          <div class="quick-contact-card text-center">
-            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <i data-lucide="mail" class="w-8 h-8 text-blue-600"></i>
-            </div>
-            <h3 class="text-xl font-bold text-gray-800 mb-2">Email Us</h3>
-            <p class="text-lg text-gray-700 mb-3">info@heirsmultispecialist.com</p>
-            <p class="text-sm text-gray-600 mb-4">Response within 24 hours</p>
-            <a href="mailto:info@heirsmultispecialist.com" class="bg-blue-600 text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-blue-700 transition inline-flex items-center">
-              <i data-lucide="send" class="w-4 h-4 mr-2"></i> Send Email
-            </a>
-          </div>
-          <div class="quick-contact-card text-center">
-            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <i data-lucide="calendar-check" class="w-8 h-8 text-green-600"></i>
-            </div>
-            <h3 class="text-xl font-bold text-gray-800 mb-2">Book Appointment</h3>
-            <p class="text-lg text-gray-700 mb-3">Online Scheduling</p>
-            <p class="text-sm text-gray-600 mb-4">Fast & easy appointment booking</p>
-            <a href="#appointmentform" class="bg-green-600 text-white px-6 py-2 rounded-full text-sm font-semibold hover:bg-green-700 transition inline-flex items-center">
-              <i data-lucide="calendar" class="w-4 h-4 mr-2"></i> Book Now
-            </a>
+  </section>
+
+  <!-- Branches -->
+  <section class="section bg-surface" data-cms-section="Branches">
+    <div class="wrap">
+      <div class="max-w-2xl mb-12 reveal"><span class="eyebrow" data-cms="br.eyebrow" data-cms-label="Eyebrow">Our Locations</span><h2 class="hd-1 mt-4" data-cms="br.title" data-cms-label="Heading">Two branches across Ekiti State</h2></div>
+      <div class="grid lg:grid-cols-2 gap-6 stagger">
+        <div class="branch">
+          <div class="map-frame"><iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map: Heirs Specialist Hospital, Oye-Ekiti" src="https://www.google.com/maps?q=Heirs%20Specialist%20Hospital%2C%20Irare%20Estate%2C%20Oye-Ekiti&output=embed" data-cms="br.1.map" data-cms-attr="src" data-cms-label="Branch 1 map embed URL"></iframe></div>
+          <div class="p-7">
+            <div class="flex items-center gap-2 mb-2"><span class="badge badge-blue" data-cms="br.1.badge" data-cms-label="Branch 1 badge">Main Branch</span><span class="badge badge-coral"><i data-lucide="siren"></i> <span data-cms="br.1.badge2" data-cms-label="Branch 1 second badge">24/7 Emergency</span></span></div>
+            <h3 class="hd-3 mb-1" data-cms="br.1.name" data-cms-label="Branch 1 name">Oye-Ekiti</h3>
+            <p class="text-muted mb-4" data-cms="br.1.address" data-cms-label="Branch 1 address">Beside Aluko House, Irare Estate, Oye-Ekiti, Ekiti State</p>
+            <ul class="hours mb-5" data-cms-list="br.1.hours" data-cms-label="Branch 1 hours"><li><span data-cms-field="day" data-cms-label="Days">Monday – Friday</span><span data-cms-field="time" data-cms-label="Hours">8:00 AM – 8:00 PM</span></li><li><span data-cms-field="day" data-cms-label="Days">Saturday</span><span data-cms-field="time" data-cms-label="Hours">9:00 AM – 8:30 PM</span></li><li><span data-cms-field="day" data-cms-label="Days">Sunday</span><span data-cms-field="time" data-cms-label="Hours">1:00 PM – 8:00 PM</span></li><li class="er"><span data-cms-field="day" data-cms-label="Days">Emergency</span><span data-cms-field="time" data-cms-label="Hours">24 hours</span></li></ul>
+            <div class="flex flex-wrap gap-3"><a href="tel:+2348036386440" class="btn btn-outline btn-sm" data-cms="br.1.phone" data-cms-type="link" data-cms-label="Branch 1 phone"><i data-lucide="phone"></i> +234 803 638 6440</a><a href="https://www.google.com/maps/search/Heirs+Specialist+Hospital%2C+Beside+Aluko+House%2C+Irare+Estate%2C+Oye-Ekiti%2C+Ekiti+State" target="_blank" rel="noopener" class="btn btn-primary btn-sm" data-cms="br.1.directions" data-cms-attr="href" data-cms-label="Branch 1 directions link"><i data-lucide="navigation"></i> Get Directions</a></div>
           </div>
         </div>
-      </div>
-    </section>
-    <section class="py-16 bg-white">
-      <div class="container mx-auto px-4 fade-in">
-        <div class="text-center mb-12 section-divider">
-          <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our Locations</h2>
-          <p class="text-lg text-gray-600 max-w-2xl mx-auto">Visit our state-of-the-art facilities serving communities across Ekiti State</p>
-        </div>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
-          <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 shadow-lg card-hover">
-            <div class="flex items-center mb-6">
-              <div class="w-4 h-4 bg-blue-600 rounded-full mr-3 animate-pulse"></div>
-              <h3 class="text-2xl font-bold text-gray-800">Oye Ekiti - Main Branch</h3>
-            </div>
-            <div class="map-container mb-6">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.8768275020984!2d5.331958974932428!3d7.802862492217406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x10480b472d1b3101%3A0xb953881bb1422944!2sHeirs%20Multi-Specialist%20Hospital!5e0!3m2!1sen!2sng!4v1761211282141!5m2!1sen!2sng" 
-                width="100%" 
-                height="100%" 
-                style="border:0;" 
-                allowfullscreen="" 
-                loading="lazy" 
-                referrerpolicy="no-referrer-when-downgrade">
-              </iframe>
-            </div>
-            <div class="space-y-4">
-              <div class="flex items-start">
-                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                  <i data-lucide="phone" class="w-5 h-5 text-purple-600"></i>
-                </div>
-                <div>
-                  <p class="font-semibold text-gray-800">Phone</p>
-                  <a href="tel:+234123456790" class="text-purple-600 hover:underline">+234 123 456 790</a>
-                </div>
-              </div>
-              <div class="flex items-start">
-                <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                  <i data-lucide="clock" class="w-5 h-5 text-purple-600"></i>
-                </div>
-                <div>
-                  <p class="font-semibold text-gray-800">Operating Hours</p>
-                  <p class="text-gray-600">Mon-Sat: 8:00 AM - 6:00 PM | Emergency: 24/7</p>
-                </div>
-              </div>
-            </div>
-            <div class="mt-6 flex flex-wrap gap-3">
-              <a href="https://maps.google.com" target="_blank" class="bg-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-700 transition inline-flex items-center">
-                <i data-lucide="navigation" class="w-4 h-4 mr-2"></i> Get Directions
-              </a>
-              <a href="tel:+234123456790" class="border-2 border-purple-600 text-purple-600 px-6 py-3 rounded-full font-semibold hover:bg-purple-600 hover:text-white transition inline-flex items-center">
-                <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Call Branch
-              </a>
-            </div>
+        <div class="branch">
+          <div class="map-frame"><iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Map: Heirs Specialist Hospital, Ado-Ekiti" src="https://www.google.com/maps?q=Plot%203%2C%20Orimolade%20Crescent%2C%20Ilokun%20Estate%2C%20Ado-Ekiti&output=embed" data-cms="br.2.map" data-cms-attr="src" data-cms-label="Branch 2 map embed URL"></iframe></div>
+          <div class="p-7">
+            <div class="flex items-center gap-2 mb-2"><span class="badge badge-teal" data-cms="br.2.badge" data-cms-label="Branch 2 badge">Second Branch</span></div>
+            <h3 class="hd-3 mb-1" data-cms="br.2.name" data-cms-label="Branch 2 name">Ado-Ekiti</h3>
+            <p class="text-muted mb-4" data-cms="br.2.address" data-cms-label="Branch 2 address">Plot 3, Orimolade Crescent, Ilokun Estate, Ado-Ekiti, Ekiti State</p>
+            <ul class="hours mb-5" data-cms-list="br.2.hours" data-cms-label="Branch 2 hours"><li><span data-cms-field="day" data-cms-label="Days">Monday – Friday</span><span data-cms-field="time" data-cms-label="Hours">8:00 AM – 8:00 PM</span></li><li><span data-cms-field="day" data-cms-label="Days">Saturday</span><span data-cms-field="time" data-cms-label="Hours">9:00 AM – 8:30 PM</span></li><li><span data-cms-field="day" data-cms-label="Days">Sunday</span><span data-cms-field="time" data-cms-label="Hours">1:00 PM – 8:00 PM</span></li><li class="er"><span data-cms-field="day" data-cms-label="Days">Emergency</span><span data-cms-field="time" data-cms-label="Hours">Call main line</span></li></ul>
+            <div class="flex flex-wrap gap-3"><a href="tel:+2347042481085" class="btn btn-outline btn-sm" data-cms="br.2.phone" data-cms-type="link" data-cms-label="Branch 2 phone"><i data-lucide="phone"></i> +234 704 248 1085</a><a href="https://www.google.com/maps/search/Plot+3+Orimolade+Crescent+Ilokun+Estate+Ado-Ekiti" target="_blank" rel="noopener" class="btn btn-primary btn-sm" data-cms="br.2.directions" data-cms-attr="href" data-cms-label="Branch 2 directions link"><i data-lucide="navigation"></i> Get Directions</a></div>
           </div>
-<div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 shadow-lg card-hover">
-  <div class="flex items-center mb-6">
-    <div class="w-4 h-4 bg-purple-600 rounded-full mr-3 animate-pulse"></div>
-    <h3 class="text-2xl font-bold text-gray-800">Ado Ekiti - Second Branch</h3>
-  </div>
-  <div class="map-container mb-6">
-    <iframe 
-      src="https://www.google.com/maps?q=Plot+3,+Orimolade+Crescent,+Ilokun+Estate,+Ado-Ekiti,+Ekiti+State&output=embed"
-      width="100%"
-      height="100%"
-      style="border:0;"
-      allowfullscreen=""
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-  </div>
-  <div class="space-y-4">
-    <div class="flex items-start">
-      <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-        <i data-lucide="phone" class="w-5 h-5 text-purple-600"></i>
-      </div>
-      <div>
-        <p class="font-semibold text-gray-800">Phone</p>
-        <a href="tel:+234123456791" class="text-purple-600 hover:underline">+234 123 456 791</a>
-      </div>
-    </div>
-    <div class="flex items-start">
-      <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-        <i data-lucide="clock" class="w-5 h-5 text-purple-600"></i>
-      </div>
-      <div>
-        <p class="font-semibold text-gray-800">Operating Hours</p>
-        <p class="text-gray-600">Mon-Sat: 8:00 AM - 6:00 PM | Emergency: 24/7</p>
-      </div>
-    </div>
-  </div>
-  <div class="mt-6 flex flex-wrap gap-3">
-    <a href="https://maps.google.com/?q=Plot+3,+Orimolade+Crescent,+Ilokun+Estate,+Ado-Ekiti,+Ekiti+State" target="_blank"
-      class="bg-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-700 transition inline-flex items-center">
-      <i data-lucide="navigation" class="w-4 h-4 mr-2"></i> Get Directions
-    </a>
-    <a href="tel:+234123456791"
-      class="border-2 border-purple-600 text-purple-600 px-6 py-3 rounded-full font-semibold hover:bg-purple-600 hover:text-white transition inline-flex items-center">
-      <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Call Branch
-    </a>
-  </div>
-</div>
-        </div>
-      </div>
-    </section>
-    <section class="py-16 bg-gray-50" id="appointmentform">
-      <div class="container mx-auto px-4 fade-in">
-        <div class="max-w-6xl mx-auto">
-          <div class="text-center mb-12 section-divider">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Book an Appointment</h2>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Schedule your visit with our healthcare professionals. Fill out the form below and we'll confirm your appointment within 24 hours.</p>
-          </div>
-          <div id="successMessage" class="success-message max-w-4xl mx-auto">
-            <div class="flex items-center">
-              <i data-lucide="check-circle" class="w-6 h-6 mr-3"></i>
-              <div>
-                <p class="font-semibold">Appointment Request Submitted Successfully!</p>
-                <p class="text-sm">We'll contact you within 24 hours to confirm your appointment.</p>
-              </div>
-            </div>
-          </div>
-          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div class="lg:col-span-2 bg-white p-8 rounded-2xl shadow-lg">
-              <form id="appointmentForm" class="space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label class="form-label">Full Name *</label>
-                    <input type="text" name="fullname" required class="form-input" placeholder="Enter your full name">
-                  </div>
-                  <div>
-                    <label class="form-label">Phone Number *</label>
-                    <input type="tel" name="phone" required class="form-input" placeholder="+234 XXX XXX XXXX">
-                  </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label class="form-label">Email Address</label>
-                    <input type="email" name="email" class="form-input" placeholder="your.email@example.com">
-                  </div>
-                  <div>
-                    <label class="form-label">Date of Birth</label>
-                    <input type="date" name="dob" class="form-input">
-                  </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label class="form-label">Select Branch *</label>
-                    <select name="branch" required class="form-input">
-                      <option value="">Choose a branch</option>
-                      <option value="oye">Oye Ekiti - Main Branch</option>
-                      <option value="ado">Ado Ekiti Branch</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label class="form-label">Department *</label>
-                    <select name="department" required class="form-input" onchange="updateServices(this.value)">
-                      <option value="">Select department</option>
-                      <option value="radiology">Radiology & Imaging</option>
-                      <option value="dental">Dental Care</option>
-                      <option value="laboratory">Laboratory Services</option>
-                      <option value="pharmacy">Pharmacy</option>
-                      <option value="emergency">Emergency Medicine</option>
-                      <option value="nutrition">Nutrition & Dietetics</option>
-                      <option value="therapy">Therapy & Rehabilitation</option>
-                      <option value="general">General Consultation</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label class="form-label">Service Needed *</label>
-                    <select name="service" required class="form-input" id="serviceSelect">
-                      <option value="">Choose service first</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label class="form-label">Preferred Date *</label>
-                    <input type="date" name="date" required class="form-input" min="">
-                  </div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label class="form-label">Preferred Time</label>
-                    <select name="time" class="form-input">
-                      <option value="">Select time slot</option>
-                      <option value="morning">Morning (8:00 AM - 12:00 PM)</option>
-                      <option value="afternoon">Afternoon (12:00 PM - 4:00 PM)</option>
-                      <option value="evening">Evening (4:00 PM - 6:00 PM)</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label class="form-label">Visit Type</label>
-                    <select name="visittype" class="form-input">
-                      <option value="first">First Visit</option>
-                      <option value="followup">Follow-up</option>
-                      <option value="emergency">Emergency</option>
-                    </select>
-                  </div>
-                </div>
-                <div>
-                  <label class="form-label">Reason for Visit / Symptoms</label>
-                  <textarea name="reason" rows="4" class="form-input" placeholder="Please describe your symptoms or reason for visit..."></textarea>
-                </div>
-                <div class="bg-blue-50 border-l-4 border-blue-600 p-4 rounded">
-                  <div class="flex items-start">
-                    <i data-lucide="info" class="w-5 h-5 text-blue-600 mr-3 flex-shrink-0 mt-0.5"></i>
-                    <div>
-                      <p class="text-sm text-gray-700"><strong>Note:</strong> This is a request for an appointment. Our staff will contact you to confirm availability and finalize your appointment time.</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="flex items-start">
-                  <input type="checkbox" id="terms" required class="mt-1 mr-3">
-                  <label for="terms" class="text-sm text-gray-600">I agree to the <a href="#" class="text-blue-600 hover:underline">terms and conditions</a> and <a href="#" class="text-blue-600 hover:underline">privacy policy</a>. I consent to being contacted regarding my appointment.</label>
-                </div>
-                <button type="submit" class="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold hover:bg-blue-700 transition-all flex items-center justify-center text-lg">
-                  <i data-lucide="calendar-check" class="w-5 h-5 mr-2"></i> Submit Appointment Request
-                </button>
-              </form>
-            </div>
-            <div class="space-y-6">
-              <div class="bg-white p-6 rounded-2xl shadow-lg">
-                <div class="flex items-center mb-4">
-                  <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-3">
-                    <i data-lucide="clock" class="w-6 h-6 text-blue-600"></i>
-                  </div>
-                  <h3 class="text-lg font-bold text-gray-800">Office Hours</h3>
-                </div>
-                <div class="space-y-2 text-sm">
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">Monday - Friday</span>
-                    <span class="font-semibold text-gray-800">8:00 AM - 5:00 PM</span>
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">Saturday</span>
-                    <span class="font-semibold text-gray-800">9:00 AM - 5:00 PM</span>
-                  </div>
-                  <div class="flex justify-between">
-                    <span class="text-gray-600">Sunday</span>
-                    <span class="font-semibold text-gray-800">9:00 AM - 5:00 PM</span>
-                  </div>
-                  <div class="border-t border-gray-200 pt-2 mt-2">
-                    <div class="flex items-center text-red-600">
-                      <i data-lucide="alert-circle" class="w-4 h-4 mr-2"></i>
-                      <span class="font-semibold">Emergency: 24/7</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="bg-gradient-to-br from-blue-600 to-indigo-600 p-6 rounded-2xl shadow-lg text-white">
-                <div class="flex items-center mb-4">
-                  <div class="w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mr-3">
-                    <i data-lucide="headphones" class="w-6 h-6 text-white"></i>
-                  </div>
-                  <h3 class="text-lg font-bold">Need Help?</h3>
-                </div>
-                <p class="text-sm mb-4 text-blue-100">Our customer service team is available to assist you with booking and inquiries.</p>
-                <div class="space-y-3">
-                  <a href="tel:+234123456789" class="flex items-center bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-3 rounded-lg transition">
-                    <i data-lucide="phone" class="w-4 h-4 mr-3"></i>
-                    <span>+234 123 456 789</span>
-                  </a>
-                  <a href="mailto:info@heirsmultispecialist.com" class="flex items-center bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-3 rounded-lg transition">
-                    <i data-lucide="mail" class="w-4 h-4 mr-3"></i>
-                    <span class="text-sm">info@heirsmultispecialist.com</span>
-                  </a>
-                </div>
-              </div>
-              <div class="bg-white p-6 rounded-2xl shadow-lg">
-                <div class="flex items-center mb-4">
-                  <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-3">
-                    <i data-lucide="clipboard-list" class="w-6 h-6 text-green-600"></i>
-                  </div>
-                  <h3 class="text-lg font-bold text-gray-800">What to Bring</h3>
-                </div>
-                <ul class="space-y-2 text-sm text-gray-600">
-                  <li class="flex items-start">
-                    <i data-lucide="check" class="w-4 h-4 mr-2 text-green-600 flex-shrink-0 mt-0.5"></i>
-                    <span>Valid ID card or passport</span>
-                  </li>
-                  <li class="flex items-start">
-                    <i data-lucide="check" class="w-4 h-4 mr-2 text-green-600 flex-shrink-0 mt-0.5"></i>
-                    <span>Insurance card (if applicable)</span>
-                  </li>
-                  <li class="flex items-start">
-                    <i data-lucide="check" class="w-4 h-4 mr-2 text-green-600 flex-shrink-0 mt-0.5"></i>
-                    <span>Previous medical records</span>
-                  </li>
-                  <li class="flex items-start">
-                    <i data-lucide="check" class="w-4 h-4 mr-2 text-green-600 flex-shrink-0 mt-0.5"></i>
-                    <span>List of current medications</span>
-                  </li>
-                  <li class="flex items-start">
-                    <i data-lucide="check" class="w-4 h-4 mr-2 text-green-600 flex-shrink-0 mt-0.5"></i>
-                    <span>Referral letter (if any)</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="py-16 bg-white">
-      <div class="container mx-auto px-4 fade-in">
-        <div class="max-w-4xl mx-auto">
-          <div class="text-center mb-12 section-divider">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
-            <p class="text-lg text-gray-600">Common questions about appointments and visits</p>
-          </div>
-          <div class="space-y-4">
-            <div class="bg-gray-50 rounded-xl p-6 card-hover">
-              <h3 class="font-bold text-gray-800 mb-2 flex items-center">
-                <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-blue-600"></i>
-                How do I book an appointment?
-              </h3>
-              <p class="text-gray-600 text-sm">You can book an appointment by filling out the form above, calling our hotline at +234 123 456 789, or visiting either of our branches in person.</p>
-            </div>
-            <div class="bg-gray-50 rounded-xl p-6 card-hover">
-              <h3 class="font-bold text-gray-800 mb-2 flex items-center">
-                <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-blue-600"></i>
-                How quickly will I receive a response?
-              </h3>
-              <p class="text-gray-600 text-sm">We typically respond to appointment requests within 24 hours during business days. For urgent matters, please call our emergency hotline.</p>
-            </div>
-            <div class="bg-gray-50 rounded-xl p-6 card-hover">
-              <h3 class="font-bold text-gray-800 mb-2 flex items-center">
-                <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-blue-600"></i>
-                Do you accept health insurance?
-              </h3>
-              <p class="text-gray-600 text-sm">Yes, we are NHIS accredited and accept various health insurance plans. Please bring your insurance card to your appointment.</p>
-            </div>
-            <div class="bg-gray-50 rounded-xl p-6 card-hover">
-              <h3 class="font-bold text-gray-800 mb-2 flex items-center">
-                <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-blue-600"></i>
-                Can I cancel or reschedule my appointment?
-              </h3>
-              <p class="text-gray-600 text-sm">Yes, please contact us at least 24 hours in advance to cancel or reschedule. Call +234 123 456 789 or email info@heirsmultispecialist.com.</p>
-            </div>
-            <div class="bg-gray-50 rounded-xl p-6 card-hover">
-              <h3 class="font-bold text-gray-800 mb-2 flex items-center">
-                <i data-lucide="help-circle" class="w-5 h-5 mr-2 text-blue-600"></i>
-                What if I have an emergency?
-              </h3>
-              <p class="text-gray-600 text-sm">For medical emergencies, call our 24/7 emergency hotline at +234 123 456 789 or visit our emergency department at the Oye Ekiti main branch immediately.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-  <footer class="footer-gradient text-white py-12">
-    <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-        <div class="lg:col-span-1">
-          <div class="flex items-center mb-6">
-            <div class="footer-logo-circle mr-4">
-              <i data-lucide="hospital" class="w-10 h-10 text-white"></i>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold">Heirs</h3>
-              <p class="text-sm text-gray-300">Multispecialist Hospital</p>
-            </div>
-          </div>
-          <p class="text-gray-300 mb-4">Providing exceptional healthcare services to Ekiti State since 2010. Your health, our priority.</p>
-          <div class="flex space-x-4">
-            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Facebook">
-              <i data-lucide="facebook" class="w-5 h-5"></i>
-            </a>
-            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Twitter">
-              <i data-lucide="twitter" class="w-5 h-5"></i>
-            </a>
-            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Instagram">
-              <i data-lucide="instagram" class="w-5 h-5"></i>
-            </a>
-            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="LinkedIn">
-              <i data-lucide="linkedin" class="w-5 h-5"></i>
-            </a>
-          </div>
-        </div>
-        <div>
-          <h4 class="text-lg font-semibold mb-4 flex items-center">
-            <i data-lucide="map-pin" class="w-5 h-5 mr-2"></i> Our Locations
-          </h4>
-          <div class="space-y-4">
-            <div>
-              <p class="font-semibold text-blue-300">Main Branch - Oye Ekiti</p>
-              <p class="text-gray-300 text-sm">123 Hospital Road, Oye Ekiti, Ekiti State</p>
-            </div>
-            <div>
-              <p class="font-semibold text-blue-300">Ado Ekiti Branch</p>
-              <p class="text-gray-300 text-sm">Plot 3, Orimolade Crescent, Ilokun Estate, Ado Ekiti</p>
-            </div>
-          </div>
-          <div class="mt-4">
-            <p class="flex items-center text-gray-300 mb-2">
-              <i data-lucide="phone" class="w-4 h-4 mr-2"></i>
-              <a href="tel:+234123456789" class="hover:text-white transition">+234 123 456 789</a>
-            </p>
-            <p class="flex items-center text-gray-300">
-              <i data-lucide="mail" class="w-4 h-4 mr-2"></i>
-              <a href="mailto:info@heirsmultispecialist.com" class="hover:text-white transition">info@heirsmultispecialist.com</a>
-            </p>
-          </div>
-        </div>
-        <div>
-          <h4 class="text-lg font-semibold mb-4 flex items-center">
-            <i data-lucide="link" class="w-5 h-5 mr-2"></i> Quick Links
-          </h4>
-          <ul class="space-y-2">
-            <li><a href="index.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Home</a></li>
-            <li><a href="about.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> About Us</a></li>
-            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Services</a></li>
-            <li><a href="department.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Departments</a></li>
-            <li><a href="heirs-institute.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Heirs Institute</a></li>
-            <li><a href="blog.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Blog</a></li>
-            <li><a href="contact.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Contact</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="text-lg font-semibold mb-4 flex items-center">
-            <i data-lucide="activity" class="w-5 h-5 mr-2"></i> Emergency Services
-          </h4>
-          <div class="space-y-3">
-            <div class="bg-red-500 bg-opacity-20 p-4 rounded-lg">
-              <p class="text-sm text-gray-200 mb-2">24/7 Emergency Hotline</p>
-              <a href="tel:+234123456789" class="text-2xl font-bold text-white hover:text-red-300 transition">+234 123 456 789</a>
-            </div>
-            <p class="text-sm text-gray-300">For life-threatening emergencies, call immediately or visit our emergency department.</p>
-          </div>
-        </div>
-      </div>
-      <div class="border-t border-gray-600 pt-8">
-        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <p class="text-gray-300 text-sm text-center md:text-left">
-            &copy; 2025 Heirs Multispecialist Hospital. All Rights Reserved.
-          </p>
-          <div class="flex items-center space-x-2">
-            <p class="text-gray-300 text-sm">Designed & Developed by</p>
-            <a href="#" class="masys-credit text-lg inline-block">MASYS</a>
-          </div>
-        </div>
-        <div class="mt-4 text-center">
-          <p class="text-gray-400 text-xs">Committed to Excellence in Healthcare | Ending Medical Tourism in Nigeria</p>
         </div>
       </div>
     </div>
-  </footer>
-  <a href="#" class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition transform hover:scale-110 z-40" aria-label="Scroll to top">
-    <i data-lucide="arrow-up" class="w-5 h-5"></i>
-  </a>
+  </section>
+
+  <!-- Mini FAQ -->
+  <section class="section bg-white" data-cms-section="Quick answers">
+    <div class="wrap">
+      <div class="grid lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-4 reveal-l"><span class="eyebrow" data-cms="qa.eyebrow" data-cms-label="Eyebrow">Quick Answers</span><h2 class="hd-1 mt-4 mb-4" data-cms="qa.title" data-cms-label="Heading">Before you visit</h2><p class="lead mb-6" data-cms="qa.lead" data-cms-label="Intro">A few things patients ask most often.</p><a href="faq.html" class="btn btn-outline"><i data-lucide="circle-help"></i> All FAQs</a></div>
+        <div class="lg:col-span-8 reveal-r" data-cms-list="qa.items" data-cms-label="Questions">
+          <details class="acc" open><summary><span data-cms-field="q" data-cms-label="Question">Do I need a referral to see a specialist?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer">No. You can book directly with any of our specialist clinics. If you have a referral letter, bring it along, it helps us understand your history.</div></details>
+          <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">Do you accept NHIS and HMO insurance?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer">Yes. Heirs is an NHIS-accredited provider and works with several HMOs. Bring your card and a valid ID; our billing desk will confirm coverage before treatment.</div></details>
+          <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">How quickly can I get an appointment?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer">General consultations are usually available the same or next day. Specialist and visiting-consultant clinics may run on specific days, we'll offer you the earliest slot when we confirm.</div></details>
+          <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">What if it's an emergency?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer">Call <a href="tel:+2348036386440">+234 803 638 6440</a> immediately or come straight to the Oye-Ekiti main branch. Our emergency room and ICU are open 24 hours a day, and ambulance transport can be dispatched.</div></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+  <script src="assets/js/cms.js"></script>
+  <script src="assets/js/heirs.js"></script>
   <script>
-    lucide.createIcons();
-    function openMobileSidebar() {
-      document.getElementById('mobileSidebar').classList.add('open');
-      document.getElementById('sidebarOverlay').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeMobileSidebar() {
-      document.getElementById('mobileSidebar').classList.remove('open');
-      document.getElementById('sidebarOverlay').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', e => {
-        const href = anchor.getAttribute('href');
-        if (href !== '#') {
-          e.preventDefault();
-          const target = document.querySelector(href);
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-            closeMobileSidebar();
-          }
-        }
-      });
-    });
-    const servicesByDepartment = {
-      'radiology': ['Digital X-Ray', 'Ultrasound Scanning', 'CT Scan', 'Mammography', 'Fluoroscopy'],
-      'dental': ['General Dentistry', 'Orthodontics & Braces', 'Teeth Whitening', 'Dental Surgery', 'Implants & Crowns', 'Root Canal Treatment'],
-      'laboratory': ['Blood Tests & Analysis', 'Pathology Services', 'Microbiology Testing', 'Hormone Screening', 'Urinalysis', 'HIV/AIDS Testing'],
-      'pharmacy': ['Prescription Filling', 'Over-the-Counter Drugs', 'Medication Counseling', 'Drug Information', 'Pharmaceutical Care'],
-      'emergency': ['Trauma Care', 'Rapid Response', 'Ambulance Services', 'Life Support', 'Emergency Surgery', 'Critical Care'],
-      'nutrition': ['Diet Consultation', 'Meal Planning', 'Weight Management', 'Disease-Specific Diets', 'Nutritional Counseling'],
-      'therapy': ['Physical Therapy', 'Occupational Therapy', 'Speech Therapy', 'Pain Management', 'Rehabilitation Services'],
-      'general': ['General Health Checkup', 'Preventive Care', 'Health Screening', 'Consultation', 'Wellness Programs']
-    };
-    function updateServices(department) {
-      const serviceSelect = document.getElementById('serviceSelect');
-      serviceSelect.innerHTML = '<option value="">Select service</option>';
-      if (department && servicesByDepartment[department]) {
-        servicesByDepartment[department].forEach(service => {
-          const option = document.createElement('option');
-          option.value = service.toLowerCase().replace(/\s+/g, '-');
-          option.textContent = service;
-          serviceSelect.appendChild(option);
+    (function () {
+      const form = document.getElementById('bookingForm');
+      const min = new Date(); min.setDate(min.getDate() + 1);
+      form.date.min = min.toISOString().split('T')[0];
+      const data = () => {
+        const f = new FormData(form); const o = {}; f.forEach((v, k) => o[k] = v); return o;
+      };
+      const compose = d => `Appointment request - Heirs Multispecialist Hospital\n\nName: ${d.name}\nPhone: ${d.phone}\nEmail: ${d.email || '-'}\nPatient type: ${d.ptype}\nBranch: ${d.branch}\nDepartment: ${d.dept}\nPreferred date: ${d.date}\nPreferred time: ${d.time}\nNHIS/HMO: ${d.nhis || '-'}\n\nMessage: ${d.msg || '-'}`;
+      const valid = () => {
+        let ok = true;
+        form.querySelectorAll('[required]').forEach(el => {
+          const bad = !el.value.trim(); el.style.borderColor = bad ? 'var(--coral-500)' : ''; if (bad) ok = false;
         });
-      }
-    }
-    const today = new Date().toISOString().split('T')[0];
-    document.querySelector('input[name="date"]').setAttribute('min', today);
-    document.getElementById('appointmentForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const successMsg = document.getElementById('successMessage');
-      successMsg.classList.add('show');
-      successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      this.reset();
-      setTimeout(() => {
-        successMsg.classList.remove('show');
-      }, 5000);
-    });
-    setTimeout(() => lucide.createIcons(), 100);
+        if (!ok) form.querySelector('[required]:invalid, [style*="coral"]')?.focus();
+        return ok;
+      };
+      form.addEventListener('submit', e => {
+        e.preventDefault(); if (!valid()) return;
+        const d = data();
+        document.getElementById('okName').textContent = d.name.split(' ')[0];
+        form.style.display = 'none'; document.getElementById('bookSuccess').classList.add('show');
+        window.location.href = `mailto:contact@heirsspecialisthospital.com.ng?subject=${encodeURIComponent('Appointment request: ' + d.name)}&body=${encodeURIComponent(compose(d))}`;
+        if (window.lucide) lucide.createIcons();
+      });
+      document.getElementById('waBtn').addEventListener('click', () => {
+        if (!valid()) return;
+        window.open('https://wa.me/2347042481085?text=' + encodeURIComponent(compose(data())), '_blank', 'noopener');
+      });
+    })();
   </script>
 </body>
 </html>
-             

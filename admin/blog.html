@@ -1,399 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Admin Dashboard - Heirs Hospital</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Heirs Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/js/tw.js"></script>
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .postrow { display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; align-items: center; padding: 12px 0; border-bottom: 1px dashed var(--line); }
+    .postrow:last-child { border: 0; }
+    .postrow img { width: 72px; height: 56px; object-fit: cover; border-radius: 12px; }
+    .postrow b { display: block; font-size: 14px; color: var(--ink); }
+    .postrow span { font-size: 12px; color: var(--muted); }
+  </style>
 </head>
-<body class="bg-gray-50">
-    <div x-data="dashboardData()">
-        <!-- Navbar -->
-        <nav class="bg-white shadow-lg sticky top-0 z-50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-16">
-                    <!-- Logo -->
-                    <div class="flex items-center space-x-2">
-                        <i data-lucide="newspaper" class="w-8 h-8 text-blue-600"></i>
-                        <span class="text-xl font-bold text-gray-800">Blog Admin</span>
-                    </div>
-                    <!-- Desktop Navigation -->
-                    <div class="hidden md:flex items-center space-x-1">
-                        <!-- Posts Dropdown -->
-                        <div class="relative">
-                            <button @click="toggleDropdown('posts')" 
-                                    class="px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center space-x-2 transition">
-                                <span class="text-gray-700 font-medium">Posts</span>
-                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{'rotate-180': activeDropdown === 'posts'}"></i>
-                            </button>
-                            <div x-show="activeDropdown === 'posts'" 
-                                 x-transition
-                                 @click.away="closeDropdowns()"
-                                 class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-2">
-                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
-                                    <i data-lucide="plus-circle" class="w-4 h-4 text-blue-500 inline-block"></i>
-                                    <span class="ml-3 text-gray-700">Create New Post</span>
-                                </a>
-                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
-                                    <i data-lucide="file-text" class="w-4 h-4 text-green-500 inline-block"></i>
-                                    <span class="ml-3 text-gray-700">All Posts</span>
-                                </a>
-                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
-                                    <i data-lucide="edit" class="w-4 h-4 text-purple-500 inline-block"></i>
-                                    <span class="ml-3 text-gray-700">Drafts</span>
-                                </a>
-                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
-                                    <i data-lucide="trash-2" class="w-4 h-4 text-red-500 inline-block"></i>
-                                    <span class="ml-3 text-gray-700">Trash</span>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- Blog Management Dropdown (2 Columns) -->
-                        <div class="relative">
-                            <button @click="toggleDropdown('management')" 
-                                    class="px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center space-x-2 transition">
-                                <span class="text-gray-700 font-medium">Management</span>
-                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{'rotate-180': activeDropdown === 'management'}"></i>
-                            </button>
-                            <div x-show="activeDropdown === 'management'" 
-                                 x-transition
-                                 @click.away="closeDropdowns()"
-                                 class="absolute top-full left-0 mt-2 w-96 bg-white rounded-lg shadow-xl py-3 px-2">
-                                <div class="grid grid-cols-2 gap-1">
-                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
-                                        <i data-lucide="layout-dashboard" class="w-4 h-4 text-red-500 inline-block"></i>
-                                        <span class="ml-2 text-gray-700 text-sm">Dashboard</span>
-                                    </a>
-                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
-                                        <i data-lucide="file-text" class="w-4 h-4 text-pink-500 inline-block"></i>
-                                        <span class="ml-2 text-gray-700 text-sm">All Posts</span>
-                                    </a>
-                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
-                                        <i data-lucide="folder" class="w-4 h-4 text-orange-500 inline-block"></i>
-                                        <span class="ml-2 text-gray-700 text-sm">Categories</span>
-                                    </a>
-                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
-                                        <i data-lucide="tag" class="w-4 h-4 text-blue-400 inline-block"></i>
-                                        <span class="ml-2 text-gray-700 text-sm">Tags</span>
-                                    </a>
-                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
-                                        <i data-lucide="message-circle" class="w-4 h-4 text-teal-500 inline-block"></i>
-                                        <span class="ml-2 text-gray-700 text-sm">Comments</span>
-                                    </a>
-                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
-                                        <i data-lucide="users" class="w-4 h-4 text-cyan-500 inline-block"></i>
-                                        <span class="ml-2 text-gray-700 text-sm">Authors</span>
-                                    </a>
-                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
-                                        <i data-lucide="image" class="w-4 h-4 text-indigo-500 inline-block"></i>
-                                        <span class="ml-2 text-gray-700 text-sm">Media</span>
-                                    </a>
-                                    <a href="#" class="block px-3 py-2 hover:bg-gray-50 rounded transition">
-                                        <i data-lucide="settings" class="w-4 h-4 text-purple-500 inline-block"></i>
-                                        <span class="ml-2 text-gray-700 text-sm">Settings</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Categories Dropdown -->
-                        <div class="relative">
-                            <button @click="toggleDropdown('categories')" 
-                                    class="px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center space-x-2 transition">
-                                <span class="text-gray-700 font-medium">Categories</span>
-                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{'rotate-180': activeDropdown === 'categories'}"></i>
-                            </button>
-                            <div x-show="activeDropdown === 'categories'" 
-                                 x-transition
-                                 @click.away="closeDropdowns()"
-                                 class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-2">
-                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
-                                    <i data-lucide="plus-circle" class="w-4 h-4 text-blue-500 inline-block"></i>
-                                    <span class="ml-3 text-gray-700">Add Category</span>
-                                </a>
-                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
-                                    <i data-lucide="folder" class="w-4 h-4 text-green-500 inline-block"></i>
-                                    <span class="ml-3 text-gray-700">All Categories</span>
-                                </a>
-                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
-                                    <i data-lucide="tag" class="w-4 h-4 text-purple-500 inline-block"></i>
-                                    <span class="ml-3 text-gray-700">Manage Tags</span>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- Analytics Dropdown -->
-                        <div class="relative">
-                            <button @click="toggleDropdown('analytics')" 
-                                    class="px-4 py-2 rounded-lg hover:bg-gray-100 flex items-center space-x-2 transition">
-                                <span class="text-gray-700 font-medium">Analytics</span>
-                                <i data-lucide="chevron-down" class="w-4 h-4 transition-transform" :class="{'rotate-180': activeDropdown === 'analytics'}"></i>
-                            </button>
-                            <div x-show="activeDropdown === 'analytics'" 
-                                 x-transition
-                                 @click.away="closeDropdowns()"
-                                 class="absolute top-full left-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-2">
-                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
-                                    <i data-lucide="trending-up" class="w-4 h-4 text-blue-500 inline-block"></i>
-                                    <span class="ml-3 text-gray-700">Traffic Reports</span>
-                                </a>
-                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
-                                    <i data-lucide="eye" class="w-4 h-4 text-green-500 inline-block"></i>
-                                    <span class="ml-3 text-gray-700">Popular Posts</span>
-                                </a>
-                                <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition">
-                                    <i data-lucide="users" class="w-4 h-4 text-purple-500 inline-block"></i>
-                                    <span class="ml-3 text-gray-700">Reader Insights</span>
-                                </a>
-                            </div>
-                        </div>
-                        <!-- Logout Button -->
-                        <button class="ml-4 px-5 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg flex items-center space-x-2 transition">
-                            <i data-lucide="log-out" class="w-4 h-4"></i>
-                            <span>Logout</span>
-                        </button>
-                    </div>
-                    <!-- Mobile Menu Button -->
-                    <button @click="toggleDropdown('mobile')" class="md:hidden text-gray-700">
-                        <i data-lucide="menu" class="w-6 h-6"></i>
-                    </button>
-                </div>
-                <!-- Mobile Menu -->
-                <div x-show="activeDropdown === 'mobile'" 
-                     x-transition
-                     class="md:hidden pb-4">
-                    <div class="space-y-2">
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">Posts</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">Management</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">Categories</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 rounded">Analytics</a>
-                        <button class="w-full text-left px-4 py-2 bg-red-500 text-white rounded mt-2">Logout</button>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <!-- Dashboard Content -->
-        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <!-- Header -->
-            <div class="mb-8">
-                <h1 class="text-3xl font-bold text-gray-900">Blog Dashboard</h1>
-                <p class="text-gray-600 mt-2">Manage your blog content and monitor engagement.</p>
-            </div>
-            <!-- Stats Cards -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <!-- Card 1 -->
-                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 border-l-4 border-blue-500">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="p-3 bg-blue-100 rounded-lg">
-                            <i data-lucide="file-text" class="w-6 h-6 text-blue-600"></i>
-                        </div>
-                        <span class="text-sm font-semibold text-green-600 bg-green-100 px-3 py-1 rounded-full">+12</span>
-                    </div>
-                    <h3 class="text-gray-500 text-sm font-medium mb-1">Total Posts</h3>
-                    <p class="text-3xl font-bold text-gray-900 mb-2">127</p>
-                    <p class="text-xs text-gray-500">Published articles</p>
-                </div>
-                <!-- Card 2 -->
-                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 border-l-4 border-green-500">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="p-3 bg-green-100 rounded-lg">
-                            <i data-lucide="eye" class="w-6 h-6 text-green-600"></i>
-                        </div>
-                        <span class="text-sm font-semibold text-green-600 bg-green-100 px-3 py-1 rounded-full">+23%</span>
-                    </div>
-                    <h3 class="text-gray-500 text-sm font-medium mb-1">Total Views</h3>
-                    <p class="text-3xl font-bold text-gray-900 mb-2">45.2K</p>
-                    <p class="text-xs text-gray-500">This month</p>
-                </div>
-                <!-- Card 3 -->
-                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 border-l-4 border-purple-500">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="p-3 bg-purple-100 rounded-lg">
-                            <i data-lucide="message-circle" class="w-6 h-6 text-purple-600"></i>
-                        </div>
-                        <span class="text-sm font-semibold text-orange-600 bg-orange-100 px-3 py-1 rounded-full">18</span>
-                    </div>
-                    <h3 class="text-gray-500 text-sm font-medium mb-1">Comments</h3>
-                    <p class="text-3xl font-bold text-gray-900 mb-2">342</p>
-                    <p class="text-xs text-gray-500">18 pending approval</p>
-                </div>
-                <!-- Card 4 -->
-                <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow p-6 border-l-4 border-orange-500">
-                    <div class="flex items-center justify-between mb-4">
-                        <div class="p-3 bg-orange-100 rounded-lg">
-                            <i data-lucide="edit" class="w-6 h-6 text-orange-600"></i>
-                        </div>
-                        <span class="text-sm font-semibold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">8</span>
-                    </div>
-                    <h3 class="text-gray-500 text-sm font-medium mb-1">Drafts</h3>
-                    <p class="text-3xl font-bold text-gray-900 mb-2">8</p>
-                    <p class="text-xs text-gray-500">Unpublished posts</p>
-                </div>
-            </div>
-            <!-- Additional Info Cards -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                <!-- Recent Posts -->
-                <div class="bg-white rounded-xl shadow-md p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-xl font-bold text-gray-900">Recent Posts</h2>
-                        <i data-lucide="more-vertical" class="w-5 h-5 text-gray-400"></i>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="flex items-start space-x-4 p-3 hover:bg-gray-50 rounded-lg transition">
-                            <div class="p-2 bg-blue-100 rounded-lg">
-                                <i data-lucide="file-text" class="w-5 h-5 text-blue-600"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-semibold text-gray-900">Understanding Heart Health</p>
-                                <p class="text-xs text-gray-500">1,250 views • 15 comments</p>
-                                <p class="text-xs text-gray-400 mt-1">Published 2 days ago</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4 p-3 hover:bg-gray-50 rounded-lg transition">
-                            <div class="p-2 bg-green-100 rounded-lg">
-                                <i data-lucide="file-text" class="w-5 h-5 text-green-600"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-semibold text-gray-900">Importance of Regular Check-ups</p>
-                                <p class="text-xs text-gray-500">980 views • 8 comments</p>
-                                <p class="text-xs text-gray-400 mt-1">Published 5 days ago</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4 p-3 hover:bg-gray-50 rounded-lg transition">
-                            <div class="p-2 bg-purple-100 rounded-lg">
-                                <i data-lucide="file-text" class="w-5 h-5 text-purple-600"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-semibold text-gray-900">Advances in Pediatric Care</p>
-                                <p class="text-xs text-gray-500">1,500 views • 22 comments</p>
-                                <p class="text-xs text-gray-400 mt-1">Published 1 week ago</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start space-x-4 p-3 hover:bg-gray-50 rounded-lg transition">
-                            <div class="p-2 bg-orange-100 rounded-lg">
-                                <i data-lucide="edit" class="w-5 h-5 text-orange-600"></i>
-                            </div>
-                            <div class="flex-1">
-                                <p class="text-sm font-semibold text-gray-900">Nutrition Tips for Wellness</p>
-                                <p class="text-xs text-gray-500">Draft • Not published</p>
-                                <p class="text-xs text-gray-400 mt-1">Last edited yesterday</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Quick Actions -->
-                <div class="bg-white rounded-xl shadow-md p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-xl font-bold text-gray-900">Quick Actions</h2>
-                        <i data-lucide="more-vertical" class="w-5 h-5 text-gray-400"></i>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition group">
-                            <div class="flex flex-col items-center text-center">
-                                <div class="p-3 bg-blue-100 rounded-lg mb-3 group-hover:bg-blue-200 transition">
-                                    <i data-lucide="plus-circle" class="w-6 h-6 text-blue-600"></i>
-                                </div>
-                                <span class="text-sm font-semibold text-gray-700">New Post</span>
-                            </div>
-                        </button>
-                        <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-green-500 hover:bg-green-50 transition group">
-                            <div class="flex flex-col items-center text-center">
-                                <div class="p-3 bg-green-100 rounded-lg mb-3 group-hover:bg-green-200 transition">
-                                    <i data-lucide="folder" class="w-6 h-6 text-green-600"></i>
-                                </div>
-                                <span class="text-sm font-semibold text-gray-700">Categories</span>
-                            </div>
-                        </button>
-                        <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition group">
-                            <div class="flex flex-col items-center text-center">
-                                <div class="p-3 bg-purple-100 rounded-lg mb-3 group-hover:bg-purple-200 transition">
-                                    <i data-lucide="message-circle" class="w-6 h-6 text-purple-600"></i>
-                                </div>
-                                <span class="text-sm font-semibold text-gray-700">Comments</span>
-                            </div>
-                        </button>
-                        <button class="p-4 border-2 border-gray-200 rounded-lg hover:border-orange-500 hover:bg-orange-50 transition group">
-                            <div class="flex flex-col items-center text-center">
-                                <div class="p-3 bg-orange-100 rounded-lg mb-3 group-hover:bg-orange-200 transition">
-                                    <i data-lucide="trending-up" class="w-6 h-6 text-orange-600"></i>
-                                </div>
-                                <span class="text-sm font-semibold text-gray-700">Analytics</span>
-                            </div>
-                        </button>
-                    </div>
-                    <div class="mt-6 pt-6 border-t border-gray-200">
-                        <button class="w-full py-3 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-lg font-semibold transition shadow-md hover:shadow-lg">
-                            <i data-lucide="edit" class="w-5 h-5 inline mr-2"></i>
-                            Create New Article
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- Popular Categories -->
-            <div class="bg-white rounded-xl shadow-md p-6">
-                <h2 class="text-xl font-bold text-gray-900 mb-6">Popular Categories</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="p-4 bg-gradient-to-br from-red-50 to-red-100 rounded-lg border border-red-200">
-                        <div class="flex items-center justify-between mb-2">
-                            <i data-lucide="heart-pulse" class="w-6 h-6 text-red-600"></i>
-                            <span class="text-xs font-semibold text-red-700 bg-red-200 px-2 py-1 rounded">45 Posts</span>
-                        </div>
-                        <h4 class="font-semibold text-gray-800">Health Tips</h4>
-                        <p class="text-sm text-gray-600 mt-1">12.5K views</p>
-                    </div>
-                    <div class="p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200">
-                        <div class="flex items-center justify-between mb-2">
-                            <i data-lucide="stethoscope" class="w-6 h-6 text-blue-600"></i>
-                            <span class="text-xs font-semibold text-blue-700 bg-blue-200 px-2 py-1 rounded">32 Posts</span>
-                        </div>
-                        <h4 class="font-semibold text-gray-800">Medical News</h4>
-                        <p class="text-sm text-gray-600 mt-1">9.8K views</p>
-                    </div>
-                    <div class="p-4 bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg border border-purple-200">
-                        <div class="flex items-center justify-between mb-2">
-                            <i data-lucide="baby" class="w-6 h-6 text-purple-600"></i>
-                            <span class="text-xs font-semibold text-purple-700 bg-purple-200 px-2 py-1 rounded">28 Posts</span>
-                        </div>
-                        <h4 class="font-semibold text-gray-800">Child Care</h4>
-                        <p class="text-sm text-gray-600 mt-1">8.2K views</p>
-                    </div>
-                    <div class="p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200">
-                        <div class="flex items-center justify-between mb-2">
-                            <i data-lucide="apple" class="w-6 h-6 text-green-600"></i>
-                            <span class="text-xs font-semibold text-green-700 bg-green-200 px-2 py-1 rounded">22 Posts</span>
-                        </div>
-                        <h4 class="font-semibold text-gray-800">Nutrition</h4>
-                        <p class="text-sm text-gray-600 mt-1">7.5K views</p>
-                    </div>
-                </div>
-            </div>
-        </main>
+<body data-admin="blog" data-title="Blog" data-section="Hospital Admin" x-data="{
+    filter: 'all',
+    posts: [
+      { title: 'Understanding heart health: prevention and care', cat: 'Heart Health', views: 1250, comments: 15, status: 'Published', when: '2 days ago', img: '../assets/img/blog-fitness.jpg', author: 'Dr. Michael Soje' },
+      { title: 'Importance of regular check-ups', cat: 'Health Tips', views: 980, comments: 8, status: 'Published', when: '5 days ago', img: '../assets/img/facility-consult.jpg', author: 'Editorial' },
+      { title: 'Advances in paediatric care', cat: 'Child Care', views: 1500, comments: 22, status: 'Published', when: '1 week ago', img: '../assets/img/facility-ward.jpg', author: 'Paediatrics' },
+      { title: 'Nutrition tips for wellness', cat: 'Nutrition', views: 0, comments: 0, status: 'Draft', when: 'Edited yesterday', img: '../assets/img/blog-nutrition.jpg', author: 'Dietetics Unit' },
+      { title: 'Five early warning signs of kidney disease', cat: 'Kidney Health', views: 0, comments: 0, status: 'Scheduled', when: 'Publishes Friday', img: '../assets/img/facility-icu.jpg', author: 'Renal Unit' }
+    ],
+    get list() { return this.posts.filter(p => this.filter === 'all' || p.status === this.filter); },
+    tag(s) { return { Published: 'tag-teal', Draft: 'tag-gray', Scheduled: 'tag-gold' }[s]; }
+  }">
+  <div id="admin-shell"></div>
+  <div class="a-main">
+    <div id="admin-topbar"></div>
+    <div class="a-content">
+
+      <div class="a-head">
+        <div><h1>Health Blog</h1><p>Publish articles, manage drafts and moderate comments.</p></div>
+        <div class="actions"><a href="../blog.html" target="_blank" class="btn btn-outline"><i data-lucide="external-link"></i> View live blog</a><button class="btn btn-primary" @click="HeirsAdmin.toast('Editor coming soon', 'pen-line')"><i data-lucide="plus"></i> New article</button></div>
+      </div>
+
+      <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+        <div class="stat-card"><div class="ic blue"><i data-lucide="newspaper"></i></div><div class="v">127</div><div class="l">Published articles</div><span class="d up"><i data-lucide="trending-up"></i> +12 this month</span></div>
+        <div class="stat-card"><div class="ic teal"><i data-lucide="eye"></i></div><div class="v">45.2K</div><div class="l">Views this month</div><span class="d up"><i data-lucide="trending-up"></i> +23%</span></div>
+        <div class="stat-card"><div class="ic gold"><i data-lucide="message-square"></i></div><div class="v">342</div><div class="l">Comments</div><span class="d flat"><i data-lucide="clock"></i> 18 pending approval</span></div>
+        <div class="stat-card"><div class="ic violet"><i data-lucide="file-pen-line"></i></div><div class="v">8</div><div class="l">Drafts</div><span class="d flat">Unpublished</span></div>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-4">
+        <div class="card lg:col-span-2">
+          <div class="card-h"><div><h3>Articles</h3><div class="sub"><span x-text="list.length"></span> shown</div></div><div class="seg"><button :class="{on: filter === 'all'}" @click="filter = 'all'">All</button><button :class="{on: filter === 'Published'}" @click="filter = 'Published'">Published</button><button :class="{on: filter === 'Draft'}" @click="filter = 'Draft'">Drafts</button><button :class="{on: filter === 'Scheduled'}" @click="filter = 'Scheduled'">Scheduled</button></div></div>
+          <template x-for="p in list" :key="p.title">
+            <div class="postrow"><img :src="p.img" alt=""><div class="min-w-0"><div class="flex flex-wrap items-center gap-2"><b x-text="p.title"></b><span class="tag" :class="tag(p.status)" x-text="p.status"></span></div><span><span x-text="p.cat"></span> · <span x-text="p.author"></span> · <span x-text="p.status === 'Published' ? p.views.toLocaleString() + ' views · ' + p.comments + ' comments · ' + p.when : p.when"></span></span></div><div class="acts flex gap-1"><a href="../detailed-blog.html" target="_blank" class="a-icon-btn" title="Preview"><i data-lucide="eye"></i></a><button class="a-icon-btn" title="Edit"><i data-lucide="pencil"></i></button></div></div>
+          </template>
+        </div>
+        <div class="space-y-4">
+          <div class="card">
+            <div class="card-h"><h3>Quick actions</h3></div>
+            <div class="grid grid-cols-2 gap-2"><a href="#" class="quick"><span class="ic blue"><i data-lucide="plus"></i></span> New post</a><a href="#" class="quick"><span class="ic teal"><i data-lucide="tags"></i></span> Categories</a><a href="#" class="quick"><span class="ic gold"><i data-lucide="message-square"></i></span> Comments</a><a href="#" class="quick"><span class="ic violet"><i data-lucide="bar-chart-3"></i></span> Analytics</a></div>
+          </div>
+          <div class="card">
+            <div class="card-h"><h3>Popular categories</h3></div>
+            <div class="bar" style="grid-template-columns:110px 1fr 70px"><span class="lbl">Health Tips</span><div class="trk"><div class="fil" style="width:100%"></div></div><span class="val">45 · 12.5K</span></div>
+            <div class="bar" style="grid-template-columns:110px 1fr 70px"><span class="lbl">Medical News</span><div class="trk"><div class="fil" style="width:78%;background:linear-gradient(90deg,var(--teal-600),var(--teal-500))"></div></div><span class="val">32 · 9.8K</span></div>
+            <div class="bar" style="grid-template-columns:110px 1fr 70px"><span class="lbl">Child Care</span><div class="trk"><div class="fil" style="width:66%;background:linear-gradient(90deg,var(--gold-600),var(--gold-500))"></div></div><span class="val">28 · 8.2K</span></div>
+            <div class="bar" style="grid-template-columns:110px 1fr 70px"><span class="lbl">Nutrition</span><div class="trk"><div class="fil" style="width:60%;background:linear-gradient(90deg,var(--violet-600),var(--violet-500))"></div></div><span class="val">22 · 7.5K</span></div>
+            <div class="text-xs text-muted mt-2">posts · views</div>
+          </div>
+          <div class="banner blue" style="padding:20px"><div class="text-xs uppercase tracking-widest font-bold mb-1" style="color:var(--gold-500)">Tip</div><p class="text-sm" style="color:rgba(255,255,255,.8)">Articles by named doctors get 2× more reads. Ask Dr. Soje for a short quote when publishing.</p></div>
+        </div>
+      </div>
     </div>
-    <script>
-        lucide.createIcons();
-        document.addEventListener('alpine:initialized', () => {
-            lucide.createIcons();
-        });
-        function dashboardData() {
-            return {
-                activeDropdown: null,
-                toggleDropdown(name) {
-                    this.activeDropdown = this.activeDropdown === name ? null : name;
-                    setTimeout(() => lucide.createIcons(), 10);
-                },
-                closeDropdowns() {
-                    this.activeDropdown = null;
-                }
-            }
-        }
-    </script>
-    <style>
-        .rotate-180 {
-            transform: rotate(180deg);
-        }
-        .transition-transform {
-            transition: transform 0.2s ease;
-        }
-    </style>
+  </div>
+  <script src="../assets/js/admin.js"></script>
 </body>
 </html>

@@ -3,887 +3,205 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Heirs Institute of Allied Health: Addressing Nigeria's shortage of skilled allied health professionals through comprehensive, accredited training programs in Oye-Ekiti.">
-  <meta name="keywords" content="Heirs Institute Allied Health, healthcare education Ekiti, medical training Nigeria, nursing assistant, pharmacy technician, radiography, laboratory technician">
-  <title>Heirs Institute of Allied Health - Heirs Multispecialist Hospital</title>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
-    "@id": "https://heirsmultispecialisthospital.com.ng/heirs-institute",
-    "name": "Heirs Institute of Allied Health",
-    "description": "A subsidiary of Heirs Multispecialist Hospital, committed to training skilled allied health professionals to address Nigeria's healthcare workforce shortage.",
-    "url": "https://heirsmultispecialisthospital.com.ng/heirs-institute",
-    "parentOrganization": {
-      "@type": "Hospital",
-      "name": "Heirs Multispecialist Hospital"
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Beside Aluko House, Irare Estate",
-      "addressLocality": "Oye-Ekiti",
-      "addressRegion": "Ekiti State",
-      "addressCountry": "NG"
-    },
-    "hasCredential": ["NBTE Accreditation", "WAHEB Certification"]
-  }
-  </script>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <title>Heirs Institute of Allied Health | Accredited Health Training in Ekiti</title>
+  <meta name="description" content="Heirs Institute of Allied Health, a subsidiary of Heirs Multispecialist Hospital training CHEWs, pharmacy technicians, medical laboratory technicians, radiography technicians, dental technologists, HIM, physiotherapy assistants and environmental health technologists. Scholarships available.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/js/tw.js"></script>
+  <link rel="stylesheet" href="assets/css/heirs.css">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; }
-    .mobile-sidebar {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 280px;
-      height: 100vh;
-      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
-      transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      z-index: 1000;
-      overflow-y: auto;
-      box-shadow: -5px 0 25px rgba(0,0,0,0.3);
-    }
-    .mobile-sidebar.open { right: 0; }
-    .mobile-sidebar-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background: rgba(0,0,0,0.5);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 999;
-    }
-    .mobile-sidebar-overlay.open {
-      opacity: 1;
-      visibility: visible;
-    }
-    .logo-circle {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #2563eb, #1e40af);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-    }
-    .footer-logo-circle {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #2563eb, #1e40af);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-    }
-    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-    .card-hover { transition: all 0.3s ease; }
-    .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-    .gradient-text { 
-      background: linear-gradient(135deg, #2563eb, #1e40af); 
-      -webkit-background-clip: text; 
-      -webkit-text-fill-color: transparent; 
-    }
-    .nav-dropdown {
-      position: relative;
-    }
-    .nav-dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: white;
-      min-width: 200px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-      border-radius: 8px;
-      margin-top: 8px;
-      z-index: 100;
-      padding: 8px 0;
-    }
-    .nav-dropdown::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: transparent;
-    }
-    .nav-dropdown:hover .nav-dropdown-content {
-      display: block;
-    }
-    .nav-dropdown-content:hover {
-      display: block;
-    }
-    .section-divider { position: relative; padding-top: 20px; }
-    .section-divider::before { 
-      content: ''; 
-      position: absolute; 
-      top: 0; 
-      left: 50%; 
-      transform: translateX(-50%); 
-      width: 100px; 
-      height: 4px; 
-      background: linear-gradient(135deg, #2563eb, #1e40af); 
-      border-radius: 2px; 
-    }
-    .btn-primary { 
-      background-color: #ffffff; 
-      color: #2563eb; 
-      transition: all 0.3s ease; 
-    }
-    .btn-primary:hover { 
-      background-color: #e2e8f0; 
-      transform: scale(1.05); 
-    }
-    .btn-secondary { 
-      border-color: #ffffff; 
-      color: #ffffff; 
-      transition: all 0.3s ease; 
-    }
-    .btn-secondary:hover { 
-      background-color: #ffffff; 
-      color: #2563eb; 
-      transform: scale(1.05); 
-    }
-    .footer-gradient {
-      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-    }
-    .masys-credit {
-      background: linear-gradient(90deg, #2563eb, #3b82f6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 700;
-      transition: all 0.3s ease;
-    }
-    .masys-credit:hover {
-      transform: scale(1.05);
-    }
-    .stats-card { background: linear-gradient(135deg, #ffffff, #f1f5f9); }
-    .program-card {
-      background: white;
-      border-radius: 16px;
-      overflow: hidden;
-      position: relative;
-      transition: all 0.3s ease;
-    }
-    .program-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, #2563eb, #3b82f6);
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-    }
-    .program-card:hover::before {
-      transform: scaleX(1);
-    }
+    .prog { display: flex; flex-direction: column; gap: 14px; padding: 28px; border-radius: 26px; background: #fff; border: 1px solid var(--line); transition: transform .35s var(--ease), box-shadow .35s var(--ease); height: 100%; position: relative; }
+    .prog:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+    .prog h3 { font-size: 1.15rem; }
+    .prog p { font-size: 14px; color: var(--muted); line-height: 1.65; }
+    .prog .meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 12px; border-top: 1px dashed var(--line); }
+    .req-list li { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px dashed var(--line); font-size: 14.5px; }
+    .req-list li:last-child { border: 0; }
+    .req-list li svg { width: 18px; height: 18px; color: var(--teal-600); flex: none; margin-top: 2px; }
+    .date-card { text-align: center; padding: 26px 18px; border-radius: 22px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); }
+    .date-card .big { font-family: var(--font-display); font-weight: 800; font-size: 1.6rem; color: var(--gold-500); }
+    .date-card .lbl { font-size: 13px; color: rgba(255,255,255,.7); margin-top: 4px; }
+    .schol { padding: 32px; border-radius: 28px; }
+    .schol .pct { font-family: var(--font-display); font-weight: 800; font-size: 3rem; line-height: 1; letter-spacing: -.03em; }
   </style>
 </head>
-<body class="text-gray-800 bg-gray-50">
-  <div class="mobile-sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
-  <div class="mobile-sidebar" id="mobileSidebar">
-    <div class="p-6">
-      <div class="flex justify-between items-center mb-8">
-        <div class="flex items-center">
-          <div class="logo-circle mr-3">
-            <i data-lucide="hospital" class="w-6 h-6 text-white"></i>
-          </div>
-          <span class="text-white font-bold text-lg">Heirs</span>
+<body data-page="heirs-institute">
+  <div id="site-header"></div>
+
+  <section class="page-hero" data-cms-section="Hero">
+    <div class="hero-bg"><img src="assets/img/facility-lab.jpg" alt="" data-cms="hero.bg" data-cms-label="Background image"></div>
+    <div class="hero-grid"></div>
+    <div class="wrap relative">
+      <div class="crumbs"><a href="index.html">Home</a><i data-lucide="chevron-right"></i><a href="fosterheirs.html">Programmes</a><i data-lucide="chevron-right"></i><span class="cur">Heirs Institute</span></div>
+      <div class="grid lg:grid-cols-12 gap-10 items-end">
+        <div class="lg:col-span-7">
+          <span class="eyebrow on-dark" data-cms="hero.eyebrow" data-cms-label="Eyebrow">Heirs Institute of Allied Health</span>
+          <h1 class="hd-1 mt-4 mb-5" data-cms="hero.title" data-cms-label="Headline">Your career as a competent, certificated health professional begins here.</h1>
+          <p class="lead max-w-xl" data-cms="hero.lead" data-cms-label="Intro">A subsidiary of Heirs Multispecialist Hospital, the Institute was founded to address the critical shortage of skilled allied-health professionals in Nigeria, training the next generation inside a working hospital.</p>
+          <div class="flex flex-wrap gap-4 mt-8"><a href="#apply" class="btn btn-gold"><i data-lucide="file-pen-line"></i> <span data-cms="hero.cta1" data-cms-label="Button 1">Apply for Admission</span></a><a href="#programmes" class="btn btn-ghost"><i data-lucide="book-open"></i> <span data-cms="hero.cta2" data-cms-label="Button 2">View Programmes</span></a></div>
         </div>
-        <button onclick="closeMobileSidebar()" class="text-white">
-          <i data-lucide="x" class="w-6 h-6"></i>
-        </button>
-      </div>
-      <nav class="space-y-1">
-        <a href="index.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-          <i data-lucide="home" class="w-5 h-5 mr-3"></i> Home
-        </a>
-        <a href="about.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-          <i data-lucide="info" class="w-5 h-5 mr-3"></i> About
-        </a>
-        <div class="border-t border-white border-opacity-20 pt-2 mt-2">
-          <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Care Services</p>
-          <a href="services.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-            <i data-lucide="stethoscope" class="w-5 h-5 mr-3"></i> Services
-          </a>
-          <a href="department.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-            <i data-lucide="layout-grid" class="w-5 h-5 mr-3"></i> Departments
-          </a>
-        </div>
-        <div class="border-t border-white border-opacity-20 pt-2 mt-2">
-          <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Resources</p>
-          <a href="heirs-institute.html" class="flex items-center text-white bg-white bg-opacity-20 px-4 py-3 rounded-lg transition">
-            <i data-lucide="graduation-cap" class="w-5 h-5 mr-3"></i> Heirs Institute
-          </a>
-          <a href="blog.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-            <i data-lucide="newspaper" class="w-5 h-5 mr-3"></i> Blog
-          </a>
-        </div>
-        <a href="contact.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-          <i data-lucide="mail" class="w-5 h-5 mr-3"></i> Contact
-        </a>
-        <div class="border-t border-white border-opacity-20 pt-4 mt-4 space-y-3">
-          <a href="contact.html#appointmentform" class="flex items-center justify-center bg-white text-blue-600 px-4 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">
-            <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
-          </a>
-          <a href="tel:+234123456789" class="flex items-center justify-center bg-red-500 text-white px-4 py-3 rounded-lg font-semibold hover:bg-red-600 transition">
-            <i data-lucide="phone" class="w-5 h-5 mr-2"></i> Emergency
-          </a>
-        </div>
-      </nav>
-    </div>
-  </div>
-  <header class="fixed top-0 w-full bg-white shadow-md z-50">
-    <div class="container mx-auto px-4 py-3">
-      <div class="flex justify-between items-center">
-        <a href="index.html" class="flex items-center">
-          <div class="logo-circle mr-3">
-            <i data-lucide="hospital" class="w-6 h-6 text-white"></i>
-          </div>
-          <span class="text-2xl font-bold text-blue-600">Heirs</span>
-        </a>
-        <nav class="hidden lg:flex items-center space-x-1">
-          <a href="index.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
-            <i data-lucide="home" class="w-4 h-4 mr-1"></i> Home
-          </a>
-          <a href="about.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
-            <i data-lucide="info" class="w-4 h-4 mr-1"></i> About
-          </a>
-          <div class="nav-dropdown">
-            <button class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
-              <i data-lucide="heart-pulse" class="w-4 h-4 mr-1"></i> Care <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
-            </button>
-            <div class="nav-dropdown-content">
-              <a href="services.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
-                <i data-lucide="stethoscope" class="w-4 h-4 mr-2"></i> Services
-              </a>
-              <a href="department.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
-                <i data-lucide="layout-grid" class="w-4 h-4 mr-2"></i> Departments
-              </a>
-            </div>
-          </div>
-          <div class="nav-dropdown">
-            <button class="text-blue-600 font-semibold px-3 py-2 rounded-lg transition flex items-center">
-              <i data-lucide="book-open" class="w-4 h-4 mr-1"></i> Resources <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
-            </button>
-            <div class="nav-dropdown-content">
-              <a href="heirs-institute.html" class="block px-4 py-3 text-blue-600 bg-blue-50 font-semibold transition flex items-center">
-                <i data-lucide="graduation-cap" class="w-4 h-4 mr-2"></i> Heirs Institute
-              </a>
-              <a href="blog.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
-                <i data-lucide="newspaper" class="w-4 h-4 mr-2"></i> Blog
-              </a>
-            </div>
-          </div>
-          <a href="contact.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
-            <i data-lucide="mail" class="w-4 h-4 mr-1"></i> Contact
-          </a>
-        </nav>
-        <div class="flex items-center space-x-3">
-          <a href="contact.html#appointmentform" class="hidden md:flex bg-blue-600 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-blue-700 transition whitespace-nowrap">
-            <i data-lucide="calendar" class="w-4 h-4 mr-2"></i> Book Appointment
-          </a>
-          <a href="tel:+234123456789" class="hidden sm:flex bg-red-500 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-red-600 transition whitespace-nowrap">
-            <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
-          </a>
-          <button onclick="openMobileSidebar()" class="lg:hidden text-gray-600 hover:text-blue-600 transition">
-            <i data-lucide="menu" class="w-6 h-6"></i>
-          </button>
+        <div class="lg:col-span-5 grid grid-cols-2 gap-4">
+          <div class="glass p-5"><div class="stat on-dark"><div class="num"><span data-count="8" data-cms="hero.stat1.value" data-cms-attr="data-count" data-cms-label="Stat 1 number">0</span></div><div class="lbl" data-cms="hero.stat1.label" data-cms-label="Stat 1 label">Accredited programmes</div></div></div>
+          <div class="glass p-5"><div class="stat on-dark"><div class="num"><span data-count="95" data-suffix="%" data-cms="hero.stat2.value" data-cms-attr="data-count" data-cms-label="Stat 2 number">0</span></div><div class="lbl" data-cms="hero.stat2.label" data-cms-label="Stat 2 label">Job placement in 6 months</div></div></div>
+          <div class="glass p-5"><div class="stat on-dark"><div class="num" data-cms="hero.stat3.value" data-cms-label="Stat 3 value">3</div><div class="lbl" data-cms="hero.stat3.label" data-cms-label="Stat 3 label">Intakes yearly (Jan · May · Sep)</div></div></div>
+          <div class="glass p-5"><div class="stat on-dark"><div class="num"><span data-count="50" data-suffix="%" data-cms="hero.stat4.value" data-cms-attr="data-count" data-cms-label="Stat 4 number">0</span></div><div class="lbl" data-cms="hero.stat4.label" data-cms-label="Stat 4 label">Max. merit scholarship</div></div></div>
         </div>
       </div>
     </div>
-  </header>
-  <main class="pt-20">
-    <section class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
-      <div class="container mx-auto px-4 fade-in">
-        <div class="text-center mb-12 section-divider">
-          <span class="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">Empowering Healthcare Professionals</span>
-          <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Heirs Institute of Allied Health</h1>
-          <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">A subsidiary of Heirs Multispecialist Hospital, committed to addressing the critical shortage of skilled allied health professionals in Nigeria through comprehensive, accredited training programs.</p>
-        </div>
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center max-w-6xl mx-auto">
-          <div>
-            <div class="stats-card p-8 rounded-2xl shadow-lg card-hover">
-              <h2 class="text-3xl md:text-4xl font-bold gradient-text mb-4">Building Nigeria's Healthcare Future</h2>
-              <p class="text-lg text-gray-600 mb-8">With over a decade of experience providing high-quality healthcare in Ekiti State, we recognize the urgent need for comprehensive training programs to bolster the healthcare workforce, particularly in the private sector. Our institute offers cutting-edge training designed to produce competent, certified professionals ready for immediate employment.</p>
-              <div class="grid grid-cols-3 gap-6">
-                <div class="text-center">
-                  <div class="text-4xl font-bold text-blue-600 mb-2">8+</div>
-                  <div class="text-gray-600">Accredited Programs</div>
-                  <div class="text-sm text-gray-500">NBTE Certified</div>
-                </div>
-                <div class="text-center">
-                  <div class="text-4xl font-bold text-blue-600 mb-2">95%</div>
-                  <div class="text-gray-600">Job Placement</div>
-                  <div class="text-sm text-gray-500">Within 6 Months</div>
-                </div>
-                <div class="text-center">
-                  <div class="text-4xl font-bold text-blue-600 mb-2">24/7</div>
-                  <div class="text-gray-600">Learning Access</div>
-                  <div class="text-sm text-gray-500">Modern Facilities</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="grid grid-cols-2 gap-4">
-            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80" alt="Training facility" class="w-full h-64 object-cover rounded-xl shadow-lg" loading="lazy">
-            <div class="grid grid-cols-1 gap-4">
-              <img src="https://images.unsplash.com/photo-1581595220975-119360b2a6cf?auto=format&fit=crop&w=800&q=80" alt="Students in lab" class="w-full h-32 object-cover rounded-xl shadow-lg" loading="lazy">
-              <img src="https://images.unsplash.com/photo-1587370560942-ad2a04eabb6d?auto=format&fit=crop&w=800&q=80" alt="Classroom session" class="w-full h-28 object-cover rounded-xl shadow-lg" loading="lazy">
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="py-16 bg-white">
-      <div class="container mx-auto px-4 fade-in">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 card-hover">
-            <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-              <i data-lucide="target" class="w-8 h-8 text-white"></i>
-            </div>
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Our Mission</h3>
-            <p class="text-gray-600">To provide high-quality, accessible training in allied health professions, bridging Nigeria's healthcare workforce gap through innovative education and practical experience that meets international standards.</p>
-          </div>
-          <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200 card-hover">
-            <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-              <i data-lucide="eye" class="w-8 h-8 text-white"></i>
-            </div>
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Our Vision</h3>
-            <p class="text-gray-600">To become Nigeria's premier institute for allied health education, producing competent professionals who elevate healthcare standards and contribute to ending medical tourism.</p>
-          </div>
-          <div class="text-center p-8 rounded-2xl bg-gradient-to-br from-purple-50 to-violet-50 border border-purple-200 card-hover">
-            <div class="w-16 h-16 bg-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-              <i data-lucide="award" class="w-8 h-8 text-white"></i>
-            </div>
-            <h3 class="text-2xl font-bold text-gray-800 mb-2">Our Values</h3>
-            <p class="text-gray-600">Excellence in education, integrity in practice, compassion in care, innovation in learning, and commitment to producing healthcare professionals who serve with dignity and competence.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="py-16 bg-gray-50">
-      <div class="container mx-auto px-4 fade-in">
-        <div class="max-w-6xl mx-auto">
-          <div class="text-center mb-12 section-divider">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Accredited Training Programs</h2>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">NBTE-accredited programs designed to provide hands-on training and certification in key allied health fields</p>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="program-card shadow-lg card-hover p-6">
-              <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i data-lucide="heart-pulse" class="w-8 h-8 text-blue-600"></i>
-              </div>
-              <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Community Health Extension Worker (CHEW)</h3>
-              <p class="text-gray-600 mb-4 text-center text-sm">Comprehensive training in primary healthcare delivery, disease prevention, and community health education.</p>
-              <ul class="space-y-2 text-sm text-gray-600 mb-4">
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-600"></i>Duration: 2 Years</li>
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-600"></i>NBTE Accredited</li>
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-blue-600"></i>Clinical Placement</li>
-              </ul>
-            </div>
-            <div class="program-card shadow-lg card-hover p-6">
-              <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i data-lucide="pill" class="w-8 h-8 text-purple-600"></i>
-              </div>
-              <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Pharmacy Technician</h3>
-              <p class="text-gray-600 mb-4 text-center text-sm">Learn pharmaceutical compounding, dispensing, inventory management, and patient counseling.</p>
-              <ul class="space-y-2 text-sm text-gray-600 mb-4">
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-purple-600"></i>Duration: 2 Years</li>
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-purple-600"></i>PCN Certification</li>
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-purple-600"></i>Hands-on Training</li>
-              </ul>
-            </div>
-            <div class="program-card shadow-lg card-hover p-6">
-              <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i data-lucide="microscope" class="w-8 h-8 text-green-600"></i>
-              </div>
-              <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Medical Laboratory Technician</h3>
-              <p class="text-gray-600 mb-4 text-center text-sm">Master diagnostic testing, specimen collection, laboratory equipment operation, and quality control.</p>
-              <ul class="space-y-2 text-sm text-gray-600 mb-4">
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-600"></i>Duration: 2 Years</li>
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-600"></i>MLSCN Registration</li>
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-green-600"></i>Modern Lab Access</li>
-              </ul>
-            </div>
-            <div class="program-card shadow-lg card-hover p-6">
-              <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i data-lucide="file-text" class="w-8 h-8 text-indigo-600"></i>
-              </div>
-              <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Health Information Management</h3>
-              <p class="text-gray-600 mb-4 text-center text-sm">Train in medical records management, health data analysis, coding, and healthcare informatics.</p>
-              <ul class="space-y-2 text-sm text-gray-600 mb-4">
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-indigo-600"></i>Duration: 2 Years</li>
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-indigo-600"></i>NBTE Certified</li>
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-indigo-600"></i>Digital Systems</li>
-              </ul>
-            </div>
-            <div class="program-card shadow-lg card-hover p-6">
-              <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i data-lucide="scan" class="w-8 h-8 text-orange-600"></i>
-              </div>
-              <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Radiography Technician</h3>
-              <p class="text-gray-600 mb-4 text-center text-sm">Learn X-ray imaging, CT scans, radiation safety, and diagnostic imaging techniques.</p>
-              <ul class="space-y-2 text-sm text-gray-600 mb-4">
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-orange-600"></i>Duration: 2 Years</li>
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-orange-600"></i>RRBN Registration</li>
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-orange-600"></i>State-of-art Equipment</li>
-              </ul>
-            </div>
-            <div class="program-card shadow-lg card-hover p-6">
-              <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i data-lucide="smile" class="w-8 h-8 text-yellow-600"></i>
-              </div>
-              <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Dental Technology</h3>
-              <p class="text-gray-600 mb-4 text-center text-sm">Master dental prosthetics fabrication, orthodontic appliances, and dental laboratory procedures.</p>
-              <ul class="space-y-2 text-sm text-gray-600 mb-4">
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-yellow-600"></i>Duration: 2 Years</li>
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-yellow-600"></i>NBTE Accredited</li>
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-yellow-600"></i>Modern Lab</li>
-              </ul>
-            </div>
-            <div class="program-card shadow-lg card-hover p-6">
-              <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i data-lucide="activity" class="w-8 h-8 text-red-600"></i>
-              </div>
-              <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Physiotherapy Assistant</h3>
-              <p class="text-gray-600 mb-4 text-center text-sm">Training in therapeutic exercises, patient rehabilitation, and physical therapy techniques.</p>
-              <ul class="space-y-2 text-sm text-gray-600 mb-4">
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-red-600"></i>Duration: 18 Months</li>
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-red-600"></i>Clinical Practice</li>
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-red-600"></i>Practical Focus</li>
-              </ul>
-            </div>
-            <div class="program-card shadow-lg card-hover p-6">
-              <div class="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i data-lucide="leaf" class="w-8 h-8 text-teal-600"></i>
-              </div>
-              <h3 class="text-xl font-bold text-gray-800 mb-2 text-center">Environmental Health Technology</h3>
-              <p class="text-gray-600 mb-4 text-center text-sm">Learn public health inspection, sanitation, waste management, and environmental safety.</p>
-              <ul class="space-y-2 text-sm text-gray-600 mb-4">
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-teal-600"></i>Duration: 2 Years</li>
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-teal-600"></i>NBTE Certified</li>
-                <li class="flex items-center"><i data-lucide="check" class="w-4 h-4 mr-2 text-teal-600"></i>Field Work</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="py-16 bg-white">
-      <div class="container mx-auto px-4 fade-in">
-        <div class="max-w-6xl mx-auto">
-          <div class="text-center mb-12 section-divider">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Why Choose Heirs Institute</h2>
-            <p class="text-lg text-gray-600">Excellence in allied health education</p>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="bg-gray-50 p-6 rounded-xl shadow-md card-hover">
-              <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                <i data-lucide="award" class="w-7 h-7 text-blue-600"></i>
-              </div>
-              <h3 class="font-bold text-gray-800 mb-2">NBTE Accreditation</h3>
-              <p class="text-gray-600 text-sm">All our programs are fully accredited by the National Board for Technical Education, ensuring recognized certification.</p>
-            </div>
-            <div class="bg-gray-50 p-6 rounded-xl shadow-md card-hover">
-              <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                <i data-lucide="users" class="w-7 h-7 text-green-600"></i>
-              </div>
-              <h3 class="font-bold text-gray-800 mb-2">Expert Instructors</h3>
-              <p class="text-gray-600 text-sm">Learn from experienced healthcare professionals with years of practical experience in their fields.</p>
-            </div>
-            <div class="bg-gray-50 p-6 rounded-xl shadow-md card-hover">
-              <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-4">
-                <i data-lucide="building-2" class="w-7 h-7 text-purple-600"></i>
-              </div>
-              <h3 class="font-bold text-gray-800 mb-2">Hospital Integration</h3>
-              <p class="text-gray-600 text-sm">Direct access to Heirs Multispecialist Hospital for hands-on clinical training and real-world experience.</p>
-            </div>
-            <div class="bg-gray-50 p-6 rounded-xl shadow-md card-hover">
-              <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-4">
-                <i data-lucide="briefcase" class="w-7 h-7 text-orange-600"></i>
-              </div>
-              <h3 class="font-bold text-gray-800 mb-2">95% Job Placement</h3>
-              <p class="text-gray-600 text-sm">Most graduates secure employment within 6 months through our extensive healthcare network connections.</p>
-            </div>
-            <div class="bg-gray-50 p-6 rounded-xl shadow-md card-hover">
-              <div class="w-14 h-14 bg-red-100 rounded-full flex items-center justify-center mb-4">
-                <i data-lucide="zap" class="w-7 h-7 text-red-600"></i>
-              </div>
-              <h3 class="font-bold text-gray-800 mb-2">Modern Facilities</h3>
-              <p class="text-gray-600 text-sm">State-of-the-art laboratories, equipment, and learning resources for comprehensive practical training.</p>
-            </div>
-            <div class="bg-gray-50 p-6 rounded-xl shadow-md card-hover">
-              <div class="w-14 h-14 bg-yellow-100 rounded-full flex items-center justify-center mb-4">
-                <i data-lucide="dollar-sign" class="w-7 h-7 text-yellow-600"></i>
-              </div>
-              <h3 class="font-bold text-gray-800 mb-2">Scholarship Opportunities</h3>
-              <p class="text-gray-600 text-sm">Financial aid and scholarship programs available for qualified students to support your education.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
-      <div class="container mx-auto px-4 fade-in">
-        <div class="max-w-4xl mx-auto">
-          <div class="text-center mb-12 section-divider">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Admission Requirements & Process</h2>
-            <p class="text-lg text-gray-600">Simple steps to begin your healthcare career</p>
-          </div>
-          <div class="bg-white p-8 rounded-2xl shadow-lg mb-8">
-            <h3 class="text-2xl font-bold text-gray-800 mb-6">Entry Requirements</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
-                  <i data-lucide="graduation-cap" class="w-5 h-5 mr-2 text-blue-600"></i>
-                  Academic Qualifications
-                </h4>
-                <ul class="space-y-2 text-gray-600 text-sm">
-                  <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 text-blue-600"></i>Minimum of SSCE/WAEC/NECO with 5 credits including English and Mathematics</li>
-                  <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 text-blue-600"></i>Science subjects required for specific programs</li>
-                  <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 text-blue-600"></i>Age: Minimum 16 years at entry</li>
-                </ul>
-              </div>
-              <div>
-                <h4 class="font-semibold text-gray-800 mb-3 flex items-center">
-                  <i data-lucide="file-text" class="w-5 h-5 mr-2 text-green-600"></i>
-                  Required Documents
-                </h4>
-                <ul class="space-y-2 text-gray-600 text-sm">
-                  <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 text-green-600"></i>Completed application form</li>
-                  <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 text-green-600"></i>Original and photocopies of credentials</li>
-                  <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 text-green-600"></i>Birth certificate or age declaration</li>
-                  <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 text-green-600"></i>Passport photographs (4 copies)</li>
-                  <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 text-green-600"></i>Medical fitness certificate</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="bg-white p-8 rounded-2xl shadow-lg">
-            <h3 class="text-2xl font-bold text-gray-800 mb-6">Application Process</h3>
-            <div class="space-y-4">
-              <div class="flex items-start space-x-4">
-                <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">1</div>
-                <div>
-                  <h4 class="font-semibold text-gray-800 mb-1">Submit Application</h4>
-                  <p class="text-gray-600 text-sm">Complete and submit the online application form with all required documents.</p>
-                </div>
-              </div>
-              <div class="flex items-start space-x-4">
-                <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">2</div>
-                <div>
-                  <h4 class="font-semibold text-gray-800 mb-1">Entrance Examination</h4>
-                  <p class="text-gray-600 text-sm">Take the institute's entrance examination (English, Mathematics, and General Knowledge).</p>
-                </div>
-              </div>
-              <div class="flex items-start space-x-4">
-                <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">3</div>
-                <div>
-                  <h4 class="font-semibold text-gray-800 mb-1">Interview & Screening</h4>
-                  <p class="text-gray-600 text-sm">Attend an interview and document verification session with our admissions team.</p>
-                </div>
-              </div>
-              <div class="flex items-start space-x-4">
-                <div class="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center flex-shrink-0 font-bold">4</div>
-                <div>
-                  <h4 class="font-semibold text-gray-800 mb-1">Acceptance & Enrollment</h4>
-                  <p class="text-gray-600 text-sm">Receive admission letter, pay fees, and complete enrollment to begin your program.</p>
-                </div>
-              </div>
-            </div>
-            <div class="mt-8 p-6 bg-blue-50 rounded-lg border border-blue-200">
-              <div class="flex items-start space-x-3">
-                <i data-lucide="info" class="w-6 h-6 text-blue-600 flex-shrink-0"></i>
-                <div>
-                  <h4 class="font-semibold text-gray-800 mb-2">Important Dates</h4>
-                  <p class="text-gray-600 text-sm mb-2"><strong>Application Period:</strong> Ongoing admissions throughout the year</p>
-                  <p class="text-gray-600 text-sm mb-2"><strong>Entrance Exams:</strong> Conducted monthly</p>
-                  <p class="text-gray-600 text-sm"><strong>Program Start:</strong> Multiple intakes - January, May, and September</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="py-16 bg-white">
-      <div class="container mx-auto px-4 fade-in">
-        <div class="max-w-4xl mx-auto">
-          <div class="text-center mb-12 section-divider">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Scholarship & Financial Aid</h2>
-            <p class="text-lg text-gray-600">Making quality healthcare education accessible to all</p>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="bg-gradient-to-br from-green-50 to-emerald-50 p-8 rounded-2xl shadow-lg border border-green-200 card-hover">
-              <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i data-lucide="award" class="w-8 h-8 text-white"></i>
-              </div>
-              <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Merit Scholarships</h3>
-              <p class="text-gray-600 mb-4 text-center">Up to 50% tuition coverage for outstanding academic performance</p>
-              <ul class="space-y-2 text-sm text-gray-600">
-                <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 text-green-600"></i>Entrance exam score above 85%</li>
-                <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 text-green-600"></i>5 distinctions in SSCE/WAEC</li>
-                <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 text-green-600"></i>Renewable annually based on performance</li>
-              </ul>
-            </div>
-            <div class="bg-gradient-to-br from-blue-50 to-cyan-50 p-8 rounded-2xl shadow-lg border border-blue-200 card-hover">
-              <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i data-lucide="users" class="w-8 h-8 text-white"></i>
-              </div>
-              <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">Need-Based Aid</h3>
-              <p class="text-gray-600 mb-4 text-center">Financial assistance for deserving students with demonstrated need</p>
-              <ul class="space-y-2 text-sm text-gray-600">
-                <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 text-blue-600"></i>Up to 40% tuition support</li>
-                <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 text-blue-600"></i>Payment plan options available</li>
-                <li class="flex items-start"><i data-lucide="check" class="w-4 h-4 mr-2 mt-0.5 text-blue-600"></i>Work-study opportunities</li>
-              </ul>
-            </div>
-          </div>
-          <div class="mt-8 bg-gradient-to-r from-purple-50 to-pink-50 p-8 rounded-2xl shadow-lg border border-purple-200">
-            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">How to Apply for Scholarships</h3>
-            <p class="text-gray-600 text-center mb-6">Submit your scholarship application along with your admission application. Include:</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div class="text-center">
-                <div class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <i data-lucide="file-text" class="w-6 h-6 text-purple-600"></i>
-                </div>
-                <p class="text-sm text-gray-600">Personal statement explaining need or merit</p>
-              </div>
-              <div class="text-center">
-                <div class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <i data-lucide="mail" class="w-6 h-6 text-purple-600"></i>
-                </div>
-                <p class="text-sm text-gray-600">Two recommendation letters</p>
-              </div>
-              <div class="text-center">
-                <div class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <i data-lucide="folder" class="w-6 h-6 text-purple-600"></i>
-                </div>
-                <p class="text-sm text-gray-600">Supporting financial documents (if need-based)</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="py-16 bg-gray-50">
-      <div class="container mx-auto px-4 fade-in">
-        <div class="max-w-6xl mx-auto">
-          <div class="text-center mb-12 section-divider">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Facilities & Student Life</h2>
-            <p class="text-lg text-gray-600">World-class learning environment</p>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-white p-6 rounded-xl shadow-md card-hover text-center">
-              <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i data-lucide="flask-conical" class="w-7 h-7 text-blue-600"></i>
-              </div>
-              <h3 class="font-bold text-gray-800 mb-2">Modern Laboratories</h3>
-              <p class="text-gray-600 text-sm">Fully equipped labs with latest equipment for hands-on practice</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-md card-hover text-center">
-              <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i data-lucide="library" class="w-7 h-7 text-green-600"></i>
-              </div>
-              <h3 class="font-bold text-gray-800 mb-2">Resource Library</h3>
-              <p class="text-gray-600 text-sm">Extensive medical books, journals, and digital resources</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-md card-hover text-center">
-              <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i data-lucide="building-2" class="w-7 h-7 text-purple-600"></i>
-              </div>
-              <h3 class="font-bold text-gray-800 mb-2">Clinical Training</h3>
-              <p class="text-gray-600 text-sm">Direct access to hospital wards for practical experience</p>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-md card-hover text-center">
-              <div class="w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <i data-lucide="wifi" class="w-7 h-7 text-orange-600"></i>
-              </div>
-              <h3 class="font-bold text-gray-800 mb-2">Digital Learning</h3>
-              <p class="text-gray-600 text-sm">Free Wi-Fi, computer labs, and e-learning platforms</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-<section class="py-20 bg-white text-blue-800">
-  <div class="container mx-auto px-4 fade-in flex justify-center">
-    <div class="bg-blue-600/10 backdrop-blur-lg rounded-2xl shadow-xl p-10 max-w-3xl w-full text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-blue-800">
-        Start Your Healthcare Career Today
-      </h2>
-      <p class="text-lg mb-10 text-gray-700">
-        Join Heirs Institute of Allied Health and become part of the next generation of healthcare professionals transforming Nigeria's healthcare landscape.
-      </p>
-      <div class="flex justify-center">
-        <a
-          href="contact.html"
-          class="bg-blue-700 text-white px-8 py-4 rounded-full font-semibold hover:bg-blue-800 transition flex items-center justify-center"
-        >
-          <i data-lucide="edit" class="w-5 h-5 mr-2"></i> Apply for Admission
-        </a>
-      </div>
-      <p class="text-sm text-gray-700 mt-6">
-        <i data-lucide="phone" class="w-4 h-4 inline mr-1"></i>
-        Call us:
-        <a href="tel:+234123456789" class="text-blue-700 underline hover:no-underline font-semibold">
-          +234 123 456 789
-        </a>
-      </p>
-    </div>
-  </div>
-</section>
-  </main>
-  <footer class="footer-gradient text-white py-12">
-    <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-        <div class="lg:col-span-1">
-          <div class="flex items-center mb-6">
-            <div class="footer-logo-circle mr-4">
-              <i data-lucide="hospital" class="w-10 h-10 text-white"></i>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold">Heirs</h3>
-              <p class="text-sm text-gray-300">Multispecialist Hospital</p>
-            </div>
-          </div>
-          <p class="text-gray-300 mb-4">Providing exceptional healthcare services to Ekiti State since 2010. Your health, our priority.</p>
-          <div class="flex space-x-4">
-            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Facebook">
-              <i data-lucide="facebook" class="w-5 h-5"></i>
-            </a>
-            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Twitter">
-              <i data-lucide="twitter" class="w-5 h-5"></i>
-            </a>
-            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Instagram">
-              <i data-lucide="instagram" class="w-5 h-5"></i>
-            </a>
-            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="LinkedIn">
-              <i data-lucide="linkedin" class="w-5 h-5"></i>
-            </a>
-          </div>
-        </div>
-        <div>
-          <h4 class="text-lg font-semibold mb-4 flex items-center">
-            <i data-lucide="map-pin" class="w-5 h-5 mr-2"></i> Our Locations
-          </h4>
-          <div class="space-y-4">
-            <div>
-              <p class="font-semibold text-blue-300">Main Hospital - Oye Ekiti</p>
-              <p class="text-gray-300 text-sm">123 Hospital Road, Oye Ekiti, Ekiti State</p>
-            </div>
-            <div>
-              <p class="font-semibold text-blue-300">Institute Location</p>
-              <p class="text-gray-300 text-sm">Beside Aluko House, Irare Estate, Oye-Ekiti</p>
-            </div>
-            <div>
-              <p class="font-semibold text-blue-300">Ado Ekiti Branch</p>
-              <p class="text-gray-300 text-sm">Plot 3, Orimolade Crescent, Ilokun Estate, Ado Ekiti</p>
-            </div>
-          </div>
-          <div class="mt-4">
-            <p class="flex items-center text-gray-300 mb-2">
-              <i data-lucide="phone" class="w-4 h-4 mr-2"></i>
-              <a href="tel:+234123456789" class="hover:text-white transition">+234 123 456 789</a>
-            </p>
-            <p class="flex items-center text-gray-300">
-              <i data-lucide="mail" class="w-4 h-4 mr-2"></i>
-              <a href="mailto:info@heirsmultispecialist.com" class="hover:text-white transition">info@heirsmultispecialist.com</a>
-            </p>
-          </div>
-        </div>
-        <div>
-          <h4 class="text-lg font-semibold mb-4 flex items-center">
-            <i data-lucide="link" class="w-5 h-5 mr-2"></i> Quick Links
-          </h4>
-          <ul class="space-y-2">
-            <li><a href="index.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Home</a></li>
-            <li><a href="about.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> About Us</a></li>
-            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Services</a></li>
-            <li><a href="department.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Departments</a></li>
-            <li><a href="heirs-institute.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Heirs Institute</a></li>
-            <li><a href="blog.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Blog</a></li>
-            <li><a href="contact.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Contact</a></li>
+  </section>
+
+  <!-- Why -->
+  <section class="section bg-white" data-cms-section="Why Heirs Institute">
+    <div class="wrap">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-5 reveal-l">
+          <span class="eyebrow" data-cms="why.eyebrow" data-cms-label="Eyebrow">Why Heirs Institute</span>
+          <h2 class="hd-1 mt-4 mb-5" data-cms="why.title" data-cms-label="Heading">Learn where the patients are.</h2>
+          <p class="lead mb-6" data-cms="why.lead" data-cms-type="html" data-cms-label="Intro">Most health colleges teach in classrooms and send students elsewhere for practice. At Heirs, the hospital <em>is</em> the classroom, students rotate through our laboratory, pharmacy, radiology, wards and dialysis unit from their first term.</p>
+          <ul class="checks" data-cms="why.points" data-cms-type="lines" data-cms-label="Bullet points">
+            <li><span class="ck"><i data-lucide="check"></i></span> Over a decade of healthcare experience in Ekiti State behind every programme</li>
+            <li><span class="ck"><i data-lucide="check"></i></span> Curricula built for the private-sector workforce Nigeria urgently needs</li>
+            <li><span class="ck"><i data-lucide="check"></i></span> Automatic scholarship consideration on every admission application (limited slots)</li>
           </ul>
         </div>
-        <div>
-          <h4 class="text-lg font-semibold mb-4 flex items-center">
-            <i data-lucide="graduation-cap" class="w-5 h-5 mr-2"></i> Institute Programs
-          </h4>
-          <ul class="space-y-2">
-            <li><a href="#programs" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Community Health (CHEW)</a></li>
-            <li><a href="#programs" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Pharmacy Technician</a></li>
-            <li><a href="#programs" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Medical Lab Tech</a></li>
-            <li><a href="#programs" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Radiography</a></li>
-            <li><a href="#programs" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> All Programs</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="border-t border-gray-600 pt-8">
-        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <p class="text-gray-300 text-sm text-center md:text-left">
-            &copy; 2025 Heirs Multispecialist Hospital. All Rights Reserved.
-          </p>
-          <div class="flex items-center space-x-2">
-            <p class="text-gray-300 text-sm">Designed & Developed by</p>
-            <a href="#" class="masys-credit text-lg inline-block">MASYS</a>
-          </div>
-        </div>
-        <div class="mt-4 text-center">
-          <p class="text-gray-400 text-xs">Committed to Excellence in Healthcare | Ending Medical Tourism in Nigeria</p>
+        <div class="lg:col-span-7 grid sm:grid-cols-2 gap-5 stagger" data-cms-list="why.cards" data-cms-label="Reason cards">
+          <div class="card"><span class="icon-box sm blue mb-4" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box sm blue|teal|gold|coral mb-4"><i data-lucide="badge-check" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 class="font-display font-bold mb-1" data-cms-field="title" data-cms-label="Title">Recognised accreditation</h3><p class="text-sm text-muted" data-cms-field="text" data-cms-label="Text">Programmes aligned with NBTE, PCN, MLSCN and RRBN standards for professional registration.</p></div>
+          <div class="card"><span class="icon-box sm teal mb-4" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box sm blue|teal|gold|coral mb-4"><i data-lucide="hospital" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 class="font-display font-bold mb-1" data-cms-field="title" data-cms-label="Title">Hospital integration</h3><p class="text-sm text-muted" data-cms-field="text" data-cms-label="Text">Clinical rotations inside a 50-bed multispecialist hospital with ICU, dialysis and CT.</p></div>
+          <div class="card"><span class="icon-box sm gold mb-4" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box sm blue|teal|gold|coral mb-4"><i data-lucide="users" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 class="font-display font-bold mb-1" data-cms-field="title" data-cms-label="Title">Expert instructors</h3><p class="text-sm text-muted" data-cms-field="text" data-cms-label="Text">Taught by practising physicians, pharmacists, scientists and radiographers.</p></div>
+          <div class="card"><span class="icon-box sm coral mb-4" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box sm blue|teal|gold|coral mb-4"><i data-lucide="briefcase" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 class="font-display font-bold mb-1" data-cms-field="title" data-cms-label="Title">95% job placement</h3><p class="text-sm text-muted" data-cms-field="text" data-cms-label="Text">Graduates placed within six months, many within the Heirs network itself.</p></div>
         </div>
       </div>
     </div>
-  </footer>
-  <a href="#" class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition transform hover:scale-110 z-40" aria-label="Scroll to top">
-    <i data-lucide="arrow-up" class="w-5 h-5"></i>
-  </a>
-  <script>
-    lucide.createIcons();
-    function openMobileSidebar() {
-      document.getElementById('mobileSidebar').classList.add('open');
-      document.getElementById('sidebarOverlay').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeMobileSidebar() {
-      document.getElementById('mobileSidebar').classList.remove('open');
-      document.getElementById('sidebarOverlay').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', e => {
-        const href = anchor.getAttribute('href');
-        if (href !== '#') {
-          e.preventDefault();
-          const target = document.querySelector(href);
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-            closeMobileSidebar();
-          }
-        }
-      });
-    });
-    setTimeout(() => lucide.createIcons(), 100);
-  </script>
+  </section>
+
+  <!-- Programmes -->
+  <section id="programmes" class="section bg-surface dots-bg" style="scroll-margin-top:90px" data-cms-section="Programmes">
+    <div class="wrap">
+      <div class="max-w-2xl mx-auto text-center mb-12 reveal"><span class="eyebrow center" data-cms="prog.eyebrow" data-cms-label="Eyebrow">Accredited Programmes</span><h2 class="hd-1 mt-4 mb-4" data-cms="prog.title" data-cms-label="Heading">Eight pathways into healthcare</h2><p class="lead" data-cms="prog.lead" data-cms-label="Intro">Entry with SSCE/WAEC/NECO, graduate as a registered, employable professional.</p></div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 stagger" data-cms-list="prog.items" data-cms-label="Programmes">
+        <div class="prog"><span class="icon-box blue" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box blue|teal|gold|coral"><i data-lucide="heart-handshake" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 data-cms-field="title" data-cms-label="Programme">Community Health Extension Worker (CHEW)</h3><p data-cms-field="text" data-cms-label="Description">Frontline primary healthcare for communities, immunisation, maternal health and disease surveillance.</p><div class="meta"><span class="badge badge-blue" data-cms-field="duration" data-cms-label="Duration">2 years</span><span class="badge badge-outline" data-cms-field="accred" data-cms-label="Accreditation">NBTE accredited</span></div></div>
+        <div class="prog"><span class="icon-box teal" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box blue|teal|gold|coral"><i data-lucide="pill" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 data-cms-field="title" data-cms-label="Programme">Pharmacy Technician</h3><p data-cms-field="text" data-cms-label="Description">Dispensing, inventory and patient counselling, trained inside a fully stocked hospital pharmacy.</p><div class="meta"><span class="badge badge-blue" data-cms-field="duration" data-cms-label="Duration">2 years</span><span class="badge badge-outline" data-cms-field="accred" data-cms-label="Accreditation">PCN certified</span></div></div>
+        <div class="prog"><span class="icon-box gold" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box blue|teal|gold|coral"><i data-lucide="flask-conical" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 data-cms-field="title" data-cms-label="Programme">Medical Laboratory Technician</h3><p data-cms-field="text" data-cms-label="Description">Haematology, chemistry, microbiology and blood-bank practice in an ultramodern laboratory.</p><div class="meta"><span class="badge badge-blue" data-cms-field="duration" data-cms-label="Duration">2 years</span><span class="badge badge-outline" data-cms-field="accred" data-cms-label="Accreditation">MLSCN registered</span></div></div>
+        <div class="prog"><span class="icon-box coral" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box blue|teal|gold|coral"><i data-lucide="database" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 data-cms-field="title" data-cms-label="Programme">Health Information Management</h3><p data-cms-field="text" data-cms-label="Description">Medical records, coding, data protection and digital health systems.</p><div class="meta"><span class="badge badge-blue" data-cms-field="duration" data-cms-label="Duration">2 years</span><span class="badge badge-outline" data-cms-field="accred" data-cms-label="Accreditation">NBTE certified</span></div></div>
+        <div class="prog"><span class="icon-box blue" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box blue|teal|gold|coral"><i data-lucide="scan" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 data-cms-field="title" data-cms-label="Programme">Radiography Technician</h3><p data-cms-field="text" data-cms-label="Description">Digital X-ray, ultrasound and CT support with hands-on experience in our radiology suite.</p><div class="meta"><span class="badge badge-blue" data-cms-field="duration" data-cms-label="Duration">2 years</span><span class="badge badge-outline" data-cms-field="accred" data-cms-label="Accreditation">RRBN registered</span></div></div>
+        <div class="prog"><span class="icon-box teal" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box blue|teal|gold|coral"><i data-lucide="smile" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 data-cms-field="title" data-cms-label="Programme">Dental Technology</h3><p data-cms-field="text" data-cms-label="Description">Dental appliances, prosthetics and chairside support alongside our dental clinic.</p><div class="meta"><span class="badge badge-blue" data-cms-field="duration" data-cms-label="Duration">2 years</span><span class="badge badge-outline" data-cms-field="accred" data-cms-label="Accreditation">NBTE accredited</span></div></div>
+        <div class="prog"><span class="icon-box gold" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box blue|teal|gold|coral"><i data-lucide="accessibility" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 data-cms-field="title" data-cms-label="Programme">Physiotherapy Assistant</h3><p data-cms-field="text" data-cms-label="Description">Rehabilitation techniques, mobility support and post-operative care with a clinical-practice focus.</p><div class="meta"><span class="badge badge-blue" data-cms-field="duration" data-cms-label="Duration">18 months</span><span class="badge badge-outline" data-cms-field="accred" data-cms-label="Accreditation">Clinical practice</span></div></div>
+        <div class="prog"><span class="icon-box coral" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box blue|teal|gold|coral"><i data-lucide="leaf" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 data-cms-field="title" data-cms-label="Programme">Environmental Health Technology</h3><p data-cms-field="text" data-cms-label="Description">Sanitation, water safety, vector control and public-health inspection.</p><div class="meta"><span class="badge badge-blue" data-cms-field="duration" data-cms-label="Duration">2 years</span><span class="badge badge-outline" data-cms-field="accred" data-cms-label="Accreditation">NBTE certified</span></div></div>
+      </div>
+      <div class="mt-10 card card-flat reveal" style="border-color:var(--gold-100); background:var(--gold-100)">
+        <div class="flex flex-col md:flex-row md:items-center gap-5">
+          <span class="icon-box gold" style="background:#fff"><i data-lucide="laptop"></i></span>
+          <div class="flex-1"><h3 class="font-display font-bold text-ink mb-1" data-cms="prog.onlineTitle" data-cms-label="Online courses title">Also available online: Heirs Certification Courses</h3><p class="text-sm text-muted" data-cms="prog.onlineText" data-cms-label="Online courses text">Certified Healthcare Assistant (₦50,000), Graduate Clinical Care Associate (₦50,000), Certificate in Midwifery & Obstetrics Care (₦50,000) and Trauma-Informed Care (₦300,000), self-paced via the Fosterheirs learning platform.</p></div>
+          <a href="fosterheirs.html#courses" class="btn btn-dark btn-sm"><span data-cms="prog.onlineBtn" data-cms-label="Online courses button">Browse online courses</span> <i data-lucide="arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Admissions -->
+  <section id="apply" class="section bg-white" style="scroll-margin-top:90px" data-cms-section="Admissions">
+    <div class="wrap">
+      <div class="grid lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-5 reveal-l">
+          <span class="eyebrow" data-cms="adm.eyebrow" data-cms-label="Eyebrow">Admissions</span>
+          <h2 class="hd-1 mt-4 mb-5" data-cms="adm.title" data-cms-label="Heading">Entry requirements</h2>
+          <ul class="req-list mb-8" data-cms-list="adm.reqs" data-cms-label="Entry requirements">
+            <li><i data-lucide="check-circle-2"></i><span data-cms-field="text" data-cms-type="html" data-cms-label="Requirement">Minimum of <strong>SSCE / WAEC / NECO</strong> with five credits, including English Language and Mathematics</span></li>
+            <li><i data-lucide="check-circle-2"></i><span data-cms-field="text" data-cms-type="html" data-cms-label="Requirement">Science subjects (Biology, Chemistry, Physics) required for laboratory, pharmacy and radiography programmes</span></li>
+            <li><i data-lucide="check-circle-2"></i><span data-cms-field="text" data-cms-type="html" data-cms-label="Requirement">Minimum age of <strong>16 years</strong> at the time of admission</span></li>
+            <li><i data-lucide="check-circle-2"></i><span data-cms-field="text" data-cms-type="html" data-cms-label="Requirement">Completed application form, academic credentials and birth certificate</span></li>
+            <li><i data-lucide="check-circle-2"></i><span data-cms-field="text" data-cms-type="html" data-cms-label="Requirement">Four passport photographs and a medical fitness certificate</span></li>
+          </ul>
+          <div class="card card-soft card-flat">
+            <div class="flex items-start gap-4"><span class="icon-box sm blue"><i data-lucide="phone"></i></span><div><div class="font-display font-bold text-ink mb-1">Admissions office</div><p class="text-sm text-muted">Call or WhatsApp <a href="tel:+2347042481085" class="font-semibold text-brand-600">+234 704 248 1085</a> · <a href="mailto:contact@heirsspecialisthospital.com.ng" class="font-semibold text-brand-600">contact@heirsspecialisthospital.com.ng</a><br>Heirs Multispecialist Hospital, Irare Estate, Oye-Ekiti</p></div></div>
+          </div>
+        </div>
+        <div class="lg:col-span-7 reveal-r">
+          <div class="grid gap-5 mb-8" data-cms-list="adm.steps" data-cms-label="Application steps">
+            <div class="step"><span class="num-badge" data-cms-field="num" data-cms-label="Number">1</span><div><h3 class="font-display font-bold text-ink" data-cms-field="title" data-cms-label="Title">Submit your application</h3><p class="text-sm text-muted" data-cms-field="text" data-cms-label="Text">Complete the online application form (Google Forms) or collect a form at the Oye-Ekiti campus. Every application is automatically considered for a scholarship, slots are limited.</p></div></div>
+            <div class="step"><span class="num-badge" data-cms-field="num" data-cms-label="Number">2</span><div><h3 class="font-display font-bold text-ink" data-cms-field="title" data-cms-label="Title">Entrance examination</h3><p class="text-sm text-muted" data-cms-field="text" data-cms-label="Text">A written test in English, Mathematics and General Knowledge, held monthly.</p></div></div>
+            <div class="step"><span class="num-badge" data-cms-field="num" data-cms-label="Number">3</span><div><h3 class="font-display font-bold text-ink" data-cms-field="title" data-cms-label="Title">Interview & screening</h3><p class="text-sm text-muted" data-cms-field="text" data-cms-label="Text">A short interview with faculty and verification of your credentials and medical fitness.</p></div></div>
+            <div class="step"><span class="num-badge" data-cms-field="num" data-cms-label="Number">4</span><div><h3 class="font-display font-bold text-ink" data-cms-field="title" data-cms-label="Title">Acceptance & enrolment</h3><p class="text-sm text-muted" data-cms-field="text" data-cms-label="Text">Receive your admission letter, complete registration and join the next intake.</p></div></div>
+          </div>
+          <form class="card" onsubmit="event.preventDefault(); const d=new FormData(this); window.open('https://wa.me/2347042481085?text='+encodeURIComponent('Admission enquiry - Heirs Institute of Allied Health\n\nName: '+d.get('n')+'\nPhone: '+d.get('p')+'\nProgramme: '+d.get('pr')+'\nIntake: '+d.get('i')),'_blank');">
+            <h3 class="hd-3 mb-1" data-cms="adm.formTitle" data-cms-label="Form title">Start your application</h3><p class="text-sm text-muted mb-5" data-cms="adm.formText" data-cms-label="Form intro">Tell us who you are and which programme interests you, our admissions team will send you the application form.</p>
+            <div class="grid md:grid-cols-2 gap-4 mb-5">
+              <div class="field"><label>Full name <span class="req">*</span></label><input class="input" name="n" required></div>
+              <div class="field"><label>Phone / WhatsApp <span class="req">*</span></label><input class="input" name="p" type="tel" required></div>
+              <div class="field"><label>Programme</label><select class="select" name="pr"><option>Community Health Extension Worker</option><option>Pharmacy Technician</option><option>Medical Laboratory Technician</option><option>Health Information Management</option><option>Radiography Technician</option><option>Dental Technology</option><option>Physiotherapy Assistant</option><option>Environmental Health Technology</option></select></div>
+              <div class="field"><label>Preferred intake</label><select class="select" name="i"><option>January</option><option>May</option><option>September</option></select></div>
+            </div>
+            <button class="btn btn-primary btn-block"><i data-lucide="send"></i> Request Application Form</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dates + Scholarships -->
+  <section class="section" style="background:var(--navy); color:#fff; position:relative; overflow:hidden" data-cms-section="Dates & scholarships">
+    <div class="blob blob-blue" style="width:500px;height:500px;right:-150px;top:-150px"></div>
+    <div class="wrap relative">
+      <div class="grid lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-5 reveal-l">
+          <span class="eyebrow on-dark" data-cms="dates.eyebrow" data-cms-label="Eyebrow">Important Dates</span>
+          <h2 class="hd-1 mt-4 mb-6 text-white" data-cms="dates.title" data-cms-label="Heading">Applications are open all year.</h2>
+          <div class="grid grid-cols-3 gap-4 mb-8" data-cms-list="dates.intakes" data-cms-label="Intake months">
+            <div class="date-card"><div class="big" data-cms-field="month" data-cms-label="Month">Jan</div><div class="lbl" data-cms-field="label" data-cms-label="Label">Intake</div></div>
+            <div class="date-card"><div class="big" data-cms-field="month" data-cms-label="Month">May</div><div class="lbl" data-cms-field="label" data-cms-label="Label">Intake</div></div>
+            <div class="date-card"><div class="big" data-cms-field="month" data-cms-label="Month">Sep</div><div class="lbl" data-cms-field="label" data-cms-label="Label">Intake</div></div>
+          </div>
+          <ul class="checks on-dark" data-cms="dates.points" data-cms-type="lines" data-cms-label="Key dates">
+            <li><span class="ck"><i data-lucide="check"></i></span> Applications accepted throughout the year</li>
+            <li><span class="ck"><i data-lucide="check"></i></span> Entrance examinations held monthly</li>
+            <li><span class="ck"><i data-lucide="check"></i></span> Programme intakes in January, May and September</li>
+          </ul>
+        </div>
+        <div class="lg:col-span-7 reveal-r">
+          <span class="eyebrow on-dark" data-cms="schol.eyebrow" data-cms-label="Eyebrow">Scholarships & Financial Aid</span>
+          <h2 class="hd-1 mt-4 mb-6 text-white" data-cms="schol.title" data-cms-label="Heading">Talent shouldn't wait for money.</h2>
+          <div class="grid sm:grid-cols-2 gap-5 mb-5">
+            <div class="schol" style="background:var(--gold-500); color:var(--navy)"><div class="pct" data-cms="schol.1.pct" data-cms-label="Merit percentage">50%</div><div class="font-display font-bold mt-2 mb-1" data-cms="schol.1.title" data-cms-label="Merit title">Merit scholarship</div><p class="text-sm" style="color:rgba(6,26,53,.8)" data-cms="schol.1.text" data-cms-label="Merit text">Up to 50% tuition for applicants scoring 85%+ in the entrance exam or with five distinctions in SSCE.</p></div>
+            <div class="schol glass"><div class="pct" style="color:var(--teal-500)" data-cms="schol.2.pct" data-cms-label="Need-based percentage">40%</div><div class="font-display font-bold mt-2 mb-1 text-white" data-cms="schol.2.title" data-cms-label="Need-based title">Need-based aid</div><p class="text-sm" style="color:rgba(255,255,255,.75)" data-cms="schol.2.text" data-cms-label="Need-based text">Up to 40% tuition support for students who demonstrate financial need, assessed confidentially.</p></div>
+          </div>
+          <div class="glass p-6 flex flex-col md:flex-row md:items-center gap-5">
+            <span class="icon-box" style="background:rgba(255,255,255,.1);color:var(--gold-500)"><i data-lucide="wallet"></i></span>
+            <div class="flex-1"><div class="font-display font-bold text-white mb-1" data-cms="schol.3.title" data-cms-label="Payment plans title">Payment plans & work-study</div><p class="text-sm" style="color:rgba(255,255,255,.72)" data-cms="schol.3.text" data-cms-label="Payment plans text">Instalment plans are available for all programmes, and work-study placements within the hospital help students offset fees while gaining experience. Scholarship applications are submitted separately after admission.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Student life -->
+  <section class="section bg-white" data-cms-section="Student life">
+    <div class="wrap">
+      <div class="max-w-2xl mx-auto text-center mb-12 reveal"><span class="eyebrow center" data-cms="life.eyebrow" data-cms-label="Eyebrow">Facilities & Student Life</span><h2 class="hd-1 mt-4 mb-4" data-cms="life.title" data-cms-label="Heading">Trained in the real thing</h2></div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 stagger" data-cms-list="life.photos" data-cms-label="Photos">
+        <div class="photo-card"><img src="assets/img/facility-lab.jpg" alt="Laboratory" data-cms-field="img" data-cms-label="Photo"><div class="cap"><strong data-cms-field="title" data-cms-label="Caption">Modern laboratories</strong><span data-cms-field="sub" data-cms-label="Sub-caption">Real diagnostic equipment</span></div></div>
+        <div class="photo-card"><img src="assets/img/facility-ward.jpg" alt="Clinical training" data-cms-field="img" data-cms-label="Photo"><div class="cap"><strong data-cms-field="title" data-cms-label="Caption">Clinical training</strong><span data-cms-field="sub" data-cms-label="Sub-caption">Rotations on live wards</span></div></div>
+        <div class="photo-card"><img src="assets/img/facility-pharmacy.jpg" alt="Pharmacy" data-cms-field="img" data-cms-label="Photo"><div class="cap"><strong data-cms-field="title" data-cms-label="Caption">Pharmacy practice</strong><span data-cms-field="sub" data-cms-label="Sub-caption">Dispensing & counselling</span></div></div>
+        <div class="photo-card"><img src="assets/img/facility-consult.jpg" alt="Digital learning" data-cms-field="img" data-cms-label="Photo"><div class="cap"><strong data-cms-field="title" data-cms-label="Caption">Digital learning</strong><span data-cms-field="sub" data-cms-label="Sub-caption">24/7 access to course materials</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-24 bg-white" data-cms-section="Call to action">
+    <div class="wrap">
+      <div class="cta-band reveal">
+        <div class="orb a"></div><div class="orb b"></div>
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+          <div class="lg:col-span-8"><span class="eyebrow on-dark" data-cms="cta.eyebrow" data-cms-label="Eyebrow">Next intake opening soon</span><h2 class="hd-1 mt-4 mb-4" data-cms="cta.title" data-cms-label="Heading">Build a career that heals.</h2><p class="lead" style="color:rgba(255,255,255,.78)" data-cms="cta.lead" data-cms-label="Text">Apply now for automatic scholarship consideration, slots are limited.</p></div>
+          <div class="lg:col-span-4 flex flex-col gap-3"><a href="#apply" class="btn btn-gold btn-lg"><i data-lucide="file-pen-line"></i> Apply for Admission</a><a href="tel:+2347042481085" class="btn btn-ghost btn-lg"><i data-lucide="phone"></i> +234 704 248 1085</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+  <script src="assets/js/cms.js"></script>
+  <script src="assets/js/heirs.js"></script>
 </body>
 </html>

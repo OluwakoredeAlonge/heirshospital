@@ -3,876 +3,195 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Departments at Heirs Multispecialist Hospital: Explore our specialized departments including Radiology, Dental, Laboratory, Pharmacy, Emergency, Nutrition, and Therapy in Oye Ekiti and Ado Ekiti.">
-  <meta name="keywords" content="Heirs Multispecialist Hospital departments, Radiology Ekiti, Dental department, Laboratory, Pharmacy, Emergency care">
-  <title>Departments - Heirs Multispecialist Hospital</title>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "MedicalOrganization",
-    "name": "Heirs Multispecialist Hospital",
-    "department": [
-      {"@type": "MedicalDepartment", "name": "Radiology & Imaging"},
-      {"@type": "MedicalDepartment", "name": "Dental Care"},
-      {"@type": "MedicalDepartment", "name": "Laboratory Services"},
-      {"@type": "MedicalDepartment", "name": "Pharmacy"},
-      {"@type": "MedicalDepartment", "name": "Emergency Medicine"},
-      {"@type": "MedicalDepartment", "name": "Nutrition & Dietetics"},
-      {"@type": "MedicalDepartment", "name": "Therapy & Rehabilitation"}
-    ],
-    "url": "https://heirsmultispecialisthospital.com.ng/departments"
-  }
-  </script>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <title>Departments | Heirs Multispecialist Hospital</title>
+  <meta name="description" content="Specialist departments at Heirs Multispecialist Hospital, Ekiti: nephrology & dialysis, cardiology, radiology & CT, surgery & orthopaedics, obstetrics & gynaecology, emergency & critical care, laboratory, dental, ophthalmology, mental health, pharmacy, nutrition and physiotherapy.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/js/tw.js"></script>
+  <link rel="stylesheet" href="assets/css/heirs.css">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; }
-    .mobile-sidebar {
-      position: fixed;
-      top: 0;
-      right: -100%;
-      width: 280px;
-      height: 100vh;
-      background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
-      transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-      z-index: 1000;
-      overflow-y: auto;
-      box-shadow: -5px 0 25px rgba(0,0,0,0.3);
-    }
-    .mobile-sidebar.open { right: 0; }
-    .mobile-sidebar-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background: rgba(0,0,0,0.5);
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-      z-index: 999;
-    }
-    .mobile-sidebar-overlay.open {
-      opacity: 1;
-      visibility: visible;
-    }
-    .logo-circle {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #2563eb, #1e40af);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-    }
-    .footer-logo-circle {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #2563eb, #1e40af);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-    }
-    .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
-    .fade-in.visible { opacity: 1; transform: translateY(0); }
-    .card-hover { transition: all 0.3s ease; }
-    .card-hover:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-    .gradient-text { 
-      background: linear-gradient(135deg, #2563eb, #1e40af); 
-      -webkit-background-clip: text; 
-      -webkit-text-fill-color: transparent; 
-    }
-    .nav-dropdown {
-      position: relative;
-    }
- .nav-dropdown::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  height: 8px;
-  background: transparent;
-}
-.nav-dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: white;
-  min-width: 200px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-  border-radius: 8px;
-  margin-top: 8px;  
-  z-index: 100;
-  padding: 8px 0;   
-}
-    .nav-dropdown:hover .nav-dropdown-content {
-      display: block;
-    }
-    .section-divider { position: relative; padding-top: 20px; }
-    .section-divider::before { 
-      content: ''; 
-      position: absolute; 
-      top: 0; 
-      left: 50%; 
-      transform: translateX(-50%); 
-      width: 100px; 
-      height: 4px; 
-      background: linear-gradient(135deg, #2563eb, #1e40af); 
-      border-radius: 2px; 
-    }
-    .btn-primary { 
-      background-color: #ffffff; 
-      color: #2563eb; 
-      transition: all 0.3s ease; 
-    }
-    .btn-primary:hover { 
-      background-color: #e2e8f0; 
-      transform: scale(1.05); 
-    }
-    .department-card {
-      background: white;
-      border-radius: 16px;
-      overflow: hidden;
-      position: relative;
-    }
-    .department-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 6px;
-      background: linear-gradient(90deg, #2563eb, #3b82f6);
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-    }
-    .department-card:hover::before {
-      transform: scaleX(1);
-    }
-    .department-carousel { 
-      transition: transform 0.5s ease;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-    .carousel-btn { 
-      background-color: rgba(255, 255, 255, 0.9); 
-      color: #2563eb; 
-      padding: 8px; 
-      border-radius: 50%; 
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-    .carousel-btn:hover { 
-      background-color: #2563eb; 
-      color: #fff; 
-      transform: scale(1.1);
-    }
-    .footer-gradient {
-      background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-    }
-    .masys-credit {
-      background: linear-gradient(90deg, #2563eb, #3b82f6);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 700;
-      transition: all 0.3s ease;
-    }
-    .masys-credit:hover {
-      transform: scale(1.05);
-    }
-    .dept-icon-circle {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 16px;
-      transition: all 0.3s ease;
-    }
-    .department-card:hover .dept-icon-circle {
-      transform: scale(1.1) rotate(5deg);
-    }
+    .dept { display: grid; border-radius: 28px; overflow: hidden; background: #fff; border: 1px solid var(--line); transition: transform .35s var(--ease), box-shadow .35s var(--ease); scroll-margin-top: 110px; }
+    .dept:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .dept .img { position: relative; min-height: 200px; background: var(--navy); }
+    .dept .img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .dept .img .badge { position: absolute; top: 14px; left: 14px; }
+    .dept .img .ic { position: absolute; right: 14px; bottom: -22px; }
+    .dept .body { padding: 34px 26px 26px; }
+    .dept h3 { font-size: 1.25rem; margin-bottom: 8px; }
+    .dept p { color: var(--muted); font-size: 14.5px; line-height: 1.7; }
+    .dept ul { display: grid; gap: 7px; margin-top: 14px; }
+    .dept li { display: flex; align-items: flex-start; gap: 8px; font-size: 13.5px; color: var(--text); }
+    .dept li svg { width: 15px; height: 15px; color: var(--teal-600); flex: none; margin-top: 2px; }
+    .dept .meta { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--line); font-size: 12.5px; color: var(--muted); }
+    .dept .meta span { display: inline-flex; align-items: center; gap: 5px; }
+    .dept .meta svg { width: 14px; height: 14px; color: var(--blue-600); }
+    .dept.hide { display: none; }
   </style>
 </head>
-<body class="text-gray-800 bg-gray-50">
-  <div class="mobile-sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
-  <div class="mobile-sidebar" id="mobileSidebar">
-    <div class="p-6">
-      <div class="flex justify-between items-center mb-8">
-        <div class="flex items-center">
-          <div class="logo-circle mr-3">
-            <i data-lucide="hospital" class="w-6 h-6 text-white"></i>
-          </div>
-          <span class="text-white font-bold text-lg">Heirs</span>
-        </div>
-        <button onclick="closeMobileSidebar()" class="text-white">
-          <i data-lucide="x" class="w-6 h-6"></i>
-        </button>
-      </div>
-      <nav class="space-y-1">
-        <a href="index.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-          <i data-lucide="home" class="w-5 h-5 mr-3"></i> Home
-        </a>
-        <a href="about.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-          <i data-lucide="info" class="w-5 h-5 mr-3"></i> About
-        </a>
-        <div class="border-t border-white border-opacity-20 pt-2 mt-2">
-          <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Care Services</p>
-          <a href="services.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-            <i data-lucide="stethoscope" class="w-5 h-5 mr-3"></i> Services
-          </a>
-          <a href="department.html" class="flex items-center text-white bg-white bg-opacity-20 px-4 py-3 rounded-lg transition">
-            <i data-lucide="layout-grid" class="w-5 h-5 mr-3"></i> Departments
-          </a>
-        </div>
-        <div class="border-t border-white border-opacity-20 pt-2 mt-2">
-          <p class="text-white text-opacity-60 text-xs uppercase tracking-wider px-4 mb-2">Resources</p>
-          <a href="heirs-institute.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-            <i data-lucide="graduation-cap" class="w-5 h-5 mr-3"></i> Heirs Institute
-          </a>
-          <a href="blog.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-            <i data-lucide="newspaper" class="w-5 h-5 mr-3"></i> Blog
-          </a>
-        </div>
-        <a href="contact.html" class="flex items-center text-white hover:bg-white hover:bg-opacity-10 px-4 py-3 rounded-lg transition">
-          <i data-lucide="mail" class="w-5 h-5 mr-3"></i> Contact
-        </a>
-        <div class="border-t border-white border-opacity-20 pt-4 mt-4 space-y-3">
-          <a href="contact.html#appointmentform" class="flex items-center justify-center bg-white text-blue-600 px-4 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition">
-            <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
-          </a>
-          <a href="tel:+234123456789" class="flex items-center justify-center bg-red-500 text-white px-4 py-3 rounded-lg font-semibold hover:bg-red-600 transition">
-            <i data-lucide="phone" class="w-5 h-5 mr-2"></i> Emergency
-          </a>
-        </div>
-      </nav>
+<body data-page="department">
+  <div id="site-header"></div>
+
+  <section class="page-hero" data-cms-section="Hero">
+    <div class="hero-bg"><img src="assets/img/facility-ward.jpg" alt="" data-cms="hero.bg" data-cms-label="Background image"></div>
+    <div class="hero-grid"></div>
+    <div class="wrap relative">
+      <div class="crumbs"><a href="index.html">Home</a><i data-lucide="chevron-right"></i><span class="cur">Departments</span></div>
+      <span class="eyebrow on-dark" data-cms="hero.eyebrow" data-cms-label="Eyebrow">Our Departments</span>
+      <h1 class="hd-1 mt-4 mb-5 max-w-3xl" data-cms="hero.title" data-cms-label="Headline">Specialist units, working as one team.</h1>
+      <p class="lead max-w-2xl" data-cms="hero.lead" data-cms-label="Intro">Fifteen clinical, diagnostic and support departments across our Oye-Ekiti and Ado-Ekiti branches, coordinated so your care never falls between the gaps.</p>
     </div>
-  </div>
-  <header class="fixed top-0 w-full bg-white shadow-md z-50">
-    <div class="container mx-auto px-4 py-3">
-      <div class="flex justify-between items-center">
-        <a href="index.html" class="flex items-center">
-          <div class="logo-circle mr-3">
-            <i data-lucide="hospital" class="w-6 h-6 text-white"></i>
-          </div>
-          <span class="text-2xl font-bold text-blue-600">Heirs</span>
-        </a>
-        <nav class="hidden lg:flex items-center space-x-1">
-          <a href="index.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
-            <i data-lucide="home" class="w-4 h-4 mr-1"></i> Home
-          </a>
-          <a href="about.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
-            <i data-lucide="info" class="w-4 h-4 mr-1"></i> About
-          </a>
-          <div class="nav-dropdown">
-            <button class="text-blue-600 font-semibold px-3 py-2 rounded-lg transition flex items-center">
-              <i data-lucide="heart-pulse" class="w-4 h-4 mr-1"></i> Care <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
-            </button>
-            <div class="nav-dropdown-content">
-              <a href="services.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
-                <i data-lucide="stethoscope" class="w-4 h-4 mr-2"></i> Services
-              </a>
-              <a href="department.html" class="block px-4 py-3 text-blue-600 bg-blue-50 font-semibold transition flex items-center">
-                <i data-lucide="layout-grid" class="w-4 h-4 mr-2"></i> Departments
-              </a>
-            </div>
-          </div>
-          <div class="nav-dropdown">
-            <button class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
-              <i data-lucide="book-open" class="w-4 h-4 mr-1"></i> Resources <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
-            </button>
-            <div class="nav-dropdown-content">
-              <a href="heirs-institute.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
-                <i data-lucide="graduation-cap" class="w-4 h-4 mr-2"></i> Heirs Institute
-              </a>
-              <a href="blog.html" class="block px-4 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition flex items-center">
-                <i data-lucide="newspaper" class="w-4 h-4 mr-2"></i> Blog
-              </a>
-            </div>
-          </div>
-          <a href="contact.html" class="text-gray-600 hover:text-blue-600 px-3 py-2 rounded-lg transition flex items-center">
-            <i data-lucide="mail" class="w-4 h-4 mr-1"></i> Contact
-          </a>
-        </nav>
-        <div class="flex items-center space-x-3">
-          <a href="contact.html#appointmentform" class="hidden md:flex bg-blue-600 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-blue-700 transition whitespace-nowrap">
-            <i data-lucide="calendar" class="w-4 h-4 mr-2"></i> Book Appointment
-          </a>
-          <a href="tel:+234123456789" class="hidden sm:flex bg-red-500 text-white px-4 py-2 rounded-full text-sm items-center hover:bg-red-600 transition whitespace-nowrap">
-            <i data-lucide="phone" class="w-4 h-4 mr-2"></i> Emergency
-          </a>
-          <button onclick="openMobileSidebar()" class="lg:hidden text-gray-600 hover:text-blue-600 transition">
-            <i data-lucide="menu" class="w-6 h-6"></i>
-          </button>
+  </section>
+
+  <section class="section bg-surface" data-cms-section="Departments">
+    <div class="wrap">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 reveal">
+        <div><span class="eyebrow" data-cms="list.eyebrow" data-cms-label="Eyebrow">Browse</span><h2 class="hd-2 mt-3" data-cms="list.title" data-cms-label="Heading">15 departments</h2></div>
+        <div class="tabs" id="deptFilter">
+          <button class="active" data-f="all">All</button><button data-f="clinical">Clinical</button><button data-f="diagnostic">Diagnostic</button><button data-f="support">Support</button>
         </div>
       </div>
-    </div>
-  </header>
-  <main class="pt-20">
-    <section id="departments" class="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
-      <div class="container mx-auto px-4 fade-in">
-        <div class="text-center mb-12 section-divider">
-          <span class="inline-block bg-blue-100 text-blue-600 px-4 py-2 rounded-full text-sm font-semibold mb-4">Comprehensive Healthcare</span>
-          <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Our Specialized Departments</h1>
-          <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">Discover our specialized departments, each equipped with state-of-the-art technology and staffed by expert professionals dedicated to providing the highest quality care in Ekiti State.</p>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-          <div class="bg-white p-4 rounded-xl shadow-md text-center">
-            <div class="text-3xl font-bold text-blue-600 mb-1">7</div>
-            <div class="text-gray-600 text-sm">Departments</div>
-          </div>
-          <div class="bg-white p-4 rounded-xl shadow-md text-center">
-            <div class="text-3xl font-bold text-blue-600 mb-1">50+</div>
-            <div class="text-gray-600 text-sm">Specialists</div>
-          </div>
-          <div class="bg-white p-4 rounded-xl shadow-md text-center">
-            <div class="text-3xl font-bold text-blue-600 mb-1">24/7</div>
-            <div class="text-gray-600 text-sm">Emergency Care</div>
-          </div>
-          <div class="bg-white p-4 rounded-xl shadow-md text-center">
-            <div class="text-3xl font-bold text-blue-600 mb-1">2</div>
-            <div class="text-gray-600 text-sm">Locations</div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="py-16 bg-white">
-      <div class="container mx-auto px-4 fade-in">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-          <div class="department-card shadow-lg card-hover">
-            <div class="p-6">
-              <div class="dept-icon-circle bg-blue-100">
-                <i data-lucide="scan" class="w-8 h-8 text-blue-600"></i>
-              </div>
-              <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Radiology & Imaging</h3>
-              <p class="text-blue-600 font-semibold mb-4 text-center">Diagnostic Excellence</p>
-              <p class="text-gray-600 mb-4 text-center">Advanced imaging services including digital X-ray, ultrasound, and CT scans for accurate diagnosis of various medical conditions.</p>
-              <div class="bg-gray-50 p-4 rounded-lg mb-4">
-                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
-                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-blue-600"></i>
-                  Services Offered
-                </h4>
-                <ul class="space-y-1 text-sm text-gray-600">
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Digital X-Ray</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Ultrasound Scanning</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>CT Scan (Select Location)</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Mammography</li>
-                </ul>
-              </div>
-              <div class="relative">
-                <div id="radiology-carousel" class="department-carousel overflow-hidden">
-                  <div class="flex">
-                    <img src="https://cdn.pixabay.com/photo/2018/01/22/11/02/hospital-3098683_1280.jpg" alt="Radiology Equipment" class="min-w-full h-48 object-cover">
-                    <img src="https://cdn.pixabay.com/photo/2021/07/29/06/31/ct-scan-6506418_1280.jpg" alt="CT Scan Room" class="min-w-full h-48 object-cover">
-                    <img src="https://cdn.pixabay.com/photo/2021/12/02/22/15/x-ray-6841384_1280.jpg" alt="X-Ray Imaging" class="min-w-full h-48 object-cover">
-                  </div>
-                </div>
-                <button onclick="prevSlide('radiology')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Previous">
-                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
-                </button>
-                <button onclick="nextSlide('radiology')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Next">
-                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="department-card shadow-lg card-hover">
-            <div class="p-6">
-              <div class="dept-icon-circle bg-green-100">
-                <i data-lucide="smile" class="w-8 h-8 text-green-600"></i>
-              </div>
-              <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Dental Care</h3>
-              <p class="text-green-600 font-semibold mb-4 text-center">Complete Oral Health</p>
-              <p class="text-gray-600 mb-4 text-center">Comprehensive dental services from routine checkups to advanced procedures for optimal oral health and beautiful smiles.</p>
-              <div class="bg-gray-50 p-4 rounded-lg mb-4">
-                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
-                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-green-600"></i>
-                  Services Offered
-                </h4>
-                <ul class="space-y-1 text-sm text-gray-600">
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>General Dentistry</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Orthodontics & Braces</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Teeth Whitening</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Dental Surgery</li>
-                </ul>
-              </div>
-              <div class="relative">
-                <div id="dental-carousel" class="department-carousel overflow-hidden">
-                  <div class="flex">
-                    <img src="https://cdn.pixabay.com/photo/2014/08/26/21/54/dentist-428646_1280.jpg" alt="Dental Chair" class="min-w-full h-48 object-cover">
-                    <img src="https://cdn.pixabay.com/photo/2017/07/23/10/44/dentist-2530990_1280.jpg" alt="Dental Procedure" class="min-w-full h-48 object-cover">
-                    <img src="https://cdn.pixabay.com/photo/2022/12/16/23/26/dental-lab-7660684_1280.jpg" alt="Dental Lab" class="min-w-full h-48 object-cover">
-                  </div>
-                </div>
-                <button onclick="prevSlide('dental')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Previous">
-                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
-                </button>
-                <button onclick="nextSlide('dental')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Next">
-                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="department-card shadow-lg card-hover">
-            <div class="p-6">
-              <div class="dept-icon-circle bg-purple-100">
-                <i data-lucide="flask-conical" class="w-8 h-8 text-purple-600"></i>
-              </div>
-              <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Laboratory Services</h3>
-              <p class="text-purple-600 font-semibold mb-4 text-center">Precise Diagnostics</p>
-              <p class="text-gray-600 mb-4 text-center">State-of-the-art laboratory providing accurate and timely diagnostic testing to support effective treatment plans.</p>
-              <div class="bg-gray-50 p-4 rounded-lg mb-4">
-                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
-                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-purple-600"></i>
-                  Services Offered
-                </h4>
-                <ul class="space-y-1 text-sm text-gray-600">
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Blood Tests & Analysis</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Pathology Services</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Microbiology Testing</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Hormone Screening</li>
-                </ul>
-              </div>
-              <div class="relative">
-                <div id="laboratory-carousel" class="department-carousel overflow-hidden">
-                  <div class="flex">
-                    <img src="https://cdn.pixabay.com/photo/2017/10/04/09/56/laboratory-2815641_1280.jpg" alt="Lab Equipment" class="min-w-full h-48 object-cover">
-                    <img src="https://cdn.pixabay.com/photo/2017/10/05/21/45/laboratory-2821207_1280.jpg" alt="Lab Analysis" class="min-w-full h-48 object-cover">
-                    <img src="https://cdn.pixabay.com/photo/2024/05/25/08/19/hospital-8786610_1280.jpg" alt="Lab Testing" class="min-w-full h-48 object-cover">
-                  </div>
-                </div>
-                <button onclick="prevSlide('laboratory')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Previous">
-                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
-                </button>
-                <button onclick="nextSlide('laboratory')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Next">
-                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="department-card shadow-lg card-hover">
-            <div class="p-6">
-              <div class="dept-icon-circle bg-orange-100">
-                <i data-lucide="pill" class="w-8 h-8 text-orange-600"></i>
-              </div>
-              <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Pharmacy</h3>
-              <p class="text-orange-600 font-semibold mb-4 text-center">Quality Medications</p>
-              <p class="text-gray-600 mb-4 text-center">Fully stocked pharmacy ensuring timely access to quality medications with expert pharmaceutical guidance.</p>
-              <div class="bg-gray-50 p-4 rounded-lg mb-4">
-                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
-                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-orange-600"></i>
-                  Services Offered
-                </h4>
-                <ul class="space-y-1 text-sm text-gray-600">
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Prescription Filling</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Over-the-Counter Drugs</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Medication Counseling</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Drug Information</li>
-                </ul>
-              </div>
-              <div class="relative">
-                <div id="pharmacy-carousel" class="department-carousel overflow-hidden">
-                  <div class="flex">
-                    <img src="https://cdn.pixabay.com/photo/2018/05/06/00/52/pharmacy-3377670_1280.jpg" alt="Pharmacy Counter" class="min-w-full h-48 object-cover">
-                    <img src="https://cdn.pixabay.com/photo/2017/04/28/18/07/havana-2269053_1280.jpg" alt="Pharmacy Shelves" class="min-w-full h-48 object-cover">
-                    <img src="https://cdn.pixabay.com/photo/2013/11/26/17/23/pharmacy-218692_1280.jpg" alt="Pharmacist" class="min-w-full h-48 object-cover">
-                  </div>
-                </div>
-                <button onclick="prevSlide('pharmacy')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Previous">
-                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
-                </button>
-                <button onclick="nextSlide('pharmacy')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Next">
-                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="department-card shadow-lg card-hover">
-            <div class="p-6">
-              <div class="dept-icon-circle bg-red-100">
-                <i data-lucide="heart-pulse" class="w-8 h-8 text-red-600"></i>
-              </div>
-              <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Emergency Medicine</h3>
-              <p class="text-red-600 font-semibold mb-4 text-center">24/7 Critical Care</p>
-              <p class="text-gray-600 mb-4 text-center">Round-the-clock emergency services with skilled professionals ready to provide immediate care for acute illnesses and injuries.</p>
-              <div class="bg-gray-50 p-4 rounded-lg mb-4">
-                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
-                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-red-600"></i>
-                  Services Offered
-                </h4>
-                <ul class="space-y-1 text-sm text-gray-600">
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Trauma Care</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Rapid Response Team</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Ambulance Services</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Life Support</li>
-                </ul>
-              </div>
-              <div class="relative">
-                <div id="emergency-carousel" class="department-carousel overflow-hidden">
-                  <div class="flex">
-                    <img src="https://cdn.pixabay.com/photo/2018/04/16/02/38/emergency-room-3323451_1280.jpg" alt="Emergency Room" class="min-w-full h-48 object-cover">
-                    <img src="https://cdn.pixabay.com/photo/2020/03/27/22/41/emergency-medical-services-4975223_1280.jpg" alt="Ambulance" class="min-w-full h-48 object-cover">
-                    <img src="https://cdn.pixabay.com/photo/2013/02/10/22/26/arabian-gulf-80359_1280.jpg" alt="Emergency Care" class="min-w-full h-48 object-cover">
-                  </div>
-                </div>
-                <button onclick="prevSlide('emergency')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Previous">
-                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
-                </button>
-                <button onclick="nextSlide('emergency')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Next">
-                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="department-card shadow-lg card-hover">
-            <div class="p-6">
-              <div class="dept-icon-circle bg-yellow-100">
-                <i data-lucide="apple" class="w-8 h-8 text-yellow-600"></i>
-              </div>
-              <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Nutrition & Dietetics</h3>
-              <p class="text-yellow-600 font-semibold mb-4 text-center">Healthy Living</p>
-              <p class="text-gray-600 mb-4 text-center">Personalized dietary advice and meal planning to support recovery, manage chronic conditions, and maintain optimal health.</p>
-              <div class="bg-gray-50 p-4 rounded-lg mb-4">
-                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
-                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-yellow-600"></i>
-                  Services Offered
-                </h4>
-                <ul class="space-y-1 text-sm text-gray-600">
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Diet Consultation</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Meal Planning</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Weight Management</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Disease-Specific Diets</li>
-                </ul>
-              </div>
-              <div class="relative">
-                <div id="nutrition-carousel" class="department-carousel overflow-hidden">
-                  <div class="flex">
-                    <img src="https://cdn.pixabay.com/photo/2020/08/21/18/53/healthy-5506822_1280.jpg" alt="Healthy Foods" class="min-w-full h-48 object-cover">
-                    <img src="https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-fruits-2305192_1280.jpg" alt="Fresh Fruits" class="min-w-full h-48 object-cover">
-                    <img src="https://cdn.pixabay.com/photo/2015/12/09/17/11/vegetables-1085063_1280.jpg" alt="Vegetables" class="min-w-full h-48 object-cover">
-                  </div>
-                </div>
-                <button onclick="prevSlide('nutrition')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Previous">
-                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
-                </button>
-                <button onclick="nextSlide('nutrition')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Next">
-                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="department-card shadow-lg card-hover">
-            <div class="p-6">
-              <div class="dept-icon-circle bg-indigo-100">
-                <i data-lucide="activity" class="w-8 h-8 text-indigo-600"></i>
-              </div>
-              <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Therapy & Rehabilitation</h3>
-              <p class="text-indigo-600 font-semibold mb-4 text-center">Recovery Support</p>
-              <p class="text-gray-600 mb-4 text-center">Comprehensive therapy services including physical, occupational, and speech therapy to aid recovery and improve quality of life.</p>
-              <div class="bg-gray-50 p-4 rounded-lg mb-4">
-                <h4 class="font-semibold text-gray-800 mb-2 flex items-center">
-                  <i data-lucide="check-circle" class="w-4 h-4 mr-2 text-indigo-600"></i>
-                  Services Offered
-                </h4>
-                <ul class="space-y-1 text-sm text-gray-600">
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Physical Therapy</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Occupational Therapy</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Speech Therapy</li>
-                  <li class="flex items-center"><i data-lucide="dot" class="w-4 h-4 mr-1"></i>Pain Management</li>
-                </ul>
-              </div>
-              <div class="relative">
-                <div id="therapy-carousel" class="department-carousel overflow-hidden">
-                  <div class="flex">
-                    <img src="https://cdn.pixabay.com/photo/2017/01/30/02/20/mental-health-2019924_1280.jpg" alt="Therapy Session" class="min-w-full h-48 object-cover">
-                    <img src="https://cdn.pixabay.com/photo/2023/07/09/17/02/anxiety-8116570_1280.jpg" alt="Rehabilitation" class="min-w-full h-48 object-cover">
-                    <img src="https://cdn.pixabay.com/photo/2016/07/01/22/34/people-1492052_1280.jpg" alt="Physical Therapy" class="min-w-full h-48 object-cover">
-                  </div>
-                </div>
-                <button onclick="prevSlide('therapy')" class="absolute left-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Previous">
-                  <i data-lucide="chevron-left" class="w-5 h-5"></i>
-                </button>
-                <button onclick="nextSlide('therapy')" class="absolute right-2 top-1/2 -translate-y-1/2 carousel-btn" aria-label="Next">
-                  <i data-lucide="chevron-right" class="w-5 h-5"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="py-16 bg-gray-50">
-      <div class="container mx-auto px-4 fade-in">
-        <div class="max-w-4xl mx-auto">
-          <div class="text-center mb-12 section-divider">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Why Choose Our Departments</h2>
-            <p class="text-lg text-gray-600">Excellence in every aspect of care</p>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-white p-6 rounded-xl shadow-md">
-              <div class="flex items-start space-x-4">
-                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <i data-lucide="award" class="w-6 h-6 text-blue-600"></i>
-                </div>
-                <div>
-                  <h3 class="font-bold text-gray-800 mb-2">Expert Professionals</h3>
-                  <p class="text-gray-600 text-sm">Our departments are staffed by highly qualified specialists with years of experience in their respective fields.</p>
-                </div>
-              </div>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-md">
-              <div class="flex items-start space-x-4">
-                <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <i data-lucide="zap" class="w-6 h-6 text-green-600"></i>
-                </div>
-                <div>
-                  <h3 class="font-bold text-gray-800 mb-2">Modern Equipment</h3>
-                  <p class="text-gray-600 text-sm">State-of-the-art technology and equipment ensure accurate diagnostics and effective treatments.</p>
-                </div>
-              </div>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-md">
-              <div class="flex items-start space-x-4">
-                <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <i data-lucide="users" class="w-6 h-6 text-purple-600"></i>
-                </div>
-                <div>
-                  <h3 class="font-bold text-gray-800 mb-2">Patient-Centered Care</h3>
-                  <p class="text-gray-600 text-sm">We prioritize your comfort, dignity, and wellbeing in every interaction and treatment.</p>
-                </div>
-              </div>
-            </div>
-            <div class="bg-white p-6 rounded-xl shadow-md">
-              <div class="flex items-start space-x-4">
-                <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
-                  <i data-lucide="clock" class="w-6 h-6 text-orange-600"></i>
-                </div>
-                <div>
-                  <h3 class="font-bold text-gray-800 mb-2">Timely Service</h3>
-                  <p class="text-gray-600 text-sm">Quick turnaround times for diagnostics and treatments without compromising on quality.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-<section class="py-20 bg-white text-blue-800">
-  <div class="container mx-auto px-4 fade-in flex justify-center">
-    <div class="bg-blue-600/10 backdrop-blur-lg rounded-2xl shadow-xl p-10 max-w-3xl w-full text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-blue-800">
-        Ready for Specialized Care?
-      </h2>
-      <p class="text-lg mb-10 text-gray-700">
-        Our departments are equipped with the latest technology and staffed by experts dedicated to your health. Book an appointment today and experience excellence in healthcare.
-      </p>
-      <div class="flex flex-col md:flex-row justify-center gap-4">
-        <a
-          href="contact.html#appointmentform"
-          class="bg-blue-700 text-white px-8 py-4 rounded-full font-semibold hover:bg-blue-800 transition flex items-center justify-center"
-        >
-          <i data-lucide="calendar" class="w-5 h-5 mr-2"></i> Book Appointment
-        </a>
-        <a
-          href="contact.html"
-          class="border border-blue-700 text-blue-700 px-8 py-4 rounded-full font-semibold hover:bg-blue-700 hover:text-white transition flex items-center justify-center"
-        >
-          <i data-lucide="phone" class="w-5 h-5 mr-2"></i> Contact Us
-        </a>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 stagger" id="deptGrid" data-cms-list="departments" data-cms-label="Department cards" data-cms-hint="Category must be clinical, diagnostic or support (used by the filter buttons)">
+
+        <article id="nephrology" class="dept" data-cat="clinical" data-cms-field="cat" data-cms-attr="data-cat" data-cms-label="Category (clinical / diagnostic / support)">
+          <div class="img"><img src="assets/img/facility-ward.jpg" alt="Nephrology & dialysis" data-cms-field="img" data-cms-label="Image"><span class="badge badge-gold" data-cms-field="badge" data-cms-label="Badge">Centre of Excellence</span><span class="icon-box grad ic" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box grad|blue|teal|gold|coral ic"><i data-lucide="droplets" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span></div>
+          <div class="body"><h3 data-cms-field="title" data-cms-label="Name">Nephrology & Dialysis</h3><p data-cms-field="text" data-cms-label="Description">Specialised care for kidney disease with haemodialysis and peritoneal dialysis options.</p>
+            <ul data-cms-field="features" data-cms-type="lines" data-cms-label="Key services (one per line)"><li><i data-lucide="check-circle-2"></i><span data-cms-text>Chronic & acute kidney disease management</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Haemodialysis & peritoneal dialysis</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Renal diet & transplant work-up</span></li></ul>
+            <div class="meta" data-cms-field="meta" data-cms-type="lines" data-cms-label="Meta notes (one per line)"><span><i data-lucide="map-pin"></i><span data-cms-text>Oye-Ekiti</span></span><span><i data-lucide="calendar"></i><span data-cms-text>Sessions weekly</span></span></div></div>
+        </article>
+
+        <article id="cardiology" class="dept" data-cat="clinical" data-cms-field="cat" data-cms-attr="data-cat" data-cms-label="Category (clinical / diagnostic / support)">
+          <div class="img"><img src="assets/img/facility-icu.jpg" alt="Cardiology" data-cms-field="img" data-cms-label="Image"><span class="badge badge-blue" data-cms-field="badge" data-cms-label="Badge">Clinical</span><span class="icon-box coral ic" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box grad|blue|teal|gold|coral ic"><i data-lucide="heart-pulse" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span></div>
+          <div class="body"><h3 data-cms-field="title" data-cms-label="Name">Cardiology</h3><p data-cms-field="text" data-cms-label="Description">Heart and cardiovascular disease treatment with a full suite of cardiopulmonary tests.</p>
+            <ul data-cms-field="features" data-cms-type="lines" data-cms-label="Key services (one per line)"><li><i data-lucide="check-circle-2"></i><span data-cms-text>ECG & echocardiography</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Hypertension & heart-failure clinics</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Cardiopulmonary function tests</span></li></ul>
+            <div class="meta" data-cms-field="meta" data-cms-type="lines" data-cms-label="Meta notes (one per line)"><span><i data-lucide="map-pin"></i><span data-cms-text>Both branches</span></span><span><i data-lucide="user-round-check"></i><span data-cms-text>Visiting cardiologist</span></span></div></div>
+        </article>
+
+        <article id="imaging" class="dept" data-cat="diagnostic" data-cms-field="cat" data-cms-attr="data-cat" data-cms-label="Category (clinical / diagnostic / support)">
+          <div class="img"><img src="assets/img/facility-consult.jpg" alt="Radiology & imaging" data-cms-field="img" data-cms-label="Image"><span class="badge badge-teal" data-cms-field="badge" data-cms-label="Badge">Diagnostic</span><span class="icon-box teal ic" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box grad|blue|teal|gold|coral ic"><i data-lucide="scan" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span></div>
+          <div class="body"><h3 data-cms-field="title" data-cms-label="Name">Radiology & Imaging</h3><p data-cms-field="text" data-cms-label="Description">CT scan, digital X-ray and ultrasound with rapid reporting for confident diagnosis.</p>
+            <ul data-cms-field="features" data-cms-type="lines" data-cms-label="Key services (one per line)"><li><i data-lucide="check-circle-2"></i><span data-cms-text>Computerised tomography (CT)</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Digital X-ray</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Obstetric & general ultrasound</span></li></ul>
+            <div class="meta" data-cms-field="meta" data-cms-type="lines" data-cms-label="Meta notes (one per line)"><span><i data-lucide="map-pin"></i><span data-cms-text>Both branches</span></span><span><i data-lucide="clock"></i><span data-cms-text>Reports within 24h</span></span></div></div>
+        </article>
+
+        <article id="surgery" class="dept" data-cat="clinical" data-cms-field="cat" data-cms-attr="data-cat" data-cms-label="Category (clinical / diagnostic / support)">
+          <div class="img"><img src="assets/img/facility-icu.jpg" alt="Surgery" data-cms-field="img" data-cms-label="Image"><span class="badge badge-blue" data-cms-field="badge" data-cms-label="Badge">Clinical</span><span class="icon-box gold ic" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box grad|blue|teal|gold|coral ic"><i data-lucide="scissors" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span></div>
+          <div class="body"><h3 data-cms-field="title" data-cms-label="Name">Surgery & Orthopaedics</h3><p data-cms-field="text" data-cms-label="Description">General and specialised surgery including hip & knee replacement and surgical oncology.</p>
+            <ul data-cms-field="features" data-cms-type="lines" data-cms-label="Key services (one per line)"><li><i data-lucide="check-circle-2"></i><span data-cms-text>General & emergency surgery</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Hip & knee replacement</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Fracture & trauma management</span></li></ul>
+            <div class="meta" data-cms-field="meta" data-cms-type="lines" data-cms-label="Meta notes (one per line)"><span><i data-lucide="map-pin"></i><span data-cms-text>Oye-Ekiti</span></span><span><i data-lucide="bed"></i><span data-cms-text>Post-op ICU available</span></span></div></div>
+        </article>
+
+        <article id="obgyn" class="dept" data-cat="clinical" data-cms-field="cat" data-cms-attr="data-cat" data-cms-label="Category (clinical / diagnostic / support)">
+          <div class="img"><img src="assets/img/facility-ward.jpg" alt="Obstetrics & gynaecology" data-cms-field="img" data-cms-label="Image"><span class="badge badge-blue" data-cms-field="badge" data-cms-label="Badge">Clinical</span><span class="icon-box blue ic" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box grad|blue|teal|gold|coral ic"><i data-lucide="baby" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span></div>
+          <div class="body"><h3 data-cms-field="title" data-cms-label="Name">Obstetrics & Gynaecology</h3><p data-cms-field="text" data-cms-label="Description">Antenatal care, safe delivery and women's health across every stage of life.</p>
+            <ul data-cms-field="features" data-cms-type="lines" data-cms-label="Key services (one per line)"><li><i data-lucide="check-circle-2"></i><span data-cms-text>Antenatal & postnatal clinics</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Normal & caesarean deliveries</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Gynaecological surgery</span></li></ul>
+            <div class="meta" data-cms-field="meta" data-cms-type="lines" data-cms-label="Meta notes (one per line)"><span><i data-lucide="map-pin"></i><span data-cms-text>Both branches</span></span><span><i data-lucide="siren"></i><span data-cms-text>24/7 obstetric emergencies</span></span></div></div>
+        </article>
+
+        <article id="internal" class="dept" data-cat="clinical" data-cms-field="cat" data-cms-attr="data-cat" data-cms-label="Category (clinical / diagnostic / support)">
+          <div class="img"><img src="assets/img/facility-consult.jpg" alt="Internal medicine" data-cms-field="img" data-cms-label="Image"><span class="badge badge-blue" data-cms-field="badge" data-cms-label="Badge">Clinical</span><span class="icon-box blue ic" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box grad|blue|teal|gold|coral ic"><i data-lucide="stethoscope" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span></div>
+          <div class="body"><h3 data-cms-field="title" data-cms-label="Name">Internal Medicine & Gastroenterology</h3><p data-cms-field="text" data-cms-label="Description">Led by our Medical Director, managing diabetes, hypertension, infections and digestive disease.</p>
+            <ul data-cms-field="features" data-cms-type="lines" data-cms-label="Key services (one per line)"><li><i data-lucide="check-circle-2"></i><span data-cms-text>Diabetes & hypertension management</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Gastroenterology & liver disease</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Executive medical check-ups</span></li></ul>
+            <div class="meta" data-cms-field="meta" data-cms-type="lines" data-cms-label="Meta notes (one per line)"><span><i data-lucide="map-pin"></i><span data-cms-text>Both branches</span></span><span><i data-lucide="user-round-check"></i><span data-cms-text>Dr. Michael Soje</span></span></div></div>
+        </article>
+
+        <article id="critical-care" class="dept" data-cat="clinical" data-cms-field="cat" data-cms-attr="data-cat" data-cms-label="Category (clinical / diagnostic / support)">
+          <div class="img"><img src="assets/img/facility-icu.jpg" alt="Emergency & critical care" data-cms-field="img" data-cms-label="Image"><span class="badge badge-coral" data-cms-field="badge" data-cms-label="Badge">24 / 7</span><span class="icon-box coral ic" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box grad|blue|teal|gold|coral ic"><i data-lucide="siren" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span></div>
+          <div class="body"><h3 data-cms-field="title" data-cms-label="Name">Emergency & Critical Care</h3><p data-cms-field="text" data-cms-label="Description">Round-the-clock emergency room, intensive care unit and ambulance services.</p>
+            <ul data-cms-field="features" data-cms-type="lines" data-cms-label="Key services (one per line)"><li><i data-lucide="check-circle-2"></i><span data-cms-text>Resuscitation & trauma stabilisation</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>ICU with advanced life support</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Ambulance & inter-facility transfer</span></li></ul>
+            <div class="meta" data-cms-field="meta" data-cms-type="lines" data-cms-label="Meta notes (one per line)"><span><i data-lucide="map-pin"></i><span data-cms-text>Oye-Ekiti (main)</span></span><span><i data-lucide="phone"></i><span data-cms-text>+234 803 638 6440</span></span></div></div>
+        </article>
+
+        <article id="paediatrics" class="dept" data-cat="clinical" data-cms-field="cat" data-cms-attr="data-cat" data-cms-label="Category (clinical / diagnostic / support)">
+          <div class="img"><img src="assets/img/facility-consult.jpg" alt="Paediatrics" data-cms-field="img" data-cms-label="Image"><span class="badge badge-blue" data-cms-field="badge" data-cms-label="Badge">Clinical</span><span class="icon-box teal ic" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box grad|blue|teal|gold|coral ic"><i data-lucide="baby" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span></div>
+          <div class="body"><h3 data-cms-field="title" data-cms-label="Name">Paediatrics</h3><p data-cms-field="text" data-cms-label="Description">Compassionate care for newborns, children and adolescents, from immunisation to acute illness.</p>
+            <ul data-cms-field="features" data-cms-type="lines" data-cms-label="Key services (one per line)"><li><i data-lucide="check-circle-2"></i><span data-cms-text>Well-baby & immunisation clinics</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Childhood infections & malaria</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Growth & nutrition monitoring</span></li></ul>
+            <div class="meta" data-cms-field="meta" data-cms-type="lines" data-cms-label="Meta notes (one per line)"><span><i data-lucide="map-pin"></i><span data-cms-text>Both branches</span></span><span><i data-lucide="user-round-check"></i><span data-cms-text>Visiting paediatrician</span></span></div></div>
+        </article>
+
+        <article id="laboratory" class="dept" data-cat="diagnostic" data-cms-field="cat" data-cms-attr="data-cat" data-cms-label="Category (clinical / diagnostic / support)">
+          <div class="img"><img src="assets/img/facility-lab.jpg" alt="Laboratory" data-cms-field="img" data-cms-label="Image"><span class="badge badge-teal" data-cms-field="badge" data-cms-label="Badge">Diagnostic</span><span class="icon-box blue ic" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box grad|blue|teal|gold|coral ic"><i data-lucide="flask-conical" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span></div>
+          <div class="body"><h3 data-cms-field="title" data-cms-label="Name">Laboratory & Blood Bank</h3><p data-cms-field="text" data-cms-label="Description">An all-inclusive ultramodern laboratory with blood transfusion services on site.</p>
+            <ul data-cms-field="features" data-cms-type="lines" data-cms-label="Key services (one per line)"><li><i data-lucide="check-circle-2"></i><span data-cms-text>Haematology, chemistry & microbiology</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Blood bank & cross-matching</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Medical & pre-employment screening</span></li></ul>
+            <div class="meta" data-cms-field="meta" data-cms-type="lines" data-cms-label="Meta notes (one per line)"><span><i data-lucide="map-pin"></i><span data-cms-text>Both branches</span></span><span><i data-lucide="clock"></i><span data-cms-text>Most results in 24–48h</span></span></div></div>
+        </article>
+
+        <article id="dental" class="dept" data-cat="clinical" data-cms-field="cat" data-cms-attr="data-cat" data-cms-label="Category (clinical / diagnostic / support)">
+          <div class="img"><img src="assets/img/facility-consult.jpg" alt="Dental" data-cms-field="img" data-cms-label="Image"><span class="badge badge-blue" data-cms-field="badge" data-cms-label="Badge">Clinical</span><span class="icon-box teal ic" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box grad|blue|teal|gold|coral ic"><i data-lucide="smile" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span></div>
+          <div class="body"><h3 data-cms-field="title" data-cms-label="Name">Dental Clinic</h3><p data-cms-field="text" data-cms-label="Description">Complete specialised dental services for the whole family.</p>
+            <ul data-cms-field="features" data-cms-type="lines" data-cms-label="Key services (one per line)"><li><i data-lucide="check-circle-2"></i><span data-cms-text>Scaling, fillings & extractions</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Crowns, dentures & orthodontics</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Paediatric & emergency dentistry</span></li></ul>
+            <div class="meta" data-cms-field="meta" data-cms-type="lines" data-cms-label="Meta notes (one per line)"><span><i data-lucide="map-pin"></i><span data-cms-text>Both branches</span></span><span><i data-lucide="calendar"></i><span data-cms-text>Appointments daily</span></span></div></div>
+        </article>
+
+        <article id="ophthalmology" class="dept" data-cat="clinical" data-cms-field="cat" data-cms-attr="data-cat" data-cms-label="Category (clinical / diagnostic / support)">
+          <div class="img"><img src="assets/img/facility-consult.jpg" alt="Eye clinic" data-cms-field="img" data-cms-label="Image"><span class="badge badge-blue" data-cms-field="badge" data-cms-label="Badge">Clinical</span><span class="icon-box gold ic" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box grad|blue|teal|gold|coral ic"><i data-lucide="eye" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span></div>
+          <div class="body"><h3 data-cms-field="title" data-cms-label="Name">Eye Clinic</h3><p data-cms-field="text" data-cms-label="Description">Eye examinations and treatment of common and chronic eye conditions.</p>
+            <ul data-cms-field="features" data-cms-type="lines" data-cms-label="Key services (one per line)"><li><i data-lucide="check-circle-2"></i><span data-cms-text>Vision testing & refraction</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Glaucoma & diabetic-eye screening</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Infection & injury management</span></li></ul>
+            <div class="meta" data-cms-field="meta" data-cms-type="lines" data-cms-label="Meta notes (one per line)"><span><i data-lucide="map-pin"></i><span data-cms-text>Oye-Ekiti</span></span></div></div>
+        </article>
+
+        <article id="mental-health" class="dept" data-cat="clinical" data-cms-field="cat" data-cms-attr="data-cat" data-cms-label="Category (clinical / diagnostic / support)">
+          <div class="img"><img src="assets/img/founders.jpg" alt="Fosterheirs mental health" style="object-position:top" data-cms-field="img" data-cms-label="Image"><span class="badge badge-gold" data-cms-field="badge" data-cms-label="Badge">Fosterheirs</span><span class="icon-box gold ic" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box grad|blue|teal|gold|coral ic"><i data-lucide="brain" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span></div>
+          <div class="body"><h3 data-cms-field="title" data-cms-label="Name">Mental Health & Addiction Recovery</h3><p data-cms-field="text" data-cms-label="Description">Fosterheirs Mental Health Consultancy, psycho-trauma therapy, addiction rehab and counselling.</p>
+            <ul data-cms-field="features" data-cms-type="lines" data-cms-label="Key services (one per line)"><li><i data-lucide="check-circle-2"></i><span data-cms-text>Trauma therapy (CBT, Compassionate Inquiry)</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Outpatient & residential addiction recovery</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Marriage, premarital & individual counselling</span></li></ul>
+            <div class="meta" data-cms-field="meta" data-cms-type="lines" data-cms-label="Meta notes (one per line)"><span><i data-lucide="map-pin"></i><span data-cms-text>Oye-Ekiti complex</span></span><span><i data-lucide="user-round-check"></i><span data-cms-text>Dr. Anthonia Soje</span></span></div></div>
+        </article>
+
+        <article id="pharmacy" class="dept" data-cat="support" data-cms-field="cat" data-cms-attr="data-cat" data-cms-label="Category (clinical / diagnostic / support)">
+          <div class="img"><img src="assets/img/facility-pharmacy.jpg" alt="Pharmacy" data-cms-field="img" data-cms-label="Image"><span class="badge badge-outline" data-cms-field="badge" data-cms-label="Badge">Support</span><span class="icon-box teal ic" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box grad|blue|teal|gold|coral ic"><i data-lucide="pill" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span></div>
+          <div class="body"><h3 data-cms-field="title" data-cms-label="Name">Pharmacy</h3><p data-cms-field="text" data-cms-label="Description">Fully stocked in-house pharmacy with pharmacist counselling and solar-powered cold-chain storage.</p>
+            <ul data-cms-field="features" data-cms-type="lines" data-cms-label="Key services (one per line)"><li><i data-lucide="check-circle-2"></i><span data-cms-text>Prescription & OTC dispensing</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Chronic medication refills</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Drug-interaction counselling</span></li></ul>
+            <div class="meta" data-cms-field="meta" data-cms-type="lines" data-cms-label="Meta notes (one per line)"><span><i data-lucide="map-pin"></i><span data-cms-text>Both branches</span></span><span><i data-lucide="clock"></i><span data-cms-text>Open with hospital hours</span></span></div></div>
+        </article>
+
+        <article id="nutrition" class="dept" data-cat="support" data-cms-field="cat" data-cms-attr="data-cat" data-cms-label="Category (clinical / diagnostic / support)">
+          <div class="img"><img src="assets/img/blog-nutrition.jpg" alt="Nutrition & dietetics" data-cms-field="img" data-cms-label="Image"><span class="badge badge-outline" data-cms-field="badge" data-cms-label="Badge">Support</span><span class="icon-box gold ic" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box grad|blue|teal|gold|coral ic"><i data-lucide="salad" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span></div>
+          <div class="body"><h3 data-cms-field="title" data-cms-label="Name">Nutrition & Dietetics</h3><p data-cms-field="text" data-cms-label="Description">Personalised diet plans and dietitian-planned inpatient meals.</p>
+            <ul data-cms-field="features" data-cms-type="lines" data-cms-label="Key services (one per line)"><li><i data-lucide="check-circle-2"></i><span data-cms-text>Renal, diabetic & cardiac diets</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Maternal & child nutrition</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Weight management</span></li></ul>
+            <div class="meta" data-cms-field="meta" data-cms-type="lines" data-cms-label="Meta notes (one per line)"><span><i data-lucide="map-pin"></i><span data-cms-text>Both branches</span></span></div></div>
+        </article>
+
+        <article id="physiotherapy" class="dept" data-cat="support" data-cms-field="cat" data-cms-attr="data-cat" data-cms-label="Category (clinical / diagnostic / support)">
+          <div class="img"><img src="assets/img/blog-fitness.jpg" alt="Physiotherapy" data-cms-field="img" data-cms-label="Image"><span class="badge badge-outline" data-cms-field="badge" data-cms-label="Badge">Support</span><span class="icon-box blue ic" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box grad|blue|teal|gold|coral ic"><i data-lucide="accessibility" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span></div>
+          <div class="body"><h3 data-cms-field="title" data-cms-label="Name">Physiotherapy & Rehabilitation</h3><p data-cms-field="text" data-cms-label="Description">Structured recovery after surgery, stroke, injury or joint replacement.</p>
+            <ul data-cms-field="features" data-cms-type="lines" data-cms-label="Key services (one per line)"><li><i data-lucide="check-circle-2"></i><span data-cms-text>Post-operative rehabilitation</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Stroke & neuro-rehab</span></li><li><i data-lucide="check-circle-2"></i><span data-cms-text>Back pain & sports injuries</span></li></ul>
+            <div class="meta" data-cms-field="meta" data-cms-type="lines" data-cms-label="Meta notes (one per line)"><span><i data-lucide="map-pin"></i><span data-cms-text>Oye-Ekiti</span></span></div></div>
+        </article>
+
       </div>
     </div>
-  </div>
-</section>
-  </main>
-  <footer class="footer-gradient text-white py-12">
-    <div class="container mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-        <div class="lg:col-span-1">
-          <div class="flex items-center mb-6">
-            <div class="footer-logo-circle mr-4">
-              <i data-lucide="hospital" class="w-10 h-10 text-white"></i>
-            </div>
-            <div>
-              <h3 class="text-2xl font-bold">Heirs</h3>
-              <p class="text-sm text-gray-300">Multispecialist Hospital</p>
-            </div>
-          </div>
-          <p class="text-gray-300 mb-4">Providing exceptional healthcare services to Ekiti State since 2010. Your health, our priority.</p>
-          <div class="flex space-x-4">
-            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Facebook">
-              <i data-lucide="facebook" class="w-5 h-5"></i>
-            </a>
-            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Twitter">
-              <i data-lucide="twitter" class="w-5 h-5"></i>
-            </a>
-            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="Instagram">
-              <i data-lucide="instagram" class="w-5 h-5"></i>
-            </a>
-            <a href="#" class="bg-white bg-opacity-10 p-2 rounded-full hover:bg-opacity-20 transition" aria-label="LinkedIn">
-              <i data-lucide="linkedin" class="w-5 h-5"></i>
-            </a>
-          </div>
+  </section>
+
+  <!-- Why -->
+  <section class="section bg-white" data-cms-section="Integrated care">
+    <div class="wrap">
+      <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-5 reveal-l">
+          <span class="eyebrow" data-cms="why.eyebrow" data-cms-label="Eyebrow">Integrated Care</span>
+          <h2 class="hd-1 mt-4 mb-5" data-cms="why.title" data-cms-label="Heading">Departments that talk to each other.</h2>
+          <p class="lead mb-6" data-cms="why.lead" data-cms-label="Text">A dialysis patient needs cardiology, dietetics and a pharmacist. A new mother needs obstetrics, paediatrics and the lab. At Heirs, they're all a corridor away, and they share one record of your care.</p>
+          <a href="contact.html#book" class="btn btn-primary"><i data-lucide="calendar-check"></i> <span data-cms="why.cta" data-cms-label="Button">Book with a Department</span></a>
         </div>
-        <div>
-          <h4 class="text-lg font-semibold mb-4 flex items-center">
-            <i data-lucide="map-pin" class="w-5 h-5 mr-2"></i> Our Locations
-          </h4>
-          <div class="space-y-4">
-            <div>
-              <p class="font-semibold text-blue-300">Main Branch - Oye Ekiti</p>
-              <p class="text-gray-300 text-sm">123 Hospital Road, Oye Ekiti, Ekiti State</p>
-            </div>
-            <div>
-              <p class="font-semibold text-blue-300">Ado Ekiti Branch</p>
-              <p class="text-gray-300 text-sm">Plot 3, Orimolade Crescent, Ilokun Estate, Ado Ekiti</p>
-            </div>
-          </div>
-          <div class="mt-4">
-            <p class="flex items-center text-gray-300 mb-2">
-              <i data-lucide="phone" class="w-4 h-4 mr-2"></i>
-              <a href="tel:+234123456789" class="hover:text-white transition">+234 123 456 789</a>
-            </p>
-            <p class="flex items-center text-gray-300">
-              <i data-lucide="mail" class="w-4 h-4 mr-2"></i>
-              <a href="mailto:info@heirsmultispecialist.com" class="hover:text-white transition">info@heirsmultispecialist.com</a>
-            </p>
-          </div>
-        </div>
-        <div>
-          <h4 class="text-lg font-semibold mb-4 flex items-center">
-            <i data-lucide="link" class="w-5 h-5 mr-2"></i> Quick Links
-          </h4>
-          <ul class="space-y-2">
-            <li><a href="index.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Home</a></li>
-            <li><a href="about.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> About Us</a></li>
-            <li><a href="services.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Services</a></li>
-            <li><a href="department.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Departments</a></li>
-            <li><a href="heirs-institute.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Heirs Institute</a></li>
-            <li><a href="blog.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Blog</a></li>
-            <li><a href="contact.html" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Contact</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="text-lg font-semibold mb-4 flex items-center">
-            <i data-lucide="activity" class="w-5 h-5 mr-2"></i> Our Departments
-          </h4>
-          <ul class="space-y-2">
-            <li><a href="#departments" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Radiology & Imaging</a></li>
-            <li><a href="#departments" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Dental Care</a></li>
-            <li><a href="#departments" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Laboratory Services</a></li>
-            <li><a href="#departments" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Pharmacy</a></li>
-            <li><a href="#departments" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Emergency Medicine</a></li>
-            <li><a href="#departments" class="text-gray-300 hover:text-white transition flex items-center"><i data-lucide="chevron-right" class="w-4 h-4 mr-1"></i> Nutrition & Dietetics</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="border-t border-gray-600 pt-8">
-        <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <p class="text-gray-300 text-sm text-center md:text-left">
-            &copy; 2025 Heirs Multispecialist Hospital. All Rights Reserved.
-          </p>
-          <div class="flex items-center space-x-2">
-            <p class="text-gray-300 text-sm">Designed & Developed by</p>
-            <a href="#" class="masys-credit text-lg inline-block">MASYS</a>
-          </div>
-        </div>
-        <div class="mt-4 text-center">
-          <p class="text-gray-400 text-xs">Committed to Excellence in Healthcare | Ending Medical Tourism in Nigeria</p>
+        <div class="lg:col-span-7 grid sm:grid-cols-2 gap-5 stagger" data-cms-list="why.cards" data-cms-label="Reason cards">
+          <div class="card"><span class="icon-box sm blue mb-4" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box sm blue|teal|gold|coral mb-4"><i data-lucide="user-round-check" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 class="font-display font-bold mb-1" data-cms-field="title" data-cms-label="Title">Expert professionals</h3><p class="text-sm text-muted" data-cms-field="text" data-cms-label="Text">Resident specialists complemented by visiting consultants from teaching hospitals.</p></div>
+          <div class="card"><span class="icon-box sm teal mb-4" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box sm blue|teal|gold|coral mb-4"><i data-lucide="cpu" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 class="font-display font-bold mb-1" data-cms-field="title" data-cms-label="Title">Modern equipment</h3><p class="text-sm text-muted" data-cms-field="text" data-cms-label="Text">CT, dialysis machines, ventilators and an ultramodern lab, all on site.</p></div>
+          <div class="card"><span class="icon-box sm gold mb-4" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box sm blue|teal|gold|coral mb-4"><i data-lucide="hand-heart" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 class="font-display font-bold mb-1" data-cms-field="title" data-cms-label="Title">Patient-centred</h3><p class="text-sm text-muted" data-cms-field="text" data-cms-label="Text">Care plans built around you, explained in plain language, with family involved.</p></div>
+          <div class="card"><span class="icon-box sm coral mb-4" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box sm blue|teal|gold|coral mb-4"><i data-lucide="timer" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 class="font-display font-bold mb-1" data-cms-field="title" data-cms-label="Title">Timely service</h3><p class="text-sm text-muted" data-cms-field="text" data-cms-label="Text">Short waits, same-day diagnostics and 24/7 emergency access.</p></div>
         </div>
       </div>
     </div>
-  </footer>
-  <a href="#" class="fixed bottom-6 right-6 bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700 transition transform hover:scale-110 z-40" aria-label="Scroll to top">
-    <i data-lucide="arrow-up" class="w-5 h-5"></i>
-  </a>
+  </section>
+
+  <div id="site-footer"></div>
+  <script src="assets/js/cms.js"></script>
+  <script src="assets/js/heirs.js"></script>
   <script>
-    lucide.createIcons();
-    function openMobileSidebar() {
-      document.getElementById('mobileSidebar').classList.add('open');
-      document.getElementById('sidebarOverlay').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeMobileSidebar() {
-      document.getElementById('mobileSidebar').classList.remove('open');
-      document.getElementById('sidebarOverlay').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', e => {
-        const href = anchor.getAttribute('href');
-        if (href !== '#') {
-          e.preventDefault();
-          const target = document.querySelector(href);
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-            closeMobileSidebar();
-          }
-        }
-      });
-    });
-    const carousels = {};
-    document.querySelectorAll('.department-carousel').forEach(carouselEl => {
-      const fullId = carouselEl.id || '';
-      const id = fullId.split('-')[0] || fullId;
-      const track = carouselEl.querySelector('.flex');
-      if (!track) return;
-      const imgs = track.querySelectorAll('img');
-      const slides = imgs.length || 1;
-      imgs.forEach(img => {
-        img.style.width = '100%';
-        img.style.flex = '0 0 100%';
-        img.setAttribute('loading', img.getAttribute('loading') || 'lazy');
-      });
-      carousels[id] = {
-        container: carouselEl,
-        track: track,
-        current: 0,
-        slides: slides
-      };
-      updateCarousel(id);
-    });
-    function nextSlide(id) {
-      const c = carousels[id];
-      if (!c) return;
-      c.current = (c.current + 1) % c.slides;
-      updateCarousel(id);
-    }
-    function prevSlide(id) {
-      const c = carousels[id];
-      if (!c) return;
-      c.current = (c.current - 1 + c.slides) % c.slides;
-      updateCarousel(id);
-    }
-    function updateCarousel(id) {
-      const c = carousels[id];
-      if (!c) return;
-      const viewportWidth = c.container.clientWidth;
-      const offset = viewportWidth * c.current;
-      c.track.style.transition = 'transform 0.45s ease';
-      c.track.style.transform = `translateX(-${offset}px)`;
-    }
-    window.addEventListener('resize', () => {
-      Object.keys(carousels).forEach(id => updateCarousel(id));
-    });
-    document.querySelectorAll('.carousel-btn').forEach(btn => {
-      btn.setAttribute('type', 'button');
-    });
-    setTimeout(() => lucide.createIcons(), 100);
+    document.querySelectorAll('#deptFilter button').forEach(b => b.addEventListener('click', () => {
+      document.querySelectorAll('#deptFilter button').forEach(x => x.classList.toggle('active', x === b));
+      document.querySelectorAll('#deptGrid .dept').forEach(d => d.classList.toggle('hide', b.dataset.f !== 'all' && d.dataset.cat !== b.dataset.f));
+    }));
   </script>
 </body>
 </html>

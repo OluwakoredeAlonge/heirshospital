@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions | Heirs Multispecialist Hospital</title>
+  <meta name="description" content="Answers about appointments, opening hours, NHIS and insurance, emergencies, dialysis, CT scan, lab results, Fosterheirs, Heirs Institute and the Methuselah Project at Heirs Multispecialist Hospital, Ekiti.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="assets/js/tw.js"></script>
+  <link rel="stylesheet" href="assets/css/heirs.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .search { position: relative; max-width: 640px; }
+    .search input { width: 100%; padding: 18px 20px 18px 56px; border-radius: 999px; border: 1.5px solid rgba(255,255,255,.2); background: rgba(255,255,255,.1); color: #fff; font: inherit; font-size: 16px; backdrop-filter: blur(10px); }
+    .search input::placeholder { color: rgba(255,255,255,.55); }
+    .search input:focus { outline: none; border-color: var(--gold-500); box-shadow: 0 0 0 4px rgba(242,184,75,.2); }
+    .search svg { position: absolute; left: 22px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; color: var(--gold-500); }
+    .cat-nav { position: sticky; top: 100px; display: grid; gap: 6px; }
+    .cat-nav a { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 12px; font-size: 14px; font-weight: 600; color: var(--muted); transition: all .2s; }
+    .cat-nav a:hover, .cat-nav a.active { background: var(--blue-50); color: var(--blue-700); }
+    .cat-nav a svg { width: 17px; height: 17px; }
+    .faq-group { scroll-margin-top: 110px; }
+    .faq-group + .faq-group { margin-top: 48px; }
+    .faq-group h2 { display: flex; align-items: center; gap: 12px; font-size: 1.35rem; margin-bottom: 18px; }
+    .faq-group h2 .icon-box { width: 40px; height: 40px; border-radius: 12px; }
+    .faq-group h2 .icon-box svg { width: 18px; height: 18px; }
+    .acc.hide { display: none; }
+    .empty { display: none; text-align: center; padding: 48px 20px; color: var(--muted); }
+    .empty.show { display: block; }
+  </style>
+</head>
+<body data-page="faq">
+  <div id="site-header"></div>
+
+  <section class="page-hero" data-cms-section="Hero">
+    <div class="hero-bg"><img src="assets/img/facility-pharmacy.jpg" alt="" data-cms="hero.bg" data-cms-label="Background image"></div>
+    <div class="hero-grid"></div>
+    <div class="wrap relative">
+      <div class="crumbs"><a href="index.html">Home</a><i data-lucide="chevron-right"></i><span class="cur">FAQs</span></div>
+      <span class="eyebrow on-dark" data-cms="hero.eyebrow" data-cms-label="Eyebrow">Help Centre</span>
+      <h1 class="hd-1 mt-4 mb-5 max-w-3xl" data-cms="hero.title" data-cms-label="Headline">Frequently asked questions</h1>
+      <p class="lead max-w-2xl mb-8" data-cms="hero.lead" data-cms-label="Intro">Everything you need to know before you visit, appointments, payments, emergencies, results and our programmes.</p>
+      <div class="search"><i data-lucide="search"></i><input id="faqSearch" type="search" placeholder="Search e.g. NHIS, dialysis, opening hours…" data-cms="hero.search" data-cms-attr="placeholder" data-cms-label="Search placeholder" aria-label="Search FAQs"></div>
+    </div>
+  </section>
+
+  <section class="section bg-white">
+    <div class="wrap">
+      <div class="grid lg:grid-cols-12 gap-12">
+        <aside class="lg:col-span-3 hidden lg:block">
+          <nav class="cat-nav" id="catNav" data-cms-section="Side navigation">
+            <a href="#general" class="active"><i data-lucide="building-2"></i> <span data-cms="nav.general" data-cms-label="Nav: About the hospital">About the hospital</span></a>
+            <a href="#appointments"><i data-lucide="calendar-check"></i> <span data-cms="nav.appointments" data-cms-label="Nav: Appointments">Appointments</span></a>
+            <a href="#payments"><i data-lucide="credit-card"></i> <span data-cms="nav.payments" data-cms-label="Nav: Payments & insurance">Payments & insurance</span></a>
+            <a href="#emergency"><i data-lucide="siren"></i> <span data-cms="nav.emergency" data-cms-label="Nav: Emergencies">Emergencies</span></a>
+            <a href="#services"><i data-lucide="stethoscope"></i> <span data-cms="nav.services" data-cms-label="Nav: Services & results">Services & results</span></a>
+            <a href="#programmes"><i data-lucide="sparkles"></i> <span data-cms="nav.programmes" data-cms-label="Nav: Our programmes">Our programmes</span></a>
+          </nav>
+        </aside>
+        <div class="lg:col-span-9" id="faqRoot">
+
+          <div class="faq-group" id="general" data-cms-section="About the hospital">
+            <h2><span class="icon-box blue"><i data-lucide="building-2"></i></span> <span data-cms="general.title" data-cms-label="Group title">About the hospital</span></h2>
+            <div class="faq-items" data-cms-list="general.items" data-cms-label="Questions">
+            <details class="acc" open><summary><span data-cms-field="q" data-cms-label="Question">What is Heirs Multispecialist Hospital?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Heirs Multispecialist Hospital (also known as Heirs Specialist Hospital) is a 50-bed, NHIS-accredited specialist hospital in Ekiti State, founded by Dr. Michael Soje and Dr. (Mrs) Anthonia Soje. It offers renal dialysis, CT scan, intensive care, surgery, cardiology, obstetrics, dental, eye care, laboratory & blood bank, pharmacy, mental-health services and 24/7 emergency care from two branches in Oye-Ekiti and Ado-Ekiti.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">What are your opening hours?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Monday–Friday 8:00 AM – 8:00 PM; Saturday 9:00 AM – 8:30 PM; Sunday 1:00 PM – 8:00 PM. Our emergency room and ICU at the Oye-Ekiti main branch are open 24 hours a day, every day of the year.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">Where are you located?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)"><strong>Oye-Ekiti (Main Branch):</strong> Beside Aluko House, Irare Estate, Oye-Ekiti, Ekiti State.<br><strong>Ado-Ekiti Branch:</strong> Plot 3, Orimolade Crescent, Ilokun Estate, Ado-Ekiti, Ekiti State. Both are in serene, secure neighbourhoods with parking. See <a href="contact.html">directions</a>.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">Who are the doctors at Heirs?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Our clinical team is led by Medical Director Dr. Michael Soje (internal medicine & gastroenterology) and includes resident physicians, nurses and allied-health professionals, complemented by visiting specialist consultants in nephrology, cardiology, surgery, obstetrics & gynaecology, paediatrics and more. Mental-health services are led by Dr. Anthonia Soje through Fosterheirs.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">Are you NHIS accredited?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Yes. Heirs is an accredited provider under the National Health Insurance Scheme (NHIS/NHIA) and also partners with private HMOs. See the <a href="#payments">payments section</a> for details.</div></details>
+            </div>
+          </div>
+
+          <div class="faq-group" id="appointments" data-cms-section="Appointments">
+            <h2><span class="icon-box teal"><i data-lucide="calendar-check"></i></span> <span data-cms="appointments.title" data-cms-label="Group title">Appointments</span></h2>
+            <div class="faq-items" data-cms-list="appointments.items" data-cms-label="Questions">
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">How do I book an appointment?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Use the <a href="contact.html#book">online booking form</a>, call +234 803 638 6440, WhatsApp +234 704 248 1085, or walk into either branch. Booked patients are seen first.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">How far in advance should I book?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">General consultations are usually available same-day or next-day. For visiting specialists (e.g. cardiology, orthopaedics) we recommend booking 3–7 days ahead so we can place you in the next clinic day.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">Can I cancel or reschedule?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Yes, free of charge, up to 24 hours before your appointment. Just call or WhatsApp us. Late cancellations may attract a small fee for specialist clinics.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">Do I need a referral to see a specialist?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">No referral is required. If you have one, bring it, along with previous results, so the specialist has your full history.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">What should I bring to my appointment?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">A valid ID, your NHIS/HMO card (if applicable), previous medical records or test results, and a list of your current medications and allergies. Arrive 15 minutes early for registration.</div></details>
+            </div>
+          </div>
+
+          <div class="faq-group" id="payments" data-cms-section="Payments & insurance">
+            <h2><span class="icon-box gold"><i data-lucide="credit-card"></i></span> <span data-cms="payments.title" data-cms-label="Group title">Payments & insurance</span></h2>
+            <div class="faq-items" data-cms-list="payments.items" data-cms-label="Questions">
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">What payment methods do you accept?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Cash, bank transfer, debit/credit cards (POS), NHIS and partner HMO coverage. Receipts and itemised invoices are issued for every payment.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">Do you accept health insurance / HMOs?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Yes. We are NHIS-accredited and work with several HMOs. Bring your card and ID; our billing desk verifies coverage before treatment and explains any co-payments up front.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">Can I get an invoice or medical report for my employer or insurer?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Yes. Medical reports, sick-leave certificates, fitness certificates and itemised invoices can be requested at the front desk or by email. Reports are usually ready within 2 working days.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">Do you offer payment plans for expensive treatments?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">For major procedures such as surgery, dialysis programmes or joint replacement, our billing team can discuss staged payment arrangements. Ask to speak to the administrator before your procedure.</div></details>
+            </div>
+          </div>
+
+          <div class="faq-group" id="emergency" data-cms-section="Emergencies">
+            <h2><span class="icon-box coral"><i data-lucide="siren"></i></span> <span data-cms="emergency.title" data-cms-label="Group title">Emergencies</span></h2>
+            <div class="faq-items" data-cms-list="emergency.items" data-cms-label="Questions">
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">Is your emergency department open 24/7?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Yes. The emergency room and intensive care unit at the Oye-Ekiti main branch are staffed 24 hours a day, backed by 24-hour solar power. Call <a href="tel:+2348036386440">+234 803 638 6440</a>.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">Do you have ambulance services?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Yes. We operate ambulance services with trained paramedics for emergency pick-up and inter-facility transfers within and around Ekiti State.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">What qualifies as a medical emergency?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Chest pain, difficulty breathing, stroke symptoms (face drooping, arm weakness, speech difficulty), severe bleeding, serious injury or burns, loss of consciousness, seizures, severe abdominal pain, complications in pregnancy, or a very high fever in a child. If in doubt, call us.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">Do you have an intensive care unit?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Yes. Our ICU provides continuous monitoring, ventilator support and advanced life support for critically ill patients, including post-operative care.</div></details>
+            </div>
+          </div>
+
+          <div class="faq-group" id="services" data-cms-section="Services & results">
+            <h2><span class="icon-box blue"><i data-lucide="stethoscope"></i></span> <span data-cms="services.title" data-cms-label="Group title">Services & results</span></h2>
+            <div class="faq-items" data-cms-list="services.items" data-cms-label="Questions">
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">What medical services do you offer?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Clinical consultations, renal dialysis (haemo & peritoneal), heart & cardiovascular treatment with cardiopulmonary tests, CT scan, digital X-ray & ultrasound, general & specialised surgery, hip & knee replacement, obstetrics & gynaecology, cancer treatment (prostate, breast etc.), intensive & critical care, full laboratory with blood bank, complete dental services, eye treatment, pharmacy, nutrition & dietetics, physiotherapy, and trauma & addiction-recovery therapy. See <a href="services.html">all services</a>.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">Do you offer dialysis?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Yes. Heirs runs a renal dialysis unit offering haemodialysis and a peritoneal dialysis option, one of the few centres in Ekiti to do so. Book a nephrology consultation to be assessed and scheduled.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">Do you have a CT scanner?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Yes. Our radiology department offers computerised tomography (CT) scans alongside digital X-ray and ultrasound, with reports usually available within 24 hours.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">How long do lab results take?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Routine tests (full blood count, malaria, blood sugar, urinalysis) are typically ready the same day. Chemistry and specialised tests take 24–48 hours; cultures take 3–5 days. Results can be collected in person or sent securely by email/WhatsApp on request.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">Do you perform surgeries?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Yes, general and specialised surgery including hip & knee replacement, cancer surgery and obstetric & gynaecological procedures, with post-operative ICU care available.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">Can I get medical certificates or reports?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Yes. Sick-leave certificates, fitness-to-work reports, pre-employment medicals and detailed medical reports are available on request from the front desk.</div></details>
+            </div>
+          </div>
+
+          <div class="faq-group" id="programmes" data-cms-section="Our programmes">
+            <h2><span class="icon-box gold"><i data-lucide="sparkles"></i></span> <span data-cms="programmes.title" data-cms-label="Group title">Our programmes</span></h2>
+            <div class="faq-items" data-cms-list="programmes.items" data-cms-label="Questions">
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">What is Fosterheirs Mental Health Consultancy?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Fosterheirs is the hospital's mental-health arm, founded in 2023 by Dr. Anthonia Soje. It offers psycho-trauma therapy, outpatient and residential addiction recovery, marriage & premarital counselling, individual therapy, self-help courses and professional certifications. <a href="fosterheirs.html">Learn more</a>.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">What is the Methuselah Project and who is eligible?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">A free monthly healthcare clinic for elders aged 65 and above who face financial hardship, run by Heirs Missions every third Saturday (8 AM – 2 PM) at the Oye-Ekiti branch. Consultations, lab tests, medications and health education are 100% free. Pre-registration is required at least 3 days ahead. <a href="methuselah.html">Register an elder</a>.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">What does Heirs Institute of Allied Health offer?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Accredited programmes for Community Health Extension Workers, Pharmacy Technicians, Medical Laboratory Technicians, Health Information Management, Radiography Technicians, Dental Technology, Physiotherapy Assistants and Environmental Health Technology, with clinical practice inside the hospital and scholarships available. <a href="heirs-institute.html">See programmes</a>.</div></details>
+            <details class="acc"><summary><span data-cms-field="q" data-cms-label="Question">Can I do a hospital attachment or internship at Heirs?</span><span class="plus"><i data-lucide="plus"></i></span></summary><div class="acc-body" data-cms-field="a" data-cms-type="html" data-cms-label="Answer (basic HTML allowed)">Yes. We host clinical attachments for nursing, laboratory, pharmacy and allied-health students, subject to capacity. Email <a href="mailto:contact@heirsspecialisthospital.com.ng">contact@heirsspecialisthospital.com.ng</a> with your institution's letter.</div></details>
+            </div>
+          </div>
+
+          <div class="empty" id="faqEmpty"><i data-lucide="search-x" class="w-10 h-10 mx-auto mb-3"></i><p class="font-semibold text-ink">No matching questions</p><p class="text-sm">Try a different word, or <a href="contact.html" class="text-brand-600 font-semibold">contact us</a> directly.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pb-24 bg-white" data-cms-section="Call to action">
+    <div class="wrap">
+      <div class="cta-band reveal">
+        <div class="orb a"></div><div class="orb b"></div>
+        <div class="grid lg:grid-cols-12 gap-10 items-center">
+          <div class="lg:col-span-8"><span class="eyebrow on-dark" data-cms="cta.eyebrow" data-cms-label="Eyebrow">Still have questions?</span><h2 class="hd-1 mt-4 mb-4" data-cms="cta.title" data-cms-label="Heading">Our team is one call away.</h2><p class="lead" style="color:rgba(255,255,255,.78)" data-cms="cta.lead" data-cms-label="Text">Call, WhatsApp or email, we reply within 24 hours on working days.</p></div>
+          <div class="lg:col-span-4 flex flex-col gap-3"><a href="tel:+2348036386440" class="btn btn-gold btn-lg"><i data-lucide="phone-call"></i> +234 803 638 6440</a><a href="contact.html" class="btn btn-ghost btn-lg"><i data-lucide="mail"></i> Contact Us</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="site-footer"></div>
+  <script src="assets/js/cms.js"></script>
+  <script src="assets/js/heirs.js"></script>
+  <script>
+    (function () {
+      const q = document.getElementById('faqSearch'), items = [...document.querySelectorAll('#faqRoot .acc')], groups = [...document.querySelectorAll('.faq-group')], empty = document.getElementById('faqEmpty');
+      q.addEventListener('input', () => {
+        const t = q.value.trim().toLowerCase(); let n = 0;
+        items.forEach(d => { const hit = !t || d.textContent.toLowerCase().includes(t); d.classList.toggle('hide', !hit); if (hit) n++; if (t && hit) d.open = true; });
+        groups.forEach(g => g.style.display = g.querySelector('.acc:not(.hide)') ? '' : 'none');
+        empty.classList.toggle('show', n === 0);
+      });
+      const links = [...document.querySelectorAll('#catNav a')];
+      const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id)); }), { rootMargin: '-30% 0px -60% 0px' });
+      groups.forEach(g => io.observe(g));
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Pages | Heirs Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/js/tw.js"></script>
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="../assets/js/cms.js"></script>
+</head>
+<body data-admin="pages" data-title="Edit Pages" data-section="Website content" x-data="{
+    q: '',
+    get pages() { const all = HeirsCMS.all(); return HeirsCMS.PAGES.filter(p => p.file).map(p => { const d = all[p.key] || {}; const n = Object.keys(d).filter(k => k[0] !== '_').length; return Object.assign({}, p, { edited: n, updated: d._updated ? new Date(d._updated).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : null }); }).filter(p => !this.q || p.title.toLowerCase().includes(this.q.toLowerCase()) || p.desc.toLowerCase().includes(this.q.toLowerCase())); },
+    get customised() { return this.pages.filter(p => p.edited).length; },
+    exportAll() { const a = document.createElement('a'); a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(HeirsCMS.exportJSON()); a.download = 'heirs-website-content-' + new Date().toISOString().slice(0, 10) + '.json'; a.click(); HeirsAdmin.toast('Content exported', 'download'); },
+    importAll(e) { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => { try { const d = JSON.parse(r.result); if (typeof d !== 'object') throw 0; HeirsCMS.replaceAll(d); HeirsAdmin.toast('Content imported and published'); this.q = this.q + ''; } catch (err) { HeirsAdmin.toast('That file is not a valid content export', 'alert-triangle'); } }; r.readAsText(f); e.target.value = ''; },
+    resetAll() { if (confirm('Reset EVERY page and the site settings to the original content? All saved edits will be removed.')) { HeirsCMS.replaceAll({}); HeirsAdmin.toast('All pages reset to defaults', 'rotate-ccw'); this.q = this.q + ''; } },
+    resetOne(p) { if (confirm('Reset ' + p.title + ' to its original content?')) { HeirsCMS.reset(p.key); HeirsAdmin.toast(p.title + ' reset', 'rotate-ccw'); this.q = this.q + ''; } }
+  }">
+  <div id="admin-shell"></div>
+  <div class="a-main">
+    <div id="admin-topbar"></div>
+    <div class="a-content">
+
+      <div class="a-head">
+        <div><h1>Website pages</h1><p>Every public page has its own editor. Change any text, image, link or list, preview it live, then publish.</p></div>
+        <div class="actions">
+          <label class="btn btn-outline"><i data-lucide="upload"></i> Import content<input type="file" accept="application/json" hidden @change="importAll"></label>
+          <button class="btn btn-outline" @click="exportAll"><i data-lucide="download"></i> Export content</button>
+          <a href="settings.html" class="btn btn-primary"><i data-lucide="settings"></i> Site settings</a>
+        </div>
+      </div>
+
+      <div class="banner blue mb-6">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div>
+            <div class="text-xs uppercase tracking-widest font-bold mb-2" style="color:var(--gold-500)">How it works</div>
+            <h2 class="text-xl md:text-2xl font-extrabold mb-2">Full control, no developer needed</h2>
+            <p class="text-sm" style="color:rgba(255,255,255,.78)">Open a page, edit its fields on the left, watch the preview update on the right, then click <b class="text-white">Save & publish</b>. Any field can be reverted to the original wording with one click. Use <b class="text-white">Export</b> to back up or move your content to another computer.</p>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="mini-stat" style="background:rgba(255,255,255,.1)"><div class="l" style="color:rgba(255,255,255,.65)">Pages</div><div class="v text-white" x-text="pages.length"></div></div>
+            <div class="mini-stat" style="background:rgba(255,255,255,.1)"><div class="l" style="color:rgba(255,255,255,.65)">Customised</div><div class="v text-white" x-text="customised"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="toolbar"><div class="srch"><i data-lucide="search"></i><input class="input" placeholder="Find a page…" x-model="q"></div><button class="btn btn-ghost btn-sm ml-auto" @click="resetAll"><i data-lucide="rotate-ccw"></i> Reset everything</button></div>
+
+      <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <template x-for="p in pages" :key="p.key">
+          <div class="page-card">
+            <span class="ic" :class="p.edited ? 'gold' : 'blue'"><i :data-lucide="p.icon"></i></span>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2"><b x-text="p.title"></b><span class="tag" :class="p.edited ? 'tag-gold' : 'tag-gray'" x-text="p.edited ? p.edited + ' edited' : 'default'"></span></div>
+              <p x-text="p.desc"></p>
+              <div class="row">
+                <a :href="'edit-' + p.key + '.html'" class="btn btn-primary btn-sm"><i data-lucide="pencil"></i> Edit content</a>
+                <a :href="'../' + p.file" target="_blank" class="btn btn-outline btn-sm"><i data-lucide="external-link"></i> View</a>
+                <button class="btn btn-ghost btn-sm" x-show="p.edited" @click="resetOne(p)" title="Reset to default"><i data-lucide="rotate-ccw"></i></button>
+                <span class="text-xs text-subtle ml-auto" x-show="p.updated" x-text="'Updated ' + p.updated"></span>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>
+  </div>
+  <script src="../assets/js/admin.js"></script>
+</body>
+</html>

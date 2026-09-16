@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users & Roles | Heirs Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/js/tw.js"></script>
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body data-admin="users" data-title="Users & Roles" data-section="Administration" x-data="usersApp()">
+  <div id="admin-shell"></div>
+  <div class="a-main">
+    <div id="admin-topbar"></div>
+    <div class="a-content">
+
+      <div class="a-head">
+        <div><h1>Users & roles</h1><p>Invite staff to help run the website and give each person exactly the access they need.</p></div>
+        <div class="actions"><button class="btn btn-outline" @click="exportUsers"><i data-lucide="download"></i> Export</button><button class="btn btn-primary" @click="openNew"><i data-lucide="user-plus"></i> Add user</button></div>
+      </div>
+
+      <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+        <div class="stat-card"><div class="ic blue"><i data-lucide="users"></i></div><div class="v" x-text="users.length"></div><div class="l">Total users</div></div>
+        <div class="stat-card"><div class="ic teal"><i data-lucide="user-check"></i></div><div class="v" x-text="users.filter(u => u.status === 'active').length"></div><div class="l">Active</div></div>
+        <div class="stat-card"><div class="ic gold"><i data-lucide="mail"></i></div><div class="v" x-text="users.filter(u => u.status === 'invited').length"></div><div class="l">Invited (pending)</div></div>
+        <div class="stat-card"><div class="ic violet"><i data-lucide="shield"></i></div><div class="v" x-text="users.filter(u => u.role === 'Super Admin').length"></div><div class="l">Super admins</div></div>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-4">
+        <div class="lg:col-span-2 tbl-wrap">
+          <div class="flex flex-wrap items-center gap-3 p-4 border-b border-line">
+            <h3 class="font-extrabold">Team members</h3>
+            <div class="seg ml-auto"><button :class="{on: filter === 'all'}" @click="filter = 'all'">All</button><button :class="{on: filter === 'active'}" @click="filter = 'active'">Active</button><button :class="{on: filter === 'invited'}" @click="filter = 'invited'">Invited</button><button :class="{on: filter === 'suspended'}" @click="filter = 'suspended'">Suspended</button></div>
+            <div class="relative"><i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-subtle"></i><input class="input" style="padding-left:34px;width:200px" placeholder="Search…" x-model="q"></div>
+          </div>
+          <table class="tbl">
+            <thead><tr><th>User</th><th>Role</th><th>Access</th><th>Status</th><th>Last active</th><th></th></tr></thead>
+            <tbody>
+              <template x-for="u in list" :key="u.id">
+                <tr>
+                  <td><div class="who"><div class="av" :style="'background:' + color(u.role)" x-text="initials(u.name)"></div><div><b x-text="u.name"></b><span x-text="u.email"></span><span class="tag tag-blue ml-2" x-show="u.current">you</span></div></div></td>
+                  <td><span class="tag" :class="roleTag(u.role)" x-text="u.role"></span></td>
+                  <td style="min-width:220px"><div class="flex flex-wrap gap-1"><template x-for="m in u.perms.slice(0, 3)" :key="m"><span class="tag tag-gray" x-text="MODULES[m]"></span></template><span class="tag tag-blue" x-show="u.perms.length > 3" :title="u.perms.slice(3).map(m => MODULES[m]).join(', ')" x-text="'+' + (u.perms.length - 3) + ' more'"></span><span class="text-xs text-subtle" x-show="!u.perms.length">View only</span></div></td>
+                  <td><span class="tag" :class="{active: 'tag-teal', invited: 'tag-gold', suspended: 'tag-coral'}[u.status]"><span class="dot"></span> <span x-text="u.status"></span></span></td>
+                  <td class="text-muted" x-text="u.last || '—'"></td>
+                  <td><div class="acts"><button title="Edit" @click="openEdit(u)"><i data-lucide="pencil"></i></button><a title="Resend invite" x-show="u.status === 'invited'" :href="inviteLink(u)"><i data-lucide="send"></i></a><button :title="u.status === 'suspended' ? 'Activate' : 'Suspend'" x-show="!u.current" @click="toggle(u)"><i :data-lucide="u.status === 'suspended' ? 'user-check' : 'user-x'"></i></button><button title="Sign in as" x-show="!u.current && u.status === 'active'" @click="signInAs(u)"><i data-lucide="log-in"></i></button><button title="Delete" x-show="!u.current" @click="remove(u)" style="color:var(--coral-600)"><i data-lucide="trash-2"></i></button></div></td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+          <div class="empty" x-show="list.length === 0"><i data-lucide="user-search"></i><b>No users found</b>Try another filter or add a user.</div>
+        </div>
+
+        <div class="space-y-4">
+          <div class="card">
+            <div class="card-h"><div><h3>Roles</h3><div class="sub">Pick a role when adding a user; access can be fine-tuned per person</div></div></div>
+            <div class="space-y-2">
+              <template x-for="(perms, role) in ROLES" :key="role">
+                <div class="p-3 rounded-xl border border-line"><div class="flex items-center gap-2"><span class="tag" :class="roleTag(role)" x-text="role"></span><span class="text-xs text-muted ml-auto" x-text="users.filter(u => u.role === role).length + ' user(s)'"></span></div><div class="text-xs text-muted mt-1" x-text="perms.map(m => MODULES[m]).join(' · ') || 'Read-only'"></div></div>
+              </template>
+            </div>
+          </div>
+          <div class="card" style="background:var(--blue-50);border-color:var(--blue-100)">
+            <div class="flex gap-3"><i data-lucide="info" class="w-5 h-5 text-brand-600 flex-none"></i><p class="text-xs text-muted">Invitations open an email to the new user with their role and the admin link. Once a login service is connected, the same list drives real sign-ins; until then, "Sign in as" switches the active user in this browser.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-4">
+        <div class="card-h"><div><h3>Permission matrix</h3><div class="sub">What each role can do</div></div></div>
+        <div class="overflow-x-auto"><table class="perm-matrix"><thead><tr><th>Module</th><template x-for="role in Object.keys(ROLES)" :key="role"><th x-text="role"></th></template></tr></thead><tbody>
+          <template x-for="(label, m) in MODULES" :key="m"><tr><td x-text="label"></td><template x-for="(perms, role) in ROLES" :key="role"><td><i :data-lucide="perms.includes(m) ? 'check-circle-2' : 'minus'" :class="perms.includes(m) ? 'text-teal-600' : 'text-subtle'"></i></td></template></tr></template>
+        </tbody></table></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- User modal -->
+  <div x-show="modal" x-cloak class="modal-bg" @click.self="modal = false" x-transition.opacity>
+    <div class="modal" @click.stop style="max-width:640px">
+      <div class="m-h"><div><h3 x-text="form.id ? 'Edit user' : 'Add user'"></h3><div class="text-xs text-muted">Staff who help manage the website</div></div><button class="a-icon-btn" @click="modal = false"><i data-lucide="x"></i></button></div>
+      <form class="m-b space-y-4" @submit.prevent="save">
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="field"><label>Full name <span class="req">*</span></label><input class="input" x-model="form.name" required placeholder="e.g. Funmi Oladimeji"></div>
+          <div class="field"><label>Email <span class="req">*</span></label><input class="input" type="email" x-model="form.email" required placeholder="name@heirsspecialisthospital.com.ng"></div>
+          <div class="field"><label>Phone / WhatsApp</label><input class="input" type="tel" x-model="form.phone" placeholder="080X XXX XXXX"></div>
+          <div class="field"><label>Job title</label><input class="input" x-model="form.title" placeholder="e.g. Front desk officer"></div>
+          <div class="field"><label>Role <span class="req">*</span></label><select class="select" x-model="form.role" @change="form.perms = [...ROLES[form.role]]"><template x-for="role in Object.keys(ROLES)" :key="role"><option :value="role" x-text="role"></option></template></select></div>
+          <div class="field"><label>Status</label><select class="select" x-model="form.status"><option value="invited">Invited (pending)</option><option value="active">Active</option><option value="suspended">Suspended</option></select></div>
+        </div>
+        <div class="field"><label>Access</label><span class="hint">Pre-filled from the role. Untick anything this person should not manage.</span>
+          <div class="role-grid mt-1"><template x-for="(label, m) in MODULES" :key="m"><label class="chk"><input type="checkbox" :value="m" x-model="form.perms"> <span x-text="label"></span></label></template></div>
+        </div>
+        <div class="field"><label>Note (optional)</label><input class="input" x-model="form.note" placeholder="e.g. Covers appointments on Saturdays"></div>
+        <div class="m-f" style="margin:0 -24px -22px;padding-top:16px">
+          <button type="button" class="btn btn-outline" @click="modal = false">Cancel</button>
+          <a x-show="!form.id" :href="inviteLink(form)" class="btn btn-teal" @click="save"><i data-lucide="send"></i> Save & send invite</a>
+          <button type="submit" class="btn btn-primary"><i data-lucide="check"></i> <span x-text="form.id ? 'Save changes' : 'Save user'"></span></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="../assets/js/admin.js"></script>
+  <script>
+    function usersApp() {
+      const KEY = 'heirs.users.v1';
+      const MODULES = { appointments: 'Appointments', messages: 'Messages', blog: 'Blog', institute: 'Heirs Institute', pages: 'Website pages', settings: 'Site settings', users: 'Users & roles' };
+      const ROLES = {
+        'Super Admin': Object.keys(MODULES),
+        'Content Editor': ['pages', 'settings', 'blog'],
+        'Appointments Manager': ['appointments', 'messages'],
+        'Blog Editor': ['blog'],
+        'Institute Admin': ['institute'],
+        'Viewer': []
+      };
+      const seed = [
+        { id: 1, name: 'Dr. Adeyemi', email: 'admin@heirsspecialisthospital.com.ng', phone: '', title: 'Hospital Administrator', role: 'Super Admin', perms: Object.keys(MODULES), status: 'active', last: 'Now', current: true, note: '' },
+        { id: 2, name: 'Funmi Oladimeji', email: 'frontdesk@heirsspecialisthospital.com.ng', phone: '0704 248 1085', title: 'Front desk officer', role: 'Appointments Manager', perms: ['appointments', 'messages'], status: 'active', last: 'Yesterday', note: 'Confirms web bookings each morning' },
+        { id: 3, name: 'Tomisin Oyelusi', email: 'content@heirsspecialisthospital.com.ng', phone: '', title: 'Communications', role: 'Content Editor', perms: ['pages', 'settings', 'blog'], status: 'invited', last: '', note: '' }
+      ];
+      const load = () => { try { const u = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(u) && u.length) return u; } catch (e) {} localStorage.setItem(KEY, JSON.stringify(seed)); return seed; };
+      const blank = () => ({ id: null, name: '', email: '', phone: '', title: '', role: 'Content Editor', perms: [...ROLES['Content Editor']], status: 'invited', note: '' });
+      return {
+        MODULES, ROLES, users: load(), q: '', filter: 'all', modal: false, form: blank(),
+        get list() { const s = this.q.toLowerCase(); return this.users.filter(u => (this.filter === 'all' || u.status === this.filter) && (!s || u.name.toLowerCase().includes(s) || u.email.toLowerCase().includes(s) || u.role.toLowerCase().includes(s))); },
+        persist() { localStorage.setItem(KEY, JSON.stringify(this.users)); },
+        openNew() { this.form = blank(); this.modal = true; },
+        openEdit(u) { this.form = JSON.parse(JSON.stringify(u)); this.modal = true; },
+        save() {
+          if (!this.form.name || !this.form.email) return;
+          if (this.form.id) { const i = this.users.findIndex(u => u.id === this.form.id); this.users[i] = Object.assign({}, this.users[i], this.form); HeirsAdmin.toast('User updated'); }
+          else { this.users.push(Object.assign({}, this.form, { id: Date.now(), last: '' })); HeirsAdmin.toast('User added: ' + this.form.name, 'user-plus'); }
+          this.persist(); this.modal = false;
+        },
+        toggle(u) { u.status = u.status === 'suspended' ? 'active' : 'suspended'; this.persist(); HeirsAdmin.toast(u.name + (u.status === 'suspended' ? ' suspended' : ' reactivated')); },
+        remove(u) { if (confirm('Remove ' + u.name + ' from the admin portal?')) { this.users = this.users.filter(x => x.id !== u.id); this.persist(); HeirsAdmin.toast('User removed', 'trash-2'); } },
+        signInAs(u) { this.users.forEach(x => x.current = x.id === u.id); u.last = 'Now'; this.persist(); location.reload(); },
+        inviteLink(u) { const body = `Hello ${u.name},\n\nYou have been given access to the Heirs Multispecialist Hospital admin portal as ${u.role}.\n\nYou can manage: ${(u.perms || []).map(m => MODULES[m]).join(', ') || 'view only'}.\n\nAdmin portal: ${location.origin + location.pathname.replace(/users\.html$/, 'index.html')}\n\nRegards,\nHeirs Admin`; return 'mailto:' + encodeURIComponent(u.email || '') + '?subject=' + encodeURIComponent('Your Heirs admin portal access') + '&body=' + encodeURIComponent(body); },
+        exportUsers() { const a = document.createElement('a'); a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.users, null, 2)); a.download = 'heirs-admin-users.json'; a.click(); },
+        initials(n) { return n.split(' ').filter(Boolean).map(w => w[0]).join('').slice(0, 2).toUpperCase(); },
+        color(r) { return { 'Super Admin': 'linear-gradient(135deg,#6D28D9,#1663D6)', 'Content Editor': 'linear-gradient(135deg,#0C9C8F,#14B8A6)', 'Appointments Manager': 'linear-gradient(135deg,#1663D6,#5C97F5)', 'Blog Editor': 'linear-gradient(135deg,#D6961A,#F2B84B)', 'Institute Admin': 'linear-gradient(135deg,#0F52BA,#0C9C8F)', 'Viewer': 'linear-gradient(135deg,#5F6F8A,#8C99B0)' }[r] || 'var(--navy)'; },
+        roleTag(r) { return { 'Super Admin': 'tag-violet', 'Content Editor': 'tag-teal', 'Appointments Manager': 'tag-blue', 'Blog Editor': 'tag-gold', 'Institute Admin': 'tag-blue', 'Viewer': 'tag-gray' }[r] || 'tag-gray'; }
+      };
+    }
+  </script>
+</body>
+</html>

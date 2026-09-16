@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site Settings | Heirs Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/js/tw.js"></script>
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="../assets/js/cms.js"></script>
+</head>
+<body data-admin="settings" data-title="Site Settings" data-section="Website content" x-data="{
+    defaults: {
+      name: 'Heirs Multispecialist Hospital', tagline: 'Your Caring Family Hospital', phone: '+234 803 638 6440', phoneHref: 'tel:+2348036386440', phone2: '+234 704 248 1085', phone2Href: 'tel:+2347042481085',
+      whatsapp: 'https://wa.me/2347042481085?text=Hello%20Heirs%20Hospital%2C%20I%20would%20like%20to%20book%20an%20appointment.', email: 'contact@heirsspecialisthospital.com.ng',
+      oye: 'Beside Aluko House, Irare Estate, Oye-Ekiti, Ekiti State', ado: 'Plot 3, Orimolade Crescent, Ilokun Estate, Ado-Ekiti, Ekiti State',
+      mapsOye: 'https://www.google.com/maps/search/Heirs+Specialist+Hospital%2C+Beside+Aluko+House%2C+Irare+Estate%2C+Oye-Ekiti%2C+Ekiti+State', mapsAdo: 'https://www.google.com/maps/search/Plot+3+Orimolade+Crescent+Ilokun+Estate+Ado-Ekiti',
+      facebook: 'https://www.facebook.com/heirshospitaloyeekiti', twitter: 'https://x.com/heirsh60940', instagram: 'https://www.instagram.com/dranthoniasoje', youtube: 'https://www.youtube.com/@fosterproject2425',
+      hoursShort: 'Mon–Fri 8am–8pm · Emergency 24/7', footerBlurb: 'A world-class specialist hospital in Ekiti State, bringing the best of medical practice home and ending the need for medical tourism.', credit: 'MASYS'
+    },
+    s: {}, saved: false,
+    init() { this.load(); },
+    load() { const o = HeirsCMS.get('site'); this.s = Object.assign({}, this.defaults, Object.fromEntries(Object.entries(o).filter(([k]) => k in this.defaults))); },
+    save() { const out = {}; Object.keys(this.defaults).forEach(k => { if (this.s[k] !== this.defaults[k]) out[k] = this.s[k]; }); HeirsCMS.set('site', out); HeirsAdmin.toast('Site settings published to every page'); this.saved = true; setTimeout(() => this.saved = false, 2000); },
+    reset() { if (confirm('Reset all site settings to the original values?')) { HeirsCMS.reset('site'); this.load(); HeirsAdmin.toast('Settings reset', 'rotate-ccw'); } },
+    autoHref() { const d = v => v.replace(/[^\d+]/g, ''); if (this.s.phone) this.s.phoneHref = 'tel:' + d(this.s.phone); if (this.s.phone2) { this.s.phone2Href = 'tel:' + d(this.s.phone2); this.s.whatsapp = 'https://wa.me/' + d(this.s.phone2).replace('+', '') + '?text=' + encodeURIComponent('Hello Heirs Hospital, I would like to book an appointment.'); } },
+    changed(k) { return this.s[k] !== this.defaults[k]; }
+  }">
+  <div id="admin-shell"></div>
+  <div class="a-main">
+    <div id="admin-topbar"></div>
+    <div class="a-content">
+
+      <div class="a-head">
+        <div><h1>Site settings</h1><p>Contact details, addresses, hours and social links. These appear in the header, footer, floating buttons and anywhere the site references them.</p></div>
+        <div class="actions"><button class="btn btn-ghost" @click="reset"><i data-lucide="rotate-ccw"></i> Reset</button><button class="btn btn-primary" @click="save"><i data-lucide="upload-cloud"></i> <span x-text="saved ? 'Published' : 'Save & publish'"></span></button></div>
+      </div>
+
+      <div class="grid lg:grid-cols-2 gap-5">
+        <div class="form-sec">
+          <div class="fs-h"><span class="n">1</span><div><h3>Identity</h3><p>Name and tagline shown across the site</p></div></div>
+          <div class="fs-b grid gap-4">
+            <div class="field"><label>Hospital name <span class="tag tag-gold" x-show="changed('name')">edited</span></label><input class="input" x-model="s.name"></div>
+            <div class="field"><label>Tagline <span class="tag tag-gold" x-show="changed('tagline')">edited</span></label><input class="input" x-model="s.tagline"></div>
+            <div class="field"><label>Footer description <span class="tag tag-gold" x-show="changed('footerBlurb')">edited</span></label><textarea class="textarea" x-model="s.footerBlurb"></textarea></div>
+            <div class="field"><label>Top-bar hours summary <span class="tag tag-gold" x-show="changed('hoursShort')">edited</span></label><input class="input" x-model="s.hoursShort"></div>
+            <div class="field"><label>Footer credit <span class="tag tag-gold" x-show="changed('credit')">edited</span></label><input class="input" x-model="s.credit"></div>
+          </div>
+        </div>
+
+        <div class="form-sec">
+          <div class="fs-h"><span class="n">2</span><div><h3>Phone, WhatsApp & email</h3><p>Tap-to-call links are generated automatically</p></div></div>
+          <div class="fs-b grid gap-4">
+            <div class="field"><label>Main / emergency phone <span class="tag tag-gold" x-show="changed('phone')">edited</span></label><input class="input" x-model="s.phone" @input="autoHref"><span class="hint" x-text="'Call link: ' + s.phoneHref"></span></div>
+            <div class="field"><label>Second phone (WhatsApp) <span class="tag tag-gold" x-show="changed('phone2')">edited</span></label><input class="input" x-model="s.phone2" @input="autoHref"><span class="hint" x-text="'WhatsApp link: ' + s.whatsapp"></span></div>
+            <div class="field"><label>WhatsApp link (advanced) </label><input class="input" x-model="s.whatsapp"></div>
+            <div class="field"><label>Email <span class="tag tag-gold" x-show="changed('email')">edited</span></label><input class="input" type="email" x-model="s.email"></div>
+          </div>
+        </div>
+
+        <div class="form-sec">
+          <div class="fs-h"><span class="n">3</span><div><h3>Addresses & maps</h3></div></div>
+          <div class="fs-b grid gap-4">
+            <div class="field"><label>Oye-Ekiti (main) address <span class="tag tag-gold" x-show="changed('oye')">edited</span></label><input class="input" x-model="s.oye"></div>
+            <div class="field"><label>Oye-Ekiti directions link</label><input class="input" x-model="s.mapsOye"></div>
+            <div class="field"><label>Ado-Ekiti address <span class="tag tag-gold" x-show="changed('ado')">edited</span></label><input class="input" x-model="s.ado"></div>
+            <div class="field"><label>Ado-Ekiti directions link</label><input class="input" x-model="s.mapsAdo"></div>
+          </div>
+        </div>
+
+        <div class="form-sec">
+          <div class="fs-h"><span class="n">4</span><div><h3>Social media</h3><p>Full profile URLs</p></div></div>
+          <div class="fs-b grid gap-4">
+            <div class="field"><label>Facebook</label><input class="input" x-model="s.facebook"></div>
+            <div class="field"><label>X (Twitter)</label><input class="input" x-model="s.twitter"></div>
+            <div class="field"><label>Instagram</label><input class="input" x-model="s.instagram"></div>
+            <div class="field"><label>YouTube</label><input class="input" x-model="s.youtube"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mt-5" style="background:var(--blue-50);border-color:var(--blue-100)">
+        <div class="flex gap-3"><i data-lucide="info" class="w-5 h-5 text-brand-600 flex-none"></i><p class="text-sm text-muted">Page-specific wording that repeats a phone number or address (for example a button that says "Call +234 803 638 6440") is edited on that page under <a href="pages.html" class="font-semibold text-brand-600">Edit Pages</a>. This screen controls the shared header, footer and floating buttons.</p></div>
+      </div>
+    </div>
+  </div>
+  <script src="../assets/js/admin.js"></script>
+</body>
+</html>

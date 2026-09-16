@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../assets/css/admin.css">
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
+  <style>.prog { border-radius: 999px; background: var(--surface-2); overflow: hidden; } .prog b { display: block; height: 100%; transition: width .2s; }</style>
 </head>
 <body data-admin="users" data-title="Users & Roles" data-section="Administration" x-data="usersApp()">
   <div id="admin-shell"></div>
@@ -45,7 +46,7 @@
                   <td><span class="tag" :class="roleTag(u.role)" x-text="u.role"></span></td>
                   <td style="min-width:220px"><div class="flex flex-wrap gap-1"><template x-for="m in u.perms.slice(0, 3)" :key="m"><span class="tag tag-gray" x-text="MODULES[m]"></span></template><span class="tag tag-blue" x-show="u.perms.length > 3" :title="u.perms.slice(3).map(m => MODULES[m]).join(', ')" x-text="'+' + (u.perms.length - 3) + ' more'"></span><span class="text-xs text-subtle" x-show="!u.perms.length">View only</span></div></td>
                   <td><span class="tag" :class="{active: 'tag-teal', invited: 'tag-gold', suspended: 'tag-coral'}[u.status]"><span class="dot"></span> <span x-text="u.status"></span></span></td>
-                  <td class="text-muted" x-text="u.last || '—'"></td>
+                  <td class="text-muted"><span x-text="u.last || '—'"></span><span class="block text-xs" :class="u.pwHash ? 'text-teal-600' : 'text-subtle'" x-text="u.pwHash ? 'Password set' : 'Invite link'"></span></td>
                   <td><div class="acts"><button title="Edit" @click="openEdit(u)"><i data-lucide="pencil"></i></button><a title="Resend invite" x-show="u.status === 'invited'" :href="inviteLink(u)"><i data-lucide="send"></i></a><button :title="u.status === 'suspended' ? 'Activate' : 'Suspend'" x-show="!u.current" @click="toggle(u)"><i :data-lucide="u.status === 'suspended' ? 'user-check' : 'user-x'"></i></button><button title="Sign in as" x-show="!u.current && u.status === 'active'" @click="signInAs(u)"><i data-lucide="log-in"></i></button><button title="Delete" x-show="!u.current" @click="remove(u)" style="color:var(--coral-600)"><i data-lucide="trash-2"></i></button></div></td>
                 </tr>
               </template>
@@ -89,16 +90,30 @@
           <div class="field"><label>Phone / WhatsApp</label><input class="input" type="tel" x-model="form.phone" placeholder="080X XXX XXXX"></div>
           <div class="field"><label>Job title</label><input class="input" x-model="form.title" placeholder="e.g. Front desk officer"></div>
           <div class="field"><label>Role <span class="req">*</span></label><select class="select" x-model="form.role" @change="form.perms = [...ROLES[form.role]]"><template x-for="role in Object.keys(ROLES)" :key="role"><option :value="role" x-text="role"></option></template></select></div>
-          <div class="field"><label>Status</label><select class="select" x-model="form.status"><option value="invited">Invited (pending)</option><option value="active">Active</option><option value="suspended">Suspended</option></select></div>
+          <div class="field" x-show="form.id"><label>Status</label><select class="select" x-model="form.status"><option value="invited">Invited (pending)</option><option value="active">Active</option><option value="suspended">Suspended</option></select></div>
         </div>
+        <div class="field"><label>Account setup <span class="req">*</span></label><span class="hint">Choose how this person gets access.</span>
+          <div class="grid sm:grid-cols-2 gap-2 mt-1">
+            <label class="chk" style="align-items:flex-start"><input type="radio" value="invite" x-model="form.setup" style="margin-top:3px"><span><b class="block">Send email invite</b><span class="text-xs text-muted font-medium">They set their own password from the invitation link. Status: invited.</span></span></label>
+            <label class="chk" style="align-items:flex-start"><input type="radio" value="password" x-model="form.setup" style="margin-top:3px"><span><b class="block">Set password now</b><span class="text-xs text-muted font-medium">You create the password and share it with them. Status: active.</span></span></label>
+          </div>
+        </div>
+        <div class="grid sm:grid-cols-2 gap-4" x-show="form.setup === 'password'" x-transition x-cloak>
+          <div class="field"><label>Password <span class="req">*</span></label>
+            <div class="relative"><input class="input" :type="showPw ? 'text' : 'password'" x-model="pw1" minlength="8" autocomplete="new-password" placeholder="At least 8 characters" style="padding-right:44px"><button type="button" class="a-icon-btn" style="position:absolute;right:4px;top:4px;width:32px;height:32px;border:0" @click="showPw = !showPw" :title="showPw ? 'Hide' : 'Show'"><i :data-lucide="showPw ? 'eye-off' : 'eye'"></i></button></div>
+            <div class="flex items-center gap-2 mt-1"><div class="prog" style="flex:1;height:6px"><b :style="'width:' + strength(pw1).pct + '%;background:' + strength(pw1).color"></b></div><span class="text-xs font-semibold" :style="'color:' + strength(pw1).color" x-text="strength(pw1).label"></span><button type="button" class="btn btn-ghost btn-sm" @click="pw1 = pw2 = generatePw(); showPw = true">Generate</button></div>
+          </div>
+          <div class="field"><label>Confirm password <span class="req">*</span></label><input class="input" :type="showPw ? 'text' : 'password'" x-model="pw2" autocomplete="new-password" placeholder="Repeat the password"><span class="hint" :style="pw2 && pw1 !== pw2 ? 'color:var(--coral-600)' : ''" x-text="pw2 && pw1 !== pw2 ? 'Passwords do not match' : 'Share the password with the user privately (in person or by phone).'"></span></div>
+        </div>
+        <div class="card card-flat p-4" x-show="form.setup === 'invite'" x-transition x-cloak style="background:var(--blue-50);border-color:var(--blue-100)"><div class="flex gap-3 text-sm text-muted"><i data-lucide="mail" class="w-5 h-5 text-brand-600 flex-none"></i><span>Saving opens a ready-made invitation email to <b class="text-ink" x-text="form.email || 'the user'"></b> with their role, access and the admin link.</span></div></div>
         <div class="field"><label>Access</label><span class="hint">Pre-filled from the role. Untick anything this person should not manage.</span>
           <div class="role-grid mt-1"><template x-for="(label, m) in MODULES" :key="m"><label class="chk"><input type="checkbox" :value="m" x-model="form.perms"> <span x-text="label"></span></label></template></div>
         </div>
         <div class="field"><label>Note (optional)</label><input class="input" x-model="form.note" placeholder="e.g. Covers appointments on Saturdays"></div>
         <div class="m-f" style="margin:0 -24px -22px;padding-top:16px">
           <button type="button" class="btn btn-outline" @click="modal = false">Cancel</button>
-          <a x-show="!form.id" :href="inviteLink(form)" class="btn btn-teal" @click="save"><i data-lucide="send"></i> Save & send invite</a>
-          <button type="submit" class="btn btn-primary"><i data-lucide="check"></i> <span x-text="form.id ? 'Save changes' : 'Save user'"></span></button>
+          <button type="button" class="btn btn-outline" x-show="form.id && form.setup === 'password'" @click="resetPassword"><i data-lucide="key-round"></i> Reset password</button>
+          <button type="submit" class="btn" :class="!form.id && form.setup === 'invite' ? 'btn-teal' : 'btn-primary'"><i :data-lucide="!form.id && form.setup === 'invite' ? 'send' : 'check'"></i> <span x-text="form.id ? 'Save changes' : (form.setup === 'invite' ? 'Save & send invite' : 'Create user')"></span></button>
         </div>
       </form>
     </div>
@@ -123,19 +138,30 @@
         { id: 3, name: 'Tomisin Oyelusi', email: 'content@heirsspecialisthospital.com.ng', phone: '', title: 'Communications', role: 'Content Editor', perms: ['pages', 'settings', 'blog'], status: 'invited', last: '', note: '' }
       ];
       const load = () => { try { const u = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(u) && u.length) return u; } catch (e) {} localStorage.setItem(KEY, JSON.stringify(seed)); return seed; };
-      const blank = () => ({ id: null, name: '', email: '', phone: '', title: '', role: 'Content Editor', perms: [...ROLES['Content Editor']], status: 'invited', note: '' });
+      const blank = () => ({ id: null, name: '', email: '', phone: '', title: '', role: 'Content Editor', perms: [...ROLES['Content Editor']], status: 'invited', note: '', setup: 'invite', pwHash: '' });
+      const sha = async t => { const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(t)); return [...new Uint8Array(b)].map(x => x.toString(16).padStart(2, '0')).join(''); };
       return {
-        MODULES, ROLES, users: load(), q: '', filter: 'all', modal: false, form: blank(),
+        MODULES, ROLES, users: load(), q: '', filter: 'all', modal: false, form: blank(), pw1: '', pw2: '', showPw: false,
         get list() { const s = this.q.toLowerCase(); return this.users.filter(u => (this.filter === 'all' || u.status === this.filter) && (!s || u.name.toLowerCase().includes(s) || u.email.toLowerCase().includes(s) || u.role.toLowerCase().includes(s))); },
         persist() { localStorage.setItem(KEY, JSON.stringify(this.users)); },
-        openNew() { this.form = blank(); this.modal = true; },
-        openEdit(u) { this.form = JSON.parse(JSON.stringify(u)); this.modal = true; },
-        save() {
+        openNew() { this.form = blank(); this.pw1 = this.pw2 = ''; this.showPw = false; this.modal = true; },
+        openEdit(u) { this.form = Object.assign(blank(), JSON.parse(JSON.stringify(u))); this.form.setup = u.pwHash ? 'password' : 'invite'; this.pw1 = this.pw2 = ''; this.showPw = false; this.modal = true; },
+        async save() {
           if (!this.form.name || !this.form.email) return;
+          const creating = !this.form.id;
+          if (this.form.setup === 'password' && (creating || this.pw1)) {
+            if (this.pw1.length < 8) { HeirsAdmin.toast('Password must be at least 8 characters', 'alert-triangle'); return; }
+            if (this.pw1 !== this.pw2) { HeirsAdmin.toast('Passwords do not match', 'alert-triangle'); return; }
+            this.form.pwHash = await sha(this.pw1); if (creating) this.form.status = 'active';
+          }
+          if (creating && this.form.setup === 'invite') { this.form.status = 'invited'; this.form.pwHash = ''; }
           if (this.form.id) { const i = this.users.findIndex(u => u.id === this.form.id); this.users[i] = Object.assign({}, this.users[i], this.form); HeirsAdmin.toast('User updated'); }
-          else { this.users.push(Object.assign({}, this.form, { id: Date.now(), last: '' })); HeirsAdmin.toast('User added: ' + this.form.name, 'user-plus'); }
-          this.persist(); this.modal = false;
+          else { this.users.push(Object.assign({}, this.form, { id: Date.now(), last: '' })); HeirsAdmin.toast(this.form.setup === 'invite' ? 'User saved, invitation email opened' : 'User created with password', 'user-plus'); if (this.form.setup === 'invite') window.location.href = this.inviteLink(this.form); }
+          this.persist(); this.modal = false; this.pw1 = this.pw2 = '';
         },
+        resetPassword() { const p = this.generatePw(); this.pw1 = this.pw2 = p; this.showPw = true; HeirsAdmin.toast('New password generated, save to apply', 'key-round'); },
+        generatePw() { const c = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%'; const a = crypto.getRandomValues(new Uint32Array(12)); return [...a].map(x => c[x % c.length]).join(''); },
+        strength(p) { let n = 0; if (p.length >= 8) n++; if (p.length >= 12) n++; if (/[A-Z]/.test(p) && /[a-z]/.test(p)) n++; if (/\d/.test(p)) n++; if (/[^A-Za-z0-9]/.test(p)) n++; const L = ['', 'Weak', 'Weak', 'Fair', 'Good', 'Strong']; const C = ['', 'var(--coral-500)', 'var(--coral-500)', 'var(--gold-500)', 'var(--teal-500)', 'var(--teal-600)']; return { pct: p ? n * 20 : 0, label: p ? L[n] : '', color: p ? C[n] : 'transparent' }; },
         toggle(u) { u.status = u.status === 'suspended' ? 'active' : 'suspended'; this.persist(); HeirsAdmin.toast(u.name + (u.status === 'suspended' ? ' suspended' : ' reactivated')); },
         remove(u) { if (confirm('Remove ' + u.name + ' from the admin portal?')) { this.users = this.users.filter(x => x.id !== u.id); this.persist(); HeirsAdmin.toast('User removed', 'trash-2'); } },
         signInAs(u) { this.users.forEach(x => x.current = x.id === u.id); u.last = 'Now'; this.persist(); location.reload(); },

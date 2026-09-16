@@ -22,8 +22,21 @@
     { key: 'blog', label: 'Blog', icon: 'newspaper', href: 'blog.html' },
     { key: 'institute', label: 'Heirs Institute', icon: 'graduation-cap', href: 'institute.html' },
     { grp: 'Website content' },
-    { key: 'pages', label: 'Edit Pages', icon: 'layout-template', href: 'pages.html' },
+    { key: 'pages', label: 'All Pages', icon: 'layout-template', href: 'pages.html' },
     { key: 'settings', label: 'Site Settings', icon: 'settings', href: 'settings.html' },
+    { key: 'edit-index', label: 'Home Page', icon: 'home', href: 'edit-index.html', sub: true },
+    { key: 'edit-about', label: 'About Us', icon: 'building-2', href: 'edit-about.html', sub: true },
+    { key: 'edit-services', label: 'Medical Services', icon: 'stethoscope', href: 'edit-services.html', sub: true },
+    { key: 'edit-department', label: 'Departments', icon: 'layout-grid', href: 'edit-department.html', sub: true },
+    { key: 'edit-fosterheirs', label: 'Fosterheirs', icon: 'brain', href: 'edit-fosterheirs.html', sub: true },
+    { key: 'edit-heirs-institute', label: 'Heirs Institute', icon: 'graduation-cap', href: 'edit-heirs-institute.html', sub: true },
+    { key: 'edit-methuselah', label: 'Methuselah Project', icon: 'heart-handshake', href: 'edit-methuselah.html', sub: true },
+    { key: 'edit-testimonial', label: 'Patient Stories', icon: 'message-square-heart', href: 'edit-testimonial.html', sub: true },
+    { key: 'edit-faq', label: 'FAQs', icon: 'circle-help', href: 'edit-faq.html', sub: true },
+    { key: 'edit-blog', label: 'Health Blog', icon: 'newspaper', href: 'edit-blog.html', sub: true },
+    { key: 'edit-detailed-blog', label: 'Blog Article', icon: 'file-text', href: 'edit-detailed-blog.html', sub: true },
+    { key: 'edit-contact', label: 'Contact & Booking', icon: 'mail', href: 'edit-contact.html', sub: true },
+    { key: 'edit-privacy', label: 'Privacy & Terms', icon: 'shield-check', href: 'edit-privacy.html', sub: true },
     { key: 'site', label: 'View Website', icon: 'external-link', href: '../index.html' },
     { grp: 'Administration' },
     { key: 'users', label: 'Users & Roles', icon: 'shield', href: 'users.html' }
@@ -32,7 +45,7 @@
   const me = (() => { try { const u = JSON.parse(localStorage.getItem('heirs.users.v1') || '[]'); const c = u.find(x => x.current) || u[0]; if (c) return { name: c.name, role: c.role, initials: c.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() }; } catch (e) {} return { name: 'Dr. Adeyemi', role: 'Super Admin', initials: 'DA' }; })();
   function sidebar() {
     const items = NAV.map(n => n.grp ? `<div class="grp">${n.grp}</div>` :
-      `<a href="${n.href}" class="${n.key === page ? 'active' : ''}">${i(n.icon)} ${n.label}${n.cnt ? `<span class="cnt">${n.cnt}</span>` : ''}</a>`).join('');
+      `<a href="${n.href}" class="${n.key === page ? 'active' : ''}${n.sub ? ' sub' : ''}">${i(n.icon)} ${n.label}${n.cnt ? `<span class="cnt">${n.cnt}</span>` : ''}</a>`).join('');
     return `
 <div class="a-sb-overlay" id="aOverlay"></div>
 <aside class="a-sidebar" id="aSidebar">

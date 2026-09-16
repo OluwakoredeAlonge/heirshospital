@@ -104,8 +104,6 @@
       <div class="tb-social">
         <a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Facebook">${b('facebook')}</a>
         <a href="${SITE.twitter}" target="_blank" rel="noopener" aria-label="X (Twitter)">${b('twitter')}</a>
-        <a href="${SITE.instagram}" target="_blank" rel="noopener" aria-label="Instagram">${b('instagram')}</a>
-        <a href="${SITE.youtube}" target="_blank" rel="noopener" aria-label="YouTube">${b('youtube')}</a>
       </div>
     </div>
   </div>
@@ -193,8 +191,6 @@
         <div class="f-social">
           <a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Facebook">${b('facebook')}</a>
           <a href="${SITE.twitter}" target="_blank" rel="noopener" aria-label="X">${b('twitter')}</a>
-          <a href="${SITE.instagram}" target="_blank" rel="noopener" aria-label="Instagram">${b('instagram')}</a>
-          <a href="${SITE.youtube}" target="_blank" rel="noopener" aria-label="YouTube">${b('youtube')}</a>
           <a href="${SITE.whatsapp}" target="_blank" rel="noopener" aria-label="WhatsApp">${b('whatsapp')}</a>
         </div>
       </div>
@@ -242,7 +238,7 @@
         <a href="privacy_policy.html">Privacy Policy</a>
         <a href="privacy_policy.html#terms">Terms of Use</a>
         <a href="faq.html">Patient Rights</a>
-        <span>Designed by <a href="#" class="font-semibold" style="color:var(--gold-500)">${SITE.credit}</a></span>
+        <span>Designed by <span class="font-semibold" style="color:var(--gold-500)">${SITE.credit}</span></span>
       </div>
     </div>
   </div>
@@ -323,6 +319,20 @@
       });
     }, { threshold: 0.5 });
     document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
+
+    // Branch photo carousel(s)
+    document.querySelectorAll('.bcar').forEach(car => {
+      const slides = () => [...car.querySelectorAll('.bcar-slide')]; const dots = car.querySelector('.bcar-dots'); let n = 0, timer;
+      const go = k => { const s = slides(); if (!s.length) return; n = (k + s.length) % s.length; s.forEach((el, j) => el.classList.toggle('on', j === n)); if (dots) [...dots.children].forEach((d, j) => d.classList.toggle('on', j === n)); };
+      const build = () => { if (dots) dots.innerHTML = slides().map((_, j) => `<i class="${j === n ? 'on' : ''}"></i>`).join(''); };
+      const play = () => { clearInterval(timer); timer = setInterval(() => go(n + 1), +car.dataset.autoplay || 5000); };
+      build(); play();
+      car.querySelector('.prev')?.addEventListener('click', () => { go(n - 1); play(); });
+      car.querySelector('.next')?.addEventListener('click', () => { go(n + 1); play(); });
+      car.addEventListener('mouseenter', () => clearInterval(timer)); car.addEventListener('mouseleave', play);
+      // slides may be re-rendered by the CMS live preview
+      new MutationObserver(() => { build(); go(0); }).observe(car.querySelector('.bcar-track'), { childList: true });
+    });
 
     // Marquee: duplicate content for seamless loop
     document.querySelectorAll('.marquee-track').forEach(t => { t.innerHTML += t.innerHTML; });

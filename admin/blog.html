@@ -21,7 +21,7 @@
 <body data-admin="blog" data-title="Blog" data-section="Hospital Admin" x-data="{
     filter: 'all',
     posts: [
-      { title: 'Understanding heart health: prevention and care', cat: 'Heart Health', views: 1250, comments: 15, status: 'Published', when: '2 days ago', img: '../assets/img/blog-fitness.jpg', author: 'Dr. Michael Soje' },
+      { title: 'Understanding heart health: prevention and care', cat: 'Heart Health', views: 1250, comments: 15, status: 'Published', when: '2 days ago', img: '../assets/img/blog-fitness.jpg', author: 'Heirs Health Desk' },
       { title: 'Importance of regular check-ups', cat: 'Health Tips', views: 980, comments: 8, status: 'Published', when: '5 days ago', img: '../assets/img/facility-consult.jpg', author: 'Editorial' },
       { title: 'Advances in paediatric care', cat: 'Child Care', views: 1500, comments: 22, status: 'Published', when: '1 week ago', img: '../assets/img/facility-ward.jpg', author: 'Paediatrics' },
       { title: 'Nutrition tips for wellness', cat: 'Nutrition', views: 0, comments: 0, status: 'Draft', when: 'Edited yesterday', img: '../assets/img/blog-nutrition.jpg', author: 'Dietetics Unit' },
@@ -37,7 +37,7 @@
 
       <div class="a-head">
         <div><h1>Health Blog</h1><p>Publish articles, manage drafts and moderate comments.</p></div>
-        <div class="actions"><a href="../blog.html" target="_blank" class="btn btn-outline"><i data-lucide="external-link"></i> View live blog</a><button class="btn btn-primary" @click="HeirsAdmin.toast('Editor coming soon', 'pen-line')"><i data-lucide="plus"></i> New article</button></div>
+        <div class="actions"><span class="tag tag-gold" title="These figures are placeholders until the portal is connected to live hospital records"><i data-lucide="flask-conical"></i> Demo data</span><a href="../blog.html" target="_blank" class="btn btn-outline"><i data-lucide="external-link"></i> View live blog</a><button class="btn btn-primary" @click="HeirsAdmin.toast('Editor coming soon', 'pen-line')"><i data-lucide="plus"></i> New article</button></div>
       </div>
 
       <div class="grid grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
@@ -67,7 +67,7 @@
             <div class="bar" style="grid-template-columns:110px 1fr 70px"><span class="lbl">Nutrition</span><div class="trk"><div class="fil" style="width:60%;background:linear-gradient(90deg,var(--violet-600),var(--violet-500))"></div></div><span class="val">22 · 7.5K</span></div>
             <div class="text-xs text-muted mt-2">posts · views</div>
           </div>
-          <div class="banner blue" style="padding:20px"><div class="text-xs uppercase tracking-widest font-bold mb-1" style="color:var(--gold-500)">Tip</div><p class="text-sm" style="color:rgba(255,255,255,.8)">Articles by named doctors get 2× more reads. Ask Dr. Soje for a short quote when publishing.</p></div>
+          <div class="banner blue" style="padding:20px"><div class="text-xs uppercase tracking-widest font-bold mb-1" style="color:var(--gold-500)">Tip</div><p class="text-sm" style="color:rgba(255,255,255,.8)">Keep articles as general health information and always include the medical disclaimer. Bylines should name a real author only with their approval.</p></div>
         </div>
       </div>
     </div>

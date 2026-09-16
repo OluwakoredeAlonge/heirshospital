@@ -8,7 +8,7 @@
   <meta name="keywords" content="Heirs Specialist Hospital, hospital Oye-Ekiti, hospital Ado-Ekiti, dialysis Ekiti, CT scan Ekiti, emergency hospital Ekiti, NHIS hospital Ekiti">
   <meta property="og:title" content="Heirs Multispecialist Hospital | Your Caring Family Hospital">
   <meta property="og:description" content="Bringing the best of medical practice to Ekiti. 24/7 emergency, dialysis, CT scan, ICU and specialist clinics.">
-  <meta property="og:image" content="assets/img/hospital-exterior.jpg">
+  <meta property="og:image" content="assets/img/ado-exterior.jpg">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -34,10 +34,6 @@
   <link rel="stylesheet" href="assets/css/heirs.css">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    .hero-photo { border-radius: 32px; overflow: hidden; position: relative; box-shadow: 0 40px 80px rgba(0,0,0,.45); }
-    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
-    .hero-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(6,26,53,.7)); }
-    .float-card { position: absolute; z-index: 2; }
     .quick-tile { display: flex; align-items: center; gap: 16px; padding: 20px 22px; border-radius: 20px; background: #fff; border: 1px solid var(--line); transition: all .3s var(--ease); }
     .quick-tile:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: transparent; }
     .quick-tile strong { display: block; font-family: var(--font-display); font-size: 15.5px; color: var(--ink); }
@@ -72,47 +68,37 @@
 
   <!-- ============================ HERO ============================ -->
   <section class="hero" data-cms-section="Hero">
-    <div class="hero-bg"><img src="assets/img/facility-icu.jpg" alt="" aria-hidden="true" data-cms="hero.bg" data-cms-label="Background image"></div>
+    <div class="hero-bg"><img src="assets/img/oye-exterior-side.jpg" alt="" aria-hidden="true" data-cms="hero.bg" data-cms-label="Background image"></div>
     <div class="hero-grid"></div>
     <div class="wrap">
-      <div class="hero-content grid lg:grid-cols-12 gap-12 items-center">
+      <div class="hero-content grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
         <div class="lg:col-span-6 reveal-l">
           <div class="flex flex-wrap gap-3 mb-6">
             <span class="pill pill-live" data-cms="hero.pill1" data-cms-label="Live badge">Emergency open now · 24/7</span>
             <span class="pill"><span class="dot"><i data-lucide="shield-check"></i></span> <span data-cms="hero.pill2" data-cms-label="Second badge">NHIS Accredited</span></span>
           </div>
-          <h1 class="hd-display mb-6" data-cms="hero.title" data-cms-label="Headline" data-cms-type="html" data-cms-hint="Wrap words in &lt;span class=&quot;gold-text&quot;&gt;...&lt;/span&gt; to colour them gold">World-class specialist care, <span class="gold-text">right here</span> in Ekiti.</h1>
-          <p class="lead mb-9 max-w-xl" data-cms="hero.lead" data-cms-label="Intro paragraph">Heirs Multispecialist Hospital is a 50-bed specialist hospital in Oye-Ekiti and Ado-Ekiti offering renal dialysis, CT scan, ICU, surgery, cardiology, dental and mental-health care, so no family has to travel abroad for the care they deserve.</p>
-          <div class="flex flex-wrap gap-4 mb-12">
+          <h1 class="hd-display mb-5" data-cms="hero.title" data-cms-type="html" data-cms-label="Headline" data-cms-hint="Wrap words in &lt;span class=&quot;gold-text&quot;&gt;...&lt;/span&gt; to colour them gold">World-class specialist care, <span class="gold-text">right here</span> in Ekiti.</h1>
+          <p class="lead mb-8 max-w-xl" data-cms="hero.lead" data-cms-label="Intro paragraph">Heirs Multi-Specialist Hospital and Diagnostic Centre is a 50-bed specialist hospital in Oye-Ekiti and Ado-Ekiti, set to end medical tourism by offering care comparable to leading hospitals in Nigeria and abroad.</p>
+          <div class="flex flex-wrap gap-3 mb-10">
             <a href="contact.html#book" class="btn btn-gold btn-lg"><i data-lucide="calendar-check"></i> <span data-cms="hero.cta1" data-cms-label="Primary button">Book an Appointment</span></a>
             <a href="tel:+2348036386440" class="btn btn-ghost btn-lg" data-cms="hero.cta2" data-cms-type="link" data-cms-label="Phone button"><i data-lucide="phone-call"></i> +234 803 638 6440</a>
           </div>
-          <div class="grid grid-cols-3 gap-6 max-w-lg">
+          <div class="grid grid-cols-3 gap-4 sm:gap-6 max-w-lg">
             <div class="stat on-dark"><div class="num"><span data-count="50" data-cms="hero.stat1.value" data-cms-attr="data-count" data-cms-label="Stat 1 number">0</span></div><div class="lbl" data-cms="hero.stat1.label" data-cms-label="Stat 1 label">Bed capacity</div></div>
             <div class="stat on-dark"><div class="num"><span data-count="16612" data-suffix="+" data-cms="hero.stat2.value" data-cms-attr="data-count" data-cms-label="Stat 2 number">0</span></div><div class="lbl" data-cms="hero.stat2.label" data-cms-label="Stat 2 label">Patients served</div></div>
             <div class="stat on-dark"><div class="num"><span data-count="15" data-suffix="+" data-cms="hero.stat3.value" data-cms-attr="data-count" data-cms-label="Stat 3 number">0</span></div><div class="lbl" data-cms="hero.stat3.label" data-cms-label="Stat 3 label">Specialist services</div></div>
           </div>
         </div>
-        <div class="lg:col-span-6 relative reveal-r" style="min-height: 520px;">
-          <div class="hero-photo absolute inset-x-6 lg:inset-x-0 top-6 bottom-6 lg:left-8">
-            <img src="assets/img/hospital-exterior.jpg" alt="Heirs Multispecialist Hospital, Oye-Ekiti at dusk" data-cms="hero.photo" data-cms-label="Main photo">
-          </div>
-          <div class="float-card glass p-5 float" style="left: 0; top: 0; width: 240px;">
-            <div class="flex items-center gap-3 mb-3">
-              <span class="icon-box sm" style="background:rgba(255,255,255,.14); color:#fff"><i data-lucide="activity"></i></span>
-              <div><div class="text-white font-bold text-sm" data-cms="hero.card1.title" data-cms-label="Floating card 1 title">Renal Dialysis Unit</div><div class="text-xs" style="color:rgba(255,255,255,.65)" data-cms="hero.card1.sub" data-cms-label="Floating card 1 subtitle">Haemo & peritoneal options</div></div>
+        <div class="lg:col-span-6 reveal-r">
+          <div class="bcar" data-autoplay="5500">
+            <div class="bcar-track" data-cms-list="hero.slides" data-cms-label="Branch photos (carousel)">
+              <div class="bcar-slide on"><img src="assets/img/oye-exterior.jpg" alt="Heirs Multi-Specialist Hospital, Oye-Ekiti" data-cms-field="img" data-cms-label="Photo"><div class="bcar-cap"><strong data-cms-field="title" data-cms-label="Caption">Oye-Ekiti · Main Branch</strong><span data-cms-field="sub" data-cms-label="Sub-caption">Beside Aluko House, Irare Estate</span></div></div>
+              <div class="bcar-slide"><img src="assets/img/oye-exterior-side.jpg" alt="Heirs Multi-Specialist Hospital, Oye-Ekiti" data-cms-field="img" data-cms-label="Photo"><div class="bcar-cap"><strong data-cms-field="title" data-cms-label="Caption">Oye-Ekiti · Main Branch</strong><span data-cms-field="sub" data-cms-label="Sub-caption">Multipurpose building commissioned at our 10th anniversary</span></div></div>
+              <div class="bcar-slide"><img src="assets/img/ado-exterior.jpg" alt="Heirs Multi-Specialist Hospital, Ado-Ekiti" data-cms-field="img" data-cms-label="Photo"><div class="bcar-cap"><strong data-cms-field="title" data-cms-label="Caption">Ado-Ekiti Branch</strong><span data-cms-field="sub" data-cms-label="Sub-caption">Plot 3, Orimolade Crescent, Ilokun Estate</span></div></div>
             </div>
-            <div class="h-1.5 rounded-full" style="background:rgba(255,255,255,.15)"><div class="h-full rounded-full" style="width:82%; background:linear-gradient(90deg,var(--teal-500),var(--gold-500))"></div></div>
-            <div class="text-xs mt-2" style="color:rgba(255,255,255,.7)" data-cms="hero.card1.note" data-cms-label="Floating card 1 note">Sessions available this week</div>
-          </div>
-          <div class="float-card glass p-5 float-d" style="right: -6px; bottom: 40px; width: 250px;">
-            <div class="flex items-center gap-3">
-              <div class="w-11 h-11 rounded-full grid place-items-center text-white font-bold" style="background:linear-gradient(135deg,var(--gold-500),#F7C766); color:var(--navy)"><i data-lucide="star"></i></div>
-              <div><div class="text-white font-bold text-sm" data-cms="hero.card2.title" data-cms-label="Floating card 2 title">98% patient satisfaction</div><div class="text-xs" style="color:rgba(255,255,255,.65)" data-cms="hero.card2.sub" data-cms-label="Floating card 2 subtitle">From 16,600+ patient visits</div></div>
-            </div>
-          </div>
-          <div class="float-card" style="left: 26px; bottom: 0;">
-            <div class="badge badge-navy" style="background:var(--coral-500); padding:10px 16px; font-size:13px"><i data-lucide="siren"></i> <span data-cms="hero.badge" data-cms-label="Red badge">Ambulance & ICU on standby</span></div>
+            <button class="bcar-btn prev" aria-label="Previous photo"><i data-lucide="chevron-left"></i></button>
+            <button class="bcar-btn next" aria-label="Next photo"><i data-lucide="chevron-right"></i></button>
+            <div class="bcar-dots" aria-hidden="true"></div>
           </div>
         </div>
       </div>
@@ -157,7 +143,7 @@
   <section class="section-tight bg-surface" data-cms-section="Quick actions">
     <div class="wrap">
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 stagger">
-        <a href="contact.html#book" class="quick-tile"><span class="icon-box sm grad"><i data-lucide="calendar-check"></i></span><div><strong data-cms="quick.1.title" data-cms-label="Tile 1 title">Book an Appointment</strong><span data-cms="quick.1.sub" data-cms-label="Tile 1 subtitle">Same-week consultations</span></div><span class="go"><i data-lucide="arrow-right"></i></span></a>
+        <a href="contact.html#book" class="quick-tile"><span class="icon-box sm grad"><i data-lucide="calendar-check"></i></span><div><strong data-cms="quick.1.title" data-cms-label="Tile 1 title">Book an Appointment</strong><span data-cms="quick.1.sub" data-cms-label="Tile 1 subtitle">Online, by phone or WhatsApp</span></div><span class="go"><i data-lucide="arrow-right"></i></span></a>
         <a href="services.html#emergency" class="quick-tile"><span class="icon-box sm coral"><i data-lucide="siren"></i></span><div><strong data-cms="quick.2.title" data-cms-label="Tile 2 title">Emergency & Ambulance</strong><span data-cms="quick.2.sub" data-cms-label="Tile 2 subtitle">Call +234 803 638 6440</span></div><span class="go"><i data-lucide="arrow-right"></i></span></a>
         <a href="department.html" class="quick-tile"><span class="icon-box sm teal"><i data-lucide="layout-grid"></i></span><div><strong data-cms="quick.3.title" data-cms-label="Tile 3 title">Find a Department</strong><span data-cms="quick.3.sub" data-cms-label="Tile 3 subtitle">Specialist clinics & units</span></div><span class="go"><i data-lucide="arrow-right"></i></span></a>
         <a href="fosterheirs.html" class="quick-tile"><span class="icon-box sm gold"><i data-lucide="brain"></i></span><div><strong data-cms="quick.4.title" data-cms-label="Tile 4 title">Mental Health Support</strong><span data-cms="quick.4.sub" data-cms-label="Tile 4 subtitle">Fosterheirs Consultancy</span></div><span class="go"><i data-lucide="arrow-right"></i></span></a>
@@ -185,7 +171,7 @@
         <div class="lg:col-span-6 reveal-r">
           <span class="eyebrow" data-cms="about.eyebrow" data-cms-label="Eyebrow">About Heirs</span>
           <h2 class="hd-1 mt-4 mb-5" data-cms="about.title" data-cms-label="Heading">Bringing the best of medical practice to Ekiti.</h2>
-          <p class="lead mb-6" data-cms="about.lead" data-cms-label="Paragraph">Founded by Dr. Michael Soje and Dr. (Mrs) Anthonia Soje, Heirs Multispecialist Hospital is a world-class specialist hospital set to end medical tourism in Nigeria, offering high-quality medical services comparable to leading hospitals in Nigeria and abroad, from two serene locations in Ekiti State.</p>
+          <p class="lead mb-6" data-cms="about.lead" data-cms-label="Paragraph">Founded by Dr. Michael Soje and Dr. (Mrs) Anthonia Soje, Heirs Multi-Specialist Hospital and Diagnostic Centre is a world-class specialist hospital set to end medical tourism in Nigeria, offering high-quality medical services comparable to what is obtainable in leading hospitals in Nigeria and elsewhere, from two serene neighbourhoods in Ekiti State.</p>
           <ul class="checks mb-8" data-cms="about.points" data-cms-type="lines" data-cms-label="Bullet points">
             <li><span class="ck"><i data-lucide="check"></i></span> Renal dialysis with peritoneal option, CT scan and full radiology suite</li>
             <li><span class="ck"><i data-lucide="check"></i></span> Intensive & critical care, 24/7 emergency and ambulance services</li>
@@ -243,7 +229,7 @@
       <div class="grid md:grid-cols-3 gap-6 stagger" data-cms-list="coe.cards" data-cms-label="Centre cards">
         <a href="department.html#nephrology" class="coe" data-cms-field="href" data-cms-attr="href" data-cms-label="Link">
           <img src="assets/img/facility-ward.jpg" alt="Renal dialysis centre" data-cms-field="img" data-cms-label="Image">
-          <div class="body"><span class="badge badge-gold"><i data-lucide="droplets" data-cms-field="icon" data-cms-type="icon" data-cms-label="Badge icon"></i> <span data-cms-field="badge" data-cms-label="Badge">Nephrology</span></span><h3 data-cms-field="title" data-cms-label="Title">Renal Dialysis Centre</h3><p data-cms-field="desc" data-cms-label="Description">One of the few centres in Ekiti offering both haemodialysis and peritoneal dialysis for chronic and acute kidney disease.</p></div>
+          <div class="body"><span class="badge badge-gold"><i data-lucide="droplets" data-cms-field="icon" data-cms-type="icon" data-cms-label="Badge icon"></i> <span data-cms-field="badge" data-cms-label="Badge">Nephrology</span></span><h3 data-cms-field="title" data-cms-label="Title">Renal Dialysis Centre</h3><p data-cms-field="desc" data-cms-label="Description">Specialised treatment of kidney disease, with both haemodialysis and a peritoneal dialysis option.</p></div>
         </a>
         <a href="department.html#imaging" class="coe" data-cms-field="href" data-cms-attr="href" data-cms-label="Link">
           <img src="assets/img/facility-consult.jpg" alt="Diagnostic imaging" data-cms-field="img" data-cms-label="Image">
@@ -251,7 +237,7 @@
         </a>
         <a href="department.html#critical-care" class="coe" data-cms-field="href" data-cms-attr="href" data-cms-label="Link">
           <img src="assets/img/facility-icu.jpg" alt="Intensive care unit" data-cms-field="img" data-cms-label="Image">
-          <div class="body"><span class="badge badge-gold"><i data-lucide="activity" data-cms-field="icon" data-cms-type="icon" data-cms-label="Badge icon"></i> <span data-cms-field="badge" data-cms-label="Badge">Critical Care</span></span><h3 data-cms-field="title" data-cms-label="Title">Intensive Care & Emergency</h3><p data-cms-field="desc" data-cms-label="Description">Ventilator-equipped ICU, 24/7 emergency physicians and ambulance response, powered round the clock by solar.</p></div>
+          <div class="body"><span class="badge badge-gold"><i data-lucide="activity" data-cms-field="icon" data-cms-type="icon" data-cms-label="Badge icon"></i> <span data-cms-field="badge" data-cms-label="Badge">Critical Care</span></span><h3 data-cms-field="title" data-cms-label="Title">Intensive Care & Emergency</h3><p data-cms-field="desc" data-cms-label="Description">Intensive & critical care unit, 24/7 emergency services and ambulance response, backed by 24-hour solar power.</p></div>
         </a>
       </div>
     </div>
@@ -342,15 +328,15 @@
         <div class="lg:col-span-5 reveal-l">
           <span class="eyebrow" data-cms="why.eyebrow" data-cms-label="Eyebrow">Why Families Choose Heirs</span>
           <h2 class="hd-1 mt-4 mb-5" data-cms="why.title" data-cms-label="Heading">Care you can trust, comfort you can feel.</h2>
-          <p class="lead mb-8" data-cms="why.lead" data-cms-label="Intro">"Your Caring Family Hospital" isn't a slogan, it's how we've earned the trust of more than 16,600 patients across Ekiti State.</p>
+          <p class="lead mb-8" data-cms="why.lead" data-cms-label="Intro">"Your Caring Family Hospital" is how more than 16,600 patients across Ekiti State have come to know us.</p>
           <div class="flex items-center gap-8">
-            <div class="kpi-ring" style="--p:98"><span data-cms="why.kpi" data-cms-label="KPI value">98%</span></div>
-            <div><div class="font-display font-bold text-ink" data-cms="why.kpiLabel" data-cms-label="KPI label">Patient satisfaction</div><div class="text-sm text-muted" data-cms="why.kpiNote" data-cms-label="KPI note">Based on post-visit feedback via our QR survey</div></div>
+            <div class="stat"><div class="num gradient-text" data-cms="why.kpi" data-cms-label="KPI value">16,612+</div></div>
+            <div><div class="font-display font-bold text-ink" data-cms="why.kpiLabel" data-cms-label="KPI label">Satisfied patients served</div><div class="text-sm text-muted" data-cms="why.kpiNote" data-cms-label="KPI note">Across our Oye-Ekiti and Ado-Ekiti branches</div></div>
           </div>
         </div>
         <div class="lg:col-span-7 grid sm:grid-cols-2 gap-5 stagger" data-cms-list="why.cards" data-cms-label="Reason cards">
           <div class="card"><span class="icon-box blue mb-4" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box blue|teal|gold|coral mb-4"><i data-lucide="award" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 class="hd-3 mb-2" data-cms-field="title" data-cms-label="Title">World-class standards</h3><p class="text-sm text-muted leading-relaxed" data-cms-field="desc" data-cms-label="Text">Care comparable to leading hospitals in Nigeria and abroad, with protocols built on international best practice.</p></div>
-          <div class="card"><span class="icon-box teal mb-4" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box blue|teal|gold|coral mb-4"><i data-lucide="user-round-check" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 class="hd-3 mb-2" data-cms-field="title" data-cms-label="Title">Specialist & visiting consultants</h3><p class="text-sm text-muted leading-relaxed" data-cms-field="desc" data-cms-label="Text">Resident specialists complemented by visiting consultants across nephrology, cardiology, surgery, O&G and more.</p></div>
+          <div class="card"><span class="icon-box teal mb-4" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box blue|teal|gold|coral mb-4"><i data-lucide="user-round-check" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 class="hd-3 mb-2" data-cms-field="title" data-cms-label="Title">Specialist & visiting doctors</h3><p class="text-sm text-muted leading-relaxed" data-cms-field="desc" data-cms-label="Text">Our specialist and visiting doctors cover kidney disease, heart disease, surgery, obstetrics & gynaecology, dental, eye care and more.</p></div>
           <div class="card"><span class="icon-box gold mb-4" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box blue|teal|gold|coral mb-4"><i data-lucide="sun" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 class="hd-3 mb-2" data-cms-field="title" data-cms-label="Title">Never in the dark</h3><p class="text-sm text-muted leading-relaxed" data-cms-field="desc" data-cms-label="Text">24-hour solar power keeps theatres, ICU, dialysis and cold-chain pharmacy running without interruption.</p></div>
           <div class="card"><span class="icon-box coral mb-4" data-cms-field="tone" data-cms-attr="class" data-cms-label="Icon colour" data-cms-hint="icon-box blue|teal|gold|coral mb-4"><i data-lucide="hand-heart" data-cms-field="icon" data-cms-type="icon" data-cms-label="Icon"></i></span><h3 class="hd-3 mb-2" data-cms-field="title" data-cms-label="Title">Whole-person care</h3><p class="text-sm text-muted leading-relaxed" data-cms-field="desc" data-cms-label="Text">Medicine, psychology and faith working together, with nutrition, physiotherapy and mental-health support in-house.</p></div>
         </div>
@@ -368,7 +354,7 @@
       <div class="grid md:grid-cols-3 gap-6 stagger" data-cms-list="stories.items" data-cms-label="Testimonials">
         <div class="quote-card"><span class="qmark">"</span><div class="stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div><p data-cms-field="quote" data-cms-label="Quote">"One of the best experiences ever. I had a very good and refreshing moment during my consultation and I am happy with myself again after overcoming all my difficult situations."</p><div class="who"><div class="av" style="background:var(--blue-600)" data-cms-field="initials" data-cms-label="Initials">FO</div><div><strong data-cms-field="name" data-cms-label="Name">Famurewa Oluwafisayo</strong><span data-cms-field="meta" data-cms-label="Context">Fosterheirs client</span></div></div></div>
         <div class="quote-card"><span class="qmark">"</span><div class="stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div><p data-cms-field="quote" data-cms-label="Quote">"After years battling addiction alone, the team gave me something no other programme had: a real reason to believe recovery was possible. Today I'm three years clean."</p><div class="who"><div class="av" style="background:var(--teal-500)" data-cms-field="initials" data-cms-label="Initials">AR</div><div><strong data-cms-field="name" data-cms-label="Name">Anonymous</strong><span data-cms-field="meta" data-cms-label="Context">Addiction recovery programme</span></div></div></div>
-        <div class="quote-card"><span class="qmark">"</span><div class="stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div><p data-cms-field="quote" data-cms-label="Quote">"Fast X-ray results and compassionate staff at Oye-Ekiti. The doctors explained everything clearly and the ward was clean and calm. I felt like family."</p><div class="who"><div class="av" style="background:var(--gold-600)" data-cms-field="initials" data-cms-label="Initials">TB</div><div><strong data-cms-field="name" data-cms-label="Name">Tunde Bello</strong><span data-cms-field="meta" data-cms-label="Context">Outpatient, Oye-Ekiti</span></div></div></div>
+        <div class="quote-card"><span class="qmark">"</span><div class="stars"><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i></div><p data-cms-field="quote" data-cms-label="Quote">"Fast X-ray results and compassionate staff at Oye-Ekiti."</p><div class="who"><div class="av" style="background:var(--gold-600)" data-cms-field="initials" data-cms-label="Initials">TB</div><div><strong data-cms-field="name" data-cms-label="Name">Tunde Bello</strong><span data-cms-field="meta" data-cms-label="Context">Outpatient, Oye-Ekiti</span></div></div></div>
       </div>
       <div class="text-center mt-10 reveal"><a href="testimonial.html" class="link-arrow">Read more patient stories <i data-lucide="arrow-right"></i></a></div>
     </div>
@@ -381,7 +367,7 @@
         <div class="lg:col-span-7 space-y-5 stagger">
           <div class="mb-8"><span class="eyebrow" data-cms="loc.eyebrow" data-cms-label="Eyebrow">Two Branches, One Standard</span><h2 class="hd-1 mt-4" data-cms="loc.title" data-cms-label="Heading">Visit us in Oye-Ekiti or Ado-Ekiti</h2></div>
           <div class="loc-card">
-            <div class="img"><img src="assets/img/hospital-exterior.jpg" alt="Oye-Ekiti main branch" data-cms="loc.1.img" data-cms-label="Oye-Ekiti photo"></div>
+            <div class="img"><img src="assets/img/ado-exterior.jpg" alt="Oye-Ekiti main branch" data-cms="loc.1.img" data-cms-label="Oye-Ekiti photo"></div>
             <div class="p-6">
               <div class="flex items-center gap-2 mb-2"><span class="badge badge-blue">Main Branch</span><span class="badge badge-coral"><i data-lucide="siren"></i> 24/7 Emergency</span></div>
               <h3 class="hd-3 mb-1" data-cms="loc.1.name" data-cms-label="Branch 1 name">Oye-Ekiti</h3>
@@ -431,7 +417,7 @@
           <a href="blog.html" class="btn btn-outline"><i data-lucide="newspaper"></i> Read all articles</a>
         </div>
         <div class="lg:col-span-8 grid gap-4 stagger" data-cms-list="blog.items" data-cms-label="Featured articles">
-          <a href="detailed-blog.html" class="blog-mini" data-cms-field="href" data-cms-attr="href" data-cms-label="Link"><img src="assets/img/blog-fitness.jpg" alt="" data-cms-field="img" data-cms-label="Image"><div><span class="badge badge-blue mb-2" data-cms-field="cat" data-cms-label="Category">Heart Health</span><h3 data-cms-field="title" data-cms-label="Title">Understanding heart health: prevention and care for Nigerian families</h3><div class="text-xs text-muted mt-1" data-cms-field="meta" data-cms-label="Author / read time">Dr. Michael Soje · 6 min read</div></div></a>
+          <a href="detailed-blog.html" class="blog-mini" data-cms-field="href" data-cms-attr="href" data-cms-label="Link"><img src="assets/img/blog-fitness.jpg" alt="" data-cms-field="img" data-cms-label="Image"><div><span class="badge badge-blue mb-2" data-cms-field="cat" data-cms-label="Category">Heart Health</span><h3 data-cms-field="title" data-cms-label="Title">Understanding heart health: prevention and care for Nigerian families</h3><div class="text-xs text-muted mt-1" data-cms-field="meta" data-cms-label="Author / read time">Heirs Health Desk · 6 min read</div></div></a>
           <a href="detailed-blog.html" class="blog-mini" data-cms-field="href" data-cms-attr="href" data-cms-label="Link"><img src="assets/img/blog-nutrition.jpg" alt="" data-cms-field="img" data-cms-label="Image"><div><span class="badge badge-teal mb-2" data-cms-field="cat" data-cms-label="Category">Nutrition</span><h3 data-cms-field="title" data-cms-label="Title">Eating well with diabetes: a practical Ekiti kitchen guide</h3><div class="text-xs text-muted mt-1" data-cms-field="meta" data-cms-label="Author / read time">Nutrition & Dietetics Unit · 5 min read</div></div></a>
           <a href="detailed-blog.html" class="blog-mini" data-cms-field="href" data-cms-attr="href" data-cms-label="Link"><img src="assets/img/facility-ward.jpg" alt="" data-cms-field="img" data-cms-label="Image"><div><span class="badge badge-gold mb-2" data-cms-field="cat" data-cms-label="Category">Kidney Health</span><h3 data-cms-field="title" data-cms-label="Title">Five early warning signs of kidney disease you shouldn't ignore</h3><div class="text-xs text-muted mt-1" data-cms-field="meta" data-cms-label="Author / read time">Renal Unit · 4 min read</div></div></a>
         </div>

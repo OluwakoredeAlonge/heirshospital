@@ -17,13 +17,32 @@
   /* ---------------- load ---------------- */
   async function load() {
     root.innerHTML = `<div class="empty"><i data-lucide="loader-circle" class="animate-spin"></i><b>Loading ${esc(meta.title)}…</b></div>`; HeirsAdmin.icons();
-    const html = await fetch('../' + meta.file, { cache: 'no-store' }).then(r => r.text());
-    const doc = new DOMParser().parseFromString(html, 'text/html');
-    schema = HeirsCMS.schema(doc);
+    let err = null;
+    try {
+      // Preferred: read the live public page so the editor always reflects the current markup
+      if (new URLSearchParams(location.search).has('offline')) throw new Error('offline mode requested');
+      const r = await fetch('../' + meta.file, { cache: 'no-store' });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      schema = HeirsCMS.schema(new DOMParser().parseFromString(await r.text(), 'text/html'));
+    } catch (e) {
+      err = e;
+      // Fallback: defaults embedded in this editor page (lets the admin work when opened directly from disk)
+      const emb = document.getElementById('cmsDefaults');
+      if (emb) { try { schema = JSON.parse(emb.textContent); } catch (e2) { schema = []; } }
+    }
+    if (!schema.length) {
+      root.innerHTML = `<div class="a-head"><div><a href="pages.html" class="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-ink mb-2">${i('arrow-left')} All pages</a><h1>Edit: ${esc(meta.title)}</h1></div></div>
+        <div class="card" style="max-width:720px"><div class="flex gap-4"><span class="ic coral" style="width:44px;height:44px;border-radius:12px;display:grid;place-items:center;flex:none">${i('alert-triangle')}</span><div>
+        <h3 class="font-extrabold mb-1">Could not load this page's content</h3>
+        <p class="text-sm text-muted mb-3">The editor reads <code>${esc(meta.file)}</code> to build its form. ${location.protocol === 'file:' ? 'You opened the admin directly from your computer, which browsers restrict. Open the site through its web address (or a local web server) and the editors will work.' : 'The page could not be fetched (' + esc(err && err.message) + '). Make sure the site files are deployed alongside the admin folder.'}</p>
+        <button class="btn btn-primary btn-sm" onclick="location.reload()">${i('refresh-cw')} Try again</button></div></div></div>`;
+      HeirsAdmin.icons(); return;
+    }
     defaults = {}; schema.forEach(s => s.fields.forEach(f => defaults[f.key] = clone(f.value)));
     const saved = HeirsCMS.get(page);
     data = clone(defaults); Object.keys(saved).forEach(k => { if (k in defaults) data[k] = saved[k]; });
     dirty = false; render();
+    if (err) HeirsAdmin.toast('Using built-in defaults (offline mode)', 'wifi-off');
   }
   const clone = v => JSON.parse(JSON.stringify(v));
   const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
@@ -113,15 +132,16 @@
       else if (b.dataset.mv) { const m = n + +b.dataset.mv; if (m >= 0 && m < arr.length) [arr[n], arr[m]] = [arr[m], arr[n]]; }
       dirty = true; render();
     });
-    document.getElementById('btnSave').onclick = () => { HeirsCMS.set(page, data); dirty = false; HeirsAdmin.toast('Published: ' + meta.title + ' updated on the website'); document.getElementById('pvFrame').contentWindow.location.reload(); };
+    document.getElementById('btnSave').onclick = () => { HeirsCMS.set(page, data); dirty = false; HeirsAdmin.toast('Published: ' + meta.title + ' updated on the website'); reloadPreview(); };
     document.getElementById('btnDiscard').onclick = () => { if (!dirty || confirm('Discard unsaved changes?')) load(); };
     document.getElementById('btnReset').onclick = () => { if (confirm('Reset every field on this page to the original content? This removes all saved edits for this page.')) { HeirsCMS.reset(page); load(); } };
-    document.getElementById('pvReload').onclick = () => document.getElementById('pvFrame').contentWindow.location.reload();
+    document.getElementById('pvReload').onclick = () => reloadPreview();
     document.querySelectorAll('.cms-preview-bar [data-w]').forEach(b => b.onclick = () => { document.querySelectorAll('.cms-preview-bar [data-w]').forEach(x => x.classList.toggle('on', x === b)); document.getElementById('pvFrame').style.width = b.dataset.w; });
     window.onbeforeunload = () => dirty ? 'You have unsaved changes.' : undefined;
     document.getElementById('pvFrame').addEventListener('load', pushPreview);
   }
 
+  function reloadPreview() { const fr = document.getElementById('pvFrame'); try { fr.contentWindow.location.reload(); } catch (e) { fr.src = fr.src; } }
   function findField(key) { for (const s of schema) for (const f of s.fields) if (f.key === key) return f; }
   function setVal(el, value) {
     const { k, n, f, part } = el.dataset;

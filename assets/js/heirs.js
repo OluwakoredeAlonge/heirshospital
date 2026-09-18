@@ -1,7 +1,7 @@
 /* ==========================================================================
    Heirs Multispecialist Hospital, shared site behaviour
    Injects the top bar, header, footer and floating actions, then wires up
-   navigation, reveal animations, counters, tabs and the marquee.
+   navigation, counters, tabs and the marquee.
    Set <body data-page="index"> to highlight the active nav item.
    ========================================================================== */
 (function () {
@@ -290,35 +290,16 @@
     };
     onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
 
-    // Reveal on scroll
-    const t0 = performance.now();
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(en => {
-        if (!en.isIntersecting) return;
-        const el = en.target;
-        // Content already on screen at load appears instantly (no fade), better LCP and hash-link landings
-        if (performance.now() - t0 < 1200) { el.style.transition = 'none'; el.querySelectorAll(':scope > *').forEach(c => c.style.transition = 'none'); }
-        el.classList.add('in'); io.unobserve(el);
-        if (el.style.transition) requestAnimationFrame(() => requestAnimationFrame(() => { el.style.transition = ''; el.querySelectorAll(':scope > *').forEach(c => c.style.transition = ''); }));
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-    document.querySelectorAll('.reveal, .reveal-l, .reveal-r, .stagger').forEach(el => io.observe(el));
+    // Everything is visible immediately (no scroll-triggered reveal). The "in" class is
+    // still added so any styling that keys off it applies at once.
+    document.querySelectorAll('.reveal, .reveal-l, .reveal-r, .stagger').forEach(el => el.classList.add('in'));
 
-    // Counters: <span data-count="16612" data-suffix="+">0</span>
-    const cio = new IntersectionObserver(entries => {
-      entries.forEach(en => {
-        if (!en.isIntersecting) return; cio.unobserve(en.target);
-        const el = en.target, end = parseFloat(el.dataset.count), suf = el.dataset.suffix || '', pre = el.dataset.prefix || '';
-        const dec = (el.dataset.count.split('.')[1] || '').length; const dur = 1600; const t0 = performance.now();
-        const step = now => {
-          const p = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - p, 3);
-          el.textContent = pre + (end * e).toLocaleString(undefined, { minimumFractionDigits: dec, maximumFractionDigits: dec }) + suf;
-          if (p < 1) requestAnimationFrame(step);
-        };
-        requestAnimationFrame(step);
-      });
-    }, { threshold: 0.5 });
-    document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
+    // Counters: <span data-count="16612" data-suffix="+">0</span> render their final value at once
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const end = parseFloat(el.dataset.count), suf = el.dataset.suffix || '', pre = el.dataset.prefix || '';
+      const dec = (el.dataset.count.split('.')[1] || '').length;
+      el.textContent = pre + end.toLocaleString(undefined, { minimumFractionDigits: dec, maximumFractionDigits: dec }) + suf;
+    });
 
     // Image lightbox: every content image opens full-size so visitors can look closely
     (function () {

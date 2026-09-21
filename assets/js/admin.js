@@ -15,7 +15,7 @@
   const section = b.dataset.section || 'Heirs Admin';
   const i = (n) => `<i data-lucide="${n}"></i>`;
 
-  const LOGO = `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="ahg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1663D6"/><stop offset="1" stop-color="#14B8A6"/></linearGradient></defs><rect width="48" height="48" rx="14" fill="url(#ahg)"/><path d="M24 13.5c-3.6-4.2-10.5-2.7-10.5 3.3 0 4.8 6.5 9.6 10.5 13.2 4-3.6 10.5-8.4 10.5-13.2 0-6-6.9-7.5-10.5-3.3z" fill="#fff" opacity=".96"/><path d="M10 34h6.5l2.5-5 4 10 3-7 2 2H37" stroke="#F2B84B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  const LOGO = `<img src="/assets/img/logo.png" alt="Heirs Multispecialist Hospital logo">`;
 
   const me = window.HeirsUser || { name: 'Admin', role: 'Viewer', initials: 'A', permissions: [], isSuperAdmin: false };
   const can = (mod) => !mod || me.isSuperAdmin || (me.permissions || []).includes(mod);

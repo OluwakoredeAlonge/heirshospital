@@ -127,6 +127,32 @@
       document.querySelectorAll('#bFilter button').forEach(x => x.classList.toggle('active', x === b));
       document.querySelectorAll('#bGrid .post').forEach(c => c.classList.toggle('hide', b.dataset.f !== 'all' && c.querySelector('.body').dataset.cat !== b.dataset.f));
     }));
+
+    // Real published posts (from the admin Blog editor) replace the default
+    // cards above once at least one exists. Until then this page keeps
+    // showing its own baked-in content, so nothing looks empty right after
+    // this ships. The category filter tabs above are left as-is (sidebar
+    // "Categories"/"Most read" stay CMS-driven, out of scope here).
+    (async function () {
+      let posts;
+      try { const r = await fetch('/api/posts'); posts = (await r.json()).posts; } catch (e) { return; }
+      if (!posts || !posts.length) return;
+      await window.HeirsCMS?.ready; // let the CMS's own apply() finish first, we override after it
+      const grid = document.getElementById('bGrid');
+      const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+      grid.innerHTML = posts.map(p => `
+        <a href="detailed-blog.html?slug=${encodeURIComponent(p.slug)}" class="post">
+          <div class="img"><img src="${esc(p.cover_image || 'assets/img/facility-consult.jpg')}" alt=""></div>
+          <div class="body">
+            <span class="badge badge-blue self-start">${esc(p.category)}</span>
+            <h3>${esc(p.title)}</h3>
+            <p>${esc(p.excerpt || '')}</p>
+            <div class="meta"><span class="av" style="background:var(--blue-600)">${esc((p.author || '').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase())}</span> <span>${esc(p.author)} · ${p.published_at ? new Date(p.published_at).toLocaleDateString() : ''}</span></div>
+          </div>
+        </a>`).join('');
+      document.getElementById('bFilter')?.querySelectorAll('button:not([data-f="all"])').forEach(b => b.style.display = 'none');
+      if (window.lucide) lucide.createIcons();
+    })();
   </script>
 </body>
 </html>

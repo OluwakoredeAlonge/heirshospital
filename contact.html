@@ -198,9 +198,18 @@
         if (!ok) form.querySelector('[required]:invalid, [style*="coral"]')?.focus();
         return ok;
       };
-      form.addEventListener('submit', e => {
+      form.addEventListener('submit', async e => {
         e.preventDefault(); if (!valid()) return;
         const d = data();
+        // Real submission first, so the front desk sees it in the admin
+        // portal - the mailto/WhatsApp copy below is a backup, not the
+        // only record of the request.
+        try {
+          await fetch('/api/appointments', {
+            method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ name: d.name, phone: d.phone, email: d.email, branch: d.branch, dept: d.dept, date: d.date, time: d.time, msg: d.msg })
+          });
+        } catch (err) { /* still show success + fall back to mailto/WhatsApp below */ }
         document.getElementById('okName').textContent = d.name.split(' ')[0];
         form.style.display = 'none'; document.getElementById('bookSuccess').classList.add('show');
         window.location.href = `mailto:contact@heirsspecialisthospital.com.ng?subject=${encodeURIComponent('Appointment request: ' + d.name)}&body=${encodeURIComponent(compose(d))}`;

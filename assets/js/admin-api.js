@@ -51,8 +51,8 @@
     exportAll() { return request('/admin/api/content'); },
     importAll(data) { return request('/admin/api/content', { method: 'PUT', body: data }); },
     resetAll() { return request('/admin/api/content', { method: 'DELETE' }); },
-    upload(file) {
-      const fd = new FormData(); fd.append('image', file);
+    upload(file, module) {
+      const fd = new FormData(); fd.append('image', file); if (module) fd.append('module', module);
       return request('/admin/api/uploads', { method: 'POST', body: fd });
     }
   };
@@ -66,7 +66,45 @@
     resendInvite(id) { return request('/admin/api/users/' + id + '/resend-invite', { method: 'POST' }); }
   };
 
+  const HeirsAdminAppointments = {
+    list() { return request('/admin/api/appointments'); },
+    create(data) { return request('/admin/api/appointments', { method: 'POST', body: data }); },
+    setStatus(id, status) { return request('/admin/api/appointments/' + id, { method: 'PUT', body: { status } }); },
+    remove(id) { return request('/admin/api/appointments/' + id, { method: 'DELETE' }); }
+  };
+
+  const HeirsAdminMessages = {
+    list() { return request('/admin/api/contact-messages'); },
+    open(id) { return request('/admin/api/contact-messages/' + id); },
+    reply(id, reply) { return request('/admin/api/contact-messages/' + id + '/reply', { method: 'POST', body: { reply } }); },
+    archive(id) { return request('/admin/api/contact-messages/' + id + '/archive', { method: 'POST' }); },
+    remove(id) { return request('/admin/api/contact-messages/' + id, { method: 'DELETE' }); }
+  };
+
+  const HeirsAdminBlog = {
+    list() { return request('/admin/api/posts'); },
+    create(data) { return request('/admin/api/posts', { method: 'POST', body: data }); },
+    update(id, data) { return request('/admin/api/posts/' + id, { method: 'PUT', body: data }); },
+    remove(id) { return request('/admin/api/posts/' + id, { method: 'DELETE' }); }
+  };
+
+  const HeirsAdminAdmissions = {
+    list() { return request('/admin/api/admissions'); },
+    create(data) { return request('/admin/api/admissions', { method: 'POST', body: data }); },
+    setStatus(id, status) { return request('/admin/api/admissions/' + id, { method: 'PUT', body: { status } }); },
+    remove(id) { return request('/admin/api/admissions/' + id, { method: 'DELETE' }); }
+  };
+
+  const HeirsAdminDashboard = {
+    summary() { return request('/admin/api/dashboard-summary'); }
+  };
+
   window.HeirsAuth = HeirsAuth;
   window.HeirsAdminContent = HeirsAdminContent;
   window.HeirsAdminUsers = HeirsAdminUsers;
+  window.HeirsAdminAppointments = HeirsAdminAppointments;
+  window.HeirsAdminMessages = HeirsAdminMessages;
+  window.HeirsAdminBlog = HeirsAdminBlog;
+  window.HeirsAdminAdmissions = HeirsAdminAdmissions;
+  window.HeirsAdminDashboard = HeirsAdminDashboard;
 })();

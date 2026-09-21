@@ -125,7 +125,7 @@
             <div class="step"><span class="num-badge" data-cms-field="num" data-cms-label="Number">3</span><div><h3 class="font-display font-bold text-ink" data-cms-field="title" data-cms-label="Title">Interview & screening</h3><p class="text-sm text-muted" data-cms-field="text" data-cms-label="Text">A short interview with faculty and verification of your credentials and medical fitness.</p></div></div>
             <div class="step"><span class="num-badge" data-cms-field="num" data-cms-label="Number">4</span><div><h3 class="font-display font-bold text-ink" data-cms-field="title" data-cms-label="Title">Acceptance & enrolment</h3><p class="text-sm text-muted" data-cms-field="text" data-cms-label="Text">Receive your admission letter, complete registration and join the next intake.</p></div></div>
           </div>
-          <form class="card" onsubmit="event.preventDefault(); const d=new FormData(this); window.open('https://wa.me/2347042481085?text='+encodeURIComponent('Admission enquiry - Heirs Institute of Allied Health\n\nName: '+d.get('n')+'\nPhone: '+d.get('p')+'\nProgramme: '+d.get('pr')+'\nIntake: '+d.get('i')),'_blank');">
+          <form class="card" id="admissionForm">
             <h3 class="hd-3 mb-1" data-cms="adm.formTitle" data-cms-label="Form title">Start your application</h3><p class="text-sm text-muted mb-5" data-cms="adm.formText" data-cms-label="Form intro">Tell us who you are and which programme interests you, our admissions team will send you the application form.</p>
             <div class="grid md:grid-cols-2 gap-4 mb-5">
               <div class="field"><label>Full name <span class="req">*</span></label><input class="input" name="n" required></div>
@@ -203,5 +203,18 @@
   <div id="site-footer"></div>
   <script src="assets/js/cms.js"></script>
   <script src="assets/js/heirs.js"></script>
+  <script>
+    document.getElementById('admissionForm')?.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const d = new FormData(this);
+      try {
+        await fetch('/api/admissions', {
+          method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({ n: d.get('n'), p: d.get('p'), pr: d.get('pr'), i: d.get('i') })
+        });
+      } catch (err) { /* still open WhatsApp below as a backup */ }
+      window.open('https://wa.me/2347042481085?text=' + encodeURIComponent('Admission enquiry - Heirs Institute of Allied Health\n\nName: ' + d.get('n') + '\nPhone: ' + d.get('p') + '\nProgramme: ' + d.get('pr') + '\nIntake: ' + d.get('i')), '_blank');
+    });
+  </script>
 </body>
 </html>

@@ -156,6 +156,34 @@
     const links = [...document.querySelectorAll('#toc a')];
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id)); }), { rootMargin: '-20% 0px -70% 0px' });
     document.querySelectorAll('article h2[id]').forEach(h => io.observe(h));
+
+    // A real post (from the admin Blog editor) overrides the CMS-applied
+    // default article above when ?slug= matches one. No slug, or the slug
+    // isn't found (deleted / draft), keeps today's default article - same
+    // graceful-fallback approach as blog.html.
+    (async function () {
+      const slug = new URLSearchParams(location.search).get('slug');
+      if (!slug) return;
+      let post;
+      try { const r = await fetch('/api/posts/' + encodeURIComponent(slug)); if (!r.ok) return; post = (await r.json()).post; } catch (e) { return; }
+      if (!post) return;
+      await window.HeirsCMS?.ready; // let the CMS's own apply() finish first, we override after it
+      const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+      document.title = post.title + ' | Heirs Health Blog';
+      const set = (sel, val) => { const el = document.querySelector(sel); if (el) el.textContent = val; };
+      set('[data-cms="head.cat"]', post.category);
+      set('[data-cms="head.title"]', post.title);
+      set('[data-cms="head.lead"]', post.excerpt || '');
+      set('[data-cms="head.author"]', post.author);
+      set('[data-cms="head.byline"]', 'General health information · Heirs Multispecialist Hospital');
+      set('[data-cms="head.initials"]', (post.author || '').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase());
+      const crumbCat = document.querySelector('.crumbs span'); if (crumbCat) crumbCat.textContent = post.category;
+      const heroImg = document.querySelector('[data-cms="head.img"]'); if (heroImg && post.cover_image) heroImg.src = post.cover_image;
+      const body = document.querySelector('[data-cms="body"]');
+      if (body) body.innerHTML = String(post.body || '').split(/\n{2,}/).map(p => `<p>${esc(p)}</p>`).join('');
+      document.getElementById('toc')?.closest('aside')?.style.setProperty('display', 'none');
+      if (window.lucide) lucide.createIcons();
+    })();
   </script>
 </body>
 </html>

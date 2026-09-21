@@ -120,10 +120,17 @@
   // Public pages: fetch and apply saved content as soon as the DOM is ready
   // (script sits at the end of <body>). Admin pages load this file for
   // PAGES/apply/schema only and never call boot's fetch path.
+  // CMS.ready resolves once the initial apply() above has run, so a
+  // page-specific script (e.g. detailed-blog.html overlaying a real blog
+  // post) can safely wait its turn instead of racing this async fetch and
+  // being overwritten by it.
+  let resolveReady;
+  CMS.ready = new Promise(res => { resolveReady = res; });
   async function boot() {
-    if (!document.body || document.body.dataset.admin) return;
+    if (!document.body || document.body.dataset.admin) { resolveReady(); return; }
     const key = CMS.pageKey();
     if (key) apply(await CMS.get(key));
+    resolveReady();
     // Live preview from the admin editor (same-origin iframe)
     window.addEventListener('message', e => { if (e.data && e.data.type === 'heirs-cms-preview' && e.data.page === key) { apply(e.data.data); if (window.lucide) lucide.createIcons(); } });
   }

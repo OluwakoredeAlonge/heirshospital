@@ -27,7 +27,7 @@
     .map(p => ({ key: 'edit-' + p.key, label: p.title, icon: p.icon, href: '/admin/pages/' + p.key, sub: true, mod: 'pages' }));
 
   const NAV = [
-    { grp: 'Hospital Admin' },
+    { grp: 'Operations' },
     { key: 'index', label: 'Overview', icon: 'layout-dashboard', href: '/admin' },
     { key: 'heirs-appointment', label: 'Appointments', icon: 'calendar-check', href: '/admin/appointments', mod: 'appointments' },
     { key: 'contact', label: 'Messages', icon: 'mail', href: '/admin/messages', mod: 'messages' },

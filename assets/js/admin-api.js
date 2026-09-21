@@ -76,6 +76,7 @@
   const HeirsAdminMessages = {
     list() { return request('/admin/api/contact-messages'); },
     open(id) { return request('/admin/api/contact-messages/' + id); },
+    create(data) { return request('/admin/api/contact-messages', { method: 'POST', body: data }); },
     reply(id, reply) { return request('/admin/api/contact-messages/' + id + '/reply', { method: 'POST', body: { reply } }); },
     archive(id) { return request('/admin/api/contact-messages/' + id + '/archive', { method: 'POST' }); },
     remove(id) { return request('/admin/api/contact-messages/' + id, { method: 'DELETE' }); }
@@ -99,6 +100,10 @@
     summary() { return request('/admin/api/dashboard-summary'); }
   };
 
+  const HeirsAdminSearch = {
+    query(q) { return request('/admin/api/search?q=' + encodeURIComponent(q)); }
+  };
+
   window.HeirsAuth = HeirsAuth;
   window.HeirsAdminContent = HeirsAdminContent;
   window.HeirsAdminUsers = HeirsAdminUsers;
@@ -107,4 +112,5 @@
   window.HeirsAdminBlog = HeirsAdminBlog;
   window.HeirsAdminAdmissions = HeirsAdminAdmissions;
   window.HeirsAdminDashboard = HeirsAdminDashboard;
+  window.HeirsAdminSearch = HeirsAdminSearch;
 })();

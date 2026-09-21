@@ -9,17 +9,15 @@
      data-cms-section="Hero"        groups fields into an editor section (on an ancestor)
      data-cms-list="key"            repeatable list; its first child is the template
        data-cms-field="name"        field inside a list item (same type/attr/label options)
-   Storage is localStorage. To connect a backend, replace the four functions
-   in `store` (loadAll / saveAll) with API calls - nothing else needs to change.
+   Storage: a real backend (GET /api/content/{page}), served from
+   HeirsMultiSpecialist_2026. Public pages fetch their content on load and
+   apply it over the page's own baked-in defaults, so every visitor sees the
+   same admin-edited content, not just the browser that made the edit.
+   Admin writes go through the separate HeirsAdminContent API wrapper in
+   admin-api.js (this file only ever reads, for the public boot path).
    ========================================================================== */
 (function () {
   'use strict';
-  const KEY = 'heirs.cms.v1';
-
-  const store = {
-    loadAll() { try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; } },
-    saveAll(d) { localStorage.setItem(KEY, JSON.stringify(d)); }
-  };
 
   // Registry of public pages the admin can edit
   const PAGES = [
@@ -106,22 +104,26 @@
   const CMS = {
     PAGES,
     pageKey() { return document.body.dataset.cmsPage || document.body.dataset.page || ''; },
-    all() { return store.loadAll(); },
-    get(page) { return store.loadAll()[page] || {}; },
-    set(page, data) { const d = store.loadAll(); d[page] = Object.assign({}, data, { _updated: new Date().toISOString() }); store.saveAll(d); },
-    reset(page) { const d = store.loadAll(); delete d[page]; store.saveAll(d); },
-    replaceAll(d) { store.saveAll(d || {}); },
-    exportJSON() { return JSON.stringify(store.loadAll(), null, 2); },
+    // Public, unauthenticated read of one page's admin-edited content.
+    async get(page) {
+      try {
+        const r = await fetch('/api/content/' + encodeURIComponent(page), { headers: { Accept: 'application/json' } });
+        if (!r.ok) return {};
+        const d = await r.json();
+        return (d && typeof d === 'object') ? d : {};
+      } catch (e) { return {}; }
+    },
     apply, schema, readEl, writeEl, typeOf
   };
   window.HeirsCMS = CMS;
 
-  // Public pages: apply saved content immediately (script sits at the end of <body>).
-  // Admin pages load this file in <head> and never call apply().
-  function boot() {
+  // Public pages: fetch and apply saved content as soon as the DOM is ready
+  // (script sits at the end of <body>). Admin pages load this file for
+  // PAGES/apply/schema only and never call boot's fetch path.
+  async function boot() {
     if (!document.body || document.body.dataset.admin) return;
     const key = CMS.pageKey();
-    if (key) apply(CMS.get(key));
+    if (key) apply(await CMS.get(key));
     // Live preview from the admin editor (same-origin iframe)
     window.addEventListener('message', e => { if (e.data && e.data.type === 'heirs-cms-preview' && e.data.page === key) { apply(e.data.data); if (window.lucide) lucide.createIcons(); } });
   }

@@ -1,6 +1,7 @@
 /* ==========================================================================
    Heirs CMS editor - builds a form from a public page's data-cms markers,
-   previews changes live in an iframe and publishes them via HeirsCMS.
+   previews changes live in an iframe and publishes them via HeirsAdminContent
+   (the authenticated admin content API - see admin-api.js).
    Page: <body data-admin="pages" data-cms-page="about">  + <div id="cmsEditor"></div>
    ========================================================================== */
 (function () {
@@ -13,36 +14,32 @@
   let schema = [], defaults = {}, data = {}, dirty = false, previewTimer = null;
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const i = n => `<i data-lucide="${n}"></i>`;
+  const imgSrc = v => (/^https?:|^data:/.test(v) ? v : '/' + String(v).replace(/^\/+/, ''));
 
   /* ---------------- load ---------------- */
   async function load() {
     root.innerHTML = `<div class="empty"><i data-lucide="loader-circle" class="animate-spin"></i><b>Loading ${esc(meta.title)}…</b></div>`; HeirsAdmin.icons();
     let err = null;
     try {
-      // Preferred: read the live public page so the editor always reflects the current markup
-      if (new URLSearchParams(location.search).has('offline')) throw new Error('offline mode requested');
-      const r = await fetch('../' + meta.file, { cache: 'no-store' });
+      const r = await fetch('/' + meta.file, { cache: 'no-store' });
       if (!r.ok) throw new Error('HTTP ' + r.status);
       schema = HeirsCMS.schema(new DOMParser().parseFromString(await r.text(), 'text/html'));
     } catch (e) {
       err = e;
-      // Fallback: defaults embedded in this editor page (lets the admin work when opened directly from disk)
-      const emb = document.getElementById('cmsDefaults');
-      if (emb) { try { schema = JSON.parse(emb.textContent); } catch (e2) { schema = []; } }
     }
     if (!schema.length) {
-      root.innerHTML = `<div class="a-head"><div><a href="pages.html" class="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-ink mb-2">${i('arrow-left')} All pages</a><h1>Edit: ${esc(meta.title)}</h1></div></div>
+      root.innerHTML = `<div class="a-head"><div><a href="/admin/pages" class="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-ink mb-2">${i('arrow-left')} All pages</a><h1>Edit: ${esc(meta.title)}</h1></div></div>
         <div class="card" style="max-width:720px"><div class="flex gap-4"><span class="ic coral" style="width:44px;height:44px;border-radius:12px;display:grid;place-items:center;flex:none">${i('alert-triangle')}</span><div>
         <h3 class="font-extrabold mb-1">Could not load this page's content</h3>
-        <p class="text-sm text-muted mb-3">The editor reads <code>${esc(meta.file)}</code> to build its form. ${location.protocol === 'file:' ? 'You opened the admin directly from your computer, which browsers restrict. Open the site through its web address (or a local web server) and the editors will work.' : 'The page could not be fetched (' + esc(err && err.message) + '). Make sure the site files are deployed alongside the admin folder.'}</p>
+        <p class="text-sm text-muted mb-3">The editor reads <code>${esc(meta.file)}</code> to build its form, and that request failed${err ? ' (' + esc(err.message) + ')' : ''}. Reload to try again.</p>
         <button class="btn btn-primary btn-sm" onclick="location.reload()">${i('refresh-cw')} Try again</button></div></div></div>`;
       HeirsAdmin.icons(); return;
     }
     defaults = {}; schema.forEach(s => s.fields.forEach(f => defaults[f.key] = clone(f.value)));
-    const saved = HeirsCMS.get(page);
+    let saved = {};
+    try { saved = await HeirsAdminContent.get(page) || {}; } catch (e) { HeirsAdmin.toast('Could not load saved edits, showing page defaults', 'wifi-off'); }
     data = clone(defaults); Object.keys(saved).forEach(k => { if (k in defaults) data[k] = saved[k]; });
     dirty = false; render();
-    if (err) HeirsAdmin.toast('Using built-in defaults (offline mode)', 'wifi-off');
   }
   const clone = v => JSON.parse(JSON.stringify(v));
   const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
@@ -52,10 +49,10 @@
     const modified = Object.keys(data).filter(k => !same(data[k], defaults[k])).length;
     root.innerHTML = `
       <div class="a-head">
-        <div><a href="pages.html" class="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-ink mb-2">${i('arrow-left')} All pages</a><h1>Edit: ${esc(meta.title)}</h1><p>${esc(meta.desc)}</p></div>
+        <div><a href="/admin/pages" class="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-ink mb-2">${i('arrow-left')} All pages</a><h1>Edit: ${esc(meta.title)}</h1><p>${esc(meta.desc)}</p></div>
         <div class="actions">
           <span class="tag ${modified ? 'tag-gold' : 'tag-gray'}" id="modBadge">${modified ? modified + ' field(s) changed from default' : 'Using default content'}</span>
-          <a href="../${meta.file}" target="_blank" class="btn btn-outline">${i('external-link')} View page</a>
+          <a href="/${meta.file}" target="_blank" class="btn btn-outline">${i('external-link')} View page</a>
           <button class="btn btn-ghost" id="btnReset">${i('rotate-ccw')} Reset to defaults</button>
           <button class="btn btn-outline" id="btnDiscard">${i('undo-2')} Discard changes</button>
           <button class="btn btn-primary" id="btnSave">${i('upload-cloud')} Save & publish</button>
@@ -69,7 +66,7 @@
             <span class="text-xs text-muted ml-auto" id="pvStatus">Live preview</span>
             <button class="a-icon-btn" id="pvReload" title="Reload preview">${i('refresh-cw')}</button>
           </div>
-          <div class="cms-frame-wrap"><iframe id="pvFrame" src="../${meta.file}?preview=1" title="Preview"></iframe></div>
+          <div class="cms-frame-wrap"><iframe id="pvFrame" src="/${meta.file}?preview=1" title="Preview"></iframe></div>
         </div>
       </div>`;
     HeirsAdmin.icons(); wire();
@@ -99,7 +96,7 @@
   function control(f, v, bind) {
     const t = f.type;
     if (t === 'link') return `<div class="grid sm:grid-cols-2 gap-2"><input class="input" ${bind} data-part="text" value="${esc(v?.text)}" placeholder="Label"><input class="input" ${bind} data-part="href" value="${esc(v?.href)}" placeholder="Link (URL, tel:, mailto:)"></div>`;
-    if (t === 'image') return `<div class="cms-img"><img src="${esc(v).startsWith('data:') || /^https?:/.test(v) ? esc(v) : '../' + esc(v)}" alt="" onerror="this.style.opacity=.2"><div class="flex-1 grid gap-2"><input class="input" ${bind} value="${esc(v)}" placeholder="Image URL or path"><label class="btn btn-outline btn-sm" style="width:max-content">${i('upload')} Upload image<input type="file" accept="image/*" hidden ${bind} data-upload></label></div></div>`;
+    if (t === 'image') return `<div class="cms-img"><img src="${esc(imgSrc(v))}" alt="" onerror="this.style.opacity=.2"><div class="flex-1 grid gap-2"><input class="input" ${bind} value="${esc(v)}" placeholder="Image URL or path"><label class="btn btn-outline btn-sm" style="width:max-content" data-upload-label>${i('upload')} Upload image<input type="file" accept="image/*" hidden ${bind} data-upload></label></div></div>`;
     if (t === 'icon') return `<div class="flex items-center gap-2"><span class="ic blue" style="width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex:none"><i data-lucide="${esc(v)}"></i></span><input class="input" ${bind} value="${esc(v)}" placeholder="lucide icon name, e.g. heart-pulse"><a href="https://lucide.dev/icons" target="_blank" class="text-xs text-brand-600 font-semibold whitespace-nowrap">Browse icons</a></div>`;
     if (t === 'lines') return `<textarea class="textarea" ${bind} data-lines rows="${Math.max(3, (v || []).length + 1)}" placeholder="One item per line">${esc((v || []).join('\n'))}</textarea>`;
     if (t === 'html') return `<textarea class="textarea" ${bind} rows="4">${esc(v)}</textarea>`;
@@ -114,13 +111,23 @@
       const el = e.target; if (!el.dataset.k || el.dataset.upload !== undefined) return;
       setVal(el, el.tagName === 'TEXTAREA' && el.hasAttribute('data-lines') ? el.value.split('\n').map(x => x.trim()).filter(Boolean) : el.value);
       if (el.previousElementSibling?.querySelector?.('i,svg') && el.closest('.flex')?.querySelector('span.ic')) { const ic = el.closest('.flex').querySelector('span.ic'); ic.innerHTML = `<i data-lucide="${el.value}"></i>`; HeirsAdmin.icons(); }
-      if (el.closest('.cms-img')) el.closest('.cms-img').querySelector('img').src = el.value.startsWith('data:') || /^https?:/.test(el.value) ? el.value : '../' + el.value;
+      if (el.closest('.cms-img')) el.closest('.cms-img').querySelector('img').src = imgSrc(el.value);
       markDirty(el);
     });
     form.addEventListener('change', async e => {
       const el = e.target; if (el.dataset.upload === undefined || !el.files?.[0]) return;
-      const url = await fileToDataUrl(el.files[0]); setVal(el, url);
-      const wrap = el.closest('.cms-img'); wrap.querySelector('input.input').value = url; wrap.querySelector('img').src = url; markDirty(el);
+      const wrap = el.closest('.cms-img'); const label = wrap.querySelector('[data-upload-label]');
+      const prevLabel = label.innerHTML; label.innerHTML = `${i('loader-circle')} Uploading…`; HeirsAdmin.icons();
+      try {
+        const { url } = await HeirsAdminContent.upload(el.files[0]);
+        setVal(el, url);
+        wrap.querySelector('input.input').value = url; wrap.querySelector('img').src = url;
+        markDirty(el);
+      } catch (err) {
+        HeirsAdmin.toast(err.message || 'Image upload failed', 'alert-triangle');
+      } finally {
+        label.innerHTML = prevLabel; HeirsAdmin.icons();
+      }
     });
     form.addEventListener('click', e => {
       const b = e.target.closest('button'); if (!b) return;
@@ -132,9 +139,22 @@
       else if (b.dataset.mv) { const m = n + +b.dataset.mv; if (m >= 0 && m < arr.length) [arr[n], arr[m]] = [arr[m], arr[n]]; }
       dirty = true; render();
     });
-    document.getElementById('btnSave').onclick = () => { HeirsCMS.set(page, data); dirty = false; HeirsAdmin.toast('Published: ' + meta.title + ' updated on the website'); reloadPreview(); };
+    document.getElementById('btnSave').onclick = async () => {
+      const btn = document.getElementById('btnSave'); const prev = btn.innerHTML; btn.disabled = true; btn.innerHTML = `${i('loader-circle')} Saving…`; HeirsAdmin.icons();
+      try {
+        await HeirsAdminContent.set(page, data);
+        dirty = false; HeirsAdmin.toast('Published: ' + meta.title + ' updated on the website'); reloadPreview();
+      } catch (err) {
+        HeirsAdmin.toast(err.message || 'Could not save changes', 'alert-triangle');
+      } finally {
+        btn.disabled = false; btn.innerHTML = prev; HeirsAdmin.icons();
+      }
+    };
     document.getElementById('btnDiscard').onclick = () => { if (!dirty || confirm('Discard unsaved changes?')) load(); };
-    document.getElementById('btnReset').onclick = () => { if (confirm('Reset every field on this page to the original content? This removes all saved edits for this page.')) { HeirsCMS.reset(page); load(); } };
+    document.getElementById('btnReset').onclick = async () => {
+      if (!confirm('Reset every field on this page to the original content? This removes all saved edits for this page.')) return;
+      try { await HeirsAdminContent.resetOne(page); load(); } catch (err) { HeirsAdmin.toast(err.message || 'Could not reset this page', 'alert-triangle'); }
+    };
     document.getElementById('pvReload').onclick = () => reloadPreview();
     document.querySelectorAll('.cms-preview-bar [data-w]').forEach(b => b.onclick = () => { document.querySelectorAll('.cms-preview-bar [data-w]').forEach(x => x.classList.toggle('on', x === b)); document.getElementById('pvFrame').style.width = b.dataset.w; });
     window.onbeforeunload = () => dirty ? 'You have unsaved changes.' : undefined;
@@ -154,9 +174,6 @@
     clearTimeout(previewTimer); previewTimer = setTimeout(pushPreview, 350);
   }
   function pushPreview() { const fr = document.getElementById('pvFrame'); const st = document.getElementById('pvStatus'); try { fr.contentWindow.postMessage({ type: 'heirs-cms-preview', page, data }, '*'); if (st) st.textContent = dirty ? 'Previewing unsaved changes' : 'Live preview'; } catch (e) {} }
-  function fileToDataUrl(file) {
-    return new Promise(res => { const img = new Image(); const u = URL.createObjectURL(file); img.onload = () => { const max = 1600; const sc = Math.min(1, max / Math.max(img.width, img.height)); const c = document.createElement('canvas'); c.width = Math.round(img.width * sc); c.height = Math.round(img.height * sc); c.getContext('2d').drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(u); res(c.toDataURL(file.type === 'image/png' ? 'image/png' : 'image/jpeg', 0.82)); }; img.src = u; });
-  }
 
   load();
 })();

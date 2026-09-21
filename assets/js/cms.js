@@ -22,19 +22,19 @@
   // Registry of public pages the admin can edit
   const PAGES = [
     { key: 'site', title: 'Site settings', file: null, icon: 'settings', desc: 'Phone numbers, emails, addresses, hours and social links used across every page.' },
-    { key: 'index', title: 'Home page', file: 'index.html', icon: 'home', desc: 'Hero, stats, services, programmes, founders, testimonials and locations.' },
-    { key: 'about', title: 'About us', file: 'about.html', icon: 'building-2', desc: 'Story, mission, timeline, founders, values and facilities.' },
-    { key: 'services', title: 'Medical services', file: 'services.html', icon: 'stethoscope', desc: 'Featured centres, the full service directory and patient journey.' },
-    { key: 'department', title: 'Departments', file: 'department.html', icon: 'layout-grid', desc: 'Department cards with images, features and branch details.' },
-    { key: 'fosterheirs', title: 'Fosterheirs mental health', file: 'fosterheirs.html', icon: 'brain', desc: 'Services, team, courses, books and booking details.' },
-    { key: 'heirs-institute', title: 'Heirs Institute', file: 'heirs-institute.html', icon: 'graduation-cap', desc: 'Programmes, admissions, dates and scholarships.' },
-    { key: 'methuselah', title: 'Methuselah Project', file: 'methuselah.html', icon: 'heart-handshake', desc: 'Free elder-care programme details and eligibility.' },
-    { key: 'testimonial', title: 'Patient stories', file: 'testimonial.html', icon: 'message-square-heart', desc: 'Testimonials and the feedback section.' },
-    { key: 'faq', title: 'FAQs', file: 'faq.html', icon: 'circle-help', desc: 'Every question and answer, grouped by topic.' },
-    { key: 'blog', title: 'Health blog', file: 'blog.html', icon: 'newspaper', desc: 'Featured article, article cards and sidebar.' },
-    { key: 'detailed-blog', title: 'Blog article', file: 'detailed-blog.html', icon: 'file-text', desc: 'The article body, author and related links.' },
-    { key: 'contact', title: 'Contact & booking', file: 'contact.html', icon: 'mail', desc: 'Contact tiles, booking form copy, branches and quick answers.' },
-    { key: 'privacy', title: 'Privacy & terms', file: 'privacy_policy.html', icon: 'shield-check', desc: 'Legal text sections.' }
+    { key: 'index', title: 'Home page', file: '', icon: 'home', desc: 'Hero, stats, services, programmes, founders, testimonials and locations.' },
+    { key: 'about', title: 'About us', file: 'about', icon: 'building-2', desc: 'Story, mission, timeline, founders, values and facilities.' },
+    { key: 'services', title: 'Medical services', file: 'services', icon: 'stethoscope', desc: 'Featured centres, the full service directory and patient journey.' },
+    { key: 'department', title: 'Departments', file: 'department', icon: 'layout-grid', desc: 'Department cards with images, features and branch details.' },
+    { key: 'fosterheirs', title: 'Fosterheirs mental health', file: 'fosterheirs', icon: 'brain', desc: 'Services, team, courses, books and booking details.' },
+    { key: 'heirs-institute', title: 'Heirs Institute', file: 'heirs-institute', icon: 'graduation-cap', desc: 'Programmes, admissions, dates and scholarships.' },
+    { key: 'methuselah', title: 'Methuselah Project', file: 'methuselah', icon: 'heart-handshake', desc: 'Free elder-care programme details and eligibility.' },
+    { key: 'testimonial', title: 'Patient stories', file: 'testimonial', icon: 'message-square-heart', desc: 'Testimonials and the feedback section.' },
+    { key: 'faq', title: 'FAQs', file: 'faq', icon: 'circle-help', desc: 'Every question and answer, grouped by topic.' },
+    { key: 'blog', title: 'Health blog', file: 'blog', icon: 'newspaper', desc: 'Featured article, article cards and sidebar.' },
+    { key: 'detailed-blog', title: 'Blog article', file: 'detailed-blog', icon: 'file-text', desc: 'The article body, author and related links.' },
+    { key: 'contact', title: 'Contact & booking', file: 'contact', icon: 'mail', desc: 'Contact tiles, booking form copy, branches and quick answers.' },
+    { key: 'privacy', title: 'Privacy & terms', file: 'privacy', icon: 'shield-check', desc: 'Legal text sections.' }
   ];
 
   /* ---------- element <-> value ---------- */
@@ -121,7 +121,7 @@
   // (script sits at the end of <body>). Admin pages load this file for
   // PAGES/apply/schema only and never call boot's fetch path.
   // CMS.ready resolves once the initial apply() above has run, so a
-  // page-specific script (e.g. detailed-blog.html overlaying a real blog
+  // page-specific script (e.g. the blog article page overlaying a real blog
   // post) can safely wait its turn instead of racing this async fetch and
   // being overwritten by it.
   let resolveReady;

@@ -37,37 +37,37 @@
   const LOGO = `<img class="brand-mark" src="/assets/img/logo.png" alt="Heirs Multispecialist Hospital logo">`;
 
   const NAV = [
-    { key: 'index', label: 'Home', href: 'index.html' },
+    { key: 'index', label: 'Home', href: '/' },
     {
-      key: 'about', label: 'About', href: 'about.html',
+      key: 'about', label: 'About', href: '/about',
       menu: [
-        { key: 'about', icon: 'building-2', t: 'About the Hospital', d: 'Our story, mission & values', href: 'about.html' },
-        { key: 'founders', icon: 'users', t: 'Our Founders', d: 'Dr. Michael & Dr. Anthonia Soje', href: 'about.html#founders' },
-        { key: 'testimonial', icon: 'message-square-heart', t: 'Patient Stories', d: 'What our patients say', href: 'testimonial.html' },
-        { key: 'faq', icon: 'circle-help', t: 'FAQs', d: 'Answers to common questions', href: 'faq.html' }
+        { key: 'about', icon: 'building-2', t: 'About the Hospital', d: 'Our story, mission & values', href: '/about' },
+        { key: 'founders', icon: 'users', t: 'Our Founders', d: 'Dr. Michael & Dr. Anthonia Soje', href: '/about#founders' },
+        { key: 'testimonial', icon: 'message-square-heart', t: 'Patient Stories', d: 'What our patients say', href: '/testimonial' },
+        { key: 'faq', icon: 'circle-help', t: 'FAQs', d: 'Answers to common questions', href: '/faq' }
       ]
     },
     {
-      key: 'care', label: 'Our Care', href: 'services.html', wide: true,
+      key: 'care', label: 'Our Care', href: '/services', wide: true,
       menu: [
-        { key: 'services', icon: 'stethoscope', t: 'Medical Services', d: 'Dialysis, CT scan, surgery, dental & more', href: 'services.html' },
-        { key: 'department', icon: 'layout-grid', t: 'Departments', d: 'Specialist units across two branches', href: 'department.html' },
-        { key: 'emergency', icon: 'siren', t: 'Emergency & ICU', d: '24/7 critical care, ambulance', href: 'services.html#emergency' },
-        { key: 'facilities', icon: 'hospital', t: 'Facilities', d: '50-bed hospital, solar-powered', href: 'about.html#facilities' },
-        { key: 'book', icon: 'calendar-check', t: 'Book an Appointment', d: 'Online or by phone', href: 'contact.html#book' },
-        { key: 'nhis', icon: 'shield-check', t: 'NHIS & Insurance', d: 'Accredited provider', href: 'faq.html#payments' }
+        { key: 'services', icon: 'stethoscope', t: 'Medical Services', d: 'Dialysis, CT scan, surgery, dental & more', href: '/services' },
+        { key: 'department', icon: 'layout-grid', t: 'Departments', d: 'Specialist units across two branches', href: '/department' },
+        { key: 'emergency', icon: 'siren', t: 'Emergency & ICU', d: '24/7 critical care, ambulance', href: '/services#emergency' },
+        { key: 'facilities', icon: 'hospital', t: 'Facilities', d: '50-bed hospital, solar-powered', href: '/about#facilities' },
+        { key: 'book', icon: 'calendar-check', t: 'Book an Appointment', d: 'Online or by phone', href: '/contact#book' },
+        { key: 'nhis', icon: 'shield-check', t: 'NHIS & Insurance', d: 'Accredited provider', href: '/faq#payments' }
       ]
     },
     {
-      key: 'programmes', label: 'Programmes', href: 'fosterheirs.html',
+      key: 'programmes', label: 'Programmes', href: '/fosterheirs',
       menu: [
-        { key: 'fosterheirs', icon: 'brain', t: 'Fosterheirs Mental Health', d: 'Therapy, addiction recovery & coaching', href: 'fosterheirs.html' },
-        { key: 'heirs-institute', icon: 'graduation-cap', t: 'Heirs Institute of Allied Health', d: 'Accredited health training', href: 'heirs-institute.html' },
-        { key: 'methuselah', icon: 'heart-handshake', t: 'Methuselah Project', d: 'Free care for elders 65+', href: 'methuselah.html' }
+        { key: 'fosterheirs', icon: 'brain', t: 'Fosterheirs Mental Health', d: 'Therapy, addiction recovery & coaching', href: '/fosterheirs' },
+        { key: 'heirs-institute', icon: 'graduation-cap', t: 'Heirs Institute of Allied Health', d: 'Accredited health training', href: '/heirs-institute' },
+        { key: 'methuselah', icon: 'heart-handshake', t: 'Methuselah Project', d: 'Free care for elders 65+', href: '/methuselah' }
       ]
     },
-    { key: 'blog', label: 'Health Blog', href: 'blog.html' },
-    { key: 'contact', label: 'Contact', href: 'contact.html' }
+    { key: 'blog', label: 'Health Blog', href: '/blog' },
+    { key: 'contact', label: 'Contact', href: '/contact' }
   ];
 
   const page = document.body.dataset.page || '';
@@ -125,13 +125,13 @@
     return `
 <header class="site-header" id="siteHeader">
   <div class="wrap">
-    <a href="index.html" class="brand" aria-label="${SITE.name}">
+    <a href="/" class="brand" aria-label="${SITE.name}">
       ${LOGO}
       <span><span class="brand-name">Heirs</span><span class="brand-sub">Multispecialist Hospital</span></span>
     </a>
     <ul class="nav">${items}</ul>
     <div class="header-cta">
-      <a href="contact.html#book" class="btn btn-primary btn-sm">${i('calendar-check')} Book Appointment</a>
+      <a href="/contact#book" class="btn btn-primary btn-sm">${i('calendar-check')} Book Appointment</a>
       <a href="${SITE.phoneHref}" class="btn btn-emergency btn-sm hidden xl:inline-flex">${i('siren')} Emergency</a>
       <button class="burger" id="burger" aria-label="Open menu">${i('menu')}</button>
     </div>
@@ -140,30 +140,30 @@
 <div class="drawer-overlay" id="drawerOverlay"></div>
 <aside class="drawer" id="drawer" aria-label="Mobile navigation">
   <div class="drawer-head">
-    <a href="index.html" class="brand">${LOGO}<span><span class="brand-name">Heirs</span><span class="brand-sub">Multispecialist Hospital</span></span></a>
+    <a href="/" class="brand">${LOGO}<span><span class="brand-name">Heirs</span><span class="brand-sub">Multispecialist Hospital</span></span></a>
     <button class="burger" id="drawerClose" aria-label="Close menu" style="display:grid">${i('x')}</button>
   </div>
   <nav class="drawer-body">
-    <a href="index.html" class="${page === 'index' ? 'active' : ''}">${i('home')} Home</a>
+    <a href="/" class="${page === 'index' ? 'active' : ''}">${i('home')} Home</a>
     <span class="dl">About</span>
-    <a href="about.html" class="${page === 'about' ? 'active' : ''}">${i('building-2')} About the Hospital</a>
-    <a href="about.html#founders">${i('users')} Our Founders</a>
-    <a href="testimonial.html" class="${page === 'testimonial' ? 'active' : ''}">${i('message-square-heart')} Patient Stories</a>
-    <a href="faq.html" class="${page === 'faq' ? 'active' : ''}">${i('circle-help')} FAQs</a>
+    <a href="/about" class="${page === 'about' ? 'active' : ''}">${i('building-2')} About the Hospital</a>
+    <a href="/about#founders">${i('users')} Our Founders</a>
+    <a href="/testimonial" class="${page === 'testimonial' ? 'active' : ''}">${i('message-square-heart')} Patient Stories</a>
+    <a href="/faq" class="${page === 'faq' ? 'active' : ''}">${i('circle-help')} FAQs</a>
     <span class="dl">Our Care</span>
-    <a href="services.html" class="${page === 'services' ? 'active' : ''}">${i('stethoscope')} Medical Services</a>
-    <a href="department.html" class="${page === 'department' ? 'active' : ''}">${i('layout-grid')} Departments</a>
-    <a href="services.html#emergency">${i('siren')} Emergency & ICU</a>
+    <a href="/services" class="${page === 'services' ? 'active' : ''}">${i('stethoscope')} Medical Services</a>
+    <a href="/department" class="${page === 'department' ? 'active' : ''}">${i('layout-grid')} Departments</a>
+    <a href="/services#emergency">${i('siren')} Emergency & ICU</a>
     <span class="dl">Programmes</span>
-    <a href="fosterheirs.html" class="${page === 'fosterheirs' ? 'active' : ''}">${i('brain')} Fosterheirs Mental Health</a>
-    <a href="heirs-institute.html" class="${page === 'heirs-institute' ? 'active' : ''}">${i('graduation-cap')} Heirs Institute</a>
-    <a href="methuselah.html" class="${page === 'methuselah' ? 'active' : ''}">${i('heart-handshake')} Methuselah Project</a>
+    <a href="/fosterheirs" class="${page === 'fosterheirs' ? 'active' : ''}">${i('brain')} Fosterheirs Mental Health</a>
+    <a href="/heirs-institute" class="${page === 'heirs-institute' ? 'active' : ''}">${i('graduation-cap')} Heirs Institute</a>
+    <a href="/methuselah" class="${page === 'methuselah' ? 'active' : ''}">${i('heart-handshake')} Methuselah Project</a>
     <span class="dl">More</span>
-    <a href="blog.html" class="${page === 'blog' ? 'active' : ''}">${i('newspaper')} Health Blog</a>
-    <a href="contact.html" class="${page === 'contact' ? 'active' : ''}">${i('mail')} Contact Us</a>
+    <a href="/blog" class="${page === 'blog' ? 'active' : ''}">${i('newspaper')} Health Blog</a>
+    <a href="/contact" class="${page === 'contact' ? 'active' : ''}">${i('mail')} Contact Us</a>
   </nav>
   <div class="drawer-foot">
-    <a href="contact.html#book" class="btn btn-primary btn-block">${i('calendar-check')} Book Appointment</a>
+    <a href="/contact#book" class="btn btn-primary btn-block">${i('calendar-check')} Book Appointment</a>
     <a href="${SITE.phoneHref}" class="btn btn-emergency btn-block">${i('phone-call')} Emergency: ${SITE.phone}</a>
   </div>
 </aside>`;
@@ -176,7 +176,7 @@
   <div class="wrap">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pt-16 pb-12">
       <div class="lg:col-span-4">
-        <a href="index.html" class="brand mb-5">${LOGO}<span><span class="brand-name" style="color:#fff">Heirs</span><span class="brand-sub" style="color:var(--gold-500)">Multispecialist Hospital</span></span></a>
+        <a href="/" class="brand mb-5">${LOGO}<span><span class="brand-name" style="color:#fff">Heirs</span><span class="brand-sub" style="color:var(--gold-500)">Multispecialist Hospital</span></span></a>
         <p class="text-sm leading-relaxed mb-6" style="max-width:34ch">${SITE.tagline}. ${SITE.footerBlurb}</p>
         <div class="f-emergency">
           <div class="ic">${i('siren')}</div>
@@ -191,25 +191,25 @@
       <div class="lg:col-span-2">
         <h4>Hospital</h4>
         <ul class="f-links">
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="services.html">Medical Services</a></li>
-          <li><a href="department.html">Departments</a></li>
-          <li><a href="testimonial.html">Patient Stories</a></li>
-          <li><a href="blog.html">Health Blog</a></li>
-          <li><a href="faq.html">FAQs</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/services">Medical Services</a></li>
+          <li><a href="/department">Departments</a></li>
+          <li><a href="/testimonial">Patient Stories</a></li>
+          <li><a href="/blog">Health Blog</a></li>
+          <li><a href="/faq">FAQs</a></li>
+          <li><a href="/contact">Contact</a></li>
         </ul>
       </div>
       <div class="lg:col-span-3">
         <h4>Programmes & Services</h4>
         <ul class="f-links">
-          <li><a href="fosterheirs.html">Fosterheirs Mental Health</a></li>
-          <li><a href="heirs-institute.html">Heirs Institute of Allied Health</a></li>
-          <li><a href="methuselah.html">Methuselah Project (Elders 65+)</a></li>
-          <li><a href="services.html#dialysis">Renal Dialysis</a></li>
-          <li><a href="services.html#imaging">CT Scan & Radiology</a></li>
-          <li><a href="services.html#dental">Dental Clinic</a></li>
-          <li><a href="services.html#emergency">Emergency & ICU</a></li>
+          <li><a href="/fosterheirs">Fosterheirs Mental Health</a></li>
+          <li><a href="/heirs-institute">Heirs Institute of Allied Health</a></li>
+          <li><a href="/methuselah">Methuselah Project (Elders 65+)</a></li>
+          <li><a href="/services#dialysis">Renal Dialysis</a></li>
+          <li><a href="/services#imaging">CT Scan & Radiology</a></li>
+          <li><a href="/services#dental">Dental Clinic</a></li>
+          <li><a href="/services#emergency">Emergency & ICU</a></li>
         </ul>
       </div>
       <div class="lg:col-span-3">
@@ -229,9 +229,9 @@
     <div class="f-bottom">
       <p>© ${SITE.year} ${SITE.name}. All rights reserved. NHIS Accredited Provider.</p>
       <div class="legal">
-        <a href="privacy_policy.html">Privacy Policy</a>
-        <a href="privacy_policy.html#terms">Terms of Use</a>
-        <a href="faq.html">Patient Rights</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/privacy#terms">Terms of Use</a>
+        <a href="/faq">Patient Rights</a>
         <span>Designed by <span class="font-semibold" style="color:var(--gold-500)">${SITE.credit}</span></span>
       </div>
     </div>

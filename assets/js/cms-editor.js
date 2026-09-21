@@ -12,6 +12,7 @@
   if (!page || !meta || !root) return;
 
   let schema = [], defaults = {}, data = {}, dirty = false, previewTimer = null;
+  const MAX_UPLOAD_MB = 4;
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const i = n => `<i data-lucide="${n}"></i>`;
   const imgSrc = v => (/^https?:|^data:/.test(v) ? v : '/' + String(v).replace(/^\/+/, ''));
@@ -96,7 +97,7 @@
   function control(f, v, bind) {
     const t = f.type;
     if (t === 'link') return `<div class="grid sm:grid-cols-2 gap-2"><input class="input" ${bind} data-part="text" value="${esc(v?.text)}" placeholder="Label"><input class="input" ${bind} data-part="href" value="${esc(v?.href)}" placeholder="Link (URL, tel:, mailto:)"></div>`;
-    if (t === 'image') return `<div class="cms-img"><img src="${esc(imgSrc(v))}" alt="" onerror="this.style.opacity=.2"><div class="flex-1 grid gap-2"><input class="input" ${bind} value="${esc(v)}" placeholder="Image URL or path"><label class="btn btn-outline btn-sm" style="width:max-content" data-upload-label>${i('upload')} Upload image<input type="file" accept="image/*" hidden ${bind} data-upload></label></div></div>`;
+    if (t === 'image') return `<div class="cms-img"><img src="${esc(imgSrc(v))}" alt="" onerror="this.style.opacity=.2"><div class="flex-1 grid gap-2"><input class="input" ${bind} value="${esc(v)}" placeholder="Image URL or path"><label class="btn btn-outline btn-sm" style="width:max-content" data-upload-label>${i('upload')} Upload image<input type="file" accept="image/*" hidden ${bind} data-upload></label><div class="hint">JPG, PNG or WebP, up to ${MAX_UPLOAD_MB}MB</div></div></div>`;
     if (t === 'icon') return `<div class="flex items-center gap-2"><span class="ic blue" style="width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex:none"><i data-lucide="${esc(v)}"></i></span><input class="input" ${bind} value="${esc(v)}" placeholder="lucide icon name, e.g. heart-pulse"><a href="https://lucide.dev/icons" target="_blank" class="text-xs text-brand-600 font-semibold whitespace-nowrap">Browse icons</a></div>`;
     if (t === 'lines') return `<textarea class="textarea" ${bind} data-lines rows="${Math.max(3, (v || []).length + 1)}" placeholder="One item per line">${esc((v || []).join('\n'))}</textarea>`;
     if (t === 'html') return `<textarea class="textarea" ${bind} rows="4">${esc(v)}</textarea>`;
@@ -116,6 +117,12 @@
     });
     form.addEventListener('change', async e => {
       const el = e.target; if (el.dataset.upload === undefined || !el.files?.[0]) return;
+      const file = el.files[0];
+      if (file.size > MAX_UPLOAD_MB * 1024 * 1024) {
+        HeirsAdmin.toast(`Image is too large - max ${MAX_UPLOAD_MB}MB`, 'alert-triangle');
+        el.value = '';
+        return;
+      }
       const wrap = el.closest('.cms-img'); const label = wrap.querySelector('[data-upload-label]');
       const prevLabel = label.innerHTML; label.innerHTML = `${i('loader-circle')} Uploading…`; HeirsAdmin.icons();
       try {

@@ -89,6 +89,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -.02em; color
 .a-icon-btn svg { width: 18px; height: 18px; }
 .a-icon-btn .dot { position: absolute; top: 9px; right: 9px; width: 8px; height: 8px; border-radius: 50%; background: var(--coral-500); border: 2px solid #fff; }
 .a-icon-btn .badge { position: absolute; top: -4px; right: -4px; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 999px; background: var(--coral-500); color: #fff; font-size: 10px; font-weight: 800; display: grid; place-items: center; line-height: 1; border: 2px solid #fff; }
+.a-icon-btn .badge[hidden] { display: none; }
 .a-drop { position: absolute; top: calc(100% + 8px); right: 0; width: 320px; max-width: calc(100vw - 32px); max-height: 380px; overflow-y: auto; background: #fff; border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow-lg); z-index: 60; padding: 6px; }
 .a-search .a-drop { left: 0; right: 0; width: auto; }
 .a-drop-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 10px; cursor: pointer; text-decoration: none; color: inherit; }

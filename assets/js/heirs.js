@@ -30,9 +30,24 @@
     credit: 'MASYS',
     year: new Date().getFullYear()
   };
-  // Site-wide settings edited from the admin portal (Site settings) override the defaults above
-  if (window.HeirsCMS) { const o = window.HeirsCMS.get('site'); Object.keys(o).forEach(k => { if (k in SITE && o[k] !== '' && o[k] != null) SITE[k] = o[k]; }); }
   window.HEIRS = SITE;
+  // Wrap a block in `hide(value, html)` to render nothing at all when a customisable
+  // field has been cleared, instead of showing an empty link/icon/label.
+  const hide = (v, html) => (v && String(v).trim()) ? html : '';
+
+  // Site-wide settings edited from the admin portal (Site settings) override the defaults
+  // above - including clearing a field to empty, which hides whatever it powers below (the
+  // `hide()` helper) rather than silently falling back to the hardcoded default. HeirsCMS.get
+  // is async, so nothing that reads SITE (topbar/header/footer) can render until this
+  // resolves - see the bottom of this file, mount() is only called after it settles.
+  // A key only appears in `o` once it's been saved at least once, so `k in o` is how a
+  // "never customised, keep the default" field is told apart from "customised to blank"
+  // (which Laravel's ConvertEmptyStringsToNull middleware stores as null, not '').
+  async function loadSiteSettings() {
+    if (!window.HeirsCMS) return;
+    const o = await window.HeirsCMS.get('site');
+    Object.keys(o).forEach(k => { if (k in SITE) SITE[k] = o[k] ?? ''; });
+  }
 
   const LOGO = `<img class="brand-mark" src="/assets/img/logo.png" alt="Heirs Multispecialist Hospital logo">`;
 
@@ -83,22 +98,28 @@
   };
   const b = name => `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">${BRAND[name]}</svg>`;
 
+  // Shared social-icon row: each icon only renders if its URL is actually set,
+  // so an unset/cleared profile just doesn't appear rather than linking nowhere.
+  function socialIcons() {
+    return hide(SITE.facebook, `<a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Facebook">${b('facebook')}</a>`)
+      + hide(SITE.twitter, `<a href="${SITE.twitter}" target="_blank" rel="noopener" aria-label="X (Twitter)">${b('twitter')}</a>`)
+      + hide(SITE.instagram, `<a href="${SITE.instagram}" target="_blank" rel="noopener" aria-label="Instagram">${b('instagram')}</a>`)
+      + hide(SITE.youtube, `<a href="${SITE.youtube}" target="_blank" rel="noopener" aria-label="YouTube">${b('youtube')}</a>`);
+  }
+
   /* ---------------- Top bar ---------------- */
   function topbar() {
     return `
 <div class="topbar">
   <div class="wrap">
     <div class="tb-left">
-      <a class="tb-item" href="${SITE.phoneHref}">${i('phone')} ${SITE.phone}</a>
-      <a class="tb-item tb-hide-m" href="mailto:${SITE.email}">${i('mail')} ${SITE.email}</a>
-      <span class="tb-item tb-hide-m">${i('clock')} ${SITE.hoursShort}</span>
+      ${hide(SITE.phone, `<a class="tb-item" href="${SITE.phoneHref}">${i('phone')} ${SITE.phone}</a>`)}
+      ${hide(SITE.email, `<a class="tb-item tb-hide-m" href="mailto:${SITE.email}">${i('mail')} ${SITE.email}</a>`)}
+      ${hide(SITE.hoursShort, `<span class="tb-item tb-hide-m">${i('clock')} ${SITE.hoursShort}</span>`)}
     </div>
     <div class="tb-right">
       <span class="tb-item tb-hide-m">${i('map-pin')} Oye-Ekiti · Ado-Ekiti</span>
-      <div class="tb-social">
-        <a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Facebook">${b('facebook')}</a>
-        <a href="${SITE.twitter}" target="_blank" rel="noopener" aria-label="X (Twitter)">${b('twitter')}</a>
-      </div>
+      <div class="tb-social">${socialIcons()}</div>
     </div>
   </div>
 </div>`;
@@ -132,7 +153,7 @@
     <ul class="nav">${items}</ul>
     <div class="header-cta">
       <a href="/contact#book" class="btn btn-primary btn-sm">${i('calendar-check')} Book Appointment</a>
-      <a href="${SITE.phoneHref}" class="btn btn-emergency btn-sm hidden xl:inline-flex">${i('siren')} Emergency</a>
+      ${hide(SITE.phone, `<a href="${SITE.phoneHref}" class="btn btn-emergency btn-sm hidden xl:inline-flex">${i('siren')} Emergency</a>`)}
       <button class="burger" id="burger" aria-label="Open menu">${i('menu')}</button>
     </div>
   </div>
@@ -164,7 +185,7 @@
   </nav>
   <div class="drawer-foot">
     <a href="/contact#book" class="btn btn-primary btn-block">${i('calendar-check')} Book Appointment</a>
-    <a href="${SITE.phoneHref}" class="btn btn-emergency btn-block">${i('phone-call')} Emergency: ${SITE.phone}</a>
+    ${hide(SITE.phone, `<a href="${SITE.phoneHref}" class="btn btn-emergency btn-block">${i('phone-call')} Emergency: ${SITE.phone}</a>`)}
   </div>
 </aside>`;
   }
@@ -177,15 +198,17 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pt-16 pb-12">
       <div class="lg:col-span-4">
         <a href="/" class="brand mb-5">${LOGO}<span><span class="brand-name" style="color:#fff">Heirs</span><span class="brand-sub" style="color:var(--gold-500)">Multispecialist Hospital</span></span></a>
-        <p class="text-sm leading-relaxed mb-6" style="max-width:34ch">${SITE.tagline}. ${SITE.footerBlurb}</p>
-        <div class="f-emergency">
+        ${hide(SITE.tagline || SITE.footerBlurb, `<p class="text-sm leading-relaxed mb-6" style="max-width:34ch">${[SITE.tagline, SITE.footerBlurb].filter(Boolean).join('. ')}</p>`)}
+        ${hide(SITE.phone, `<div class="f-emergency">
           <div class="ic">${i('siren')}</div>
           <div><strong>24/7 Emergency Line</strong><span><a href="${SITE.phoneHref}">${SITE.phone}</a> · Ambulance available</span></div>
-        </div>
+        </div>`)}
         <div class="f-social">
-          <a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Facebook">${b('facebook')}</a>
-          <a href="${SITE.twitter}" target="_blank" rel="noopener" aria-label="X">${b('twitter')}</a>
-          <a href="${SITE.whatsapp}" target="_blank" rel="noopener" aria-label="WhatsApp">${b('whatsapp')}</a>
+          ${hide(SITE.facebook, `<a href="${SITE.facebook}" target="_blank" rel="noopener" aria-label="Facebook">${b('facebook')}</a>`)}
+          ${hide(SITE.twitter, `<a href="${SITE.twitter}" target="_blank" rel="noopener" aria-label="X">${b('twitter')}</a>`)}
+          ${hide(SITE.instagram, `<a href="${SITE.instagram}" target="_blank" rel="noopener" aria-label="Instagram">${b('instagram')}</a>`)}
+          ${hide(SITE.youtube, `<a href="${SITE.youtube}" target="_blank" rel="noopener" aria-label="YouTube">${b('youtube')}</a>`)}
+          ${hide(SITE.whatsapp, `<a href="${SITE.whatsapp}" target="_blank" rel="noopener" aria-label="WhatsApp">${b('whatsapp')}</a>`)}
         </div>
       </div>
       <div class="lg:col-span-2">
@@ -215,10 +238,10 @@
       <div class="lg:col-span-3">
         <h4>Find Us</h4>
         <ul class="f-contact">
-          <li>${i('map-pin')}<span><strong>Oye-Ekiti (Main)</strong>${SITE.oye}</span></li>
-          <li>${i('map-pin')}<span><strong>Ado-Ekiti Branch</strong>${SITE.ado}</span></li>
-          <li>${i('phone')}<span><strong>Call / WhatsApp</strong><a href="${SITE.phoneHref}">${SITE.phone}</a><br><a href="${SITE.phone2Href}">${SITE.phone2}</a></span></li>
-          <li>${i('mail')}<span><strong>Email</strong><a href="mailto:${SITE.email}">${SITE.email}</a></span></li>
+          ${hide(SITE.oye, `<li>${i('map-pin')}<span><strong>Oye-Ekiti (Main)</strong>${SITE.oye}</span></li>`)}
+          ${hide(SITE.ado, `<li>${i('map-pin')}<span><strong>Ado-Ekiti Branch</strong>${SITE.ado}</span></li>`)}
+          ${hide(SITE.phone || SITE.phone2, `<li>${i('phone')}<span><strong>Call / WhatsApp</strong>${hide(SITE.phone, `<a href="${SITE.phoneHref}">${SITE.phone}</a>`)}${SITE.phone && SITE.phone2 ? '<br>' : ''}${hide(SITE.phone2, `<a href="${SITE.phone2Href}">${SITE.phone2}</a>`)}</span></li>`)}
+          ${hide(SITE.email, `<li>${i('mail')}<span><strong>Email</strong><a href="mailto:${SITE.email}">${SITE.email}</a></span></li>`)}
         </ul>
         <form class="f-newsletter" onsubmit="event.preventDefault(); this.querySelector('input').value=''; alert('Thank you for subscribing to Heirs health updates.');">
           <input type="email" placeholder="Get health tips by email" required aria-label="Email address">
@@ -239,8 +262,8 @@
 </footer>
 <div class="fab-stack">
   <a href="#top" class="fab fab-top" id="toTop" aria-label="Back to top">${i('arrow-up')}</a>
-  <a href="${SITE.whatsapp}" target="_blank" rel="noopener" class="fab fab-wa" aria-label="Chat on WhatsApp">${b('whatsapp')}</a>
-  <a href="${SITE.phoneHref}" class="fab fab-call" aria-label="Call emergency line">${i('phone-call')}</a>
+  ${hide(SITE.whatsapp, `<a href="${SITE.whatsapp}" target="_blank" rel="noopener" class="fab fab-wa" aria-label="Chat on WhatsApp">${b('whatsapp')}</a>`)}
+  ${hide(SITE.phone, `<a href="${SITE.phoneHref}" class="fab fab-call" aria-label="Call emergency line">${i('phone-call')}</a>`)}
 </div>`;
   }
 
@@ -361,5 +384,10 @@
     if (window.lucide) lucide.createIcons();
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount); else mount();
+  // Start the site-settings fetch immediately (it doesn't need the DOM), then mount once
+  // both it and the DOM are ready - so the very first paint of the header/footer already
+  // reflects any admin edits, instead of flashing the hardcoded defaults first.
+  const siteReady = loadSiteSettings();
+  function boot() { siteReady.then(mount); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 })();

@@ -33,6 +33,7 @@
     { key: 'contact', label: 'Messages', icon: 'mail', href: '/admin/messages', mod: 'messages' },
     { key: 'blog', label: 'Blog', icon: 'newspaper', href: '/admin/blog', mod: 'blog' },
     { key: 'institute', label: 'Heirs Institute', icon: 'graduation-cap', href: '/admin/institute', mod: 'institute' },
+    { key: 'methuselah', label: 'Methuselah Project', icon: 'heart-handshake', href: '/admin/methuselah', mod: 'methuselah' },
     { grp: 'Website content' },
     { key: 'pages', label: 'All Pages', icon: 'layout-template', href: '/admin/pages', mod: 'pages' },
     { key: 'settings', label: 'Site Settings', icon: 'settings', href: '/admin/settings', mod: 'settings' },

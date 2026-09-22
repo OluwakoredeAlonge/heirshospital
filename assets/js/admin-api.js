@@ -96,6 +96,13 @@
     remove(id) { return request('/admin/api/admissions/' + id, { method: 'DELETE' }); }
   };
 
+  const HeirsAdminMethuselah = {
+    list() { return request('/admin/api/methuselah-registrations'); },
+    create(data) { return request('/admin/api/methuselah-registrations', { method: 'POST', body: data }); },
+    setStatus(id, status) { return request('/admin/api/methuselah-registrations/' + id, { method: 'PUT', body: { status } }); },
+    remove(id) { return request('/admin/api/methuselah-registrations/' + id, { method: 'DELETE' }); }
+  };
+
   const HeirsAdminDashboard = {
     summary() { return request('/admin/api/dashboard-summary'); }
   };
@@ -111,6 +118,7 @@
   window.HeirsAdminMessages = HeirsAdminMessages;
   window.HeirsAdminBlog = HeirsAdminBlog;
   window.HeirsAdminAdmissions = HeirsAdminAdmissions;
+  window.HeirsAdminMethuselah = HeirsAdminMethuselah;
   window.HeirsAdminDashboard = HeirsAdminDashboard;
   window.HeirsAdminSearch = HeirsAdminSearch;
 })();

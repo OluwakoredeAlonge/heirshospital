@@ -133,6 +133,10 @@ img { max-width: 100%; }
 }
 .btn svg, .btn i { width: 18px; height: 18px; flex: none; }
 .btn:active { transform: translateY(1px) scale(.99); }
+/* Submit-button loading state - see HeirsUI.busy() in heirs.js */
+@keyframes btn-spin { to { transform: rotate(360deg); } }
+.btn-spinner { display: inline-block; width: 14px; height: 14px; border-radius: 50%; border: 2px solid currentColor; border-right-color: transparent; animation: btn-spin .6s linear infinite; vertical-align: -2px; }
+.btn[data-busy] { pointer-events: none; opacity: .75; }
 .btn-primary { background: var(--blue-600); color: #fff; box-shadow: var(--shadow-blue); }
 .btn-primary:hover { background: var(--blue-700); transform: translateY(-2px); box-shadow: 0 18px 40px rgba(22,99,214,.36); }
 .btn-dark { background: var(--navy); color: #fff; }

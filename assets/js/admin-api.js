@@ -18,6 +18,18 @@
     return document.querySelector('meta[name="csrf-token"]')?.content || '';
   }
 
+  // Every admin fetch funnels through this one function, so it's the single
+  // choke point for "something is happening in the background": dispatching
+  // heirs:busy/heirs:idle here (rather than in every view) is what lets
+  // admin.js show a spinner on whatever button triggered the request, and a
+  // thin top progress bar as a backup, without touching each screen by hand.
+  let pending = 0;
+  function setPending(delta) {
+    const was = pending; pending = Math.max(0, pending + delta);
+    if (was === 0 && pending > 0) document.dispatchEvent(new CustomEvent('heirs:busy'));
+    if (was > 0 && pending === 0) document.dispatchEvent(new CustomEvent('heirs:idle'));
+  }
+
   async function request(url, opts = {}) {
     const method = (opts.method || 'GET').toUpperCase();
     const headers = Object.assign({ Accept: 'application/json' }, opts.headers || {});
@@ -27,19 +39,24 @@
     }
     if (method !== 'GET' && method !== 'HEAD') headers['X-CSRF-TOKEN'] = csrfToken();
 
-    const res = await fetch(url, Object.assign({ credentials: 'same-origin' }, opts, { headers }));
+    setPending(1);
+    try {
+      const res = await fetch(url, Object.assign({ credentials: 'same-origin' }, opts, { headers }));
 
-    if (res.status === 401 || res.status === 419) {
-      window.location.href = '/admin/login';
-      throw new Error('Not authenticated');
+      if (res.status === 401 || res.status === 419) {
+        window.location.href = '/admin/login';
+        throw new Error('Not authenticated');
+      }
+      if (!res.ok) {
+        let message = 'Request failed (' + res.status + ')';
+        try { const j = await res.json(); message = j.message || message; } catch (e) {}
+        const err = new Error(message); err.status = res.status; throw err;
+      }
+      if (res.status === 204) return null;
+      return res.json().catch(() => null);
+    } finally {
+      setPending(-1);
     }
-    if (!res.ok) {
-      let message = 'Request failed (' + res.status + ')';
-      try { const j = await res.json(); message = j.message || message; } catch (e) {}
-      const err = new Error(message); err.status = res.status; throw err;
-    }
-    if (res.status === 204) return null;
-    return res.json().catch(() => null);
   }
 
   const HeirsAuth = { fetch: request };

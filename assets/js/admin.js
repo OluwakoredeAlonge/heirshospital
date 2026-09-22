@@ -154,7 +154,47 @@
     });
     wireSearch();
     wireNotifications();
+    wireBusyIndicator();
     if (window.lucide) lucide.createIcons();
+  }
+
+  // Every admin action funnels through admin-api.js's request(), which fires
+  // heirs:busy/heirs:idle on the document. That's the one place this needs
+  // wiring - no per-screen changes - to (a) show a thin top progress bar for
+  // every in-flight request and (b) put a spinner on whatever button/link
+  // was actually clicked to trigger it, so a slow response or a bare click
+  // never leaves someone wondering whether anything happened.
+  function wireBusyIndicator() {
+    let bar = document.getElementById('aProgress');
+    if (!bar) {
+      bar = document.createElement('div');
+      bar.id = 'aProgress';
+      bar.className = 'a-progress';
+      document.body.prepend(bar);
+    }
+    let lastBtn = null;
+    document.addEventListener('click', e => {
+      lastBtn = e.target.closest('button, a.btn, .btn');
+    }, true);
+    document.addEventListener('heirs:busy', () => {
+      bar.classList.add('on');
+      const btn = lastBtn;
+      if (btn && document.contains(btn) && !btn.dataset.busy) {
+        btn.dataset.busy = '1';
+        btn.dataset.busyRestore = btn.innerHTML;
+        btn.insertAdjacentHTML('afterbegin', '<span class="btn-spinner"></span> ');
+        if (btn.tagName === 'BUTTON') btn.disabled = true;
+      }
+    });
+    document.addEventListener('heirs:idle', () => {
+      bar.classList.remove('on');
+      document.querySelectorAll('[data-busy]').forEach(btn => {
+        btn.innerHTML = btn.dataset.busyRestore ?? btn.innerHTML;
+        delete btn.dataset.busy; delete btn.dataset.busyRestore;
+        if (btn.tagName === 'BUTTON') btn.disabled = false;
+        if (window.lucide) lucide.createIcons({ nodes: [btn] });
+      });
+    });
   }
 
   // Toast helper: HeirsAdmin.toast('Saved')

@@ -35,6 +35,29 @@
   // field has been cleared, instead of showing an empty link/icon/label.
   const hide = (v, html) => (v && String(v).trim()) ? html : '';
 
+  // Shared "this button is working" state for every public form's submit
+  // button (contact, heirs-institute, methuselah): a spinner replaces the
+  // icon and the button can't be clicked again mid-request, so a slow
+  // response or a double-click can never fire the same submission twice.
+  window.HeirsUI = {
+    busy(btn, active) {
+      if (!btn) return;
+      if (active) {
+        if (btn.dataset.busy) return;
+        btn.dataset.busy = '1';
+        btn.dataset.busyRestore = btn.innerHTML;
+        btn.innerHTML = '<span class="btn-spinner"></span> ' + btn.textContent.trim();
+        btn.disabled = true;
+      } else {
+        if (!btn.dataset.busy) return;
+        btn.innerHTML = btn.dataset.busyRestore;
+        delete btn.dataset.busy; delete btn.dataset.busyRestore;
+        btn.disabled = false;
+        if (window.lucide) lucide.createIcons({ nodes: [btn] });
+      }
+    }
+  };
+
   // Site-wide settings edited from the admin portal (Site settings) override the defaults
   // above - including clearing a field to empty, which hides whatever it powers below (the
   // `hide()` helper) rather than silently falling back to the hardcoded default. HeirsCMS.get

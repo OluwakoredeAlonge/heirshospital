@@ -292,6 +292,8 @@
     const drawer = document.getElementById('drawer');
     const overlay = document.getElementById('drawerOverlay');
     const toTop = document.getElementById('toTop');
+    const fabWa = document.querySelector('.fab-wa');
+    const fabCall = document.querySelector('.fab-call');
     const open = () => { drawer.classList.add('open'); overlay.classList.add('open'); document.body.style.overflow = 'hidden'; };
     const close = () => { drawer.classList.remove('open'); overlay.classList.remove('open'); document.body.style.overflow = ''; };
     document.getElementById('burger')?.addEventListener('click', open);
@@ -304,6 +306,10 @@
       const y = window.scrollY;
       hdr?.classList.toggle('scrolled', y > 8);
       toTop?.classList.toggle('show', y > 600);
+      // Only matters below the tablet breakpoint (see .fab-wa/.fab-call in
+      // heirs.css) - on wider screens these are always visible.
+      fabWa?.classList.toggle('show', y > 350);
+      fabCall?.classList.toggle('show', y > 350);
     };
     onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
 

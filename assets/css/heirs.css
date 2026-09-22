@@ -310,6 +310,16 @@ img { max-width: 100%; }
 .stat.on-dark .lbl { color: rgba(255,255,255,.7); }
 .stat.on-dark .num .accent { color: var(--gold-500); }
 
+/* Hero stat chips: a contained glass card per figure instead of bare stacked
+   text, so they read as a distinct "proof" strip rather than blending into
+   the hero copy above them - and their own padding/margin keeps them clear
+   of the fixed WhatsApp/call buttons at small viewport heights. */
+.hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; max-width: 30rem; margin-bottom: 24px; }
+.hero-stat { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); border-radius: 16px; padding: 14px 10px; text-align: center; backdrop-filter: blur(6px); }
+.hero-stat .num { font-family: var(--font-display); font-weight: 800; font-size: clamp(1.3rem, 4vw, 1.8rem); line-height: 1; letter-spacing: -.02em; color: #fff; }
+.hero-stat .lbl { font-size: 11.5px; color: rgba(255,255,255,.68); margin-top: 5px; font-weight: 600; line-height: 1.25; }
+@media (min-width: 640px) { .hero-stat { padding: 16px 12px; } .hero-stat .lbl { font-size: 12.5px; } }
+
 /* --------------------------------------------------------------------------
    Cards
    -------------------------------------------------------------------------- */
@@ -528,6 +538,15 @@ img { max-width: 100%; }
 .fab-top { background: var(--navy); width: 44px; height: 44px; opacity: 0; visibility: hidden; transition: all .3s; }
 .fab-top.show { opacity: 1; visibility: visible; }
 .fab-top svg, .fab-top i { width: 18px; height: 18px; }
+/* On short/narrow screens the hero (and its own inline call-to-actions) can
+   run right up under this fixed corner - wait for a small scroll past it,
+   same "show" pattern as the back-to-top button, instead of the two
+   overlapping. Plenty of room on larger screens, so this only applies below
+   the tablet breakpoint. */
+@media (max-width: 767px) {
+  .fab-wa, .fab-call { opacity: 0; visibility: hidden; transform: translateY(10px); transition: all .3s; }
+  .fab-wa.show, .fab-call.show { opacity: 1; visibility: visible; transform: none; }
+}
 
 /* --------------------------------------------------------------------------
    Reveal animations

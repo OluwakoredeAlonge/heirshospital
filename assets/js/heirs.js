@@ -11,14 +11,18 @@
     name: 'Heirs Multispecialist Hospital',
     short: 'Heirs',
     tagline: 'Your Caring Family Hospital',
-    phone: '+234 803 638 6440',
-    phoneHref: 'tel:+2348036386440',
+    phone: '+234 708 562 5854',
+    phoneHref: 'tel:+2347085625854',
     phone2: '+234 704 248 1085',
     phone2Href: 'tel:+2347042481085',
     whatsapp: 'https://wa.me/2347042481085?text=Hello%20Heirs%20Hospital%2C%20I%20would%20like%20to%20book%20an%20appointment.',
     email: 'contact@heirsspecialisthospital.com.ng',
     oye: 'Beside Aluko House, Irare Estate, Oye-Ekiti, Ekiti State',
+    oyePhone: '09165910965',
+    oyePhoneHref: 'tel:09165910965',
     ado: 'Plot 3, Orimolade Crescent, Ilokun Estate, Ado-Ekiti, Ekiti State',
+    adoPhone: '0704 899 0112',
+    adoPhoneHref: 'tel:07048990112',
     mapsOye: 'https://www.google.com/maps/search/Heirs+Specialist+Hospital%2C+Beside+Aluko+House%2C+Irare+Estate%2C+Oye-Ekiti%2C+Ekiti+State',
     mapsAdo: 'https://www.google.com/maps/search/Plot+3+Orimolade+Crescent+Ilokun+Estate+Ado-Ekiti',
     facebook: 'https://www.facebook.com/heirshospitaloyeekiti',
@@ -262,8 +266,8 @@
       <div class="lg:col-span-3">
         <h4>Find Us</h4>
         <ul class="f-contact">
-          ${hide(SITE.oye, `<li>${i('map-pin')}<span><strong>Oye-Ekiti (Main)</strong>${SITE.oye}</span></li>`)}
-          ${hide(SITE.ado, `<li>${i('map-pin')}<span><strong>Ado-Ekiti Branch</strong>${SITE.ado}</span></li>`)}
+          ${hide(SITE.oye, `<li>${i('map-pin')}<span><strong>Oye-Ekiti (Main)</strong>${SITE.oye}${hide(SITE.oyePhone, `<br><a href="${SITE.oyePhoneHref}">${SITE.oyePhone}</a>`)}</span></li>`)}
+          ${hide(SITE.ado, `<li>${i('map-pin')}<span><strong>Ado-Ekiti Branch</strong>${SITE.ado}${hide(SITE.adoPhone, `<br><a href="${SITE.adoPhoneHref}">${SITE.adoPhone}</a>`)}</span></li>`)}
           ${hide(SITE.phone || SITE.phone2, `<li>${i('phone')}<span><strong>Call / WhatsApp</strong>${hide(SITE.phone, `<a href="${SITE.phoneHref}">${SITE.phone}</a>`)}${SITE.phone && SITE.phone2 ? '<br>' : ''}${hide(SITE.phone2, `<a href="${SITE.phone2Href}">${SITE.phone2}</a>`)}</span></li>`)}
           ${hide(SITE.email, `<li>${i('mail')}<span><strong>Email</strong><a href="mailto:${SITE.email}">${SITE.email}</a></span></li>`)}
         </ul>

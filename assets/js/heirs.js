@@ -28,7 +28,8 @@
     hoursShort: 'Mon–Fri 8am–8pm · Emergency 24/7',
     footerBlurb: 'A world-class specialist hospital in Ekiti State, bringing the best of medical practice home and ending the need for medical tourism.',
     credit: 'MASYS',
-    year: new Date().getFullYear()
+    year: new Date().getFullYear(),
+    logo: '', foundersPhoto: ''
   };
   window.HEIRS = SITE;
   // Wrap a block in `hide(value, html)` to render nothing at all when a customisable
@@ -72,7 +73,7 @@
     Object.keys(o).forEach(k => { if (k in SITE) SITE[k] = o[k] ?? ''; });
   }
 
-  const LOGO = `<img class="brand-mark" src="/assets/img/logo.png" alt="Heirs Multispecialist Hospital logo">`;
+  const logo = () => `<img class="brand-mark" src="${SITE.logo || '/assets/img/logo.png'}" alt="${SITE.name} logo">`;
 
   const NAV = [
     { key: 'index', label: 'Home', href: '/' },
@@ -170,7 +171,7 @@
 <header class="site-header" id="siteHeader">
   <div class="wrap">
     <a href="/" class="brand" aria-label="${SITE.name}">
-      ${LOGO}
+      ${logo()}
       <span><span class="brand-name">Heirs</span><span class="brand-sub">Multispecialist Hospital</span></span>
     </a>
     <ul class="nav">${items}</ul>
@@ -184,7 +185,7 @@
 <div class="drawer-overlay" id="drawerOverlay"></div>
 <aside class="drawer" id="drawer" aria-label="Mobile navigation">
   <div class="drawer-head">
-    <a href="/" class="brand">${LOGO}<span><span class="brand-name">Heirs</span><span class="brand-sub">Multispecialist Hospital</span></span></a>
+    <a href="/" class="brand">${logo()}<span><span class="brand-name">Heirs</span><span class="brand-sub">Multispecialist Hospital</span></span></a>
     <button class="burger" id="drawerClose" aria-label="Close menu" style="display:grid">${i('x')}</button>
   </div>
   <nav class="drawer-body">
@@ -220,7 +221,7 @@
   <div class="wrap">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 pt-16 pb-12">
       <div class="lg:col-span-4">
-        <a href="/" class="brand mb-5">${LOGO}<span><span class="brand-name" style="color:#fff">Heirs</span><span class="brand-sub" style="color:var(--gold-500)">Multispecialist Hospital</span></span></a>
+        <a href="/" class="brand mb-5">${logo()}<span><span class="brand-name" style="color:#fff">Heirs</span><span class="brand-sub" style="color:var(--gold-500)">Multispecialist Hospital</span></span></a>
         ${hide(SITE.tagline || SITE.footerBlurb, `<p class="text-sm leading-relaxed mb-6" style="max-width:34ch">${[SITE.tagline, SITE.footerBlurb].filter(Boolean).join('. ')}</p>`)}
         ${hide(SITE.phone, `<div class="f-emergency">
           <div class="ic">${i('siren')}</div>
@@ -301,6 +302,13 @@
     // Fill any [data-site] tokens, e.g. <span data-site="phone"></span>
     document.querySelectorAll('[data-site]').forEach(el => {
       const key = el.dataset.site; if (SITE[key] != null) el.textContent = SITE[key];
+    });
+    // Images that are a single site-wide asset (logo, founders photo) rather than
+    // per-page CMS content, e.g. <img data-site-img="foundersPhoto" src="...default...">.
+    // Only swapped when an admin has actually uploaded one - otherwise the page's own
+    // baked-in default image keeps showing, same "no generic fallback" rule as data-site.
+    document.querySelectorAll('[data-site-img]').forEach(el => {
+      const key = el.dataset.siteImg; if (SITE[key]) el.setAttribute('src', SITE[key]);
     });
     document.querySelectorAll('[data-site-href]').forEach(el => {
       const key = el.dataset.siteHref; if (SITE[key]) el.setAttribute('href', SITE[key]);

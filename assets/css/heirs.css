@@ -314,6 +314,17 @@ img { max-width: 100%; }
 .stat.on-dark .lbl { color: rgba(255,255,255,.7); }
 .stat.on-dark .num .accent { color: var(--gold-500); }
 
+/* A 3-up row of small stat cards (About/Home "Years of care · Branches ·
+   Emergency" etc.) is too narrow on small phones for its padding at the
+   default sizes - a single-word label like "Emergency" doesn't fit and
+   gets broken mid-word by the site-wide overflow-wrap safety net. Shrink
+   the card padding and text so whole words fit instead. */
+@media (max-width: 480px) {
+  .card-flat:has(.stat) { padding: 12px; }
+  .stat .num { font-size: 1.5rem; }
+  .stat .lbl { font-size: 12px; }
+}
+
 /* Hero stat chips: a contained glass card per figure instead of bare stacked
    text, so they read as a distinct "proof" strip rather than blending into
    the hero copy above them - and their own padding/margin keeps them clear

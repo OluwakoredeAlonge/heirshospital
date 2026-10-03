@@ -106,6 +106,19 @@
     remove(id) { return request('/admin/api/posts/' + id, { method: 'DELETE' }); }
   };
 
+  const HeirsAdminCourses = {
+    list() { return request('/admin/api/courses'); },
+    create(data) { return request('/admin/api/courses', { method: 'POST', body: data }); },
+    update(id, data) { return request('/admin/api/courses/' + id, { method: 'PUT', body: data }); },
+    remove(id) { return request('/admin/api/courses/' + id, { method: 'DELETE' }); }
+  };
+
+  const HeirsAdminExternalCourses = {
+    list() { return request('/admin/api/external-courses'); },
+    toggle(slug) { return request('/admin/api/external-courses/' + encodeURIComponent(slug) + '/toggle', { method: 'PATCH' }); },
+    import(slug) { return request('/admin/api/external-courses/' + encodeURIComponent(slug) + '/import', { method: 'POST' }); }
+  };
+
   const HeirsAdminAdmissions = {
     list() { return request('/admin/api/admissions'); },
     create(data) { return request('/admin/api/admissions', { method: 'POST', body: data }); },
@@ -134,6 +147,8 @@
   window.HeirsAdminAppointments = HeirsAdminAppointments;
   window.HeirsAdminMessages = HeirsAdminMessages;
   window.HeirsAdminBlog = HeirsAdminBlog;
+  window.HeirsAdminCourses = HeirsAdminCourses;
+  window.HeirsAdminExternalCourses = HeirsAdminExternalCourses;
   window.HeirsAdminAdmissions = HeirsAdminAdmissions;
   window.HeirsAdminMethuselah = HeirsAdminMethuselah;
   window.HeirsAdminDashboard = HeirsAdminDashboard;

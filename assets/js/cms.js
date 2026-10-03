@@ -27,7 +27,7 @@
     { key: 'services', title: 'Medical services', file: 'services', icon: 'stethoscope', desc: 'Featured centres, the full service directory and patient journey.' },
     { key: 'department', title: 'Departments', file: 'department', icon: 'layout-grid', desc: 'Department cards with images, features and branch details.' },
     { key: 'fosterheirs', title: 'Fosterheirs mental health', file: 'fosterheirs', icon: 'brain', desc: 'Services, team, courses, books and booking details.' },
-    { key: 'heirs-institute', title: 'Heirs Courses and Certifications', file: 'heirs-institute', icon: 'graduation-cap', desc: 'Programmes, admissions, dates and scholarships.' },
+    { key: 'heirs-institute', title: 'Heirs Courses and Certifications', file: 'courses', icon: 'graduation-cap', desc: 'Programmes, admissions, dates and scholarships.' },
     { key: 'methuselah', title: 'Methuselah Project', file: 'methuselah', icon: 'heart-handshake', desc: 'Free elder-care programme details and eligibility.' },
     { key: 'testimonial', title: 'Patient stories', file: 'testimonial', icon: 'message-square-heart', desc: 'Testimonials and the feedback section.' },
     { key: 'faq', title: 'FAQs', file: 'faq', icon: 'circle-help', desc: 'Every question and answer, grouped by topic.' },

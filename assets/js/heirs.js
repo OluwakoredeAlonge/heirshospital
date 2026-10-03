@@ -105,7 +105,7 @@
       key: 'programmes', label: 'Programmes', href: '/fosterheirs',
       menu: [
         { key: 'fosterheirs', icon: 'brain', t: 'Fosterheirs Mental Health', d: 'Therapy, addiction recovery & coaching', href: '/fosterheirs' },
-        { key: 'heirs-institute', icon: 'graduation-cap', t: 'Heirs Courses and Certifications', d: 'Accredited health training', href: '/heirs-institute' },
+        { key: 'heirs-institute', icon: 'graduation-cap', t: 'Heirs Courses and Certifications', d: 'Accredited health training', href: '/courses' },
         { key: 'methuselah', icon: 'heart-handshake', t: 'Methuselah Project', d: 'Free care for elders 65+', href: '/methuselah' }
       ]
     },
@@ -205,7 +205,7 @@
     <a href="/services#emergency">${i('siren')} Emergency & ICU</a>
     <span class="dl">Programmes</span>
     <a href="/fosterheirs" class="${page === 'fosterheirs' ? 'active' : ''}">${i('brain')} Fosterheirs Mental Health</a>
-    <a href="/heirs-institute" class="${page === 'heirs-institute' ? 'active' : ''}">${i('graduation-cap')} Heirs Courses and Certifications</a>
+    <a href="/courses" class="${page === 'heirs-institute' ? 'active' : ''}">${i('graduation-cap')} Heirs Courses and Certifications</a>
     <a href="/methuselah" class="${page === 'methuselah' ? 'active' : ''}">${i('heart-handshake')} Methuselah Project</a>
     <span class="dl">More</span>
     <a href="/blog" class="${page === 'blog' ? 'active' : ''}">${i('newspaper')} Health Blog</a>
@@ -255,7 +255,7 @@
         <h4>Programmes & Services</h4>
         <ul class="f-links">
           <li><a href="/fosterheirs">Fosterheirs Mental Health</a></li>
-          <li><a href="/heirs-institute">Heirs Courses and Certifications</a></li>
+          <li><a href="/courses">Heirs Courses and Certifications</a></li>
           <li><a href="/methuselah">Methuselah Project (Elders 65+)</a></li>
           <li><a href="/services#dialysis">Renal Dialysis</a></li>
           <li><a href="/services#imaging">CT Scan & Radiology</a></li>

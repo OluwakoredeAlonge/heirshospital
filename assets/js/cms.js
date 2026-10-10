@@ -3,7 +3,7 @@
    --------------------------------------------------------------------------
    Public pages mark editable content with attributes:
      data-cms="key"                 single field (text by default)
-     data-cms-type="html|link|image|icon|lines"
+     data-cms-type="html|link|image|video|icon|lines"
      data-cms-attr="href"           write value to an attribute instead of text
      data-cms-label="Hero headline" label shown in the admin editor
      data-cms-section="Hero"        groups fields into an editor section (on an ancestor)
@@ -41,12 +41,13 @@
   function typeOf(el) {
     if (el.dataset.cmsType) return el.dataset.cmsType;
     if (el.tagName === 'IMG') return 'image';
+    if (el.tagName === 'VIDEO') return 'video';
     if (el.dataset.cmsAttr) return 'attr';
     return 'text';
   }
   function readEl(el) {
     const t = typeOf(el);
-    if (t === 'image') return el.getAttribute('src') || '';
+    if (t === 'image' || t === 'video') return el.getAttribute('src') || '';
     if (t === 'attr') return el.getAttribute(el.dataset.cmsAttr) || '';
     if (t === 'icon') return el.getAttribute('data-lucide') || '';
     if (t === 'link') return { text: el.textContent.trim(), href: el.getAttribute('href') || '' };
@@ -57,6 +58,7 @@
   function writeEl(el, v) {
     const t = typeOf(el);
     if (t === 'image') { if (v) el.setAttribute('src', v); return; }
+    if (t === 'video') { if (v && v !== el.getAttribute('src')) { el.setAttribute('src', v); if (el.load) el.load(); } return; }
     if (t === 'attr') { el.setAttribute(el.dataset.cmsAttr, v); return; }
     if (t === 'icon') { el.setAttribute('data-lucide', v); return; }
     if (t === 'link') { if (v && typeof v === 'object') { el.textContent = v.text; el.setAttribute('href', v.href); } return; }

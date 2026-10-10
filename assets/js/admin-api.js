@@ -68,8 +68,10 @@
     exportAll() { return request('/admin/api/content'); },
     importAll(data) { return request('/admin/api/content', { method: 'PUT', body: data }); },
     resetAll() { return request('/admin/api/content', { method: 'DELETE' }); },
-    upload(file, module) {
-      const fd = new FormData(); fd.append('image', file); if (module) fd.append('module', module);
+    upload(file, module, kind) {
+      const fd = new FormData();
+      if (kind === 'video') { fd.append('video', file); fd.append('kind', 'video'); } else fd.append('image', file);
+      if (module) fd.append('module', module);
       return request('/admin/api/uploads', { method: 'POST', body: fd });
     }
   };

@@ -13,6 +13,7 @@
 
   let schema = [], defaults = {}, data = {}, dirty = false, previewTimer = null;
   const MAX_UPLOAD_MB = 4;
+  const MAX_VIDEO_MB = 10;
   const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const i = n => `<i data-lucide="${n}"></i>`;
   const imgSrc = v => (/^https?:|^data:/.test(v) ? v : '/' + String(v).replace(/^\/+/, ''));
@@ -98,6 +99,7 @@
     const t = f.type;
     if (t === 'link') return `<div class="grid sm:grid-cols-2 gap-2"><input class="input" ${bind} data-part="text" value="${esc(v?.text)}" placeholder="Label"><input class="input" ${bind} data-part="href" value="${esc(v?.href)}" placeholder="Link (URL, tel:, mailto:)"></div>`;
     if (t === 'image') return `<div class="cms-img"><img src="${esc(imgSrc(v))}" alt="" onerror="this.style.opacity=.2"><div class="flex-1 grid gap-2"><input class="input" ${bind} value="${esc(v)}" placeholder="Image URL or path"><label class="btn btn-outline btn-sm" style="width:max-content" data-upload-label>${i('upload')} Upload image<input type="file" accept="image/*" hidden ${bind} data-upload></label><div class="hint">JPG, PNG or WebP, up to ${MAX_UPLOAD_MB}MB</div></div></div>`;
+    if (t === 'video') return `<div class="cms-img"><video src="${esc(imgSrc(v))}" muted preload="metadata" style="width:120px;height:76px;object-fit:cover;border-radius:10px;background:#000"></video><div class="flex-1 grid gap-2"><input class="input" ${bind} value="${esc(v)}" placeholder="Video URL or path (MP4)"><label class="btn btn-outline btn-sm" style="width:max-content" data-upload-label>${i('upload')} Upload video<input type="file" accept="video/mp4,video/webm,video/quicktime" hidden ${bind} data-upload data-kind="video"></label><div class="hint">MP4 or WebM, up to ${MAX_VIDEO_MB}MB</div></div></div>`;
     if (t === 'icon') return `<div class="flex items-center gap-2"><span class="ic blue" style="width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex:none"><i data-lucide="${esc(v)}"></i></span><input class="input" ${bind} value="${esc(v)}" placeholder="lucide icon name, e.g. heart-pulse"><a href="https://lucide.dev/icons" target="_blank" class="text-xs text-brand-600 font-semibold whitespace-nowrap">Browse icons</a></div>`;
     if (t === 'lines') return `<textarea class="textarea" ${bind} data-lines rows="${Math.max(3, (v || []).length + 1)}" placeholder="One item per line">${esc((v || []).join('\n'))}</textarea>`;
     if (t === 'html') return `<textarea class="textarea" ${bind} rows="4">${esc(v)}</textarea>`;
@@ -112,26 +114,28 @@
       const el = e.target; if (!el.dataset.k || el.dataset.upload !== undefined) return;
       setVal(el, el.tagName === 'TEXTAREA' && el.hasAttribute('data-lines') ? el.value.split('\n').map(x => x.trim()).filter(Boolean) : el.value);
       if (el.previousElementSibling?.querySelector?.('i,svg') && el.closest('.flex')?.querySelector('span.ic')) { const ic = el.closest('.flex').querySelector('span.ic'); ic.innerHTML = `<i data-lucide="${el.value}"></i>`; HeirsAdmin.icons(); }
-      if (el.closest('.cms-img')) el.closest('.cms-img').querySelector('img').src = imgSrc(el.value);
+      if (el.closest('.cms-img')) { const media = el.closest('.cms-img').querySelector('img,video'); if (media) media.src = imgSrc(el.value); }
       markDirty(el);
     });
     form.addEventListener('change', async e => {
       const el = e.target; if (el.dataset.upload === undefined || !el.files?.[0]) return;
       const file = el.files[0];
-      if (file.size > MAX_UPLOAD_MB * 1024 * 1024) {
-        HeirsAdmin.toast(`Image is too large - max ${MAX_UPLOAD_MB}MB`, 'alert-triangle');
+      const kind = el.dataset.kind === 'video' ? 'video' : 'image';
+      const maxMB = kind === 'video' ? MAX_VIDEO_MB : MAX_UPLOAD_MB;
+      if (file.size > maxMB * 1024 * 1024) {
+        HeirsAdmin.toast(`${kind === 'video' ? 'Video' : 'Image'} is too large - max ${maxMB}MB`, 'alert-triangle');
         el.value = '';
         return;
       }
       const wrap = el.closest('.cms-img'); const label = wrap.querySelector('[data-upload-label]');
       const prevLabel = label.innerHTML; label.innerHTML = `${i('loader-circle')} Uploading…`; HeirsAdmin.icons();
       try {
-        const { url } = await HeirsAdminContent.upload(el.files[0]);
+        const { url } = await HeirsAdminContent.upload(el.files[0], undefined, kind);
         setVal(el, url);
-        wrap.querySelector('input.input').value = url; wrap.querySelector('img').src = url;
+        wrap.querySelector('input.input').value = url; wrap.querySelector('img,video').src = url;
         markDirty(el);
       } catch (err) {
-        HeirsAdmin.toast(err.message || 'Image upload failed', 'alert-triangle');
+        HeirsAdmin.toast(err.message || (kind === 'video' ? 'Video upload failed' : 'Image upload failed'), 'alert-triangle');
       } finally {
         label.innerHTML = prevLabel; HeirsAdmin.icons();
       }

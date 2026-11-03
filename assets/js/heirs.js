@@ -109,6 +109,7 @@
         { key: 'methuselah', icon: 'heart-handshake', t: 'Methuselah Project', d: 'Free care for elders 65+', href: '/methuselah' }
       ]
     },
+    { key: 'gallery', label: 'Gallery', href: '/gallery' },
     { key: 'blog', label: 'Health Blog', href: '/blog' },
     { key: 'contact', label: 'Contact', href: '/contact' }
   ];
@@ -181,7 +182,7 @@
     <ul class="nav">${items}</ul>
     <div class="header-cta">
       <a href="/contact#book" class="btn btn-primary btn-sm">${i('calendar-check')} Book Appointment</a>
-      ${hide(SITE.phone, `<a href="${SITE.phoneHref}" class="btn btn-emergency btn-sm hidden xl:inline-flex">${i('siren')} Emergency</a>`)}
+      ${hide(SITE.phone, `<a href="${SITE.phoneHref}" class="btn btn-emergency btn-sm">${i('siren')} Emergency</a>`)}
       <button class="burger" id="burger" aria-label="Open menu">${i('menu')}</button>
     </div>
   </div>
@@ -208,6 +209,7 @@
     <a href="/courses" class="${page === 'heirs-institute' ? 'active' : ''}">${i('graduation-cap')} Heirs Courses and Certifications</a>
     <a href="/methuselah" class="${page === 'methuselah' ? 'active' : ''}">${i('heart-handshake')} Methuselah Project</a>
     <span class="dl">More</span>
+    <a href="/gallery" class="${page === 'gallery' ? 'active' : ''}">${i('images')} Gallery</a>
     <a href="/blog" class="${page === 'blog' ? 'active' : ''}">${i('newspaper')} Health Blog</a>
     <a href="/contact" class="${page === 'contact' ? 'active' : ''}">${i('mail')} Contact Us</a>
   </nav>
@@ -246,6 +248,7 @@
           <li><a href="/services">Medical Services</a></li>
           <li><a href="/department">Departments</a></li>
           <li><a href="/testimonial">Patient Stories</a></li>
+          <li><a href="/gallery">Gallery</a></li>
           <li><a href="/blog">Health Blog</a></li>
           <li><a href="/faq">FAQs</a></li>
           <li><a href="/contact">Contact</a></li>

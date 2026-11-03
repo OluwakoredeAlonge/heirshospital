@@ -31,6 +31,7 @@
     { key: 'methuselah', title: 'Methuselah Project', file: 'methuselah', icon: 'heart-handshake', desc: 'Free elder-care programme details and eligibility.' },
     { key: 'testimonial', title: 'Patient stories', file: 'testimonial', icon: 'message-square-heart', desc: 'Testimonials and the feedback section.' },
     { key: 'faq', title: 'FAQs', file: 'faq', icon: 'circle-help', desc: 'Every question and answer, grouped by topic.' },
+    { key: 'gallery', title: 'Gallery', file: 'gallery', icon: 'images', desc: 'Heading and intro of the public gallery. The photos themselves are managed under Gallery.' },
     { key: 'blog', title: 'Health blog', file: 'blog', icon: 'newspaper', desc: 'Featured article, article cards and sidebar.' },
     { key: 'detailed-blog', title: 'Blog article', file: 'detailed-blog', icon: 'file-text', desc: 'The article body, author and related links.' },
     { key: 'contact', title: 'Contact & booking', file: 'contact', icon: 'mail', desc: 'Contact tiles, booking form copy, branches and quick answers.' },

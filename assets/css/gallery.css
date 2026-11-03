@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Public gallery (/gallery and /gallery/{slug})
+   ========================================================================== */
+
+/* ---------- category chips ---------- */
+.gchips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 36px; }
+.gchip { padding: 9px 18px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--text); font-size: 14px; font-weight: 600; transition: all .2s; }
+.gchip:hover { border-color: var(--blue-600); color: var(--blue-700); }
+.gchip.on { background: var(--blue-600); border-color: var(--blue-600); color: #fff; }
+
+/* ---------- grid + cards ---------- */
+.ggrid { display: grid; gap: 22px; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .ggrid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .ggrid { grid-template-columns: repeat(3, 1fr); } }
+
+.gcard { background: #fff; border: 1px solid var(--line); border-radius: 28px; overflow: hidden; display: flex; flex-direction: column; transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
+.gcard:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+.gmedia { position: relative; display: grid; gap: 3px; aspect-ratio: 4 / 3; background: var(--navy); overflow: hidden; }
+.gmedia img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s var(--ease); }
+.gcard:hover .gmedia img { transform: scale(1.04); }
+.gmedia.n2 { grid-template-columns: 1fr 1fr; }
+.gmedia.n3 { grid-template-columns: 3fr 2fr; grid-template-rows: 1fr 1fr; }
+.gmedia.n3 > :first-child { grid-row: span 2; }
+.gmedia .gcount { position: absolute; left: 12px; bottom: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: rgba(6, 26, 53, .85); color: #fff; font-size: 12px; font-weight: 700; }
+.gmedia .gcount svg, .gmedia .gcount i { width: 14px; height: 14px; }
+.gmedia .gmore { position: absolute; right: 0; bottom: 0; width: 40%; height: 50%; display: grid; place-items: center; background: rgba(6, 26, 53, .7); color: #fff; font-family: var(--font-display); font-weight: 800; font-size: 20px; }
+.gmedia .gfeat { position: absolute; top: 12px; right: 12px; padding: 5px 12px; border-radius: 999px; background: var(--gold-500); color: var(--navy); font-size: 11.5px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+
+.gbody { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.gmeta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 12.5px; color: var(--muted); }
+.gcard h3 { font-family: var(--font-display); font-size: 18px; line-height: 1.3; color: var(--ink); }
+.gcard h3 a:hover { color: var(--blue-700); }
+.gdesc { font-size: 14px; color: var(--muted); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.gfoot { margin-top: auto; padding-top: 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px dashed var(--line); }
+
+/* ---------- share ---------- */
+.gshare { position: relative; display: inline-block; }
+.gshare-btn { display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--text); font-size: 13px; font-weight: 600; cursor: pointer; transition: all .2s; }
+.gshare-btn:hover { border-color: var(--blue-600); color: var(--blue-700); }
+.gshare-btn svg, .gshare-btn i { width: 15px; height: 15px; }
+.gshare-menu { position: absolute; right: 0; bottom: calc(100% + 8px); z-index: 20; min-width: 200px; padding: 8px; border-radius: 18px; background: #fff; border: 1px solid var(--line); box-shadow: var(--shadow-lg); display: grid; gap: 2px; }
+.gshare-menu[hidden] { display: none; }
+.gshare-menu a, .gshare-menu button { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; border-radius: 12px; border: 0; background: transparent; color: var(--text); font-size: 14px; font-weight: 500; text-align: left; cursor: pointer; }
+.gshare-menu a:hover, .gshare-menu button:hover { background: var(--blue-50); color: var(--blue-700); }
+.gshare-menu svg, .gshare-menu i { width: 17px; height: 17px; flex: none; }
+
+.gshare-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.gshare-row a, .gshare-row button { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--text); font-size: 13.5px; font-weight: 600; cursor: pointer; transition: all .2s; }
+.gshare-row a:hover, .gshare-row button:hover { border-color: var(--blue-600); color: var(--blue-700); background: var(--blue-50); }
+.gshare-row svg, .gshare-row i { width: 16px; height: 16px; }
+
+/* ---------- item page ---------- */
+.gcrumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 28px; font-size: 14px; color: var(--muted); }
+.gcrumbs a:hover { color: var(--blue-700); }
+.gcrumbs svg, .gcrumbs i { width: 14px; height: 14px; flex: none; }
+.gcrumbs .cur { color: var(--ink); font-weight: 600; }
+.gitem-layout { display: grid; gap: 40px; }
+@media (min-width: 1024px) { .gitem-layout { grid-template-columns: 7fr 5fr; align-items: start; } }
+.gimages { display: grid; gap: 16px; }
+.gimages figure { margin: 0; border-radius: 28px; overflow: hidden; background: var(--surface-2); }
+.gimages figure img { width: 100%; display: block; height: auto; }
+.gimages figcaption { padding: 12px 18px 14px; font-size: 13.5px; color: var(--muted); background: #fff; border: 1px solid var(--line); border-top: 0; border-radius: 0 0 28px 28px; }
+@media (min-width: 640px) { .gimages.multi { grid-template-columns: 1fr 1fr; } .gimages.multi figure:first-child { grid-column: 1 / -1; } }
+.ginfo { display: grid; gap: 18px; }
+@media (min-width: 1024px) { .ginfo { position: sticky; top: 110px; } }
+.ginfo .gtext p { margin-bottom: 14px; line-height: 1.75; color: var(--text); }
+.gfacts { display: grid; gap: 10px; padding: 18px 20px; border-radius: 20px; background: var(--surface); }
+.gfacts div { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text); }
+.gfacts svg, .gfacts i { width: 17px; height: 17px; color: var(--blue-600); flex: none; }
+
+/* ---------- pagination + empty ---------- */
+.gpager { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 40px; font-size: 14px; color: var(--muted); }
+.gpager a, .gpager span.btn-off { padding: 10px 18px; border-radius: 999px; border: 1px solid var(--line); background: #fff; font-weight: 600; color: var(--text); }
+.gpager a:hover { border-color: var(--blue-600); color: var(--blue-700); }
+.gpager span.btn-off { opacity: .45; }
+.gempty { text-align: center; padding: 64px 24px; border: 1px dashed var(--line); border-radius: 28px; color: var(--muted); }
+.gempty svg, .gempty i { width: 40px; height: 40px; margin: 0 auto 12px; color: var(--subtle); }

@@ -108,6 +108,13 @@
     remove(id) { return request('/admin/api/posts/' + id, { method: 'DELETE' }); }
   };
 
+  const HeirsAdminGallery = {
+    list() { return request('/admin/api/gallery'); },
+    create(data) { return request('/admin/api/gallery', { method: 'POST', body: data }); },
+    update(id, data) { return request('/admin/api/gallery/' + id, { method: 'PUT', body: data }); },
+    remove(id) { return request('/admin/api/gallery/' + id, { method: 'DELETE' }); }
+  };
+
   const HeirsAdminCourses = {
     list() { return request('/admin/api/courses'); },
     create(data) { return request('/admin/api/courses', { method: 'POST', body: data }); },
@@ -149,6 +156,7 @@
   window.HeirsAdminAppointments = HeirsAdminAppointments;
   window.HeirsAdminMessages = HeirsAdminMessages;
   window.HeirsAdminBlog = HeirsAdminBlog;
+  window.HeirsAdminGallery = HeirsAdminGallery;
   window.HeirsAdminCourses = HeirsAdminCourses;
   window.HeirsAdminExternalCourses = HeirsAdminExternalCourses;
   window.HeirsAdminAdmissions = HeirsAdminAdmissions;

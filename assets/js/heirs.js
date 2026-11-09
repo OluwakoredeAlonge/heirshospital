@@ -367,25 +367,51 @@
       const skip = el => el.closest('.site-header, .site-footer, .topbar, .drawer, .brand, .lb') || el.getAttribute('aria-hidden') === 'true' || el.closest('.hero-bg') || el.dataset.noLightbox !== undefined;
       const imgs = () => [...document.querySelectorAll('main img, section img, article img, aside img')].filter(im => !skip(im) && (im.naturalWidth || im.getAttribute('width') || 200) >= 120);
       const el = document.createElement('div'); el.className = 'lb'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', 'Image viewer');
-      el.innerHTML = `<span class="lb-count" id="lbCount"></span><button class="lb-close" aria-label="Close">${i('x')}</button><div class="lb-stage"><button class="lb-btn lb-prev" aria-label="Previous image">${i('chevron-left')}</button><img alt=""><button class="lb-btn lb-next" aria-label="Next image">${i('chevron-right')}</button></div><div class="lb-cap"><strong></strong><span></span></div>`;
+      el.innerHTML = `<span class="lb-count" id="lbCount"></span><button class="lb-zoom" aria-label="Zoom in">${i('zoom-in')}</button><button class="lb-close" aria-label="Close">${i('x')}</button><div class="lb-stage"><button class="lb-btn lb-prev" aria-label="Previous image">${i('chevron-left')}</button><img alt=""><button class="lb-btn lb-next" aria-label="Next image">${i('chevron-right')}</button></div><div class="lb-cap"><strong></strong><span></span><a class="lb-more" hidden>View full details</a><em class="lb-hint">Tap or click the photo to zoom</em></div>`;
       document.body.appendChild(el);
       const img = el.querySelector('.lb-stage img'), capT = el.querySelector('.lb-cap strong'), capS = el.querySelector('.lb-cap span'), count = el.querySelector('#lbCount');
-      let list = [], n = 0;
+      let list = [], n = 0, ext = null; // ext: an explicit [{src, alt, t, s, href}] list (e.g. one gallery item's photos)
+      const stage = el.querySelector('.lb-stage'), zoomBtn = el.querySelector('.lb-zoom'), more = el.querySelector('.lb-more');
+      const isZoomed = () => stage.classList.contains('zoom');
+      // Zoom swaps the fitted photo for a ~2x one inside a scrollable stage, keeping the spot that was
+      // clicked under the pointer; scrolling/dragging then pans, so fine detail can actually be inspected.
+      const setZoom = (on, e) => {
+        if (on === isZoomed()) return;
+        let fx = .5, fy = .5;
+        if (on && e && e.clientX != null) { const r = img.getBoundingClientRect(); fx = (e.clientX - r.left) / r.width; fy = (e.clientY - r.top) / r.height; }
+        stage.classList.toggle('zoom', on);
+        zoomBtn.innerHTML = i(on ? 'zoom-out' : 'zoom-in'); zoomBtn.setAttribute('aria-label', on ? 'Zoom out' : 'Zoom in');
+        if (window.lucide) lucide.createIcons({ nodes: [zoomBtn] });
+        stage.scrollLeft = on ? fx * img.offsetWidth - stage.clientWidth / 2 : 0;
+        stage.scrollTop = on ? fy * img.offsetHeight - stage.clientHeight / 2 : 0;
+      };
+      const total = () => (ext || list).length;
       const caption = im => { const c = im.closest('.photo-card, .bcar-slide, .coe, .loc-card, .dept, .post, .blog-mini, .featured, .fac-grid > *') || im.parentElement; const t = c && c.querySelector('.cap strong, .bcar-cap strong, h3, strong'); const sub = c && c.querySelector('.cap span, .bcar-cap span'); return { t: (t && t.textContent.trim()) || im.alt || '', s: sub ? sub.textContent.trim() : (t && im.alt && im.alt !== t.textContent.trim() ? im.alt : '') }; };
-      const show = k => { n = (k + list.length) % list.length; const im = list[n]; img.src = im.currentSrc || im.src; img.alt = im.alt; const c = caption(im); capT.textContent = c.t; capS.textContent = c.s; count.textContent = `${n + 1} / ${list.length}`; el.querySelectorAll('.lb-btn').forEach(b => b.style.display = list.length > 1 ? '' : 'none'); };
-      const open = im => { list = imgs(); if (!list.includes(im)) list = [im]; show(list.indexOf(im)); el.classList.add('open'); document.body.classList.add('lb-lock'); };
-      const close = () => { el.classList.remove('open'); document.body.classList.remove('lb-lock'); };
+      const show = k => {
+        setZoom(false); n = (k + total()) % total();
+        if (ext) { const it = ext[n]; img.src = it.src; img.alt = it.alt || ''; capT.textContent = it.t || ''; capS.textContent = it.s || ''; if (it.href) { more.href = it.href; more.hidden = false; } else more.hidden = true; }
+        else { const im = list[n]; img.src = im.currentSrc || im.src; img.alt = im.alt; const c = caption(im); capT.textContent = c.t; capS.textContent = c.s; more.hidden = true; }
+        count.textContent = `${n + 1} / ${total()}`;
+        el.querySelectorAll('.lb-prev, .lb-next').forEach(b => b.style.display = total() > 1 ? '' : 'none');
+      };
+      const lock = () => { el.classList.add('open'); document.body.classList.add('lb-lock'); };
+      const open = im => { ext = null; list = imgs(); if (!list.includes(im)) list = [im]; show(list.indexOf(im)); lock(); };
+      const close = () => { setZoom(false); el.classList.remove('open'); document.body.classList.remove('lb-lock'); };
+      // Lets a page open the viewer on an explicit set of photos (the gallery cards use this).
+      window.HeirsLightbox = { openList(items, start) { if (!items || !items.length) return; ext = items; show(start || 0); lock(); } };
       document.addEventListener('click', e => {
         const im = e.target.closest('img'); if (!im || !document.contains(im) || skip(im) || el.contains(im)) return;
         if ((im.naturalWidth || 200) < 120) return;
         e.preventDefault(); e.stopPropagation(); open(im);
       }, true);
       el.querySelector('.lb-close').addEventListener('click', close);
+      img.addEventListener('click', e => { e.stopPropagation(); setZoom(!isZoomed(), e); });
+      zoomBtn.addEventListener('click', e => { e.stopPropagation(); setZoom(!isZoomed()); });
       el.querySelector('.lb-prev').addEventListener('click', e => { e.stopPropagation(); show(n - 1); });
       el.querySelector('.lb-next').addEventListener('click', e => { e.stopPropagation(); show(n + 1); });
       el.addEventListener('click', e => { if (e.target === el || e.target.classList.contains('lb-stage')) close(); });
-      document.addEventListener('keydown', e => { if (!el.classList.contains('open')) return; if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') show(n - 1); if (e.key === 'ArrowRight') show(n + 1); });
-      let tx = 0; el.addEventListener('touchstart', e => tx = e.touches[0].clientX, { passive: true }); el.addEventListener('touchend', e => { const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) show(dx < 0 ? n + 1 : n - 1); });
+      document.addEventListener('keydown', e => { if (!el.classList.contains('open')) return; if (e.key === 'Escape') close(); if (e.key === 'ArrowLeft') show(n - 1); if (e.key === 'ArrowRight') show(n + 1); if (e.key === '+' || e.key === '=') setZoom(true); if (e.key === '-') setZoom(false); });
+      let tx = 0; el.addEventListener('touchstart', e => tx = e.touches[0].clientX, { passive: true }); el.addEventListener('touchend', e => { if (isZoomed()) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) show(dx < 0 ? n + 1 : n - 1); });
       const mark = () => imgs().forEach(im => im.classList.add('lb-img')); mark(); window.addEventListener('load', mark);
       new MutationObserver(mark).observe(document.body, { childList: true, subtree: true });
     })();

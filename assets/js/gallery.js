@@ -70,6 +70,23 @@
 
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeAll(); });
 
+  // Clicking a gallery card's photos opens the full-screen viewer on all of that item's photos
+  // (with a "View full details" button inside it). The card link still works as a normal link
+  // for ctrl/cmd-click, middle-click, or if the viewer script isn't available.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a.gmedia[data-photos]');
+    if (!a || !window.HeirsLightbox) return;
+    if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;
+    var photos;
+    try { photos = JSON.parse(a.getAttribute('data-photos')); } catch (err) { return; }
+    if (!photos || !photos.length) return;
+    e.preventDefault();
+    var img = e.target.closest('img');
+    var start = img ? Array.prototype.indexOf.call(a.querySelectorAll('img'), img) : 0;
+    var href = a.getAttribute('href');
+    window.HeirsLightbox.openList(photos.map(function (p) { return { src: p.src, alt: p.alt, t: p.t, s: p.s, href: href }; }), Math.max(0, start));
+  });
+
   // Show the native-share button on the item page only where it's supported.
   if (navigator.share) {
     document.querySelectorAll('[data-share-native]').forEach(function (b) { b.hidden = false; });

@@ -48,7 +48,7 @@
     var holder = e.target.closest('[data-share]');
 
     if (toggle && holder) {
-      var data = { title: holder.dataset.title, text: holder.dataset.title, url: holder.dataset.url };
+      var data = { title: holder.dataset.title, text: holder.dataset.text || holder.dataset.title, url: holder.dataset.url };
       if (navigator.share) {
         navigator.share(data).catch(function () { /* cancelled */ });
         return;
@@ -61,7 +61,7 @@
       return;
     }
     if (native && holder) {
-      navigator.share({ title: holder.dataset.title, text: holder.dataset.title, url: holder.dataset.url }).catch(function () {});
+      navigator.share({ title: holder.dataset.title, text: holder.dataset.text || holder.dataset.title, url: holder.dataset.url }).catch(function () {});
       return;
     }
     if (copyBtn && holder) { copy(holder.dataset.url, copyBtn); return; }
